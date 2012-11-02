@@ -16,29 +16,37 @@
 namespace outputWriter {
 
 /**
- * This class implements the functionality to generate vtk output from particles.
+ * @class VTKWriter
+ *
+ * @brief This class implements the functionality to generate vtk output from particles.
  */
 class VTKWriter {
 
 public:
+/**
+* @brief Create an instance of VTKWriter.
+*/
 	VTKWriter();
 
-	virtual ~VTKWriter();
+/**
+* @brief Destructor of the class VTKWriter.
+*/
+    virtual ~VTKWriter();
 
 	/**
-	 * set up internal data structures and prepare to plot a particle.
+	 * @brief set up internal data structures and prepare to plot a particle.
 	 */
 	void initializeOutput(int numParticles);
 
 	/**
-	 * plot type, mass, position, velocity and force of a particle.
+	 * @brief plot type, mass, position, velocity and force of a particle.
 	 *
 	 * @note: initializeOutput() must have been called before.
 	 */
 	void plotParticle(Particle& p);
 
 	/**
-	 * writes the final output file.
+	 * @brief writes the final output file.
 	 *
 	 * @param filename the base name of the file to be written.
 	 * @param iteration the number of the current iteration,

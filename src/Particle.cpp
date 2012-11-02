@@ -62,6 +62,23 @@ utils::Vector<double, 3>& Particle::getOldF() {
 	return old_f;
 }
 
+void Particle::setX(utils::Vector<double, 3> other_x) {
+	x = other_x;
+}	
+
+void Particle::setV(utils::Vector<double, 3> other_v) {
+	v = other_v;
+}	
+
+void Particle::setF(utils::Vector<double, 3> other_f) {
+	f = other_f;
+}
+
+void Particle::newF(utils::Vector<double, 3> other_f) {
+	old_f = f;
+	f = other_f;
+}
+
 double Particle::getM() {
 	return m;
 }

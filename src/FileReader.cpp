@@ -22,7 +22,7 @@ FileReader::~FileReader() {
 }
 
 
-void FileReader::readFile(std::list<Particle>& particles, char* filename) {
+void FileReader::readFile(list<Particle>& particles, char* filename) {
 	double x[] = {0,0,0};
 	double v[] = {1,1,1};
 	double m = 1;
@@ -69,7 +69,7 @@ void FileReader::readFile(std::list<Particle>& particles, char* filename) {
     		cout << "Read line: " << tmp_string << endl;
     	}
     } else {
-    	std::cout << "Error: could not open file " << filename << std::endl;
+    	cout << "Error: could not open file " << filename << endl;
     	exit(-1);
     }
 
