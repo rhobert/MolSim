@@ -19,29 +19,40 @@ using namespace std;
 /**** forward declaration of the calculation functions ****/
 
 /**
- * calculate the force for all particles
- */
+ * @brief Calculate the force for all particles
+**/
 void calculateF();
 
 /**
- * calculate the position for all particles
- */
+ * @brief Calculate the position for all particles
+**/
 void calculateX();
 
 /**
- * calculate the position for all particles
- */
+ * @brief Calculate the position for all particles
+**/
 void calculateV();
 
 /**
- * plot the particles to a xyz-file
- */
+ * @brief Plot the particles to a vtk-file
+ * 
+ * @param iteration Current iteration step 
+**/
 void plotParticles(int iteration);
 
+/**
+ * @brief Time step per iteration
+**/
 double delta_t;
 
+/**
+ * @brief Container with all particles and particle pairs
+**/
 ParticleContainer* particleContainer;
 
+/**
+ * @brief Simulation 
+**/
 int main(int argc, char* argsv[]) 
 {
 	cout << "Hello from MolSim for PSE!" << endl;
@@ -49,13 +60,15 @@ int main(int argc, char* argsv[])
 	if (argc != 4) 
 	{
 		cout << "Errounous programme call! " << endl;
-		cout << "./molsym filename t_end delta_t" << endl;
+		cout << "./MolSim filename t_end delta_t" << endl;
 	}
-
+	
+	// Init time variables
 	double start_time = 0;
 	double end_time = atof(argsv[2]);
 	delta_t = atof(argsv[3]);
 
+	// Read particles from file to Particle list and build ParticleContainer
 	FileReader fileReader;
 	list<Particle> particles;
 	
@@ -103,6 +116,7 @@ void calculateF()
 	
 	F = 0.0;
 	
+	// Init forces effective on particles with 0.0 and save old force
 	for ( ParticleContainer::SingleList::iterator iterator = particleContainer->beginSingle();
 		 iterator != particleContainer->endSingle();
 		 iterator++ ) 
@@ -112,7 +126,7 @@ void calculateF()
 		p.newF(F);
 	}
 	
-	
+	// Iterate over all particle pairs and calculate and sum effective forces
 	for ( ParticleContainer::PairList::iterator iterator = particleContainer->beginPair();
 		 iterator != particleContainer->endPair();
 		 iterator++ ) 
