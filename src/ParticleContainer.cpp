@@ -1,12 +1,17 @@
 
 #include "ParticleContainer.h"
 #include <list>
+#include <vector>
 
 using namespace std;
 
-ParticleContainer::ParticleContainer(list<Particle> list) 
+ParticleContainer::ParticleContainer(list<Particle> pList) 
 {
-	singleList = list;
+	for ( list<Particle>::iterator it = pList.begin(); it != pList.end(); it++ )
+	{	
+		singleList.push_back(*it);
+	}
+	
 	cout << "Single-list generated!" << endl;
 	pairList = createPairs(singleList);
 	cout << "Pair-list generated!" << endl;
@@ -21,11 +26,11 @@ ParticleContainer::PairList ParticleContainer::createPairs( ParticleContainer::S
 {
 	ParticleContainer::PairList pList;
 	
-	list<Particle>::iterator it1;
-	list<Particle>::iterator it2;
-
+	ParticleContainer::SingleList::iterator it1;
+	ParticleContainer::SingleList::iterator it2;
+	
 	for (it1 = sList.begin(); it1 != sList.end(); it1++){
-		for (it2 = sList.begin(); it2 != sList.end(); it2++){
+		for (it2 = it1, it2++; it2 != sList.end(); it2++){
 			if (it1 != it2){
 				pair<Particle*, Particle*> help = pair<Particle*, Particle*>(&(*it1), &(*it2));
 				pList.push_back(help);
