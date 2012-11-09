@@ -12,29 +12,29 @@
 #include <list>
 
 /**
-* @brief This class implements the functionality to create a list of particles out of a file
-**/
+* @class FileReader
+*
+* @brief This class implements the functionality to initialize the particle-list.
+*/
+
 class FileReader {
 
 public:
-	/**
-	* @brief Create an instance of FileReader
-	**/
+
+/**
+* @brief Create an instance of FileReader.
+*/
 	FileReader();
-	
-	/**
-	* @brief Destructor of the class ParticleContainer
-	**/
+
+/**
+* @brief Destructor of the class FileReader.
+*/
 	virtual ~FileReader();
-	
-	/**
-	* @brief Read a file in and creates a list of particles out of it
-	* 
-	* @param particles List where particles are written in
-	* 
-	* @param filename Name of file where the particles information are stored
-	**/
-	void readFile(std::list<Particle>& particles, char* filename);
+
+/**
+* @brief Initializes the particle-list using the input file.
+*/
+    void readFile(std::list<Particle>& particles, char* filename);
 
 };
 
