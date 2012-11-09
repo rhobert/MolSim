@@ -8,7 +8,6 @@
 #include "ParticleContainer.h"
 #include "ParticleContainer.cpp"
 
-
 #include <list>
 #include <cstring>
 #include <cstdlib>
@@ -17,6 +16,29 @@
 using namespace std;
 
 /**** forward declaration of the calculation functions ****/
+
+#define EPSILON 5
+#define SIGMA 1
+
+/**
+ * @brief Calculate the force between two particles with the gravitational potential
+ * 
+ * @param p1 First particle
+ * @param p2 Second particle
+ * 
+ * @return Force between particles
+**/
+utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2);
+
+/**
+ * @brief Calculate the force between two particles with the Lenard-Jones potential
+ * 
+ * @param p1 First particle
+ * @param p2 Second particle
+ * 
+ * @return Force between particles
+**/
+utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2);
 
 /**
  * @brief Calculate the force for all particles
@@ -51,22 +73,54 @@ double delta_t;
 ParticleContainer* particleContainer;
 
 /**
+ * @brief Function for force calculation
+**/
+utils::Vector<double, 3>  (*forceCalc)(Particle&, Particle&);
+
+
+/**
  * @brief Simulation 
 **/
 int main(int argc, char* argsv[]) 
 {
 	cout << "Hello from MolSim for PSE!" << endl;
 	
-	if (argc != 4) 
+	if (argc != 5) 
 	{
 		cout << "Errounous programme call! " << endl;
-		cout << "./MolSim filename t_end delta_t" << endl;
+		cout << "./MolSim filename t_end delta_t force" << endl;
+		return EXIT_FAILURE;
 	}
 	
 	// Init time variables
 	double start_time = 0;
 	double end_time = atof(argsv[2]);
 	delta_t = atof(argsv[3]);
+	
+	if (end_time < 0 || delta_t < 0) 
+	{
+		cout << "Errounous programme call! " << endl;
+		cout << "./MolSim filename t_end delta_t force" << endl;
+		return EXIT_FAILURE;
+	}
+	
+	string potentialName (argsv[4]);
+	
+	if ( potentialName.compare("gravitational") == 0)
+	{
+		forceCalc = gravitationalPotential;
+	}
+	else if ( potentialName.compare("lenard_jones") == 0)
+	{
+		forceCalc = lenardJonesPotential;
+	}
+	else
+	{
+		cout << "Errounous programme call! " << endl;
+		cout << "./MolSim filename t_end delta_t force" << endl;
+		return EXIT_FAILURE;
+	}
+		
 
 	// Read particles from file to Particle list and build ParticleContainer
 	FileReader fileReader;
@@ -86,7 +140,6 @@ int main(int argc, char* argsv[])
 		 current_time < end_time; 
 		 current_time += delta_t ) 
 	{
-		
 		// calculate new x
 		calculateX();
 		// calculate new f
@@ -107,6 +160,37 @@ int main(int argc, char* argsv[])
 	return 0;
 }
 
+utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2)
+{
+	utils::Vector<double, 3> x1_x2;
+	utils::Vector<double, 3> F1_F2;
+	
+	//difference between coordinates of p1 and p2
+	x1_x2 = p1.getX() - p2.getX();
+
+	//force between p1 and p2
+	F1_F2 = p1.getM() * p2.getM() / pow(x1_x2.L2Norm(),3) * (-1) * x1_x2;
+	
+	return F1_F2;
+}
+
+utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
+{
+	utils::Vector<double, 3> x1_x2;
+	utils::Vector<double, 3> F1_F2;
+	double l2Norm;
+	double temp;
+	
+	//difference between coordinates of p1 and p2
+	x1_x2 = p1.getX() - p2.getX();
+	l2Norm = x1_x2.L2Norm();
+	
+	//force between p1 and p2
+	temp = pow(SIGMA / l2Norm, 6);
+	F1_F2 = 24*EPSILON / (l2Norm*l2Norm) * (temp - 2 * temp*temp) * (-1) * x1_x2;
+	
+	return F1_F2;
+}
 
 void calculateF() 
 {
@@ -134,15 +218,15 @@ void calculateF()
 		Particle& p1 = *(iterator->first);
 		Particle& p2 = *(iterator->second);
 
-		//difference between coordinates of p1 and p2
-		x1_x2 = p1.getX() - p2.getX();
-
 		//force between p1 and p2
-		F1_F2 = p1.getM() * p2.getM() / pow(x1_x2.L2Norm(),3) * (-1) * x1_x2;
+		F1_F2 = forceCalc(p1, p2);
 		
 		//sum forces
 		F = p1.getF() + F1_F2;
 		p1.setF(F);
+		
+		F = p2.getF() - F1_F2;
+		p2.setF(F);
 	}
 }
 
