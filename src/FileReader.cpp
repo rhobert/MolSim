@@ -7,6 +7,7 @@
 
 #include "FileReader.h"
 #include "utils/Vector.h"
+#include "ParticleGenerator.h"
 
 #include <fstream>
 #include <sstream>
@@ -22,11 +23,18 @@ FileReader::~FileReader() {
 }
 
 
-void FileReader::readFile(list<Particle>& particles, char* filename) {
+void FileReader::readFile(std::list<Particle>& particles, char* filename) {
 	double x[] = {0,0,0};
 	double v[] = {1,1,1};
 	double m = 1;
     int num_particles = 0;
+
+	utils::Vector<double, 3> x;
+	utils::Vector<double, 3> v;
+	utils::Vector<double, 3> n;
+	double m;
+	double h;
+	double meanVelocity;
 
     std::ifstream input_file(filename);
     string tmp_string;
@@ -68,8 +76,41 @@ void FileReader::readFile(list<Particle>& particles, char* filename) {
     		getline(input_file, tmp_string);
     		cout << "Read line: " << tmp_string << endl;
     	}
+		
+		while (!input_file.eof()) {
+
+			istringstream cstream(tmp_string);
+
+			utils::Vector<double, 3> x;
+			utils::Vector<double, 3> v;
+			utils::Vector<int, 3> n;
+			double m;
+			double h;
+			double meanVelocity;
+
+			for (int j = 0; j < 3; j++) {
+    			cstream >> x[j];
+			}
+
+			for (int j = 0; j < 3; j++) {
+    			cstream >> v[j];
+			}
+
+			for (int j = 0; j < 3; j++) {
+    			cstream >> n[j];
+			}
+
+			cstream >> m;
+			cstream >> h;
+			cstream >> meanVelocity;
+
+			generateCuboid(particles, x, v, n, h, m, meanVelocity);
+
+			getline(input_file, tmp_string);
+		}
+
     } else {
-    	cout << "Error: could not open file " << filename << endl;
+    	std::cout << "Error: could not open file " << filename << std::endl;
     	exit(-1);
     }
 
