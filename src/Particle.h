@@ -9,6 +9,7 @@
 #define PARTICLE_H_
 
 #include "utils/Vector.h"
+#include "log4cxx/logger.h"
 
 /**
 * @brief This class represents a particle
@@ -17,6 +18,11 @@ class Particle {
 
 private:
 
+	/**
+	 * @brief Logger for Particle class
+	 */
+	static log4cxx::LoggerPtr logger;
+	
 	/**
 	* @brief The position of the particle.
 	*/

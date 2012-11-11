@@ -5,6 +5,8 @@
 
 using namespace std;
 
+log4cxx::LoggerPtr ParticleContainer::logger(log4cxx::Logger::getLogger("ParticleContainer"));
+
 ParticleContainer::ParticleContainer(list<Particle> pList) 
 {
 	for ( list<Particle>::iterator it = pList.begin(); it != pList.end(); it++ )
@@ -12,14 +14,14 @@ ParticleContainer::ParticleContainer(list<Particle> pList)
 		singleList.push_back(*it);
 	}
 	
-	cout << "Single-list generated!" << endl;
+	LOG4CXX_INFO(logger, "SingleList generated");
 	pairList = createPairs(singleList);
-	cout << "Pair-list generated!" << endl;
+	LOG4CXX_INFO(logger, "PairList generated");
 }
 
 ParticleContainer::~ParticleContainer() 
 {
-	cout << "Particle-list destructed!" << endl;
+	LOG4CXX_INFO(logger, "ParticleContainer destructed");
 }
 
 ParticleContainer::PairList ParticleContainer::createPairs( ParticleContainer::SingleList& sList ) 

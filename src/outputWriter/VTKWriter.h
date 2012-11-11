@@ -22,6 +22,11 @@ namespace outputWriter {
  */
 class VTKWriter {
 
+	/**
+	 * @brief Logger for VTKWriter class
+	 */
+	static log4cxx::LoggerPtr logger;
+	
 public:
 /**
 * @brief Create an instance of VTKWriter.

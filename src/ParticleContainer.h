@@ -13,7 +13,7 @@ using namespace std;
 * @brief This class offers the possibility to to iterate over single particles or pairs of particles.
 **/
 class ParticleContainer {
-
+	
 public:
 	/**
 	* @brief Type of a list of single particles
@@ -26,6 +26,12 @@ public:
 	typedef list<pair<Particle*, Particle*> > PairList; 
 	
 private:
+	
+	/**
+	 * @brief Logger for ParticleContainer class
+	 */
+	static log4cxx::LoggerPtr logger;
+	
 	/**
 	* @brief All single Particles
 	**/

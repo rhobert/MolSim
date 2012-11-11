@@ -19,6 +19,11 @@
 
 class FileReader {
 	
+	/**
+	 * @brief Logger for FileReader class
+	 */
+	static log4cxx::LoggerPtr logger;
+	
 public:
 
 /**

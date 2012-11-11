@@ -16,6 +16,8 @@ using namespace std;
 
 namespace outputWriter {
 
+log4cxx::LoggerPtr VTKWriter::logger(log4cxx::Logger::getLogger("VTKWriter"));
+	
 VTKWriter::VTKWriter() {
 	// TODO Auto-generated constructor stub
 
@@ -68,9 +70,9 @@ void VTKWriter::writeFile(const std::string& filename, int iteration) {
 
 void VTKWriter::plotParticle(Particle& p) {
 	if (vtkFile->UnstructuredGrid().present()) {
-		cout << "UnstructuredGrid is present" << endl;
+		LOG4CXX_INFO(logger, "UnstructuredGrid is present");
 	} else {
-		cout << "ERROR: No UnstructuredGrid present" << endl;
+		LOG4CXX_ERROR(logger, "No UnstructuredGrid present");
 	}
 
 	PointData::DataArray_sequence& pointDataSequence = vtkFile->UnstructuredGrid()->Piece().PointData().DataArray();

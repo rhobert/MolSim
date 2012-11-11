@@ -15,6 +15,8 @@
 
 using namespace std;
 
+log4cxx::LoggerPtr FileReader::logger(log4cxx::Logger::getLogger("FileReader"));
+
 FileReader::FileReader() {
 }
 
@@ -35,18 +37,18 @@ void FileReader::readFileList(list<Particle>& particles, char* filename)
 	if (input_file.is_open()) 
 	{
 		getline(input_file, tmp_string);
-		cout << "Read line: " << tmp_string << endl;
+		LOG4CXX_DEBUG(logger, "Read line: " << tmp_string);
 		
 		while (tmp_string.size() == 0 || tmp_string[0] == '#') {
 			getline(input_file, tmp_string);
-			cout << "Read line: " << tmp_string << endl;
+			LOG4CXX_DEBUG(logger, "Read line: " << tmp_string);
 		}
 		
 		istringstream numstream(tmp_string);
 		numstream >> num_particles;
-		cout << "Reading " << num_particles << "." << endl;
+		LOG4CXX_DEBUG(logger, "Reading " << num_particles);
 		getline(input_file, tmp_string);
-		cout << "Read line: " << tmp_string << endl;
+		LOG4CXX_DEBUG(logger, "Read line: " << tmp_string);
 		
 		for (int i = 0; i < num_particles; i++) 
 		{
@@ -64,7 +66,7 @@ void FileReader::readFileList(list<Particle>& particles, char* filename)
 			
 			if (datastream.eof()) 
 			{
-				cout << "Error reading file: eof reached unexpectedly reading from line " << i << endl;
+				LOG4CXX_FATAL(logger, "Error reading file: eof reached unexpectedly reading from line " << i);
 				exit(-1);
 			}
 			
@@ -73,12 +75,12 @@ void FileReader::readFileList(list<Particle>& particles, char* filename)
 			particles.push_back(p);
 
 			getline(input_file, tmp_string);
-			cout << "Read line: " << tmp_string << endl;
+			LOG4CXX_DEBUG(logger, "Read line: " << tmp_string);
 		}
 	} 
 	else 
 	{
-		cout << "Error: could not open file " << filename << endl;
+		LOG4CXX_FATAL(logger, "Error: could not open file " << string(filename));
 		exit(-1);
 	}
 }
@@ -98,18 +100,18 @@ void FileReader::readFileCuboid(list<Particle>& particles, char* filename)
 	if (input_file.is_open()) 
 	{
 		getline(input_file, tmp_string);
-		cout << "Read line: " << tmp_string << endl;
+		LOG4CXX_DEBUG(logger, "Read line: " << tmp_string);
 		
 		while (tmp_string.size() == 0 || tmp_string[0] == '#') {
 			getline(input_file, tmp_string);
-			cout << "Read line: " << tmp_string << endl;
+			LOG4CXX_DEBUG(logger, "Read line: " << tmp_string);
 		}
 		
 		istringstream numstream(tmp_string);
 		numstream >> num_particles;
-		cout << "Reading " << num_particles << "." << endl;
+		LOG4CXX_DEBUG(logger, "Reading " << num_particles);
 		getline(input_file, tmp_string);
-		cout << "Read line: " << tmp_string << endl;
+		LOG4CXX_DEBUG(logger, "Read line: " << tmp_string);
 		
 		for (int i = 0; i < num_particles; i++) 
 		{
@@ -132,7 +134,7 @@ void FileReader::readFileCuboid(list<Particle>& particles, char* filename)
 			
 			if (datastream.eof()) 
 			{
-				cout << "Error reading file: eof reached unexpectedly reading from line " << i << endl;
+				LOG4CXX_FATAL(logger, "Error reading file: eof reached unexpectedly reading from line " << i);
 				exit(-1);
 			}
 			
@@ -163,12 +165,12 @@ void FileReader::readFileCuboid(list<Particle>& particles, char* filename)
 			}
 
 			getline(input_file, tmp_string);
-			cout << "Read line: " << tmp_string << endl;
+			LOG4CXX_DEBUG(logger, "Read line: " << tmp_string);
 		}
 	} 
 	else 
 	{
-		cout << "Error: could not open file " << filename << endl;
+		LOG4CXX_FATAL(logger, "Error: could not open file " << string(filename));
 		exit(-1);
 	}
 }

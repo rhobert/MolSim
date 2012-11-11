@@ -3,6 +3,8 @@
  * @brief Simulation program
  */
 
+#include "log4cxx/logger.h"
+#include "log4cxx/propertyconfigurator.h"
 #include "outputWriter/VTKWriter.h"
 #include "FileReader.h"
 #include "ParticleContainer.h"
@@ -83,21 +85,31 @@ utils::Vector<double, 3>  (*forceCalc)(Particle&, Particle&);
 **/
 string molsim_usage = "Usage: ./MolSim FILE_TYPE FILE END_T DELTA_T POTENTIAL";
 
+
+
+log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("MolSim"));
+
+
 /**
  * @brief Simulation 
 **/
 int main(int argc, char* argsv[]) 
 {
-	cout << "Hello from MolSim for PSE! " << endl;
+	log4cxx::PropertyConfigurator::configure("log4cxx.properties");
+	
+	LOG4CXX_INFO(logger, "Hello from MolSim for PSE!");
 	
 	// Check count of parameters
 	if (argc != 6) 
 	{
+		LOG4CXX_FATAL(logger, "Wrong count of parameters");
 		cout << "Errounous programme call! " << endl;
 		cout << "Wrong count of parameters! " << endl;
 		cout << molsim_usage << endl;
 		return EXIT_FAILURE;
 	}
+	
+	LOG4CXX_INFO(logger, "Reading in parameters");
 	
 	// Init variables by parameters
 	string file_type (argsv[1]);
@@ -109,23 +121,29 @@ int main(int argc, char* argsv[])
 	// Check end_time and delta_t
 	if (end_time < 0 || delta_t < 0 || end_time < delta_t) 
 	{
+		LOG4CXX_FATAL(logger, "END_T and DELTA_T should be greater 0 and END_T greater DELTA_T");
 		cout << "Errounous programme call! " << endl;
 		cout << "END_T and DELTA_T should be greater 0 and END_T greater DELTA_T " << endl;
 		cout << molsim_usage << endl;
 		return EXIT_FAILURE;
 	}
 	
+	LOG4CXX_INFO(logger, "END_T and DELTA_T are ok");
+	
 	// Check potentialName and set force calculation
 	if ( potentialName.compare("gravitational") == 0)
 	{
+		LOG4CXX_INFO(logger, "force calculation for gravitational potential set");
 		forceCalc = gravitationalPotential;
 	}
 	else if ( potentialName.compare("lenard_jones") == 0)
 	{
+		LOG4CXX_INFO(logger, "force calculation for Lenard-Jones potential set");
 		forceCalc = lenardJonesPotential;
 	}
 	else
 	{
+		LOG4CXX_FATAL(logger, "For POTENTIAL you have to specify gravitational or lenard_jones");
 		cout << "Errounous programme call! " << endl;
 		cout << "For POTENTIAL you have to specify gravitational or lenard_jones!" << endl;
 		cout << molsim_usage << endl;
@@ -154,8 +172,7 @@ int main(int argc, char* argsv[])
 		{
 			Particle& p = *iterator;
 			MaxwellBoltzmannDistribution(p, BROWNIAN_MOTION, 3);
-		}
-		
+		}		
 	}
 	else
 	{
@@ -167,6 +184,8 @@ int main(int argc, char* argsv[])
 	
 	// the forces are needed to calculate x, but are not given in the input file.
 	calculateF();
+	
+	LOG4CXX_INFO(logger, "Start simulation");
 	
 	// Init iteration variables
 	double start_time = 0;
@@ -190,10 +209,10 @@ int main(int argc, char* argsv[])
 		calculateV();
 		
 		iteration++;
-		cout << "Iteration " << iteration << " finished." << endl;
+		LOG4CXX_INFO(logger, "Iteration " << iteration << " finished");
 	}
 
-	cout << "output written. Terminating..." << endl;
+	LOG4CXX_INFO(logger, "End simulation");
 	
 	return 0;
 }
