@@ -5,6 +5,7 @@
 
 #include "Particle.h"
 #include <list>
+#include <vector>
 
 using namespace std;
 
@@ -17,7 +18,7 @@ public:
 	/**
 	* @brief Type of a list of single particles
 	**/
-	typedef list<Particle> SingleList;
+	typedef vector<Particle> SingleList;
 	
 	/**
 	* @brief Type of a list of particles pairs

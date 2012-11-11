@@ -6,7 +6,7 @@
 #include "outputWriter/VTKWriter.h"
 #include "FileReader.h"
 #include "ParticleContainer.h"
-#include "ParticleContainer.cpp"
+#include "MaxwellBoltzmannDistribution.h"
 
 #include <list>
 #include <cstring>
@@ -19,6 +19,7 @@ using namespace std;
 
 #define EPSILON 5
 #define SIGMA 1
+#define BROWNIAN_MOTION 0.1
 
 /**
  * @brief Calculate the force between two particles with the gravitational potential
@@ -77,35 +78,44 @@ ParticleContainer* particleContainer;
 **/
 utils::Vector<double, 3>  (*forceCalc)(Particle&, Particle&);
 
+/**
+ * @brief Program call syntax
+**/
+string molsim_usage = "Usage: ./MolSim FILE_TYPE FILE END_T DELTA_T POTENTIAL";
 
 /**
  * @brief Simulation 
 **/
 int main(int argc, char* argsv[]) 
 {
-	cout << "Hello from MolSim for PSE!" << endl;
+	cout << "Hello from MolSim for PSE! " << endl;
 	
-	if (argc != 5) 
+	// Check count of parameters
+	if (argc != 6) 
 	{
 		cout << "Errounous programme call! " << endl;
-		cout << "./MolSim filename t_end delta_t force" << endl;
+		cout << "Wrong count of parameters! " << endl;
+		cout << molsim_usage << endl;
 		return EXIT_FAILURE;
 	}
 	
-	// Init time variables
-	double start_time = 0;
-	double end_time = atof(argsv[2]);
-	delta_t = atof(argsv[3]);
+	// Init variables by parameters
+	string file_type (argsv[1]);
+	char* file_name = argsv[2];
+	double end_time = atof(argsv[3]);
+	delta_t = atof(argsv[4]);
+	string potentialName (argsv[5]);
 	
-	if (end_time < 0 || delta_t < 0) 
+	// Check end_time and delta_t
+	if (end_time < 0 || delta_t < 0 || end_time < delta_t) 
 	{
 		cout << "Errounous programme call! " << endl;
-		cout << "./MolSim filename t_end delta_t force" << endl;
+		cout << "END_T and DELTA_T should be greater 0 and END_T greater DELTA_T " << endl;
+		cout << molsim_usage << endl;
 		return EXIT_FAILURE;
 	}
 	
-	string potentialName (argsv[4]);
-	
+	// Check potentialName and set force calculation
 	if ( potentialName.compare("gravitational") == 0)
 	{
 		forceCalc = gravitationalPotential;
@@ -117,21 +127,49 @@ int main(int argc, char* argsv[])
 	else
 	{
 		cout << "Errounous programme call! " << endl;
-		cout << "./MolSim filename t_end delta_t force" << endl;
+		cout << "For POTENTIAL you have to specify gravitational or lenard_jones!" << endl;
+		cout << molsim_usage << endl;
 		return EXIT_FAILURE;
 	}
-		
-
+	
 	// Read particles from file to Particle list and build ParticleContainer
 	FileReader fileReader;
 	list<Particle> particles;
 	
-	fileReader.readFile(particles, argsv[1]);
-	particleContainer = new ParticleContainer(particles);
+	// Check file_type
+	if ( file_type.compare("list") == 0)
+	{
+		fileReader.readFileList(particles, file_name);
+		particleContainer = new ParticleContainer(particles);
+	}
+	else if ( file_type.compare("cuboid") == 0)
+	{
+		fileReader.readFileCuboid(particles, file_name);
+		particleContainer = new ParticleContainer(particles);
+		
+		// Superpose velocity of particles with Brownian motion
+		for ( ParticleContainer::SingleList::iterator iterator = particleContainer->beginSingle();
+			 iterator != particleContainer->endSingle();
+			 iterator++ ) 
+		{
+			Particle& p = *iterator;
+			MaxwellBoltzmannDistribution(p, BROWNIAN_MOTION, 3);
+		}
+		
+	}
+	else
+	{
+		cout << "Errounous programme call! " << endl;
+		cout << "For FILE_TYPE you have to specify list or cuboid!" << endl;
+		cout << molsim_usage << endl;
+		return EXIT_FAILURE;
+	}
 	
 	// the forces are needed to calculate x, but are not given in the input file.
 	calculateF();
-
+	
+	// Init iteration variables
+	double start_time = 0;
 	double current_time;
 	int iteration = 0;
 
@@ -140,6 +178,10 @@ int main(int argc, char* argsv[])
 		 current_time < end_time; 
 		 current_time += delta_t ) 
 	{
+		if (iteration % 10 == 0) {
+			plotParticles(iteration);
+		}
+		
 		// calculate new x
 		calculateX();
 		// calculate new f
@@ -149,10 +191,6 @@ int main(int argc, char* argsv[])
 		
 		iteration++;
 		cout << "Iteration " << iteration << " finished." << endl;
-		
-		if (iteration % 10 == 0) {
-			plotParticles(iteration);
-		}
 	}
 
 	cout << "output written. Terminating..." << endl;

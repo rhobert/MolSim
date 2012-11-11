@@ -14,12 +14,11 @@
 * @param n number of particles per dimension
 * @param h the distance of the particles (mesh width of the grid)
 * @param m the mass of the particles
-* @param meanVelocity the mean-value of the velocity of the Brownian Motion
 */
 
 	void generateCuboid(std::list<Particle> &particles, utils::Vector<double, 3> x,
 							utils::Vector<double, 3> v, utils::Vector<int, 3> n,
-								double h, double m, double meanVelocity);
+								double h, double m);
 
 
 #endif /* PARTICLEGENERATOR_H_ */
