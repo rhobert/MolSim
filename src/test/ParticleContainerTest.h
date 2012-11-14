@@ -7,6 +7,7 @@
 
 
 #include "ParticleContainer.h"
+//#include "ParticleContainer.cpp"
 #include <cppunit/ui/text/TestRunner.h>
 #include <cppunit/extensions/HelperMacros.h>
 
@@ -19,7 +20,7 @@ class ParticleContainerTest : public CppUnit::TestFixture {
 
 	CPPUNIT_TEST_SUITE(ParticleContainerTest);
 
-	CPPUNIT_TEST(testEquality);
+	CPPUNIT_TEST(testForDoubles);
 	CPPUNIT_TEST(testCompleteness);
 
 	CPPUNIT_TEST_SUITE_END();
@@ -39,7 +40,7 @@ public:
 
 	void tearDown();
 
-	void testEquality();
+	void testForDoubles();
 
 	void testCompleteness();
 
