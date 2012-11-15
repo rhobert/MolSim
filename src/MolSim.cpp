@@ -112,6 +112,20 @@ int main(int argc, char* argsv[])
 	
 	LOG4CXX_INFO(logger, "Hello from MolSim for PSE!");
 	
+	// Add available tests to usage info
+	LOG4CXX_INFO(logger, "Detect available tests");
+	
+	TestSettings ts;
+	vector<string> testNames = ts.getTestNames();
+	
+	molsim_usage += "Available tests:\n";
+	
+	for (int i; i < testNames.size(); i++)
+	{	
+		molsim_usage = molsim_usage + "   " + testNames[i] + "\n";
+		LOG4CXX_TRACE(logger, "Detected " << testNames[i] << " as test");
+	}
+	
 	// Check Parameters
 	
 	LOG4CXX_INFO(logger, "Check parameters");
@@ -121,7 +135,6 @@ int main(int argc, char* argsv[])
 	{
 		LOG4CXX_INFO(logger, "Test option was passed");
 		
-		TestSettings ts;
 		
 		// Start all tests
 		if ( argc == 2 )
@@ -136,7 +149,11 @@ int main(int argc, char* argsv[])
 			string test_name (argsv[2]);
 			LOG4CXX_INFO(logger, "Run test " << test_name << " ...");
 			
-			ts.runTest(test_name);
+			if ( ts.runTest(test_name) == 0 )
+			{
+				LOG4CXX_ERROR(logger, "Test " << test_name << " was not found");
+				cout << molsim_usage << endl;
+			}
 		}
 		
 		
