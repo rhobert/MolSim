@@ -144,6 +144,8 @@ void FileReader::readFileCuboid(list<Particle>& particles, char* filename)
 			double particlePosition[3];
 			particlePosition[0] = x[0];
 			
+			LOG4CXX_INFO(logger, "Start to generate cuboid of Particles");
+			
 			for ( int j0 = 0; j0 < N[0]; j0++ )
 			{
 				particlePosition[0] += h;
@@ -163,6 +165,8 @@ void FileReader::readFileCuboid(list<Particle>& particles, char* filename)
 					}
 				}
 			}
+			
+			LOG4CXX_INFO(logger, "Finish generate cuboid of Particles");
 
 			getline(input_file, tmp_string);
 			LOG4CXX_DEBUG(logger, "Read line: " << tmp_string);

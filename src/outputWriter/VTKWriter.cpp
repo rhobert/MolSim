@@ -27,8 +27,10 @@ VTKWriter::~VTKWriter() {
 	// TODO Auto-generated destructor stub
 }
 
-void VTKWriter::initializeOutput(int numParticles) {
-
+void VTKWriter::initializeOutput(int numParticles) 
+{
+	LOG4CXX_INFO(logger, "Start to initialize output");
+	
 	vtkFile = new VTKFile_t("UnstructuredGrid");
 
 	// per point, we add type, position, velocity and force
@@ -57,6 +59,8 @@ void VTKWriter::initializeOutput(int numParticles) {
 	PieceUnstructuredGrid_t piece(pointData, cellData, points, cells, numParticles, 0);
 	UnstructuredGrid_t unstructuredGrid(piece);
 	vtkFile->UnstructuredGrid(unstructuredGrid);
+	
+	LOG4CXX_INFO(logger, "Finish to initialize output");
 }
 
 void VTKWriter::writeFile(const std::string& filename, int iteration) {
@@ -66,15 +70,17 @@ void VTKWriter::writeFile(const std::string& filename, int iteration) {
 	std::ofstream file(strstr.str().c_str());
 	VTKFile (file, *vtkFile);
 	delete vtkFile;
+	
+	LOG4CXX_INFO(logger, "Output of iteration " << iteration << " is written to " << filename);
 }
 
 void VTKWriter::plotParticle(Particle& p) {
 	if (vtkFile->UnstructuredGrid().present()) {
-		LOG4CXX_INFO(logger, "UnstructuredGrid is present");
+		LOG4CXX_DEBUG(logger, "UnstructuredGrid is present");
 	} else {
 		LOG4CXX_ERROR(logger, "No UnstructuredGrid present");
 	}
-
+	
 	PointData::DataArray_sequence& pointDataSequence = vtkFile->UnstructuredGrid()->Piece().PointData().DataArray();
 	PointData::DataArray_iterator dataIterator = pointDataSequence.begin();
 

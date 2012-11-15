@@ -19,6 +19,7 @@ using namespace std;
 
 /**** forward declaration of the calculation functions ****/
 
+#define ITERATION_PER_PLOT 10
 #define EPSILON 5
 #define SIGMA 1
 #define BROWNIAN_MOTION 0.1
@@ -83,9 +84,14 @@ utils::Vector<double, 3>  (*forceCalc)(Particle&, Particle&);
 /**
  * @brief Program call syntax
 **/
-string molsim_usage = "Usage: ./MolSim FILE_TYPE FILE END_T DELTA_T POTENTIAL";
-
-
+string molsim_usage = "\n"
+	"Usage: ./MolSim END_T DELTA_T FILE_TYPE FILE POTENTIAL" "\n"
+	"   END_T     - end time of simulation" "\n"
+	"   DELTA_T   - timestep of simulation" "\n"
+	"   FILE_TYPE - list or cuboid" "\n"
+	"   FILE      - file with input data" "\n"
+	"   POTENTIAL - gravitational or lenard_jones" "\n"
+;
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("MolSim"));
 
@@ -99,12 +105,33 @@ int main(int argc, char* argsv[])
 	
 	LOG4CXX_INFO(logger, "Hello from MolSim for PSE!");
 	
+	// Check Parameters
+	
+	LOG4CXX_INFO(logger, "Check parameters");
+	
 	// Check count of parameters
-	if (argc != 6) 
+	if ( (argc == 2 || argc == 3) && string(argsv[1]).compare("-test") == 0 )
 	{
-		LOG4CXX_FATAL(logger, "Wrong count of parameters");
-		cout << "Errounous programme call! " << endl;
-		cout << "Wrong count of parameters! " << endl;
+		LOG4CXX_INFO(logger, "Test option was passed");
+		
+		// Start all tests
+		if ( argc == 2 )
+		{
+			LOG4CXX_INFO(logger, "Run all tests ...");
+		}
+		// Start sinlge test
+		else
+		{
+			string test (argsv[2]);
+			LOG4CXX_INFO(logger, "Run test " << test << " ...");
+		}
+		
+		LOG4CXX_INFO(logger, "Finish tests");
+		return EXIT_SUCCESS;
+	}
+	else if (argc != 6) 
+	{
+		LOG4CXX_FATAL(logger, "Errounous programme call: Wrong count of parameters!");
 		cout << molsim_usage << endl;
 		return EXIT_FAILURE;
 	}
@@ -112,23 +139,52 @@ int main(int argc, char* argsv[])
 	LOG4CXX_INFO(logger, "Reading in parameters");
 	
 	// Init variables by parameters
-	string file_type (argsv[1]);
-	char* file_name = argsv[2];
-	double end_time = atof(argsv[3]);
-	delta_t = atof(argsv[4]);
+	double end_time = atof(argsv[1]);
+	delta_t = atof(argsv[2]);
+	string file_type (argsv[3]);
+	char* file_name = argsv[4];
 	string potentialName (argsv[5]);
+	
+	LOG4CXX_INFO(logger, "Check END_T and DELTA_T");
 	
 	// Check end_time and delta_t
 	if (end_time < 0 || delta_t < 0 || end_time < delta_t) 
 	{
-		LOG4CXX_FATAL(logger, "END_T and DELTA_T should be greater 0 and END_T greater DELTA_T");
-		cout << "Errounous programme call! " << endl;
-		cout << "END_T and DELTA_T should be greater 0 and END_T greater DELTA_T " << endl;
+		LOG4CXX_FATAL(logger, "Errounous programme call: END_T and DELTA_T should be greater 0 and END_T greater DELTA_T!");
 		cout << molsim_usage << endl;
 		return EXIT_FAILURE;
 	}
 	
 	LOG4CXX_INFO(logger, "END_T and DELTA_T are ok");
+	
+	// Read particles from file to Particle list and build ParticleContainer
+	FileReader fileReader;
+	list<Particle> particles;
+	
+	
+	LOG4CXX_INFO(logger, "Check FILE_TYPE");
+	
+	// Check file_type
+	if ( file_type.compare("list") == 0)
+	{
+		LOG4CXX_INFO(logger, "FILE_TYPE is set to list");
+		fileReader.readFileList(particles, file_name);
+		particleContainer = new ParticleContainer(particles);
+	}
+	else if ( file_type.compare("cuboid") == 0)
+	{
+		LOG4CXX_INFO(logger, "FILE_TYPE is set to cuboid");
+		fileReader.readFileCuboid(particles, file_name);
+		particleContainer = new ParticleContainer(particles);	
+	}
+	else
+	{
+		LOG4CXX_FATAL(logger, "Errounous programme call: For FILE_TYPE you have to specify list or cuboid!");
+		cout << molsim_usage << endl;
+		return EXIT_FAILURE;
+	}
+	
+	LOG4CXX_INFO(logger, "Check POTENTIAL");
 	
 	// Check potentialName and set force calculation
 	if ( potentialName.compare("gravitational") == 0)
@@ -140,31 +196,8 @@ int main(int argc, char* argsv[])
 	{
 		LOG4CXX_INFO(logger, "force calculation for Lenard-Jones potential set");
 		forceCalc = lenardJonesPotential;
-	}
-	else
-	{
-		LOG4CXX_FATAL(logger, "For POTENTIAL you have to specify gravitational or lenard_jones");
-		cout << "Errounous programme call! " << endl;
-		cout << "For POTENTIAL you have to specify gravitational or lenard_jones!" << endl;
-		cout << molsim_usage << endl;
-		return EXIT_FAILURE;
-	}
-	
-	// Read particles from file to Particle list and build ParticleContainer
-	FileReader fileReader;
-	list<Particle> particles;
-	
-	// Check file_type
-	if ( file_type.compare("list") == 0)
-	{
-		fileReader.readFileList(particles, file_name);
-		particleContainer = new ParticleContainer(particles);
-	}
-	else if ( file_type.compare("cuboid") == 0)
-	{
-		fileReader.readFileCuboid(particles, file_name);
-		particleContainer = new ParticleContainer(particles);
 		
+		LOG4CXX_INFO(logger, "Superpose velocity of particles with Brownian motion");
 		// Superpose velocity of particles with Brownian motion
 		for ( ParticleContainer::SingleList::iterator iterator = particleContainer->beginSingle();
 			 iterator != particleContainer->endSingle();
@@ -172,15 +205,16 @@ int main(int argc, char* argsv[])
 		{
 			Particle& p = *iterator;
 			MaxwellBoltzmannDistribution(p, BROWNIAN_MOTION, 3);
-		}		
+		}	
 	}
 	else
 	{
-		cout << "Errounous programme call! " << endl;
-		cout << "For FILE_TYPE you have to specify list or cuboid!" << endl;
+		LOG4CXX_FATAL(logger, "Errounous programme call: For POTENTIAL you have to specify gravitational or lenard_jones");
 		cout << molsim_usage << endl;
 		return EXIT_FAILURE;
 	}
+	
+	// Begin Simulation
 	
 	// the forces are needed to calculate x, but are not given in the input file.
 	calculateF();
@@ -197,7 +231,7 @@ int main(int argc, char* argsv[])
 		 current_time < end_time; 
 		 current_time += delta_t ) 
 	{
-		if (iteration % 10 == 0) {
+		if (iteration % ITERATION_PER_PLOT == 0) {
 			plotParticles(iteration);
 		}
 		
@@ -324,6 +358,7 @@ void calculateV()
 
 void plotParticles(int iteration) 
 {
+	LOG4CXX_INFO(logger, "Plot particles of Iteration " << iteration);
 	string out_name("MD_vtk");
 	outputWriter::VTKWriter vtk_writer;
 

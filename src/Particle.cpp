@@ -9,6 +9,7 @@
 
 #include <sstream>
 #include <iostream>
+#include <cassert>
 
 log4cxx::LoggerPtr Particle::logger(log4cxx::Logger::getLogger("Particle"));
 
@@ -35,12 +36,13 @@ Particle::Particle(	utils::Vector<double, 3> x_arg,
 	        double m_arg,
 	        int type_arg
 ) {
-    x = x_arg;
-    v = v_arg;
-    m = m_arg;
-    type = type_arg;
-    f = 0.0;
-    old_f = 0.0;
+	x = x_arg;
+	v = v_arg;
+	m = m_arg;
+	assert(m >= 0);
+	type = type_arg;
+	f = 0.0;
+	old_f = 0.0;
 	LOG4CXX_INFO(logger, "Particle generated");
 }
 
