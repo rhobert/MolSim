@@ -7,6 +7,7 @@
 
 #include "FileReader.h"
 #include "utils/Vector.h"
+#include "ParticleGenerator.h"
 
 #include <fstream>
 #include <sstream>
@@ -141,31 +142,9 @@ void FileReader::readFileCuboid(list<Particle>& particles, char* filename)
 			datastream >> h;
 			datastream >> m;
 			
-			double particlePosition[3];
-			particlePosition[0] = x[0];
 			
 			LOG4CXX_INFO(logger, "Start to generate cuboid of Particles");
-			
-			for ( int j0 = 0; j0 < N[0]; j0++ )
-			{
-				particlePosition[0] += h;
-				particlePosition[1] = x[1];
-				
-				for ( int j1 = 0; j1 < N[1]; j1++ )
-				{
-					particlePosition[1] += h;
-					particlePosition[2] = x[2];
-					
-					for ( int j2 = 0; j2 < N[2]; j2++ )
-					{	
-						particlePosition[2] += h;
-						
-						Particle p(particlePosition, v, m);
-						particles.push_back(p);
-					}
-				}
-			}
-			
+			generateCuboid(particles, x, v, N, h, m);
 			LOG4CXX_INFO(logger, "Finish generate cuboid of Particles");
 
 			getline(input_file, tmp_string);
