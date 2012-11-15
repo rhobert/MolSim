@@ -21,8 +21,9 @@ public:
 
 	TestSettings();
 
-	int runTest(string name);
-
+	void runTest(string name);
+	
+	void runTest();
 };
 
 

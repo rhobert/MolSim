@@ -7,45 +7,48 @@
 
 #include "TestSettings.h"
 #include "ParticleContainerTest.h"
-//#include "ParticleContainerTest.cpp"
 #include <cppunit/ui/text/TestRunner.h>
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
-#include <cppunit/TestResult.h>
 #include <cppunit/CompilerOutputter.h>
-#include <cppunit/extensions/TestFactoryRegistry.h>
-#include <cppunit/TestResult.h>
 #include <cppunit/TestResultCollector.h>
-#include <cppunit/TestRunner.h>
 #include <cppunit/BriefTestProgressListener.h>
+#include <cppunit/TestResult.h>
 
+// Register Test-Suites
+CPPUNIT_TEST_SUITE_REGISTRATION( ParticleContainerTest );
 
 TestSettings::TestSettings(){
 
 }
 
-int TestSettings::runTest(string name){
+void TestSettings::runTest()
+{
+	CppUnit::TextUi::TestRunner runner;
+	CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
+	runner.addTest( registry.makeTest() );
+	runner.run();
+}
+
+void TestSettings::runTest(string name){
 
 	// Informiert Test-Listener ueber Testresultate
-	    CPPUNIT_NS :: TestResult testresult;
+	CppUnit :: TestResult testresult;
+	
+	// Listener zum Sammeln der Testergebnisse registrieren
+	CppUnit :: TestResultCollector collectedresults;
+	testresult.addListener (&collectedresults);
 
-	    // Listener zum Sammeln der Testergebnisse registrieren
-	    CPPUNIT_NS :: TestResultCollector collectedresults;
-	    testresult.addListener (&collectedresults);
+	// Listener zur Ausgabe der Ergebnisse einzelner Tests
+	CppUnit :: BriefTestProgressListener progress;
+	testresult.addListener (&progress);
 
-	    // Listener zur Ausgabe der Ergebnisse einzelner Tests
-	    CPPUNIT_NS :: BriefTestProgressListener progress;
-	    testresult.addListener (&progress);
+	// Test-Suite ueber die Registry im Test-Runner einfuegen
+	CppUnit :: TestRunner testrunner;
+	testrunner.addTest (CppUnit :: TestFactoryRegistry :: getRegistry (name).makeTest ());
+	testrunner.run (testresult);
 
-	    // Test-Suite ueber die Registry im Test-Runner einfuegen
-	    CPPUNIT_NS :: TestRunner testrunner;
-	    testrunner.addTest (CPPUNIT_NS :: TestFactoryRegistry :: getRegistry (name).makeTest ());
-	    testrunner.run (testresult);
-
-	    // Resultate im Compiler-Format ausgeben
-	    CPPUNIT_NS :: CompilerOutputter compileroutputter (&collectedresults, std::cerr);
-	    compileroutputter.write ();
-
-	    // Rueckmeldung, ob Tests erfolgreich waren
-	    return collectedresults.wasSuccessful () ? 0 : 1;
+	// Resultate im Compiler-Format ausgeben
+	CppUnit :: CompilerOutputter compileroutputter (&collectedresults, std::cerr);
+	compileroutputter.write ();
 }

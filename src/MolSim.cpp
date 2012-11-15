@@ -5,14 +5,13 @@
 
 #include "log4cxx/logger.h"
 #include "log4cxx/propertyconfigurator.h"
+
 #include "outputWriter/VTKWriter.h"
 #include "FileReader.h"
 #include "ParticleContainer.h"
 #include "MaxwellBoltzmannDistribution.h"
-#include "test/TestSettings.h"
 
-#include <cppunit/ui/text/TestRunner.h>
-#include "test/ParticleContainerTest.h"
+#include "test/TestSettings.h"
 
 #include <list>
 #include <cstring>
@@ -121,25 +120,25 @@ int main(int argc, char* argsv[])
 	if ( (argc == 2 || argc == 3) && string(argsv[1]).compare("-test") == 0 )
 	{
 		LOG4CXX_INFO(logger, "Test option was passed");
-
 		
+		TestSettings ts;
 		
 		// Start all tests
 		if ( argc == 2 )
 		{
 			LOG4CXX_INFO(logger, "Run all tests ...");
 			
-			CppUnit::TextUi::TestRunner runner;
-			runner.addTest( ParticleContainerTest::suite() );
-			runner.run();
+			ts.runTest();
 		}
 		// Start sinlge test
 		else
 		{
-			string test (argsv[2]);
-			LOG4CXX_INFO(logger, "Run test " << test << " ...");
-//			ts.runTest(test);
+			string test_name (argsv[2]);
+			LOG4CXX_INFO(logger, "Run test " << test_name << " ...");
+			
+			ts.runTest(test_name);
 		}
+		
 		
 		LOG4CXX_INFO(logger, "Finish tests");
 		return EXIT_SUCCESS;
