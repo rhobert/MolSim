@@ -7,44 +7,48 @@
 
 
 #include "ParticleContainer.h"
-//#include "ParticleContainer.cpp"
-#include <cppunit/ui/text/TestRunner.h>
 #include <cppunit/extensions/HelperMacros.h>
-
-
+#include <cppunit/TestFixture.h>
 
 #ifndef PARTICLECONTAINERTEST_H_
 #define PARTICLECONTAINERTEST_H_
 
-class ParticleContainerTest : public CppUnit::TestFixture {
+class ParticleContainerTest : public CppUnit::TestFixture 
+{
 
-	CPPUNIT_TEST_SUITE(ParticleContainerTest);
-
-	CPPUNIT_TEST(testForDoubles);
-	CPPUNIT_TEST(testCompleteness);
-
+	CPPUNIT_TEST_SUITE( ParticleContainerTest );
+	
+	CPPUNIT_TEST( testEmpty );
+	CPPUNIT_TEST( testOne );
+	CPPUNIT_TEST( testTwo );
+	CPPUNIT_TEST( testForDoublesPair );
+	CPPUNIT_TEST( testCompletenessSingle );
+	CPPUNIT_TEST( testCompletenessPair );
+	
 	CPPUNIT_TEST_SUITE_END();
-
-private:
-	ParticleContainer &cont;
-	Particle *p1;
-	Particle *p2;
+	
+	ParticleContainer * container;
+	list<Particle> particles;
+	Particle particle;
 
 public:
-
-	ParticleContainerTest();
-
+	
 	void setUp();
-
-	void init(ParticleContainer &pc);
-
+	
 	void tearDown();
-
-	void testForDoubles();
-
-	void testCompleteness();
-
-
+	
+	void testEmpty();
+	
+	void testOne();
+	
+	void testTwo();
+	
+	void testForDoublesPair();
+	
+	void testCompletenessSingle();
+	
+	void testCompletenessPair();
+	
 };
 
 

@@ -9,6 +9,10 @@
 #include "FileReader.h"
 #include "ParticleContainer.h"
 #include "MaxwellBoltzmannDistribution.h"
+#include "test/TestSettings.h"
+
+#include <cppunit/ui/text/TestRunner.h>
+#include "test/ParticleContainerTest.h"
 
 #include <list>
 #include <cstring>
@@ -84,13 +88,17 @@ utils::Vector<double, 3>  (*forceCalc)(Particle&, Particle&);
 /**
  * @brief Program call syntax
 **/
-string molsim_usage = "\n"
+string molsim_usage = 
+	"\n"
 	"Usage: ./MolSim END_T DELTA_T FILE_TYPE FILE POTENTIAL" "\n"
 	"   END_T     - end time of simulation" "\n"
 	"   DELTA_T   - timestep of simulation" "\n"
 	"   FILE_TYPE - list or cuboid" "\n"
 	"   FILE      - file with input data" "\n"
 	"   POTENTIAL - gravitational or lenard_jones" "\n"
+	"\n"
+	"Usage: ./MolSim -test [TEST_NAME]" "\n"
+	"   TEST_NAME - run only TEST_NAME" "\n"
 ;
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("MolSim"));
@@ -113,17 +121,24 @@ int main(int argc, char* argsv[])
 	if ( (argc == 2 || argc == 3) && string(argsv[1]).compare("-test") == 0 )
 	{
 		LOG4CXX_INFO(logger, "Test option was passed");
+
+		
 		
 		// Start all tests
 		if ( argc == 2 )
 		{
 			LOG4CXX_INFO(logger, "Run all tests ...");
+			
+			CppUnit::TextUi::TestRunner runner;
+			runner.addTest( ParticleContainerTest::suite() );
+			runner.run();
 		}
 		// Start sinlge test
 		else
 		{
 			string test (argsv[2]);
 			LOG4CXX_INFO(logger, "Run test " << test << " ...");
+//			ts.runTest(test);
 		}
 		
 		LOG4CXX_INFO(logger, "Finish tests");

@@ -6,56 +6,118 @@
  */
 
 #include "ParticleContainerTest.h"
-#include <cppunit/ui/text/TestRunner.h>
-#include <cppunit/extensions/HelperMacros.h>
 
-void ParticleContainerTest::setUp(){
+using namespace std;
 
+void ParticleContainerTest::setUp()
+{
+	double x_[] = {0,0,0};
+	double v_[] = {0,0,0};
+	
+	utils::Vector<double,3> x (x_);
+	utils::Vector<double,3> v (v_);
+	double m = 1;
+	
+	Particle p ( x, v, m );
+	particle = p;
+	
+	particles.push_back(p);
+	particles.push_back(p);
+	particles.push_back(p);
+	particles.push_back(p);
+	particles.push_back(p);
+	
+	container = new ParticleContainer(particles);
 }
 
-void ParticleContainerTest::init(ParticleContainer& pc){
-	cont = pc;
-	std::pair<Particle*, Particle*> help_pair = *cont.beginPair();
-	p1 = help_pair.first;
-	p2 = help_pair.second;
-
+void ParticleContainerTest::tearDown()
+{
+	delete container;
 }
 
-void ParticleContainerTest::tearDown(){
-
+void ParticleContainerTest::testEmpty()
+{
+	list<Particle> empty_particles;
+	ParticleContainer container (empty_particles);
+	
+	CPPUNIT_ASSERT(container.size() == 0);
+	CPPUNIT_ASSERT(container.beginSingle() == container.endSingle());
+	CPPUNIT_ASSERT(container.beginPair() == container.endPair());
 }
 
-
-/**
- * tests if the size of the ParticleContainer equals the expected size
- */
-void ParticleContainerTest::testCompleteness(){
-	int req_size = ((cont.size()-1) * cont.size())/2;
-	int counter = 0;
-	for( ParticleContainer::PairList::iterator iterator = cont.beginPair();
-			 iterator != cont.endPair();
-			 iterator++){
-		counter++;
-	}
-	CPPUNIT_ASSERT(req_size == counter);
+void ParticleContainerTest::testOne()
+{
+	list<Particle> one_particles;
+	one_particles.push_back(particle);
+	ParticleContainer one_container (one_particles);
+	
+	CPPUNIT_ASSERT(one_container.size() == 1);
+	CPPUNIT_ASSERT(++one_container.beginSingle() == one_container.endSingle());
+	CPPUNIT_ASSERT(one_container.beginPair() == one_container.endPair());
 }
+	
+void ParticleContainerTest::testTwo()
+{
+	list<Particle> two_particles;
+	two_particles.push_back(particle);
+	two_particles.push_back(particle);
+	ParticleContainer container (two_particles);
+	
+	CPPUNIT_ASSERT(container.size() == 2);
+	CPPUNIT_ASSERT(++++container.beginSingle() == container.endSingle());
+	CPPUNIT_ASSERT(++container.beginPair() == container.endPair());
+}
+	
+void ParticleContainerTest::testForDoublesPair()
+{		
+	pair<Particle*, Particle*> pair1;
+	pair<Particle*, Particle*> pair2;
 
-
-/**
- * tests if the ParticleContainer contains pairs {(p1,p2),(p2,p1)}
- */
-void ParticleContainerTest::testForDoubles(){
-	std::pair<Particle*, Particle*> pair1;
-	std::pair<Particle*, Particle*> pair2;
-
-	for(ParticleContainer::PairList::iterator iterator = cont.beginPair(); iterator != cont.endPair(); iterator++){
-		pair1 = *iterator;
-		for(ParticleContainer::PairList::iterator iterator2 = cont.beginPair(); iterator2 != cont.endPair(); iterator2++){
-			pair2 = *iterator2;
-
-			CPPUNIT_ASSERT((pair1.first == pair2.second) && (pair1.second = pair2.first));
-
+	for( ParticleContainer::PairList::iterator i = container->beginPair(); 
+		i != container->endPair(); 
+		i++)
+	{
+		pair1 = *i;
+		
+		for( ParticleContainer::PairList::iterator j = container->beginPair(); 
+			j != container->endPair(); 
+			j++)
+		{
+			pair2 = *j;
+			
+			CPPUNIT_ASSERT(pair1 == pair2 || pair1.first != pair2.first || pair1.second != pair2.second);
+			CPPUNIT_ASSERT(pair1.first != pair2.second || pair1.second != pair2.first);
 		}
 	}
+}
 
+void ParticleContainerTest::testCompletenessSingle()
+{
+	CPPUNIT_ASSERT(particles.size() == container->size());
+	
+	int counter = 0;
+	
+	for( ParticleContainer::SingleList::iterator i = container->beginSingle(); 
+		i != container->endSingle(); 
+		i++)
+	{
+		counter++;
+	}
+	
+	CPPUNIT_ASSERT(particles.size() == counter);
+}
+
+void ParticleContainerTest::testCompletenessPair()
+{
+	int req_size = (particles.size() - 1) * particles.size() /2;
+	int counter = 0;
+	
+	for( ParticleContainer::PairList::iterator i = container->beginPair(); 
+		i != container->endPair(); 
+		i++)
+	{
+		counter++;
+	}
+	
+	CPPUNIT_ASSERT(req_size == counter);
 }
