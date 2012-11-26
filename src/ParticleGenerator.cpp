@@ -2,10 +2,17 @@
 #include "ParticleGenerator.h"
 #include "MaxwellBoltzmannDistribution.h"
 #include <cassert>
+#include <cmath>
+#include <list>
 
-void generateCuboid(std::list<Particle> &particles, utils::Vector<double, 3> x,
-				utils::Vector<double, 3> v, utils::Vector<int, 3> N,
-				double h, double m) 
+void generateCuboid(
+	std::list<Particle> &particles, 
+	utils::Vector<double, 3> x,
+	utils::Vector<double, 3> v, 
+	utils::Vector<int, 3> N,
+	double h, 
+	double m
+)
 {
 	assert(N[0] > 0 && N[1] > 0 && N[2] > 0);
 	assert(h >= 0);
@@ -34,5 +41,77 @@ void generateCuboid(std::list<Particle> &particles, utils::Vector<double, 3> x,
 		}
 		
 		particlePosition[0] += h;
+	}
+}
+
+void generateSphere(
+	std::list<Particle> &particles, 
+	utils::Vector<double, 3> x,
+	utils::Vector<double, 3> v, 
+	int N,
+	utils::Vector<int, 3> d, 
+	double h, 
+	double m
+)
+{
+	assert(N > 0);
+	assert(d[0] != 0 || d[1] != 0 || d[2] != 0);
+	assert(h >= 0);
+	assert(m > 0);
+	
+	std::list<Particle> particlesSphere;
+	utils::Vector<double, 3> c;
+	utils::Vector<int, 3> n;
+	
+	if ( d[0] != 0 )
+	{
+		n[0] = N * 2 - 1;
+		c[0] = x[0] - h * (N-1);
+	}
+	else
+	{
+		n[0] = 1;
+		c[0] = 0;
+	}
+	
+	if ( d[1] != 0 )
+	{
+		n[1] = N * 2 - 1;
+		c[1] = x[1] - h * (N-1);
+	}
+	else
+	{
+		n[1] = 1;
+		c[1] = 0;
+	}
+	
+	if ( d[2] != 0 )
+	{
+		n[2] = N * 2 - 1;
+		c[2] = x[2] - h * (N-1);
+	}
+	else
+	{
+		n[2] = 1;
+		c[2] = 0;
+	}
+	
+	
+	std::cout << "Corner: " << c << std::endl;
+	std::cout << "Dimensions: " << n << std::endl;
+	generateCuboid(particlesSphere, c, v, n, h, m);
+	
+	utils::Vector<double, 3> x1_x2;
+	
+	for ( std::list<Particle>::iterator i = particlesSphere.begin(); i != particlesSphere.end(); i++ )
+	{
+		x1_x2 = (*i).getX() - x;
+		std::cout << "Coords: " << (*i).getX() << ", L2Norm: " << x1_x2.L2Norm() << std::endl;
+		
+		if ( x1_x2.L2Norm() <= (N-1)*h )
+		{
+			particles.push_back(*i);
+			std::cout << "\t ok" << std::endl;
+		}
 	}
 }
