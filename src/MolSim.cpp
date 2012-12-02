@@ -3,20 +3,25 @@
  * @brief Simulation program
  */
 
-#include "log4cxx/logger.h"
-#include "log4cxx/propertyconfigurator.h"
+#include <log4cxx/logger.h>
+#include <log4cxx/propertyconfigurator.h>
 
 #include "outputWriter/VTKWriter.h"
 #include "FileReader.h"
 #include "ParticleContainer.h"
 #include "MaxwellBoltzmannDistribution.h"
 
+#include "ParticleGenerator.h"
+
 #include "test/TestSettings.h"
+
+#include "input/InputParameters.h"
 
 #include <list>
 #include <cstring>
 #include <cstdlib>
 #include <iostream>
+#include <fstream>
 
 using namespace std;
 
@@ -107,7 +112,7 @@ log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("MolSim"));
  * @brief Simulation 
 **/
 int main(int argc, char* argsv[]) 
-{
+{	
 	log4cxx::PropertyConfigurator::configure("log4cxx.properties");
 	
 	LOG4CXX_INFO(logger, "Hello from MolSim for PSE!");
@@ -135,7 +140,6 @@ int main(int argc, char* argsv[])
 	{
 		LOG4CXX_INFO(logger, "Test option was passed");
 		
-		
 		// Start all tests
 		if ( argc == 2 )
 		{
@@ -160,9 +164,36 @@ int main(int argc, char* argsv[])
 		LOG4CXX_INFO(logger, "Finish tests");
 		return EXIT_SUCCESS;
 	}
-	else if (argc != 6) 
+	else if (argc != 2) 
 	{
 		LOG4CXX_FATAL(logger, "Errounous programme call: Wrong count of parameters!");
+		cout << molsim_usage << endl;
+		return EXIT_FAILURE;
+	}
+	
+	LOG4CXX_INFO(logger, "Reading parameter-file");
+	
+	std::ifstream file( argsv[1] );
+	
+	if ( !file.is_open() )
+	{
+		LOG4CXX_FATAL(logger, "Parameter-file can't be accessed!");
+		cout << molsim_usage << endl;
+		return EXIT_FAILURE;
+	}
+	
+	LOG4CXX_INFO(logger, "Checking parameter-file");
+	
+	auto_ptr<PSE_Molekulardynamik_WS12::simulation_t> simulation;
+	
+	try
+	{
+		simulation = PSE_Molekulardynamik_WS12::simulation ( file );
+	}
+	catch (const xml_schema::exception& e)
+	{
+		LOG4CXX_FATAL(logger, "Parameter-file is not valid!");
+		cout << e << endl;
 		cout << molsim_usage << endl;
 		return EXIT_FAILURE;
 	}
@@ -170,11 +201,9 @@ int main(int argc, char* argsv[])
 	LOG4CXX_INFO(logger, "Reading in parameters");
 	
 	// Init variables by parameters
-	double end_time = atof(argsv[1]);
-	delta_t = atof(argsv[2]);
-	string file_type (argsv[3]);
-	char* file_name = argsv[4];
-	string potentialName (argsv[5]);
+	double end_time = simulation->t_end();
+	delta_t = simulation->delta_t();
+	string file_name;
 	
 	LOG4CXX_INFO(logger, "Check END_T and DELTA_T");
 	
@@ -192,38 +221,44 @@ int main(int argc, char* argsv[])
 	FileReader fileReader;
 	list<Particle> particles;
 	
+	LOG4CXX_INFO(logger, "Reading in input files");
 	
-	LOG4CXX_INFO(logger, "Check FILE_TYPE");
-	
-	// Check file_type
-	if ( file_type.compare("list") == 0)
+	for ( PSE_Molekulardynamik_WS12::inputFiles_t::inputFile_const_iterator i = simulation->inputFiles().inputFile().begin(); 
+		 i != simulation->inputFiles().inputFile().end(); 
+		 i++ )
 	{
-		LOG4CXX_INFO(logger, "FILE_TYPE is set to list");
-		fileReader.readFileList(particles, file_name);
-		particleContainer = new ParticleContainer(particles);
-	}
-	else if ( file_type.compare("cuboid") == 0)
-	{
-		LOG4CXX_INFO(logger, "FILE_TYPE is set to cuboid");
-		fileReader.readFileCuboid(particles, file_name);
-		particleContainer = new ParticleContainer(particles);	
-	}
-	else
-	{
-		LOG4CXX_FATAL(logger, "Errounous programme call: For FILE_TYPE you have to specify list or cuboid!");
-		cout << molsim_usage << endl;
-		return EXIT_FAILURE;
+		file_name = *i;
+		
+		LOG4CXX_INFO(logger, "Reading in " << file_name << " with type " << i->type());
+		
+		// Check file_type
+		if ( i->type() == PSE_Molekulardynamik_WS12::inputType_t::list )
+		{
+			fileReader.readFileList(particles, (char*) file_name.c_str());
+			particleContainer = new ParticleContainer(particles);
+		}
+		else if ( i->type() == PSE_Molekulardynamik_WS12::inputType_t::cuboid )
+		{
+			fileReader.readFileCuboid(particles, (char*) file_name.c_str());
+			particleContainer = new ParticleContainer(particles);	
+		}
+		else
+		{
+			LOG4CXX_FATAL(logger, "Errounous programme call: For FILE_TYPE you have to specify list or cuboid!");
+			cout << molsim_usage << endl;
+			return EXIT_FAILURE;
+		}
 	}
 	
 	LOG4CXX_INFO(logger, "Check POTENTIAL");
 	
 	// Check potentialName and set force calculation
-	if ( potentialName.compare("gravitational") == 0)
+	if ( simulation->potential() == PSE_Molekulardynamik_WS12::potential_t::gravitational )
 	{
 		LOG4CXX_INFO(logger, "force calculation for gravitational potential set");
 		forceCalc = gravitationalPotential;
 	}
-	else if ( potentialName.compare("lenard_jones") == 0)
+	else if ( simulation->potential() == PSE_Molekulardynamik_WS12::potential_t::lenard_jones )
 	{
 		LOG4CXX_INFO(logger, "force calculation for Lenard-Jones potential set");
 		forceCalc = lenardJonesPotential;
@@ -274,7 +309,7 @@ int main(int argc, char* argsv[])
 		calculateV();
 		
 		iteration++;
-		LOG4CXX_INFO(logger, "Iteration " << iteration << " finished");
+		LOG4CXX_TRACE(logger, "Iteration " << iteration << " finished");
 	}
 
 	LOG4CXX_INFO(logger, "End simulation");

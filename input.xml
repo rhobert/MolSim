@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<simulation xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
+	<outputFile>MD</outputFile>
+	<inputFiles>
+		<inputFile type="cuboid">eingabe-molekuel.txt</inputFile>
+	</inputFiles>
+	<writeFrequency>10</writeFrequency>
+	<t_end>3.0</t_end>
+	<delta_t>0.0003</delta_t>
+	<potential>lenard jones</potential>
+</simulation>
