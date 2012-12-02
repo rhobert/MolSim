@@ -94,15 +94,11 @@ utils::Vector<double, 3>  (*forceCalc)(Particle&, Particle&);
 **/
 string molsim_usage = 
 	"\n"
-	"Usage: ./MolSim END_T DELTA_T FILE_TYPE FILE POTENTIAL" "\n"
-	"   END_T     - end time of simulation" "\n"
-	"   DELTA_T   - timestep of simulation" "\n"
-	"   FILE_TYPE - list or cuboid" "\n"
-	"   FILE      - file with input data" "\n"
-	"   POTENTIAL - gravitational or lenard_jones" "\n"
+	"Usage: ./MolSim PARAMETER_FILE" "\n"
+	"   PARAMETER_FILE - xml file with simulation parameters" "\n"
 	"\n"
 	"Usage: ./MolSim -test [TEST_NAME]" "\n"
-	"   TEST_NAME - run only TEST_NAME" "\n"
+	"   TEST_NAME      - run only TEST_NAME" "\n"
 ;
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("MolSim"));
