@@ -3,31 +3,32 @@
  * @brief Simulation program
  */
 
-#include <log4cxx/logger.h>
-#include <log4cxx/propertyconfigurator.h>
-
-#include "outputWriter/VTKWriter.h"
-#include "FileReader.h"
-#include "ParticleContainer.h"
-#include "MaxwellBoltzmannDistribution.h"
-
-#include "ParticleGenerator.h"
-
-#include "test/TestSettings.h"
-
-#include "input/InputParameters.h"
-
 #include <list>
 #include <cstring>
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
 
+#include <log4cxx/logger.h>
+#include <log4cxx/propertyconfigurator.h>
+
+#include "input/InputParameters.h"
+#include "FileReader.h"
+#include "outputWriter/VTKWriter.h"
+
+#include "particleContainer/ParticleContainer.h"
+#include "particleContainer/SimpleParticleContainer.h"
+
+#include "ParticleGenerator.h"
+
+#include "MaxwellBoltzmannDistribution.h"
+
+#include "test/TestSettings.h"
+
 using namespace std;
 
 /**** forward declaration of the calculation functions ****/
 
-#define ITERATION_PER_PLOT 10
 #define EPSILON 5
 #define SIGMA 1
 #define BROWNIAN_MOTION 0.1
@@ -53,19 +54,40 @@ utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2);
 utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2);
 
 /**
- * @brief Calculate the force for all particles
+ * @brief Apply Maxwell Boltzmann Distribution
+ * 
+ * @param p Particle to distribute
 **/
-void calculateF();
+void applyMaxwellBoltzmannDistribution( Particle& p );
 
 /**
- * @brief Calculate the position for all particles
+ * @brief Calculate and set the force between two particles
+ * 
+ * @param p1 First particle of the pair
+ * @param p2 Second particle of the pair
 **/
-void calculateX();
+void calculateF( Particle& p1, Particle& p2 );
 
 /**
- * @brief Calculate the position for all particles
+ * @brief Set force effictive on a particle to 0
+ * 
+ * @param p Particle to modify
 **/
-void calculateV();
+void setNewForce( Particle& p );
+
+/**
+ * @brief Calculate the position of a particle
+ * 
+ * @param p Particle to modify
+**/
+void calculateX( Particle& p );
+
+/**
+ * @brief Calculate the position of a particle
+ * 
+ * @param p Particle to modify
+**/
+void calculateV( Particle& p );
 
 /**
  * @brief Plot the particles to a vtk-file
@@ -75,9 +97,26 @@ void calculateV();
 void plotParticles(int iteration);
 
 /**
+ * @brief Plot particle to current VTKWriter vtk_writer
+ * 
+ * @param p Particle to modify
+**/
+void plotParticle( Particle& p );
+
+/**
+ * @brief Current output VTKWriter
+**/
+outputWriter::VTKWriter vtk_writer;
+
+/**
  * @brief Time step per iteration
 **/
 double delta_t;
+
+/**
+ * @brief Destionation file to write output
+**/
+string outputFileName;
 
 /**
  * @brief Container with all particles and particle pairs
@@ -199,19 +238,19 @@ int main(int argc, char* argsv[])
 	// Init variables by parameters
 	double end_time = simulation->t_end();
 	delta_t = simulation->delta_t();
+	int writeFrequency = simulation->writeFrequency();
+	outputFileName = simulation->outputFile();
 	string file_name;
 	
 	LOG4CXX_INFO(logger, "Check END_T and DELTA_T");
 	
 	// Check end_time and delta_t
-	if (end_time < 0 || delta_t < 0 || end_time < delta_t) 
+	if (end_time < delta_t) 
 	{
-		LOG4CXX_FATAL(logger, "Errounous programme call: END_T and DELTA_T should be greater 0 and END_T greater DELTA_T!");
+		LOG4CXX_FATAL(logger, "Errounous programme call: END_T should be greater than DELTA_T!");
 		cout << molsim_usage << endl;
 		return EXIT_FAILURE;
 	}
-	
-	LOG4CXX_INFO(logger, "END_T and DELTA_T are ok");
 	
 	// Read particles from file to Particle list and build ParticleContainer
 	FileReader fileReader;
@@ -231,22 +270,16 @@ int main(int argc, char* argsv[])
 		if ( i->type() == PSE_Molekulardynamik_WS12::inputType_t::list )
 		{
 			fileReader.readFileList(particles, (char*) file_name.c_str());
-			particleContainer = new ParticleContainer(particles);
+			particleContainer = new SimpleParticleContainer(particles);
 		}
 		else if ( i->type() == PSE_Molekulardynamik_WS12::inputType_t::cuboid )
 		{
 			fileReader.readFileCuboid(particles, (char*) file_name.c_str());
-			particleContainer = new ParticleContainer(particles);	
-		}
-		else
-		{
-			LOG4CXX_FATAL(logger, "Errounous programme call: For FILE_TYPE you have to specify list or cuboid!");
-			cout << molsim_usage << endl;
-			return EXIT_FAILURE;
+			particleContainer = new SimpleParticleContainer(particles);	
 		}
 	}
 	
-	LOG4CXX_INFO(logger, "Check POTENTIAL");
+	LOG4CXX_INFO(logger, "Set POTENTIAL");
 	
 	// Check potentialName and set force calculation
 	if ( simulation->potential() == PSE_Molekulardynamik_WS12::potential_t::gravitational )
@@ -260,26 +293,16 @@ int main(int argc, char* argsv[])
 		forceCalc = lenardJonesPotential;
 		
 		LOG4CXX_INFO(logger, "Superpose velocity of particles with Brownian motion");
+		
 		// Superpose velocity of particles with Brownian motion
-		for ( ParticleContainer::SingleList::iterator iterator = particleContainer->beginSingle();
-			 iterator != particleContainer->endSingle();
-			 iterator++ ) 
-		{
-			Particle& p = *iterator;
-			MaxwellBoltzmannDistribution(p, BROWNIAN_MOTION, 3);
-		}	
-	}
-	else
-	{
-		LOG4CXX_FATAL(logger, "Errounous programme call: For POTENTIAL you have to specify gravitational or lenard_jones");
-		cout << molsim_usage << endl;
-		return EXIT_FAILURE;
+		particleContainer->applyToSingleParticles ( applyMaxwellBoltzmannDistribution );
 	}
 	
 	// Begin Simulation
 	
 	// the forces are needed to calculate x, but are not given in the input file.
-	calculateF();
+	particleContainer->applyToSingleParticles ( setNewForce );
+	particleContainer->applyToParticlePairs ( calculateF );
 	
 	LOG4CXX_INFO(logger, "Start simulation");
 	
@@ -293,16 +316,17 @@ int main(int argc, char* argsv[])
 		 current_time < end_time; 
 		 current_time += delta_t ) 
 	{
-		if (iteration % ITERATION_PER_PLOT == 0) {
+		if (iteration % writeFrequency == 0) {
 			plotParticles(iteration);
 		}
 		
 		// calculate new x
-		calculateX();
+		particleContainer->applyToSingleParticles ( calculateX );
 		// calculate new f
-		calculateF();
+		particleContainer->applyToSingleParticles ( setNewForce );
+		particleContainer->applyToParticlePairs ( calculateF );
 		// calculate new v
-		calculateV();
+		particleContainer->applyToSingleParticles ( calculateV );
 		
 		iteration++;
 		LOG4CXX_TRACE(logger, "Iteration " << iteration << " finished");
@@ -311,6 +335,11 @@ int main(int argc, char* argsv[])
 	LOG4CXX_INFO(logger, "End simulation");
 	
 	return 0;
+}
+
+void applyMaxwellBoltzmannDistribution( Particle& p )
+{
+	MaxwellBoltzmannDistribution(p, BROWNIAN_MOTION, 3);
 }
 
 utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2)
@@ -345,93 +374,61 @@ utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
 	return F1_F2;
 }
 
-void calculateF() 
+void setNewForce( Particle& p )
+{
+	p.setF( utils::Vector<double,3>(0.0) );
+}
+
+void calculateF( Particle& p1, Particle& p2 ) 
 {
 	utils::Vector<double, 3> x1_x2;
 	utils::Vector<double, 3> F1_F2;
 	utils::Vector<double, 3> F;
-	
-	F = 0.0;
-	
-	// Init forces effective on particles with 0.0 and save old force
-	for ( ParticleContainer::SingleList::iterator iterator = particleContainer->beginSingle();
-		 iterator != particleContainer->endSingle();
-		 iterator++ ) 
-	{
-		Particle& p = *iterator;
-		
-		p.newF(F);
-	}
-	
-	// Iterate over all particle pairs and calculate and sum effective forces
-	for ( ParticleContainer::PairList::iterator iterator = particleContainer->beginPair();
-		 iterator != particleContainer->endPair();
-		 iterator++ ) 
-	{		
-		Particle& p1 = *(iterator->first);
-		Particle& p2 = *(iterator->second);
 
-		//force between p1 and p2
-		F1_F2 = forceCalc(p1, p2);
-		
-		//sum forces
-		F = p1.getF() + F1_F2;
-		p1.setF(F);
-		
-		F = p2.getF() - F1_F2;
-		p2.setF(F);
-	}
+	//force between p1 and p2
+	F1_F2 = forceCalc(p1, p2);
+	
+	//sum forces
+	F = p1.getF() + F1_F2;
+	p1.setF(F);
+	
+	F = p2.getF() - F1_F2;
+	p2.setF(F);
 }
 
 
-void calculateX() 
+void calculateX( Particle& p ) 
 {
-	for ( ParticleContainer::SingleList::iterator iterator = particleContainer->beginSingle();
-		 iterator != particleContainer->endSingle();
-		 iterator++ ) 
-	{
-		Particle& p = *iterator;
+	utils::Vector<double,3> x =
+		p.getX() + 
+		delta_t * p.getV() + 
+		delta_t * delta_t / (2 * p.getM()) * p.getF();
 		
-		utils::Vector<double,3> x =
-			p.getX() + 
-			delta_t * p.getV() + 
-			delta_t * delta_t / (2 * p.getM()) * p.getF();
-			
-		p.setX(x);
-	}
+	p.setX(x);
 }
 
 
-void calculateV() 
+void calculateV( Particle& p ) 
 {
-	for ( ParticleContainer::SingleList::iterator iterator = particleContainer->beginSingle();
-		 iterator != particleContainer->endSingle();
-		 iterator++ ) 
-	{
-		Particle& p = *iterator;
+	utils::Vector<double,3> v =
+		p.getV() +
+		delta_t / (2 * p.getM()) * (p.getF() + p.getOldF());
 		
-		utils::Vector<double,3> v =
-			p.getV() +
-			delta_t / (2 * p.getM()) * (p.getF() + p.getOldF());
-			
-		p.setV(v);
-	}
+	p.setV(v);
+}
+
+void plotParticle( Particle& p )
+{
+	vtk_writer.plotParticle(p);
 }
 
 void plotParticles(int iteration) 
 {
 	LOG4CXX_INFO(logger, "Plot particles of Iteration " << iteration);
-	string out_name("MD_vtk");
-	outputWriter::VTKWriter vtk_writer;
-
+	
 	vtk_writer.initializeOutput(particleContainer->size());
+	
+	particleContainer->applyToSingleParticles( plotParticle );
 
-	for ( ParticleContainer::SingleList::iterator iterator = particleContainer->beginSingle();
-		 iterator != particleContainer->endSingle();
-		 iterator++ ) 
-	{
-		vtk_writer.plotParticle(*iterator);	
-	}
-
-	vtk_writer.writeFile(out_name, iteration);
+	vtk_writer.writeFile(outputFileName, iteration);
 }
