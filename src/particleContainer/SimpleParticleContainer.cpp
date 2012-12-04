@@ -15,7 +15,7 @@ SimpleParticleContainer::SimpleParticleContainer(list<Particle> pList)
 	}
 	
 	LOG4CXX_INFO(logger, "SingleList generated");
-	createPairs(singleList);
+	pairList = createPairs(singleList);
 	LOG4CXX_INFO(logger, "PairList generated");
 }
 

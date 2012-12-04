@@ -17,6 +17,18 @@ elementFormDefault="qualified">
 		</xs:restriction>
 	</xs:simpleType>
 	
+	<xs:simpleType name="nonNegativeDecimal_t">
+		<xs:restriction base="xs:decimal">
+			<xs:minInclusive value="0" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:simpleType name="dimensions_t">
+		<xs:restriction base="xs:positiveInteger">
+			<xs:maxInclusive value="3" />
+		</xs:restriction>
+	</xs:simpleType>
+	
 	<xs:simpleType name="inputType_t">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="list" />
@@ -45,6 +57,30 @@ elementFormDefault="qualified">
 		</xs:restriction>
 	</xs:simpleType>
 	
+	<xs:simpleType name="boundary_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="outflow" />
+			<xs:enumeration value="reflecting" />
+		</xs:restriction>
+	</xs:simpleType>
+	
+	<xs:complexType name="domain_t">
+		<xs:sequence>
+			<xs:element name="x" type="nonNegativeDecimal_t" />
+			<xs:element name="y" type="nonNegativeDecimal_t" />
+			<xs:element name="z" type="nonNegativeDecimal_t" />
+		</xs:sequence>
+		<xs:attribute name="boundary" type="boundary_t" use="required" />
+		<xs:attribute name="cutoff" type="positiveDecimal_t" use="required" />
+	</xs:complexType>
+	
+	<xs:complexType name="brownianMotion_t">
+		<xs:all>
+			<xs:element name="dimensions" type="dimensions_t" />
+			<xs:element name="meanVelocity" type="nonNegativeDecimal_t" />
+		</xs:all>
+	</xs:complexType>
+	
 	<xs:complexType name="simulation_t">
 		<xs:all>
 			<xs:element name="outputFile" type="nonEmptyString_t" />
@@ -53,6 +89,8 @@ elementFormDefault="qualified">
 			<xs:element name="t_end" type="positiveDecimal_t" />
 			<xs:element name="delta_t" type="positiveDecimal_t" />
 			<xs:element name="potential" type="potential_t" />
+			<xs:element name="domain" type="domain_t" minOccurs="0" />
+			<xs:element name="brownianMotion" type="brownianMotion_t" minOccurs="0" />
 		</xs:all>	
 	</xs:complexType>
 	

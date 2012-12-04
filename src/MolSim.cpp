@@ -18,6 +18,7 @@
 
 #include "particleContainer/ParticleContainer.h"
 #include "particleContainer/SimpleParticleContainer.h"
+#include "particleContainer/LinkedCellParticleContainer.h"
 
 #include "ParticleGenerator.h"
 
@@ -31,7 +32,6 @@ using namespace std;
 
 #define EPSILON 5
 #define SIGMA 1
-#define BROWNIAN_MOTION 0.1
 
 /**
  * @brief Calculate the force between two particles with the gravitational potential
@@ -52,6 +52,13 @@ utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2);
  * @return Force between particles
 **/
 utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2);
+
+/**
+ * @brief Calcuation for the reflection boundary condition for lenard jones potential
+ * 
+ * @param p Particle to reflect
+**/
+void calcReflection (Particle& p);
 
 /**
  * @brief Apply Maxwell Boltzmann Distribution
@@ -124,9 +131,29 @@ string outputFileName;
 ParticleContainer* particleContainer;
 
 /**
+ * @brief LinkedCellParticleContainer with all particles and particle pairs if exist
+**/
+LinkedCellParticleContainer* linkedCellParticleContainer = NULL;
+
+/**
  * @brief Function for force calculation
 **/
 utils::Vector<double, 3>  (*forceCalc)(Particle&, Particle&);
+
+/**
+ * @brief Count of dimensions where Brownian Motion is effictive
+**/
+int dimensionsBrownianMotion = 3;
+
+/**
+ * @brief Count of dimensions where Brownian Motion is effictive
+**/
+utils::Vector<double,3> domainSize (0.0);
+
+/**
+ * @brief Mean velocity for Brownian Motion
+**/
+double meanVelocityBrownianMotion = 0.1;
 
 /**
  * @brief Program call syntax
@@ -241,6 +268,10 @@ int main(int argc, char* argsv[])
 	int writeFrequency = simulation->writeFrequency();
 	outputFileName = simulation->outputFile();
 	string file_name;
+	PSE_Molekulardynamik_WS12::boundary_t boundary (PSE_Molekulardynamik_WS12::boundary_t::outflow);
+	
+	PSE_Molekulardynamik_WS12::domain_t* domain = NULL;
+	double cutoff = 0;
 	
 	LOG4CXX_INFO(logger, "Check END_T and DELTA_T");
 	
@@ -270,13 +301,43 @@ int main(int argc, char* argsv[])
 		if ( i->type() == PSE_Molekulardynamik_WS12::inputType_t::list )
 		{
 			fileReader.readFileList(particles, (char*) file_name.c_str());
-			particleContainer = new SimpleParticleContainer(particles);
 		}
 		else if ( i->type() == PSE_Molekulardynamik_WS12::inputType_t::cuboid )
 		{
 			fileReader.readFileCuboid(particles, (char*) file_name.c_str());
-			particleContainer = new SimpleParticleContainer(particles);	
 		}
+	}
+	
+	// Read in domain, boundary condition and cutoff radius for LinkedCellParticleContainer 
+	 
+	LOG4CXX_INFO(logger, "Detect if domain size is specified");
+	
+	if ( simulation->domain().present() )
+	{
+		LOG4CXX_INFO(logger, "Domain and boundary conditions specified");
+		domain = &simulation->domain().get();
+		
+		domainSize[0] = domain->x();
+		domainSize[1] = domain->y();
+		domainSize[2] = domain->z();
+		cutoff = domain->cutoff();
+		boundary = domain->boundary();
+		
+		LOG4CXX_INFO(logger, "Create LinkedCellParticleContainer");
+		
+		linkedCellParticleContainer =  new LinkedCellParticleContainer(particles, domainSize, cutoff );
+		particleContainer = dynamic_cast<ParticleContainer*>( linkedCellParticleContainer );
+		
+		domainSize = linkedCellParticleContainer->getDomainSize();
+		
+		LOG4CXX_INFO(logger, "Real domain size is " << domainSize.toString() );
+	}
+	else
+	{
+		LOG4CXX_INFO(logger, "No domain and boundary conditions specified");
+		LOG4CXX_INFO(logger, "Create SimpleParticleContainer");
+		
+		particleContainer = new SimpleParticleContainer(particles);	
 	}
 	
 	LOG4CXX_INFO(logger, "Set POTENTIAL");
@@ -291,6 +352,19 @@ int main(int argc, char* argsv[])
 	{
 		LOG4CXX_INFO(logger, "force calculation for Lenard-Jones potential set");
 		forceCalc = lenardJonesPotential;
+		
+		LOG4CXX_INFO(logger, "Detect if parameters for Brownian Motion are specified");
+		
+		if ( simulation->brownianMotion().present() )
+		{
+			LOG4CXX_INFO(logger, "Parameters for Brownian Motion are specified");
+			meanVelocityBrownianMotion = simulation->brownianMotion().get().meanVelocity();
+			dimensionsBrownianMotion = simulation->brownianMotion().get().dimensions();
+		}
+		else
+		{
+			LOG4CXX_INFO(logger, "No parameters for Brownian Motion are specified");
+		}
 		
 		LOG4CXX_INFO(logger, "Superpose velocity of particles with Brownian motion");
 		
@@ -322,8 +396,25 @@ int main(int argc, char* argsv[])
 		
 		// calculate new x
 		particleContainer->applyToSingleParticles ( calculateX );
-		// calculate new f
+		
+		// Set up new force (Could be modified by boundary condition)
 		particleContainer->applyToSingleParticles ( setNewForce );
+		
+		if ( linkedCellParticleContainer != NULL )
+		{
+			linkedCellParticleContainer->updateContainingCells();
+			
+			if (boundary == PSE_Molekulardynamik_WS12::boundary_t::outflow)
+			{
+				linkedCellParticleContainer->deleteHaloParticles();
+			}
+			else if (boundary == PSE_Molekulardynamik_WS12::boundary_t::reflecting)
+			{
+				linkedCellParticleContainer->applyToBoundaryParticles(calcReflection);
+			}
+		}
+		
+		// calculate new f
 		particleContainer->applyToParticlePairs ( calculateF );
 		// calculate new v
 		particleContainer->applyToSingleParticles ( calculateV );
@@ -339,7 +430,7 @@ int main(int argc, char* argsv[])
 
 void applyMaxwellBoltzmannDistribution( Particle& p )
 {
-	MaxwellBoltzmannDistribution(p, BROWNIAN_MOTION, 3);
+	MaxwellBoltzmannDistribution(p, meanVelocityBrownianMotion, dimensionsBrownianMotion);
 }
 
 utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2)
@@ -374,9 +465,49 @@ utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
 	return F1_F2;
 }
 
+void calcReflection (Particle& p)
+{
+	utils::Vector<double,3> x;
+	utils::Vector<double,3> x1_x2;
+	double d = pow(2,1/6) * SIGMA;
+	
+	
+	LOG4CXX_INFO(logger, "Reflection is checked for " << p.getX().toString() )
+	
+	for ( int i = 0; i < 3; i++ )
+	{
+		if ( domainSize[i] != 0 )
+		{
+			LOG4CXX_INFO(logger, "Reflection is for " << i << " dimension" );
+			
+			x = p.getX();
+			
+			x[i] = 0;
+			x1_x2 = p.getX() - x;
+			
+			if ( x1_x2.L2Norm() <= d  )
+			{
+				LOG4CXX_INFO(logger, "CounterParticle " << x.toString()  );
+				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
+				calculateF( p, counterParticle );
+			}
+			
+			x[i] = domainSize[i];
+			x1_x2 = p.getX() - x;
+			
+			if ( x1_x2.L2Norm() <= d  )
+			{
+				LOG4CXX_INFO(logger, "CounterParticle " << x.toString()  );
+				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
+				calculateF( p, counterParticle );
+			}
+		}
+	}
+}
+
 void setNewForce( Particle& p )
 {
-	p.setF( utils::Vector<double,3>(0.0) );
+	p.newF( utils::Vector<double,3>(0.0) );
 }
 
 void calculateF( Particle& p1, Particle& p2 ) 

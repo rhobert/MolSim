@@ -50,6 +50,14 @@ namespace PSE_Molekulardynamik_WS12
   // 
 
 
+  // nonNegativeDecimal_t
+  // 
+
+
+  // dimensions_t
+  // 
+
+
   // inputType_t
   // 
 
@@ -187,6 +195,227 @@ namespace PSE_Molekulardynamik_WS12
     ::xml_schema::string (_xsd_potential_t_literals_[v]);
 
     return *this;
+  }
+
+
+  // boundary_t
+  // 
+
+  boundary_t::
+  boundary_t (value v)
+  : ::xml_schema::string (_xsd_boundary_t_literals_[v])
+  {
+  }
+
+  boundary_t::
+  boundary_t (const char* v)
+  : ::xml_schema::string (v)
+  {
+  }
+
+  boundary_t::
+  boundary_t (const ::std::string& v)
+  : ::xml_schema::string (v)
+  {
+  }
+
+  boundary_t::
+  boundary_t (const ::xml_schema::string& v)
+  : ::xml_schema::string (v)
+  {
+  }
+
+  boundary_t::
+  boundary_t (const boundary_t& v,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+  : ::xml_schema::string (v, f, c)
+  {
+  }
+
+  boundary_t& boundary_t::
+  operator= (value v)
+  {
+    static_cast< ::xml_schema::string& > (*this) = 
+    ::xml_schema::string (_xsd_boundary_t_literals_[v]);
+
+    return *this;
+  }
+
+
+  // domain_t
+  // 
+
+  const domain_t::x_type& domain_t::
+  x () const
+  {
+    return this->x_.get ();
+  }
+
+  domain_t::x_type& domain_t::
+  x ()
+  {
+    return this->x_.get ();
+  }
+
+  void domain_t::
+  x (const x_type& x)
+  {
+    this->x_.set (x);
+  }
+
+  void domain_t::
+  x (::std::auto_ptr< x_type > x)
+  {
+    this->x_.set (x);
+  }
+
+  const domain_t::y_type& domain_t::
+  y () const
+  {
+    return this->y_.get ();
+  }
+
+  domain_t::y_type& domain_t::
+  y ()
+  {
+    return this->y_.get ();
+  }
+
+  void domain_t::
+  y (const y_type& x)
+  {
+    this->y_.set (x);
+  }
+
+  void domain_t::
+  y (::std::auto_ptr< y_type > x)
+  {
+    this->y_.set (x);
+  }
+
+  const domain_t::z_type& domain_t::
+  z () const
+  {
+    return this->z_.get ();
+  }
+
+  domain_t::z_type& domain_t::
+  z ()
+  {
+    return this->z_.get ();
+  }
+
+  void domain_t::
+  z (const z_type& x)
+  {
+    this->z_.set (x);
+  }
+
+  void domain_t::
+  z (::std::auto_ptr< z_type > x)
+  {
+    this->z_.set (x);
+  }
+
+  const domain_t::boundary_type& domain_t::
+  boundary () const
+  {
+    return this->boundary_.get ();
+  }
+
+  domain_t::boundary_type& domain_t::
+  boundary ()
+  {
+    return this->boundary_.get ();
+  }
+
+  void domain_t::
+  boundary (const boundary_type& x)
+  {
+    this->boundary_.set (x);
+  }
+
+  void domain_t::
+  boundary (::std::auto_ptr< boundary_type > x)
+  {
+    this->boundary_.set (x);
+  }
+
+  const domain_t::cutoff_type& domain_t::
+  cutoff () const
+  {
+    return this->cutoff_.get ();
+  }
+
+  domain_t::cutoff_type& domain_t::
+  cutoff ()
+  {
+    return this->cutoff_.get ();
+  }
+
+  void domain_t::
+  cutoff (const cutoff_type& x)
+  {
+    this->cutoff_.set (x);
+  }
+
+  void domain_t::
+  cutoff (::std::auto_ptr< cutoff_type > x)
+  {
+    this->cutoff_.set (x);
+  }
+
+
+  // brownianMotion_t
+  // 
+
+  const brownianMotion_t::dimensions_type& brownianMotion_t::
+  dimensions () const
+  {
+    return this->dimensions_.get ();
+  }
+
+  brownianMotion_t::dimensions_type& brownianMotion_t::
+  dimensions ()
+  {
+    return this->dimensions_.get ();
+  }
+
+  void brownianMotion_t::
+  dimensions (const dimensions_type& x)
+  {
+    this->dimensions_.set (x);
+  }
+
+  void brownianMotion_t::
+  dimensions (::std::auto_ptr< dimensions_type > x)
+  {
+    this->dimensions_.set (x);
+  }
+
+  const brownianMotion_t::meanVelocity_type& brownianMotion_t::
+  meanVelocity () const
+  {
+    return this->meanVelocity_.get ();
+  }
+
+  brownianMotion_t::meanVelocity_type& brownianMotion_t::
+  meanVelocity ()
+  {
+    return this->meanVelocity_.get ();
+  }
+
+  void brownianMotion_t::
+  meanVelocity (const meanVelocity_type& x)
+  {
+    this->meanVelocity_.set (x);
+  }
+
+  void brownianMotion_t::
+  meanVelocity (::std::auto_ptr< meanVelocity_type > x)
+  {
+    this->meanVelocity_.set (x);
   }
 
 
@@ -330,6 +559,66 @@ namespace PSE_Molekulardynamik_WS12
   {
     this->potential_.set (x);
   }
+
+  const simulation_t::domain_optional& simulation_t::
+  domain () const
+  {
+    return this->domain_;
+  }
+
+  simulation_t::domain_optional& simulation_t::
+  domain ()
+  {
+    return this->domain_;
+  }
+
+  void simulation_t::
+  domain (const domain_type& x)
+  {
+    this->domain_.set (x);
+  }
+
+  void simulation_t::
+  domain (const domain_optional& x)
+  {
+    this->domain_ = x;
+  }
+
+  void simulation_t::
+  domain (::std::auto_ptr< domain_type > x)
+  {
+    this->domain_.set (x);
+  }
+
+  const simulation_t::brownianMotion_optional& simulation_t::
+  brownianMotion () const
+  {
+    return this->brownianMotion_;
+  }
+
+  simulation_t::brownianMotion_optional& simulation_t::
+  brownianMotion ()
+  {
+    return this->brownianMotion_;
+  }
+
+  void simulation_t::
+  brownianMotion (const brownianMotion_type& x)
+  {
+    this->brownianMotion_.set (x);
+  }
+
+  void simulation_t::
+  brownianMotion (const brownianMotion_optional& x)
+  {
+    this->brownianMotion_ = x;
+  }
+
+  void simulation_t::
+  brownianMotion (::std::auto_ptr< brownianMotion_type > x)
+  {
+    this->brownianMotion_.set (x);
+  }
 }
 
 #include <xsd/cxx/xml/dom/parsing-source.hxx>
@@ -459,6 +748,114 @@ namespace PSE_Molekulardynamik_WS12
 
   positiveDecimal_t::
   ~positiveDecimal_t ()
+  {
+  }
+
+  // nonNegativeDecimal_t
+  //
+
+  nonNegativeDecimal_t::
+  nonNegativeDecimal_t (const ::xml_schema::decimal& _xsd_decimal_base)
+  : ::xsd::cxx::tree::fundamental_base< ::xml_schema::decimal, char, ::xml_schema::simple_type, ::xsd::cxx::tree::schema_type::decimal > (_xsd_decimal_base)
+  {
+  }
+
+  nonNegativeDecimal_t::
+  nonNegativeDecimal_t (const nonNegativeDecimal_t& x,
+                        ::xml_schema::flags f,
+                        ::xml_schema::container* c)
+  : ::xsd::cxx::tree::fundamental_base< ::xml_schema::decimal, char, ::xml_schema::simple_type, ::xsd::cxx::tree::schema_type::decimal > (x, f, c)
+  {
+  }
+
+  nonNegativeDecimal_t::
+  nonNegativeDecimal_t (const ::xercesc::DOMElement& e,
+                        ::xml_schema::flags f,
+                        ::xml_schema::container* c)
+  : ::xsd::cxx::tree::fundamental_base< ::xml_schema::decimal, char, ::xml_schema::simple_type, ::xsd::cxx::tree::schema_type::decimal > (e, f, c)
+  {
+  }
+
+  nonNegativeDecimal_t::
+  nonNegativeDecimal_t (const ::xercesc::DOMAttr& a,
+                        ::xml_schema::flags f,
+                        ::xml_schema::container* c)
+  : ::xsd::cxx::tree::fundamental_base< ::xml_schema::decimal, char, ::xml_schema::simple_type, ::xsd::cxx::tree::schema_type::decimal > (a, f, c)
+  {
+  }
+
+  nonNegativeDecimal_t::
+  nonNegativeDecimal_t (const ::std::string& s,
+                        const ::xercesc::DOMElement* e,
+                        ::xml_schema::flags f,
+                        ::xml_schema::container* c)
+  : ::xsd::cxx::tree::fundamental_base< ::xml_schema::decimal, char, ::xml_schema::simple_type, ::xsd::cxx::tree::schema_type::decimal > (s, e, f, c)
+  {
+  }
+
+  nonNegativeDecimal_t* nonNegativeDecimal_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class nonNegativeDecimal_t (*this, f, c);
+  }
+
+  nonNegativeDecimal_t::
+  ~nonNegativeDecimal_t ()
+  {
+  }
+
+  // dimensions_t
+  //
+
+  dimensions_t::
+  dimensions_t (const ::xml_schema::positive_integer& _xsd_positive_integer_base)
+  : ::xsd::cxx::tree::fundamental_base< ::xml_schema::positive_integer, char, ::xml_schema::simple_type > (_xsd_positive_integer_base)
+  {
+  }
+
+  dimensions_t::
+  dimensions_t (const dimensions_t& x,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+  : ::xsd::cxx::tree::fundamental_base< ::xml_schema::positive_integer, char, ::xml_schema::simple_type > (x, f, c)
+  {
+  }
+
+  dimensions_t::
+  dimensions_t (const ::xercesc::DOMElement& e,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+  : ::xsd::cxx::tree::fundamental_base< ::xml_schema::positive_integer, char, ::xml_schema::simple_type > (e, f, c)
+  {
+  }
+
+  dimensions_t::
+  dimensions_t (const ::xercesc::DOMAttr& a,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+  : ::xsd::cxx::tree::fundamental_base< ::xml_schema::positive_integer, char, ::xml_schema::simple_type > (a, f, c)
+  {
+  }
+
+  dimensions_t::
+  dimensions_t (const ::std::string& s,
+                const ::xercesc::DOMElement* e,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+  : ::xsd::cxx::tree::fundamental_base< ::xml_schema::positive_integer, char, ::xml_schema::simple_type > (s, e, f, c)
+  {
+  }
+
+  dimensions_t* dimensions_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class dimensions_t (*this, f, c);
+  }
+
+  dimensions_t::
+  ~dimensions_t ()
   {
   }
 
@@ -769,6 +1166,358 @@ namespace PSE_Molekulardynamik_WS12
     ::PSE_Molekulardynamik_WS12::potential_t::lenard_jones
   };
 
+  // boundary_t
+  //
+
+  boundary_t::
+  boundary_t (const ::xercesc::DOMElement& e,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+  : ::xml_schema::string (e, f, c)
+  {
+    _xsd_boundary_t_convert ();
+  }
+
+  boundary_t::
+  boundary_t (const ::xercesc::DOMAttr& a,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+  : ::xml_schema::string (a, f, c)
+  {
+    _xsd_boundary_t_convert ();
+  }
+
+  boundary_t::
+  boundary_t (const ::std::string& s,
+              const ::xercesc::DOMElement* e,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+  : ::xml_schema::string (s, e, f, c)
+  {
+    _xsd_boundary_t_convert ();
+  }
+
+  boundary_t* boundary_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class boundary_t (*this, f, c);
+  }
+
+  boundary_t::value boundary_t::
+  _xsd_boundary_t_convert () const
+  {
+    ::xsd::cxx::tree::enum_comparator< char > c (_xsd_boundary_t_literals_);
+    const value* i (::std::lower_bound (
+                      _xsd_boundary_t_indexes_,
+                      _xsd_boundary_t_indexes_ + 2,
+                      *this,
+                      c));
+
+    if (i == _xsd_boundary_t_indexes_ + 2 || _xsd_boundary_t_literals_[*i] != *this)
+    {
+      throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
+    }
+
+    return *i;
+  }
+
+  const char* const boundary_t::
+  _xsd_boundary_t_literals_[2] =
+  {
+    "outflow",
+    "reflecting"
+  };
+
+  const boundary_t::value boundary_t::
+  _xsd_boundary_t_indexes_[2] =
+  {
+    ::PSE_Molekulardynamik_WS12::boundary_t::outflow,
+    ::PSE_Molekulardynamik_WS12::boundary_t::reflecting
+  };
+
+  // domain_t
+  //
+
+  domain_t::
+  domain_t (const x_type& x,
+            const y_type& y,
+            const z_type& z,
+            const boundary_type& boundary,
+            const cutoff_type& cutoff)
+  : ::xml_schema::type (),
+    x_ (x, ::xml_schema::flags (), this),
+    y_ (y, ::xml_schema::flags (), this),
+    z_ (z, ::xml_schema::flags (), this),
+    boundary_ (boundary, ::xml_schema::flags (), this),
+    cutoff_ (cutoff, ::xml_schema::flags (), this)
+  {
+  }
+
+  domain_t::
+  domain_t (const domain_t& x,
+            ::xml_schema::flags f,
+            ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    x_ (x.x_, f, this),
+    y_ (x.y_, f, this),
+    z_ (x.z_, f, this),
+    boundary_ (x.boundary_, f, this),
+    cutoff_ (x.cutoff_, f, this)
+  {
+  }
+
+  domain_t::
+  domain_t (const ::xercesc::DOMElement& e,
+            ::xml_schema::flags f,
+            ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    x_ (f, this),
+    y_ (f, this),
+    z_ (f, this),
+    boundary_ (f, this),
+    cutoff_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, true);
+      this->parse (p, f);
+    }
+  }
+
+  void domain_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // x
+      //
+      if (n.name () == "x" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< x_type > r (
+          x_traits::create (i, f, this));
+
+        if (!x_.present ())
+        {
+          this->x_.set (r);
+          continue;
+        }
+      }
+
+      // y
+      //
+      if (n.name () == "y" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< y_type > r (
+          y_traits::create (i, f, this));
+
+        if (!y_.present ())
+        {
+          this->y_.set (r);
+          continue;
+        }
+      }
+
+      // z
+      //
+      if (n.name () == "z" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< z_type > r (
+          z_traits::create (i, f, this));
+
+        if (!z_.present ())
+        {
+          this->z_.set (r);
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (!x_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "x",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!y_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "y",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!z_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "z",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    while (p.more_attributes ())
+    {
+      const ::xercesc::DOMAttr& i (p.next_attribute ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      if (n.name () == "boundary" && n.namespace_ ().empty ())
+      {
+        ::std::auto_ptr< boundary_type > r (
+          boundary_traits::create (i, f, this));
+
+        this->boundary_.set (r);
+        continue;
+      }
+
+      if (n.name () == "cutoff" && n.namespace_ ().empty ())
+      {
+        ::std::auto_ptr< cutoff_type > r (
+          cutoff_traits::create (i, f, this));
+
+        this->cutoff_.set (r);
+        continue;
+      }
+    }
+
+    if (!boundary_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_attribute< char > (
+        "boundary",
+        "");
+    }
+
+    if (!cutoff_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_attribute< char > (
+        "cutoff",
+        "");
+    }
+  }
+
+  domain_t* domain_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class domain_t (*this, f, c);
+  }
+
+  domain_t::
+  ~domain_t ()
+  {
+  }
+
+  // brownianMotion_t
+  //
+
+  brownianMotion_t::
+  brownianMotion_t (const dimensions_type& dimensions,
+                    const meanVelocity_type& meanVelocity)
+  : ::xml_schema::type (),
+    dimensions_ (dimensions, ::xml_schema::flags (), this),
+    meanVelocity_ (meanVelocity, ::xml_schema::flags (), this)
+  {
+  }
+
+  brownianMotion_t::
+  brownianMotion_t (const brownianMotion_t& x,
+                    ::xml_schema::flags f,
+                    ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    dimensions_ (x.dimensions_, f, this),
+    meanVelocity_ (x.meanVelocity_, f, this)
+  {
+  }
+
+  brownianMotion_t::
+  brownianMotion_t (const ::xercesc::DOMElement& e,
+                    ::xml_schema::flags f,
+                    ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    dimensions_ (f, this),
+    meanVelocity_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
+  }
+
+  void brownianMotion_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // dimensions
+      //
+      if (n.name () == "dimensions" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< dimensions_type > r (
+          dimensions_traits::create (i, f, this));
+
+        if (!dimensions_.present ())
+        {
+          this->dimensions_.set (r);
+          continue;
+        }
+      }
+
+      // meanVelocity
+      //
+      if (n.name () == "meanVelocity" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< meanVelocity_type > r (
+          meanVelocity_traits::create (i, f, this));
+
+        if (!meanVelocity_.present ())
+        {
+          this->meanVelocity_.set (r);
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (!dimensions_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "dimensions",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!meanVelocity_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "meanVelocity",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+  }
+
+  brownianMotion_t* brownianMotion_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class brownianMotion_t (*this, f, c);
+  }
+
+  brownianMotion_t::
+  ~brownianMotion_t ()
+  {
+  }
+
   // simulation_t
   //
 
@@ -785,7 +1534,9 @@ namespace PSE_Molekulardynamik_WS12
     writeFrequency_ (writeFrequency, ::xml_schema::flags (), this),
     t_end_ (t_end, ::xml_schema::flags (), this),
     delta_t_ (delta_t, ::xml_schema::flags (), this),
-    potential_ (potential, ::xml_schema::flags (), this)
+    potential_ (potential, ::xml_schema::flags (), this),
+    domain_ (::xml_schema::flags (), this),
+    brownianMotion_ (::xml_schema::flags (), this)
   {
   }
 
@@ -802,7 +1553,9 @@ namespace PSE_Molekulardynamik_WS12
     writeFrequency_ (writeFrequency, ::xml_schema::flags (), this),
     t_end_ (t_end, ::xml_schema::flags (), this),
     delta_t_ (delta_t, ::xml_schema::flags (), this),
-    potential_ (potential, ::xml_schema::flags (), this)
+    potential_ (potential, ::xml_schema::flags (), this),
+    domain_ (::xml_schema::flags (), this),
+    brownianMotion_ (::xml_schema::flags (), this)
   {
   }
 
@@ -816,7 +1569,9 @@ namespace PSE_Molekulardynamik_WS12
     writeFrequency_ (x.writeFrequency_, f, this),
     t_end_ (x.t_end_, f, this),
     delta_t_ (x.delta_t_, f, this),
-    potential_ (x.potential_, f, this)
+    potential_ (x.potential_, f, this),
+    domain_ (x.domain_, f, this),
+    brownianMotion_ (x.brownianMotion_, f, this)
   {
   }
 
@@ -830,7 +1585,9 @@ namespace PSE_Molekulardynamik_WS12
     writeFrequency_ (f, this),
     t_end_ (f, this),
     delta_t_ (f, this),
-    potential_ (f, this)
+    potential_ (f, this),
+    domain_ (f, this),
+    brownianMotion_ (f, this)
   {
     if ((f & ::xml_schema::flags::base) == 0)
     {
@@ -926,6 +1683,34 @@ namespace PSE_Molekulardynamik_WS12
         if (!potential_.present ())
         {
           this->potential_.set (r);
+          continue;
+        }
+      }
+
+      // domain
+      //
+      if (n.name () == "domain" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< domain_type > r (
+          domain_traits::create (i, f, this));
+
+        if (!this->domain_)
+        {
+          this->domain_.set (r);
+          continue;
+        }
+      }
+
+      // brownianMotion
+      //
+      if (n.name () == "brownianMotion" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< brownianMotion_type > r (
+          brownianMotion_traits::create (i, f, this));
+
+        if (!this->brownianMotion_)
+        {
+          this->brownianMotion_.set (r);
           continue;
         }
       }
