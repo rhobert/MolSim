@@ -49,56 +49,31 @@ void generateSphere(
 	utils::Vector<double, 3> x,
 	utils::Vector<double, 3> v, 
 	int N,
-	utils::Vector<int, 3> d, 
+	int d, 
 	double h, 
 	double m
 )
 {
 	assert(N > 0);
-	assert(d[0] != 0 || d[1] != 0 || d[2] != 0);
+	assert(d > 0);
 	assert(h >= 0);
 	assert(m > 0);
 	
 	std::list<Particle> particlesSphere;
-	utils::Vector<double, 3> c;
-	utils::Vector<int, 3> n;
+	utils::Vector<double, 3> c ( x + utils::Vector<double,3>(- h * (N-1)) );
+	utils::Vector<int, 3> n (2 * N - 1);
 	
-	if ( d[0] != 0 )
+	if ( d < 3 )
 	{
-		n[0] = N * 2 - 1;
-		c[0] = x[0] - h * (N-1);
+		n[2] = 1;
+		c[2] = 0;
 	}
-	else
-	{
-		n[0] = 1;
-		c[0] = 0;
-	}
-	
-	if ( d[1] != 0 )
-	{
-		n[1] = N * 2 - 1;
-		c[1] = x[1] - h * (N-1);
-	}
-	else
+	if ( d < 2 )
 	{
 		n[1] = 1;
 		c[1] = 0;
 	}
 	
-	if ( d[2] != 0 )
-	{
-		n[2] = N * 2 - 1;
-		c[2] = x[2] - h * (N-1);
-	}
-	else
-	{
-		n[2] = 1;
-		c[2] = 0;
-	}
-	
-	
-	std::cout << "Corner: " << c << std::endl;
-	std::cout << "Dimensions: " << n << std::endl;
 	generateCuboid(particlesSphere, c, v, n, h, m);
 	
 	utils::Vector<double, 3> x1_x2;
@@ -106,12 +81,10 @@ void generateSphere(
 	for ( std::list<Particle>::iterator i = particlesSphere.begin(); i != particlesSphere.end(); i++ )
 	{
 		x1_x2 = (*i).getX() - x;
-		std::cout << "Coords: " << (*i).getX() << ", L2Norm: " << x1_x2.L2Norm() << std::endl;
 		
 		if ( x1_x2.L2Norm() <= (N-1)*h )
 		{
 			particles.push_back(*i);
-			std::cout << "\t ok" << std::endl;
 		}
 	}
 }

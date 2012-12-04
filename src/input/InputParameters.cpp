@@ -54,8 +54,124 @@ namespace PSE_Molekulardynamik_WS12
   // 
 
 
-  // dimensions_t
+  // dimensionCount_t
   // 
+
+
+  // decimalVector_t
+  // 
+
+  const decimalVector_t::x_type& decimalVector_t::
+  x () const
+  {
+    return this->x_.get ();
+  }
+
+  decimalVector_t::x_type& decimalVector_t::
+  x ()
+  {
+    return this->x_.get ();
+  }
+
+  void decimalVector_t::
+  x (const x_type& x)
+  {
+    this->x_.set (x);
+  }
+
+  const decimalVector_t::y_type& decimalVector_t::
+  y () const
+  {
+    return this->y_.get ();
+  }
+
+  decimalVector_t::y_type& decimalVector_t::
+  y ()
+  {
+    return this->y_.get ();
+  }
+
+  void decimalVector_t::
+  y (const y_type& x)
+  {
+    this->y_.set (x);
+  }
+
+  const decimalVector_t::z_type& decimalVector_t::
+  z () const
+  {
+    return this->z_.get ();
+  }
+
+  decimalVector_t::z_type& decimalVector_t::
+  z ()
+  {
+    return this->z_.get ();
+  }
+
+  void decimalVector_t::
+  z (const z_type& x)
+  {
+    this->z_.set (x);
+  }
+
+
+  // positiveIntegerVector_t
+  // 
+
+  const positiveIntegerVector_t::x_type& positiveIntegerVector_t::
+  x () const
+  {
+    return this->x_.get ();
+  }
+
+  positiveIntegerVector_t::x_type& positiveIntegerVector_t::
+  x ()
+  {
+    return this->x_.get ();
+  }
+
+  void positiveIntegerVector_t::
+  x (const x_type& x)
+  {
+    this->x_.set (x);
+  }
+
+  const positiveIntegerVector_t::y_type& positiveIntegerVector_t::
+  y () const
+  {
+    return this->y_.get ();
+  }
+
+  positiveIntegerVector_t::y_type& positiveIntegerVector_t::
+  y ()
+  {
+    return this->y_.get ();
+  }
+
+  void positiveIntegerVector_t::
+  y (const y_type& x)
+  {
+    this->y_.set (x);
+  }
+
+  const positiveIntegerVector_t::z_type& positiveIntegerVector_t::
+  z () const
+  {
+    return this->z_.get ();
+  }
+
+  positiveIntegerVector_t::z_type& positiveIntegerVector_t::
+  z ()
+  {
+    return this->z_.get ();
+  }
+
+  void positiveIntegerVector_t::
+  z (const z_type& x)
+  {
+    this->z_.set (x);
+  }
 
 
   // inputType_t
@@ -131,25 +247,327 @@ namespace PSE_Molekulardynamik_WS12
   }
 
 
-  // inputFiles_t
+  // cuboid_t
   // 
 
-  const inputFiles_t::inputFile_sequence& inputFiles_t::
+  const cuboid_t::position_type& cuboid_t::
+  position () const
+  {
+    return this->position_.get ();
+  }
+
+  cuboid_t::position_type& cuboid_t::
+  position ()
+  {
+    return this->position_.get ();
+  }
+
+  void cuboid_t::
+  position (const position_type& x)
+  {
+    this->position_.set (x);
+  }
+
+  void cuboid_t::
+  position (::std::auto_ptr< position_type > x)
+  {
+    this->position_.set (x);
+  }
+
+  const cuboid_t::velocity_type& cuboid_t::
+  velocity () const
+  {
+    return this->velocity_.get ();
+  }
+
+  cuboid_t::velocity_type& cuboid_t::
+  velocity ()
+  {
+    return this->velocity_.get ();
+  }
+
+  void cuboid_t::
+  velocity (const velocity_type& x)
+  {
+    this->velocity_.set (x);
+  }
+
+  void cuboid_t::
+  velocity (::std::auto_ptr< velocity_type > x)
+  {
+    this->velocity_.set (x);
+  }
+
+  const cuboid_t::dimensions_type& cuboid_t::
+  dimensions () const
+  {
+    return this->dimensions_.get ();
+  }
+
+  cuboid_t::dimensions_type& cuboid_t::
+  dimensions ()
+  {
+    return this->dimensions_.get ();
+  }
+
+  void cuboid_t::
+  dimensions (const dimensions_type& x)
+  {
+    this->dimensions_.set (x);
+  }
+
+  void cuboid_t::
+  dimensions (::std::auto_ptr< dimensions_type > x)
+  {
+    this->dimensions_.set (x);
+  }
+
+  const cuboid_t::mass_type& cuboid_t::
+  mass () const
+  {
+    return this->mass_.get ();
+  }
+
+  cuboid_t::mass_type& cuboid_t::
+  mass ()
+  {
+    return this->mass_.get ();
+  }
+
+  void cuboid_t::
+  mass (const mass_type& x)
+  {
+    this->mass_.set (x);
+  }
+
+  void cuboid_t::
+  mass (::std::auto_ptr< mass_type > x)
+  {
+    this->mass_.set (x);
+  }
+
+  const cuboid_t::distance_type& cuboid_t::
+  distance () const
+  {
+    return this->distance_.get ();
+  }
+
+  cuboid_t::distance_type& cuboid_t::
+  distance ()
+  {
+    return this->distance_.get ();
+  }
+
+  void cuboid_t::
+  distance (const distance_type& x)
+  {
+    this->distance_.set (x);
+  }
+
+  void cuboid_t::
+  distance (::std::auto_ptr< distance_type > x)
+  {
+    this->distance_.set (x);
+  }
+
+
+  // sphere_t
+  // 
+
+  const sphere_t::position_type& sphere_t::
+  position () const
+  {
+    return this->position_.get ();
+  }
+
+  sphere_t::position_type& sphere_t::
+  position ()
+  {
+    return this->position_.get ();
+  }
+
+  void sphere_t::
+  position (const position_type& x)
+  {
+    this->position_.set (x);
+  }
+
+  void sphere_t::
+  position (::std::auto_ptr< position_type > x)
+  {
+    this->position_.set (x);
+  }
+
+  const sphere_t::velocity_type& sphere_t::
+  velocity () const
+  {
+    return this->velocity_.get ();
+  }
+
+  sphere_t::velocity_type& sphere_t::
+  velocity ()
+  {
+    return this->velocity_.get ();
+  }
+
+  void sphere_t::
+  velocity (const velocity_type& x)
+  {
+    this->velocity_.set (x);
+  }
+
+  void sphere_t::
+  velocity (::std::auto_ptr< velocity_type > x)
+  {
+    this->velocity_.set (x);
+  }
+
+  const sphere_t::radiusDimension_type& sphere_t::
+  radiusDimension () const
+  {
+    return this->radiusDimension_.get ();
+  }
+
+  sphere_t::radiusDimension_type& sphere_t::
+  radiusDimension ()
+  {
+    return this->radiusDimension_.get ();
+  }
+
+  void sphere_t::
+  radiusDimension (const radiusDimension_type& x)
+  {
+    this->radiusDimension_.set (x);
+  }
+
+  const sphere_t::dimensionCount_type& sphere_t::
+  dimensionCount () const
+  {
+    return this->dimensionCount_.get ();
+  }
+
+  sphere_t::dimensionCount_type& sphere_t::
+  dimensionCount ()
+  {
+    return this->dimensionCount_.get ();
+  }
+
+  void sphere_t::
+  dimensionCount (const dimensionCount_type& x)
+  {
+    this->dimensionCount_.set (x);
+  }
+
+  void sphere_t::
+  dimensionCount (::std::auto_ptr< dimensionCount_type > x)
+  {
+    this->dimensionCount_.set (x);
+  }
+
+  const sphere_t::mass_type& sphere_t::
+  mass () const
+  {
+    return this->mass_.get ();
+  }
+
+  sphere_t::mass_type& sphere_t::
+  mass ()
+  {
+    return this->mass_.get ();
+  }
+
+  void sphere_t::
+  mass (const mass_type& x)
+  {
+    this->mass_.set (x);
+  }
+
+  void sphere_t::
+  mass (::std::auto_ptr< mass_type > x)
+  {
+    this->mass_.set (x);
+  }
+
+  const sphere_t::distance_type& sphere_t::
+  distance () const
+  {
+    return this->distance_.get ();
+  }
+
+  sphere_t::distance_type& sphere_t::
+  distance ()
+  {
+    return this->distance_.get ();
+  }
+
+  void sphere_t::
+  distance (const distance_type& x)
+  {
+    this->distance_.set (x);
+  }
+
+  void sphere_t::
+  distance (::std::auto_ptr< distance_type > x)
+  {
+    this->distance_.set (x);
+  }
+
+
+  // inputs_t
+  // 
+
+  const inputs_t::inputFile_sequence& inputs_t::
   inputFile () const
   {
     return this->inputFile_;
   }
 
-  inputFiles_t::inputFile_sequence& inputFiles_t::
+  inputs_t::inputFile_sequence& inputs_t::
   inputFile ()
   {
     return this->inputFile_;
   }
 
-  void inputFiles_t::
+  void inputs_t::
   inputFile (const inputFile_sequence& s)
   {
     this->inputFile_ = s;
+  }
+
+  const inputs_t::cuboid_sequence& inputs_t::
+  cuboid () const
+  {
+    return this->cuboid_;
+  }
+
+  inputs_t::cuboid_sequence& inputs_t::
+  cuboid ()
+  {
+    return this->cuboid_;
+  }
+
+  void inputs_t::
+  cuboid (const cuboid_sequence& s)
+  {
+    this->cuboid_ = s;
+  }
+
+  const inputs_t::sphere_sequence& inputs_t::
+  sphere () const
+  {
+    return this->sphere_;
+  }
+
+  inputs_t::sphere_sequence& inputs_t::
+  sphere ()
+  {
+    return this->sphere_;
+  }
+
+  void inputs_t::
+  sphere (const sphere_sequence& s)
+  {
+    this->sphere_ = s;
   }
 
 
@@ -370,28 +788,28 @@ namespace PSE_Molekulardynamik_WS12
   // brownianMotion_t
   // 
 
-  const brownianMotion_t::dimensions_type& brownianMotion_t::
-  dimensions () const
+  const brownianMotion_t::dimensionCount_type& brownianMotion_t::
+  dimensionCount () const
   {
-    return this->dimensions_.get ();
+    return this->dimensionCount_.get ();
   }
 
-  brownianMotion_t::dimensions_type& brownianMotion_t::
-  dimensions ()
+  brownianMotion_t::dimensionCount_type& brownianMotion_t::
+  dimensionCount ()
   {
-    return this->dimensions_.get ();
-  }
-
-  void brownianMotion_t::
-  dimensions (const dimensions_type& x)
-  {
-    this->dimensions_.set (x);
+    return this->dimensionCount_.get ();
   }
 
   void brownianMotion_t::
-  dimensions (::std::auto_ptr< dimensions_type > x)
+  dimensionCount (const dimensionCount_type& x)
   {
-    this->dimensions_.set (x);
+    this->dimensionCount_.set (x);
+  }
+
+  void brownianMotion_t::
+  dimensionCount (::std::auto_ptr< dimensionCount_type > x)
+  {
+    this->dimensionCount_.set (x);
   }
 
   const brownianMotion_t::meanVelocity_type& brownianMotion_t::
@@ -446,28 +864,28 @@ namespace PSE_Molekulardynamik_WS12
     this->outputFile_.set (x);
   }
 
-  const simulation_t::inputFiles_type& simulation_t::
-  inputFiles () const
+  const simulation_t::inputs_type& simulation_t::
+  inputs () const
   {
-    return this->inputFiles_.get ();
+    return this->inputs_.get ();
   }
 
-  simulation_t::inputFiles_type& simulation_t::
-  inputFiles ()
+  simulation_t::inputs_type& simulation_t::
+  inputs ()
   {
-    return this->inputFiles_.get ();
-  }
-
-  void simulation_t::
-  inputFiles (const inputFiles_type& x)
-  {
-    this->inputFiles_.set (x);
+    return this->inputs_.get ();
   }
 
   void simulation_t::
-  inputFiles (::std::auto_ptr< inputFiles_type > x)
+  inputs (const inputs_type& x)
   {
-    this->inputFiles_.set (x);
+    this->inputs_.set (x);
+  }
+
+  void simulation_t::
+  inputs (::std::auto_ptr< inputs_type > x)
+  {
+    this->inputs_.set (x);
   }
 
   const simulation_t::writeFrequency_type& simulation_t::
@@ -805,57 +1223,299 @@ namespace PSE_Molekulardynamik_WS12
   {
   }
 
-  // dimensions_t
+  // dimensionCount_t
   //
 
-  dimensions_t::
-  dimensions_t (const ::xml_schema::positive_integer& _xsd_positive_integer_base)
+  dimensionCount_t::
+  dimensionCount_t (const ::xml_schema::positive_integer& _xsd_positive_integer_base)
   : ::xsd::cxx::tree::fundamental_base< ::xml_schema::positive_integer, char, ::xml_schema::simple_type > (_xsd_positive_integer_base)
   {
   }
 
-  dimensions_t::
-  dimensions_t (const dimensions_t& x,
-                ::xml_schema::flags f,
-                ::xml_schema::container* c)
+  dimensionCount_t::
+  dimensionCount_t (const dimensionCount_t& x,
+                    ::xml_schema::flags f,
+                    ::xml_schema::container* c)
   : ::xsd::cxx::tree::fundamental_base< ::xml_schema::positive_integer, char, ::xml_schema::simple_type > (x, f, c)
   {
   }
 
-  dimensions_t::
-  dimensions_t (const ::xercesc::DOMElement& e,
-                ::xml_schema::flags f,
-                ::xml_schema::container* c)
+  dimensionCount_t::
+  dimensionCount_t (const ::xercesc::DOMElement& e,
+                    ::xml_schema::flags f,
+                    ::xml_schema::container* c)
   : ::xsd::cxx::tree::fundamental_base< ::xml_schema::positive_integer, char, ::xml_schema::simple_type > (e, f, c)
   {
   }
 
-  dimensions_t::
-  dimensions_t (const ::xercesc::DOMAttr& a,
-                ::xml_schema::flags f,
-                ::xml_schema::container* c)
+  dimensionCount_t::
+  dimensionCount_t (const ::xercesc::DOMAttr& a,
+                    ::xml_schema::flags f,
+                    ::xml_schema::container* c)
   : ::xsd::cxx::tree::fundamental_base< ::xml_schema::positive_integer, char, ::xml_schema::simple_type > (a, f, c)
   {
   }
 
-  dimensions_t::
-  dimensions_t (const ::std::string& s,
-                const ::xercesc::DOMElement* e,
-                ::xml_schema::flags f,
-                ::xml_schema::container* c)
+  dimensionCount_t::
+  dimensionCount_t (const ::std::string& s,
+                    const ::xercesc::DOMElement* e,
+                    ::xml_schema::flags f,
+                    ::xml_schema::container* c)
   : ::xsd::cxx::tree::fundamental_base< ::xml_schema::positive_integer, char, ::xml_schema::simple_type > (s, e, f, c)
   {
   }
 
-  dimensions_t* dimensions_t::
+  dimensionCount_t* dimensionCount_t::
   _clone (::xml_schema::flags f,
           ::xml_schema::container* c) const
   {
-    return new class dimensions_t (*this, f, c);
+    return new class dimensionCount_t (*this, f, c);
   }
 
-  dimensions_t::
-  ~dimensions_t ()
+  dimensionCount_t::
+  ~dimensionCount_t ()
+  {
+  }
+
+  // decimalVector_t
+  //
+
+  decimalVector_t::
+  decimalVector_t (const x_type& x,
+                   const y_type& y,
+                   const z_type& z)
+  : ::xml_schema::type (),
+    x_ (x, ::xml_schema::flags (), this),
+    y_ (y, ::xml_schema::flags (), this),
+    z_ (z, ::xml_schema::flags (), this)
+  {
+  }
+
+  decimalVector_t::
+  decimalVector_t (const decimalVector_t& x,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    x_ (x.x_, f, this),
+    y_ (x.y_, f, this),
+    z_ (x.z_, f, this)
+  {
+  }
+
+  decimalVector_t::
+  decimalVector_t (const ::xercesc::DOMElement& e,
+                   ::xml_schema::flags f,
+                   ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    x_ (f, this),
+    y_ (f, this),
+    z_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
+  }
+
+  void decimalVector_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // x
+      //
+      if (n.name () == "x" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!x_.present ())
+        {
+          this->x_.set (x_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      // y
+      //
+      if (n.name () == "y" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!y_.present ())
+        {
+          this->y_.set (y_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      // z
+      //
+      if (n.name () == "z" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!z_.present ())
+        {
+          this->z_.set (z_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (!x_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "x",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!y_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "y",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!z_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "z",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+  }
+
+  decimalVector_t* decimalVector_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class decimalVector_t (*this, f, c);
+  }
+
+  decimalVector_t::
+  ~decimalVector_t ()
+  {
+  }
+
+  // positiveIntegerVector_t
+  //
+
+  positiveIntegerVector_t::
+  positiveIntegerVector_t (const x_type& x,
+                           const y_type& y,
+                           const z_type& z)
+  : ::xml_schema::type (),
+    x_ (x, ::xml_schema::flags (), this),
+    y_ (y, ::xml_schema::flags (), this),
+    z_ (z, ::xml_schema::flags (), this)
+  {
+  }
+
+  positiveIntegerVector_t::
+  positiveIntegerVector_t (const positiveIntegerVector_t& x,
+                           ::xml_schema::flags f,
+                           ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    x_ (x.x_, f, this),
+    y_ (x.y_, f, this),
+    z_ (x.z_, f, this)
+  {
+  }
+
+  positiveIntegerVector_t::
+  positiveIntegerVector_t (const ::xercesc::DOMElement& e,
+                           ::xml_schema::flags f,
+                           ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    x_ (f, this),
+    y_ (f, this),
+    z_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
+  }
+
+  void positiveIntegerVector_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // x
+      //
+      if (n.name () == "x" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!x_.present ())
+        {
+          this->x_.set (x_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      // y
+      //
+      if (n.name () == "y" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!y_.present ())
+        {
+          this->y_.set (y_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      // z
+      //
+      if (n.name () == "z" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!z_.present ())
+        {
+          this->z_.set (z_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (!x_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "x",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!y_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "y",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!z_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "z",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+  }
+
+  positiveIntegerVector_t* positiveIntegerVector_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class positiveIntegerVector_t (*this, f, c);
+  }
+
+  positiveIntegerVector_t::
+  ~positiveIntegerVector_t ()
   {
   }
 
@@ -1026,31 +1686,62 @@ namespace PSE_Molekulardynamik_WS12
   {
   }
 
-  // inputFiles_t
+  // cuboid_t
   //
 
-  inputFiles_t::
-  inputFiles_t ()
+  cuboid_t::
+  cuboid_t (const position_type& position,
+            const velocity_type& velocity,
+            const dimensions_type& dimensions,
+            const mass_type& mass,
+            const distance_type& distance)
   : ::xml_schema::type (),
-    inputFile_ (::xml_schema::flags (), this)
+    position_ (position, ::xml_schema::flags (), this),
+    velocity_ (velocity, ::xml_schema::flags (), this),
+    dimensions_ (dimensions, ::xml_schema::flags (), this),
+    mass_ (mass, ::xml_schema::flags (), this),
+    distance_ (distance, ::xml_schema::flags (), this)
   {
   }
 
-  inputFiles_t::
-  inputFiles_t (const inputFiles_t& x,
-                ::xml_schema::flags f,
-                ::xml_schema::container* c)
+  cuboid_t::
+  cuboid_t (::std::auto_ptr< position_type >& position,
+            ::std::auto_ptr< velocity_type >& velocity,
+            ::std::auto_ptr< dimensions_type >& dimensions,
+            const mass_type& mass,
+            const distance_type& distance)
+  : ::xml_schema::type (),
+    position_ (position, ::xml_schema::flags (), this),
+    velocity_ (velocity, ::xml_schema::flags (), this),
+    dimensions_ (dimensions, ::xml_schema::flags (), this),
+    mass_ (mass, ::xml_schema::flags (), this),
+    distance_ (distance, ::xml_schema::flags (), this)
+  {
+  }
+
+  cuboid_t::
+  cuboid_t (const cuboid_t& x,
+            ::xml_schema::flags f,
+            ::xml_schema::container* c)
   : ::xml_schema::type (x, f, c),
-    inputFile_ (x.inputFile_, f, this)
+    position_ (x.position_, f, this),
+    velocity_ (x.velocity_, f, this),
+    dimensions_ (x.dimensions_, f, this),
+    mass_ (x.mass_, f, this),
+    distance_ (x.distance_, f, this)
   {
   }
 
-  inputFiles_t::
-  inputFiles_t (const ::xercesc::DOMElement& e,
-                ::xml_schema::flags f,
-                ::xml_schema::container* c)
+  cuboid_t::
+  cuboid_t (const ::xercesc::DOMElement& e,
+            ::xml_schema::flags f,
+            ::xml_schema::container* c)
   : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
-    inputFile_ (f, this)
+    position_ (f, this),
+    velocity_ (f, this),
+    dimensions_ (f, this),
+    mass_ (f, this),
+    distance_ (f, this)
   {
     if ((f & ::xml_schema::flags::base) == 0)
     {
@@ -1059,7 +1750,396 @@ namespace PSE_Molekulardynamik_WS12
     }
   }
 
-  void inputFiles_t::
+  void cuboid_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // position
+      //
+      if (n.name () == "position" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< position_type > r (
+          position_traits::create (i, f, this));
+
+        if (!position_.present ())
+        {
+          this->position_.set (r);
+          continue;
+        }
+      }
+
+      // velocity
+      //
+      if (n.name () == "velocity" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< velocity_type > r (
+          velocity_traits::create (i, f, this));
+
+        if (!velocity_.present ())
+        {
+          this->velocity_.set (r);
+          continue;
+        }
+      }
+
+      // dimensions
+      //
+      if (n.name () == "dimensions" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< dimensions_type > r (
+          dimensions_traits::create (i, f, this));
+
+        if (!dimensions_.present ())
+        {
+          this->dimensions_.set (r);
+          continue;
+        }
+      }
+
+      // mass
+      //
+      if (n.name () == "mass" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< mass_type > r (
+          mass_traits::create (i, f, this));
+
+        if (!mass_.present ())
+        {
+          this->mass_.set (r);
+          continue;
+        }
+      }
+
+      // distance
+      //
+      if (n.name () == "distance" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< distance_type > r (
+          distance_traits::create (i, f, this));
+
+        if (!distance_.present ())
+        {
+          this->distance_.set (r);
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (!position_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "position",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!velocity_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "velocity",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!dimensions_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "dimensions",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!mass_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "mass",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!distance_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "distance",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+  }
+
+  cuboid_t* cuboid_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class cuboid_t (*this, f, c);
+  }
+
+  cuboid_t::
+  ~cuboid_t ()
+  {
+  }
+
+  // sphere_t
+  //
+
+  sphere_t::
+  sphere_t (const position_type& position,
+            const velocity_type& velocity,
+            const radiusDimension_type& radiusDimension,
+            const dimensionCount_type& dimensionCount,
+            const mass_type& mass,
+            const distance_type& distance)
+  : ::xml_schema::type (),
+    position_ (position, ::xml_schema::flags (), this),
+    velocity_ (velocity, ::xml_schema::flags (), this),
+    radiusDimension_ (radiusDimension, ::xml_schema::flags (), this),
+    dimensionCount_ (dimensionCount, ::xml_schema::flags (), this),
+    mass_ (mass, ::xml_schema::flags (), this),
+    distance_ (distance, ::xml_schema::flags (), this)
+  {
+  }
+
+  sphere_t::
+  sphere_t (::std::auto_ptr< position_type >& position,
+            ::std::auto_ptr< velocity_type >& velocity,
+            const radiusDimension_type& radiusDimension,
+            const dimensionCount_type& dimensionCount,
+            const mass_type& mass,
+            const distance_type& distance)
+  : ::xml_schema::type (),
+    position_ (position, ::xml_schema::flags (), this),
+    velocity_ (velocity, ::xml_schema::flags (), this),
+    radiusDimension_ (radiusDimension, ::xml_schema::flags (), this),
+    dimensionCount_ (dimensionCount, ::xml_schema::flags (), this),
+    mass_ (mass, ::xml_schema::flags (), this),
+    distance_ (distance, ::xml_schema::flags (), this)
+  {
+  }
+
+  sphere_t::
+  sphere_t (const sphere_t& x,
+            ::xml_schema::flags f,
+            ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    position_ (x.position_, f, this),
+    velocity_ (x.velocity_, f, this),
+    radiusDimension_ (x.radiusDimension_, f, this),
+    dimensionCount_ (x.dimensionCount_, f, this),
+    mass_ (x.mass_, f, this),
+    distance_ (x.distance_, f, this)
+  {
+  }
+
+  sphere_t::
+  sphere_t (const ::xercesc::DOMElement& e,
+            ::xml_schema::flags f,
+            ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    position_ (f, this),
+    velocity_ (f, this),
+    radiusDimension_ (f, this),
+    dimensionCount_ (f, this),
+    mass_ (f, this),
+    distance_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
+  }
+
+  void sphere_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // position
+      //
+      if (n.name () == "position" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< position_type > r (
+          position_traits::create (i, f, this));
+
+        if (!position_.present ())
+        {
+          this->position_.set (r);
+          continue;
+        }
+      }
+
+      // velocity
+      //
+      if (n.name () == "velocity" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< velocity_type > r (
+          velocity_traits::create (i, f, this));
+
+        if (!velocity_.present ())
+        {
+          this->velocity_.set (r);
+          continue;
+        }
+      }
+
+      // radiusDimension
+      //
+      if (n.name () == "radiusDimension" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!radiusDimension_.present ())
+        {
+          this->radiusDimension_.set (radiusDimension_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      // dimensionCount
+      //
+      if (n.name () == "dimensionCount" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< dimensionCount_type > r (
+          dimensionCount_traits::create (i, f, this));
+
+        if (!dimensionCount_.present ())
+        {
+          this->dimensionCount_.set (r);
+          continue;
+        }
+      }
+
+      // mass
+      //
+      if (n.name () == "mass" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< mass_type > r (
+          mass_traits::create (i, f, this));
+
+        if (!mass_.present ())
+        {
+          this->mass_.set (r);
+          continue;
+        }
+      }
+
+      // distance
+      //
+      if (n.name () == "distance" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< distance_type > r (
+          distance_traits::create (i, f, this));
+
+        if (!distance_.present ())
+        {
+          this->distance_.set (r);
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (!position_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "position",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!velocity_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "velocity",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!radiusDimension_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "radiusDimension",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!dimensionCount_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "dimensionCount",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!mass_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "mass",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!distance_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "distance",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+  }
+
+  sphere_t* sphere_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class sphere_t (*this, f, c);
+  }
+
+  sphere_t::
+  ~sphere_t ()
+  {
+  }
+
+  // inputs_t
+  //
+
+  inputs_t::
+  inputs_t ()
+  : ::xml_schema::type (),
+    inputFile_ (::xml_schema::flags (), this),
+    cuboid_ (::xml_schema::flags (), this),
+    sphere_ (::xml_schema::flags (), this)
+  {
+  }
+
+  inputs_t::
+  inputs_t (const inputs_t& x,
+            ::xml_schema::flags f,
+            ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    inputFile_ (x.inputFile_, f, this),
+    cuboid_ (x.cuboid_, f, this),
+    sphere_ (x.sphere_, f, this)
+  {
+  }
+
+  inputs_t::
+  inputs_t (const ::xercesc::DOMElement& e,
+            ::xml_schema::flags f,
+            ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    inputFile_ (f, this),
+    cuboid_ (f, this),
+    sphere_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
+  }
+
+  void inputs_t::
   parse (::xsd::cxx::xml::dom::parser< char >& p,
          ::xml_schema::flags f)
   {
@@ -1080,19 +2160,41 @@ namespace PSE_Molekulardynamik_WS12
         continue;
       }
 
+      // cuboid
+      //
+      if (n.name () == "cuboid" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< cuboid_type > r (
+          cuboid_traits::create (i, f, this));
+
+        this->cuboid_.push_back (r);
+        continue;
+      }
+
+      // sphere
+      //
+      if (n.name () == "sphere" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< sphere_type > r (
+          sphere_traits::create (i, f, this));
+
+        this->sphere_.push_back (r);
+        continue;
+      }
+
       break;
     }
   }
 
-  inputFiles_t* inputFiles_t::
+  inputs_t* inputs_t::
   _clone (::xml_schema::flags f,
           ::xml_schema::container* c) const
   {
-    return new class inputFiles_t (*this, f, c);
+    return new class inputs_t (*this, f, c);
   }
 
-  inputFiles_t::
-  ~inputFiles_t ()
+  inputs_t::
+  ~inputs_t ()
   {
   }
 
@@ -1417,10 +2519,10 @@ namespace PSE_Molekulardynamik_WS12
   //
 
   brownianMotion_t::
-  brownianMotion_t (const dimensions_type& dimensions,
+  brownianMotion_t (const dimensionCount_type& dimensionCount,
                     const meanVelocity_type& meanVelocity)
   : ::xml_schema::type (),
-    dimensions_ (dimensions, ::xml_schema::flags (), this),
+    dimensionCount_ (dimensionCount, ::xml_schema::flags (), this),
     meanVelocity_ (meanVelocity, ::xml_schema::flags (), this)
   {
   }
@@ -1430,7 +2532,7 @@ namespace PSE_Molekulardynamik_WS12
                     ::xml_schema::flags f,
                     ::xml_schema::container* c)
   : ::xml_schema::type (x, f, c),
-    dimensions_ (x.dimensions_, f, this),
+    dimensionCount_ (x.dimensionCount_, f, this),
     meanVelocity_ (x.meanVelocity_, f, this)
   {
   }
@@ -1440,7 +2542,7 @@ namespace PSE_Molekulardynamik_WS12
                     ::xml_schema::flags f,
                     ::xml_schema::container* c)
   : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
-    dimensions_ (f, this),
+    dimensionCount_ (f, this),
     meanVelocity_ (f, this)
   {
     if ((f & ::xml_schema::flags::base) == 0)
@@ -1460,16 +2562,16 @@ namespace PSE_Molekulardynamik_WS12
       const ::xsd::cxx::xml::qualified_name< char > n (
         ::xsd::cxx::xml::dom::name< char > (i));
 
-      // dimensions
+      // dimensionCount
       //
-      if (n.name () == "dimensions" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      if (n.name () == "dimensionCount" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
       {
-        ::std::auto_ptr< dimensions_type > r (
-          dimensions_traits::create (i, f, this));
+        ::std::auto_ptr< dimensionCount_type > r (
+          dimensionCount_traits::create (i, f, this));
 
-        if (!dimensions_.present ())
+        if (!dimensionCount_.present ())
         {
-          this->dimensions_.set (r);
+          this->dimensionCount_.set (r);
           continue;
         }
       }
@@ -1491,10 +2593,10 @@ namespace PSE_Molekulardynamik_WS12
       break;
     }
 
-    if (!dimensions_.present ())
+    if (!dimensionCount_.present ())
     {
       throw ::xsd::cxx::tree::expected_element< char > (
-        "dimensions",
+        "dimensionCount",
         "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
     }
 
@@ -1523,14 +2625,14 @@ namespace PSE_Molekulardynamik_WS12
 
   simulation_t::
   simulation_t (const outputFile_type& outputFile,
-                const inputFiles_type& inputFiles,
+                const inputs_type& inputs,
                 const writeFrequency_type& writeFrequency,
                 const t_end_type& t_end,
                 const delta_t_type& delta_t,
                 const potential_type& potential)
   : ::xml_schema::type (),
     outputFile_ (outputFile, ::xml_schema::flags (), this),
-    inputFiles_ (inputFiles, ::xml_schema::flags (), this),
+    inputs_ (inputs, ::xml_schema::flags (), this),
     writeFrequency_ (writeFrequency, ::xml_schema::flags (), this),
     t_end_ (t_end, ::xml_schema::flags (), this),
     delta_t_ (delta_t, ::xml_schema::flags (), this),
@@ -1542,14 +2644,14 @@ namespace PSE_Molekulardynamik_WS12
 
   simulation_t::
   simulation_t (const outputFile_type& outputFile,
-                ::std::auto_ptr< inputFiles_type >& inputFiles,
+                ::std::auto_ptr< inputs_type >& inputs,
                 const writeFrequency_type& writeFrequency,
                 const t_end_type& t_end,
                 const delta_t_type& delta_t,
                 const potential_type& potential)
   : ::xml_schema::type (),
     outputFile_ (outputFile, ::xml_schema::flags (), this),
-    inputFiles_ (inputFiles, ::xml_schema::flags (), this),
+    inputs_ (inputs, ::xml_schema::flags (), this),
     writeFrequency_ (writeFrequency, ::xml_schema::flags (), this),
     t_end_ (t_end, ::xml_schema::flags (), this),
     delta_t_ (delta_t, ::xml_schema::flags (), this),
@@ -1565,7 +2667,7 @@ namespace PSE_Molekulardynamik_WS12
                 ::xml_schema::container* c)
   : ::xml_schema::type (x, f, c),
     outputFile_ (x.outputFile_, f, this),
-    inputFiles_ (x.inputFiles_, f, this),
+    inputs_ (x.inputs_, f, this),
     writeFrequency_ (x.writeFrequency_, f, this),
     t_end_ (x.t_end_, f, this),
     delta_t_ (x.delta_t_, f, this),
@@ -1581,7 +2683,7 @@ namespace PSE_Molekulardynamik_WS12
                 ::xml_schema::container* c)
   : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
     outputFile_ (f, this),
-    inputFiles_ (f, this),
+    inputs_ (f, this),
     writeFrequency_ (f, this),
     t_end_ (f, this),
     delta_t_ (f, this),
@@ -1620,16 +2722,16 @@ namespace PSE_Molekulardynamik_WS12
         }
       }
 
-      // inputFiles
+      // inputs
       //
-      if (n.name () == "inputFiles" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      if (n.name () == "inputs" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
       {
-        ::std::auto_ptr< inputFiles_type > r (
-          inputFiles_traits::create (i, f, this));
+        ::std::auto_ptr< inputs_type > r (
+          inputs_traits::create (i, f, this));
 
-        if (!inputFiles_.present ())
+        if (!inputs_.present ())
         {
-          this->inputFiles_.set (r);
+          this->inputs_.set (r);
           continue;
         }
       }
@@ -1725,10 +2827,10 @@ namespace PSE_Molekulardynamik_WS12
         "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
     }
 
-    if (!inputFiles_.present ())
+    if (!inputs_.present ())
     {
       throw ::xsd::cxx::tree::expected_element< char > (
-        "inputFiles",
+        "inputs",
         "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
     }
 

@@ -289,8 +289,8 @@ int main(int argc, char* argsv[])
 	
 	LOG4CXX_INFO(logger, "Reading in input files");
 	
-	for ( PSE_Molekulardynamik_WS12::inputFiles_t::inputFile_const_iterator i = simulation->inputFiles().inputFile().begin(); 
-		 i != simulation->inputFiles().inputFile().end(); 
+	for ( PSE_Molekulardynamik_WS12::inputs_t::inputFile_const_iterator i = simulation->inputs().inputFile().begin(); 
+		 i != simulation->inputs().inputFile().end(); 
 		 i++ )
 	{
 		file_name = *i;
@@ -306,6 +306,73 @@ int main(int argc, char* argsv[])
 		{
 			fileReader.readFileCuboid(particles, (char*) file_name.c_str());
 		}
+	}
+	
+	LOG4CXX_INFO(logger, "Reading in cuboids");
+	
+	for ( PSE_Molekulardynamik_WS12::inputs_t::cuboid_const_iterator i = simulation->inputs().cuboid().begin(); 
+		 i != simulation->inputs().cuboid().end(); 
+		 i++ )
+	{
+		PSE_Molekulardynamik_WS12::cuboid_t cuboid = *i;
+		
+		LOG4CXX_INFO(logger, "Reading in cuboid");
+		
+		utils::Vector<double,3> position;
+		utils::Vector<double,3> velocity;
+		utils::Vector<int,3> dimensions;
+		double mass;
+		double distance;
+		
+		position[0] = cuboid.position().x();
+		position[1] = cuboid.position().y();
+		position[2] = cuboid.position().z();
+		
+		velocity[0] = cuboid.velocity().x();
+		velocity[1] = cuboid.velocity().y();
+		velocity[2] = cuboid.velocity().z();
+		
+		dimensions[0] = cuboid.dimensions().x();
+		dimensions[1] = cuboid.dimensions().y();
+		dimensions[2] = cuboid.dimensions().z();
+		
+		mass = cuboid.mass();
+		distance = cuboid.distance();
+		
+		generateCuboid(particles, position, velocity, dimensions, distance, mass);
+	}
+	
+	LOG4CXX_INFO(logger, "Reading in spheres");
+	
+	for ( PSE_Molekulardynamik_WS12::inputs_t::sphere_const_iterator i = simulation->inputs().sphere().begin(); 
+		 i != simulation->inputs().sphere().end(); 
+		 i++ )
+	{
+		PSE_Molekulardynamik_WS12::sphere_t sphere = *i;
+		
+		LOG4CXX_INFO(logger, "Reading in sphere");
+		
+		utils::Vector<double,3> position;
+		utils::Vector<double,3> velocity;
+		int radiusDimension;
+		int dimensionCount;
+		double mass;
+		double distance;
+		
+		position[0] = sphere.position().x();
+		position[1] = sphere.position().y();
+		position[2] = sphere.position().z();
+		
+		velocity[0] = sphere.velocity().x();
+		velocity[1] = sphere.velocity().y();
+		velocity[2] = sphere.velocity().z();
+		
+		radiusDimension = sphere.radiusDimension();
+		dimensionCount = sphere.dimensionCount();
+		mass = sphere.mass();
+		distance = sphere.distance();
+		
+		generateSphere(particles, position, velocity, radiusDimension, dimensionCount, distance, mass);
 	}
 	
 	// Read in domain, boundary condition and cutoff radius for LinkedCellParticleContainer 
@@ -359,7 +426,7 @@ int main(int argc, char* argsv[])
 		{
 			LOG4CXX_INFO(logger, "Parameters for Brownian Motion are specified");
 			meanVelocityBrownianMotion = simulation->brownianMotion().get().meanVelocity();
-			dimensionsBrownianMotion = simulation->brownianMotion().get().dimensions();
+			dimensionsBrownianMotion = simulation->brownianMotion().get().dimensionCount();
 		}
 		else
 		{
@@ -472,13 +539,13 @@ void calcReflection (Particle& p)
 	double d = pow(2,1/6) * SIGMA;
 	
 	
-	LOG4CXX_INFO(logger, "Reflection is checked for " << p.getX().toString() )
+	LOG4CXX_TRACE(logger, "Reflection is checked for " << p.getX().toString() )
 	
 	for ( int i = 0; i < 3; i++ )
 	{
 		if ( domainSize[i] != 0 )
 		{
-			LOG4CXX_INFO(logger, "Reflection is for " << i << " dimension" );
+			LOG4CXX_TRACE(logger, "Reflection is for " << i << " dimension" );
 			
 			x = p.getX();
 			
@@ -487,7 +554,7 @@ void calcReflection (Particle& p)
 			
 			if ( x1_x2.L2Norm() <= d  )
 			{
-				LOG4CXX_INFO(logger, "CounterParticle " << x.toString()  );
+				LOG4CXX_DEBUG(logger, "CounterParticle " << x.toString()  );
 				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
 				calculateF( p, counterParticle );
 			}
@@ -497,7 +564,7 @@ void calcReflection (Particle& p)
 			
 			if ( x1_x2.L2Norm() <= d  )
 			{
-				LOG4CXX_INFO(logger, "CounterParticle " << x.toString()  );
+				LOG4CXX_DEBUG(logger, "CounterParticle " << x.toString()  );
 				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
 				calculateF( p, counterParticle );
 			}

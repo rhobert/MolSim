@@ -31,7 +31,7 @@ void generateCuboid(
 * @param x the coordinate of the center
 * @param v the initial velocity of the particles
 * @param N number of particles along the radius
-* @param d indicator to which dimension the sphere expands
+* @param d dimension count to which the sphere should expand
 * @param h the distance of the particles (mesh width of the grid)
 * @param m the mass of the particles
 */
@@ -41,7 +41,7 @@ void generateSphere(
 	utils::Vector<double, 3> x,
 	utils::Vector<double, 3> v, 
 	int N,
-	utils::Vector<int, 3> d, 
+	int d, 
 	double h, 
 	double m
 );

@@ -23,11 +23,27 @@ elementFormDefault="qualified">
 		</xs:restriction>
 	</xs:simpleType>
 	
-	<xs:simpleType name="dimensions_t">
+	<xs:simpleType name="dimensionCount_t">
 		<xs:restriction base="xs:positiveInteger">
 			<xs:maxInclusive value="3" />
 		</xs:restriction>
 	</xs:simpleType>
+	
+	<xs:complexType name="decimalVector_t">
+		<xs:sequence>
+			<xs:element name="x" type="xs:decimal" />
+			<xs:element name="y" type="xs:decimal" />
+			<xs:element name="z" type="xs:decimal" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="positiveIntegerVector_t">
+		<xs:sequence>
+			<xs:element name="x" type="xs:positiveInteger" />
+			<xs:element name="y" type="xs:positiveInteger" />
+			<xs:element name="z" type="xs:positiveInteger" />
+		</xs:sequence>
+	</xs:complexType>
 	
 	<xs:simpleType name="inputType_t">
 		<xs:restriction base="xs:string">
@@ -44,9 +60,32 @@ elementFormDefault="qualified">
 		</xs:simpleContent>
 	</xs:complexType>
 	
-	<xs:complexType name="inputFiles_t">
+	<xs:complexType name="cuboid_t">
+		<xs:all>
+			<xs:element name="position" type="decimalVector_t" />
+			<xs:element name="velocity" type="decimalVector_t" />
+			<xs:element name="dimensions" type="positiveIntegerVector_t" />
+			<xs:element name="mass" type="positiveDecimal_t" />
+			<xs:element name="distance" type="positiveDecimal_t" />
+		</xs:all>
+	</xs:complexType>
+	
+	<xs:complexType name="sphere_t">
+		<xs:all>
+			<xs:element name="position" type="decimalVector_t" />
+			<xs:element name="velocity" type="decimalVector_t" />
+			<xs:element name="radiusDimension" type="xs:positiveInteger" />
+			<xs:element name="dimensionCount" type="dimensionCount_t" />
+			<xs:element name="mass" type="positiveDecimal_t" />
+			<xs:element name="distance" type="positiveDecimal_t" />
+		</xs:all>
+	</xs:complexType>
+		
+	<xs:complexType name="inputs_t">
 		<xs:sequence>
-			<xs:element name="inputFile" type="inputFile_t" minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="inputFile" type="inputFile_t" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="cuboid" type="cuboid_t" minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="sphere" type="sphere_t" minOccurs="0" maxOccurs="unbounded" />
 		</xs:sequence>
 	</xs:complexType>
 	
@@ -76,7 +115,7 @@ elementFormDefault="qualified">
 	
 	<xs:complexType name="brownianMotion_t">
 		<xs:all>
-			<xs:element name="dimensions" type="dimensions_t" />
+			<xs:element name="dimensionCount" type="dimensionCount_t" />
 			<xs:element name="meanVelocity" type="nonNegativeDecimal_t" />
 		</xs:all>
 	</xs:complexType>
@@ -84,7 +123,7 @@ elementFormDefault="qualified">
 	<xs:complexType name="simulation_t">
 		<xs:all>
 			<xs:element name="outputFile" type="nonEmptyString_t" />
-			<xs:element name="inputFiles" type="inputFiles_t" />
+			<xs:element name="inputs" type="inputs_t" />
 			<xs:element name="writeFrequency" type="xs:positiveInteger" />
 			<xs:element name="t_end" type="positiveDecimal_t" />
 			<xs:element name="delta_t" type="positiveDecimal_t" />
