@@ -3,12 +3,12 @@
 <simulation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
 xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
-	<outputFile>MD_vtk</outputFile>
+	<outputFile>drop_vtk</outputFile>
 	<inputs>
 		<cuboid>
 			<position>
-				<x>20</x>
-				<y>20</y>
+				<x>1.1225</x>
+				<y>1.1225</y>
 				<z>0</z>
 			</position>
 			<velocity>
@@ -24,33 +24,30 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			<mass>1</mass>
 			<distance>1.1225</distance>
 		</cuboid>
-		<cuboid>
+		<sphere>
 			<position>
-				<x>70</x>
-				<y>60</y>
+				<x>57.25</x>
+				<y>50</y>
 				<z>0</z>
 			</position>
 			<velocity>
 				<x>0</x>
-				<y>-10</y>
+				<y>-100</y>
 				<z>0</z>
 			</velocity>
-			<dimensions>
-				<x>20</x>
-				<y>20</y>
-				<z>1</z>
-			</dimensions>
+			<dimensionCount>2</dimensionCount>
+			<radiusDimension>15</radiusDimension>
 			<mass>1</mass>
 			<distance>1.1225</distance>
-		</cuboid>
+		</sphere>
 	</inputs>
 	<writeFrequency>10</writeFrequency>
-	<t_end>20</t_end>
-	<delta_t>0.0005</delta_t>
+	<t_end>2.0</t_end>
+	<delta_t>0.0001</delta_t>
 	<potential>lenard jones</potential>
-	<domain boundary="outflow" cutoff="3">
-		<x>180</x>
-		<y>90</y>
+	<domain boundary="reflecting" cutoff="3">
+		<x>115</x>
+		<y>115</y>
 		<z>0</z>
 	</domain>
 	<brownianMotion>
