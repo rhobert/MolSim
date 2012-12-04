@@ -384,9 +384,9 @@ int main(int argc, char* argsv[])
 		LOG4CXX_INFO(logger, "Domain and boundary conditions specified");
 		domain = &simulation->domain().get();
 		
-		domainSize[0] = domain->x();
-		domainSize[1] = domain->y();
-		domainSize[2] = domain->z();
+		domainSize[0] = domain->dimensions().x();
+		domainSize[1] = domain->dimensions().y();
+		domainSize[2] = domain->dimensions().z();
 		cutoff = domain->cutoff();
 		boundary = domain->boundary();
 		

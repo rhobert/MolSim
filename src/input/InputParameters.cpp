@@ -58,6 +58,82 @@ namespace PSE_Molekulardynamik_WS12
   // 
 
 
+  // positiveDecimalVector_t
+  // 
+
+  const positiveDecimalVector_t::x_type& positiveDecimalVector_t::
+  x () const
+  {
+    return this->x_.get ();
+  }
+
+  positiveDecimalVector_t::x_type& positiveDecimalVector_t::
+  x ()
+  {
+    return this->x_.get ();
+  }
+
+  void positiveDecimalVector_t::
+  x (const x_type& x)
+  {
+    this->x_.set (x);
+  }
+
+  void positiveDecimalVector_t::
+  x (::std::auto_ptr< x_type > x)
+  {
+    this->x_.set (x);
+  }
+
+  const positiveDecimalVector_t::y_type& positiveDecimalVector_t::
+  y () const
+  {
+    return this->y_.get ();
+  }
+
+  positiveDecimalVector_t::y_type& positiveDecimalVector_t::
+  y ()
+  {
+    return this->y_.get ();
+  }
+
+  void positiveDecimalVector_t::
+  y (const y_type& x)
+  {
+    this->y_.set (x);
+  }
+
+  void positiveDecimalVector_t::
+  y (::std::auto_ptr< y_type > x)
+  {
+    this->y_.set (x);
+  }
+
+  const positiveDecimalVector_t::z_type& positiveDecimalVector_t::
+  z () const
+  {
+    return this->z_.get ();
+  }
+
+  positiveDecimalVector_t::z_type& positiveDecimalVector_t::
+  z ()
+  {
+    return this->z_.get ();
+  }
+
+  void positiveDecimalVector_t::
+  z (const z_type& x)
+  {
+    this->z_.set (x);
+  }
+
+  void positiveDecimalVector_t::
+  z (::std::auto_ptr< z_type > x)
+  {
+    this->z_.set (x);
+  }
+
+
   // decimalVector_t
   // 
 
@@ -137,6 +213,12 @@ namespace PSE_Molekulardynamik_WS12
     this->x_.set (x);
   }
 
+  void positiveIntegerVector_t::
+  x (::std::auto_ptr< x_type > x)
+  {
+    this->x_.set (x);
+  }
+
   const positiveIntegerVector_t::y_type& positiveIntegerVector_t::
   y () const
   {
@@ -155,6 +237,12 @@ namespace PSE_Molekulardynamik_WS12
     this->y_.set (x);
   }
 
+  void positiveIntegerVector_t::
+  y (::std::auto_ptr< y_type > x)
+  {
+    this->y_.set (x);
+  }
+
   const positiveIntegerVector_t::z_type& positiveIntegerVector_t::
   z () const
   {
@@ -169,6 +257,88 @@ namespace PSE_Molekulardynamik_WS12
 
   void positiveIntegerVector_t::
   z (const z_type& x)
+  {
+    this->z_.set (x);
+  }
+
+  void positiveIntegerVector_t::
+  z (::std::auto_ptr< z_type > x)
+  {
+    this->z_.set (x);
+  }
+
+
+  // nonNegativeIntegerVector_t
+  // 
+
+  const nonNegativeIntegerVector_t::x_type& nonNegativeIntegerVector_t::
+  x () const
+  {
+    return this->x_.get ();
+  }
+
+  nonNegativeIntegerVector_t::x_type& nonNegativeIntegerVector_t::
+  x ()
+  {
+    return this->x_.get ();
+  }
+
+  void nonNegativeIntegerVector_t::
+  x (const x_type& x)
+  {
+    this->x_.set (x);
+  }
+
+  void nonNegativeIntegerVector_t::
+  x (::std::auto_ptr< x_type > x)
+  {
+    this->x_.set (x);
+  }
+
+  const nonNegativeIntegerVector_t::y_type& nonNegativeIntegerVector_t::
+  y () const
+  {
+    return this->y_.get ();
+  }
+
+  nonNegativeIntegerVector_t::y_type& nonNegativeIntegerVector_t::
+  y ()
+  {
+    return this->y_.get ();
+  }
+
+  void nonNegativeIntegerVector_t::
+  y (const y_type& x)
+  {
+    this->y_.set (x);
+  }
+
+  void nonNegativeIntegerVector_t::
+  y (::std::auto_ptr< y_type > x)
+  {
+    this->y_.set (x);
+  }
+
+  const nonNegativeIntegerVector_t::z_type& nonNegativeIntegerVector_t::
+  z () const
+  {
+    return this->z_.get ();
+  }
+
+  nonNegativeIntegerVector_t::z_type& nonNegativeIntegerVector_t::
+  z ()
+  {
+    return this->z_.get ();
+  }
+
+  void nonNegativeIntegerVector_t::
+  z (const z_type& x)
+  {
+    this->z_.set (x);
+  }
+
+  void nonNegativeIntegerVector_t::
+  z (::std::auto_ptr< z_type > x)
   {
     this->z_.set (x);
   }
@@ -664,76 +834,28 @@ namespace PSE_Molekulardynamik_WS12
   // domain_t
   // 
 
-  const domain_t::x_type& domain_t::
-  x () const
+  const domain_t::dimensions_type& domain_t::
+  dimensions () const
   {
-    return this->x_.get ();
+    return this->dimensions_.get ();
   }
 
-  domain_t::x_type& domain_t::
-  x ()
+  domain_t::dimensions_type& domain_t::
+  dimensions ()
   {
-    return this->x_.get ();
-  }
-
-  void domain_t::
-  x (const x_type& x)
-  {
-    this->x_.set (x);
+    return this->dimensions_.get ();
   }
 
   void domain_t::
-  x (::std::auto_ptr< x_type > x)
+  dimensions (const dimensions_type& x)
   {
-    this->x_.set (x);
-  }
-
-  const domain_t::y_type& domain_t::
-  y () const
-  {
-    return this->y_.get ();
-  }
-
-  domain_t::y_type& domain_t::
-  y ()
-  {
-    return this->y_.get ();
+    this->dimensions_.set (x);
   }
 
   void domain_t::
-  y (const y_type& x)
+  dimensions (::std::auto_ptr< dimensions_type > x)
   {
-    this->y_.set (x);
-  }
-
-  void domain_t::
-  y (::std::auto_ptr< y_type > x)
-  {
-    this->y_.set (x);
-  }
-
-  const domain_t::z_type& domain_t::
-  z () const
-  {
-    return this->z_.get ();
-  }
-
-  domain_t::z_type& domain_t::
-  z ()
-  {
-    return this->z_.get ();
-  }
-
-  void domain_t::
-  z (const z_type& x)
-  {
-    this->z_.set (x);
-  }
-
-  void domain_t::
-  z (::std::auto_ptr< z_type > x)
-  {
-    this->z_.set (x);
+    this->dimensions_.set (x);
   }
 
   const domain_t::boundary_type& domain_t::
@@ -1277,6 +1399,136 @@ namespace PSE_Molekulardynamik_WS12
   {
   }
 
+  // positiveDecimalVector_t
+  //
+
+  positiveDecimalVector_t::
+  positiveDecimalVector_t (const x_type& x,
+                           const y_type& y,
+                           const z_type& z)
+  : ::xml_schema::type (),
+    x_ (x, ::xml_schema::flags (), this),
+    y_ (y, ::xml_schema::flags (), this),
+    z_ (z, ::xml_schema::flags (), this)
+  {
+  }
+
+  positiveDecimalVector_t::
+  positiveDecimalVector_t (const positiveDecimalVector_t& x,
+                           ::xml_schema::flags f,
+                           ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    x_ (x.x_, f, this),
+    y_ (x.y_, f, this),
+    z_ (x.z_, f, this)
+  {
+  }
+
+  positiveDecimalVector_t::
+  positiveDecimalVector_t (const ::xercesc::DOMElement& e,
+                           ::xml_schema::flags f,
+                           ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    x_ (f, this),
+    y_ (f, this),
+    z_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
+  }
+
+  void positiveDecimalVector_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // x
+      //
+      if (n.name () == "x" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< x_type > r (
+          x_traits::create (i, f, this));
+
+        if (!x_.present ())
+        {
+          this->x_.set (r);
+          continue;
+        }
+      }
+
+      // y
+      //
+      if (n.name () == "y" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< y_type > r (
+          y_traits::create (i, f, this));
+
+        if (!y_.present ())
+        {
+          this->y_.set (r);
+          continue;
+        }
+      }
+
+      // z
+      //
+      if (n.name () == "z" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< z_type > r (
+          z_traits::create (i, f, this));
+
+        if (!z_.present ())
+        {
+          this->z_.set (r);
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (!x_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "x",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!y_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "y",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!z_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "z",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+  }
+
+  positiveDecimalVector_t* positiveDecimalVector_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class positiveDecimalVector_t (*this, f, c);
+  }
+
+  positiveDecimalVector_t::
+  ~positiveDecimalVector_t ()
+  {
+  }
+
   // decimalVector_t
   //
 
@@ -1453,9 +1705,12 @@ namespace PSE_Molekulardynamik_WS12
       //
       if (n.name () == "x" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
       {
+        ::std::auto_ptr< x_type > r (
+          x_traits::create (i, f, this));
+
         if (!x_.present ())
         {
-          this->x_.set (x_traits::create (i, f, this));
+          this->x_.set (r);
           continue;
         }
       }
@@ -1464,9 +1719,12 @@ namespace PSE_Molekulardynamik_WS12
       //
       if (n.name () == "y" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
       {
+        ::std::auto_ptr< y_type > r (
+          y_traits::create (i, f, this));
+
         if (!y_.present ())
         {
-          this->y_.set (y_traits::create (i, f, this));
+          this->y_.set (r);
           continue;
         }
       }
@@ -1475,9 +1733,12 @@ namespace PSE_Molekulardynamik_WS12
       //
       if (n.name () == "z" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
       {
+        ::std::auto_ptr< z_type > r (
+          z_traits::create (i, f, this));
+
         if (!z_.present ())
         {
-          this->z_.set (z_traits::create (i, f, this));
+          this->z_.set (r);
           continue;
         }
       }
@@ -1516,6 +1777,136 @@ namespace PSE_Molekulardynamik_WS12
 
   positiveIntegerVector_t::
   ~positiveIntegerVector_t ()
+  {
+  }
+
+  // nonNegativeIntegerVector_t
+  //
+
+  nonNegativeIntegerVector_t::
+  nonNegativeIntegerVector_t (const x_type& x,
+                              const y_type& y,
+                              const z_type& z)
+  : ::xml_schema::type (),
+    x_ (x, ::xml_schema::flags (), this),
+    y_ (y, ::xml_schema::flags (), this),
+    z_ (z, ::xml_schema::flags (), this)
+  {
+  }
+
+  nonNegativeIntegerVector_t::
+  nonNegativeIntegerVector_t (const nonNegativeIntegerVector_t& x,
+                              ::xml_schema::flags f,
+                              ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    x_ (x.x_, f, this),
+    y_ (x.y_, f, this),
+    z_ (x.z_, f, this)
+  {
+  }
+
+  nonNegativeIntegerVector_t::
+  nonNegativeIntegerVector_t (const ::xercesc::DOMElement& e,
+                              ::xml_schema::flags f,
+                              ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    x_ (f, this),
+    y_ (f, this),
+    z_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
+  }
+
+  void nonNegativeIntegerVector_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // x
+      //
+      if (n.name () == "x" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< x_type > r (
+          x_traits::create (i, f, this));
+
+        if (!x_.present ())
+        {
+          this->x_.set (r);
+          continue;
+        }
+      }
+
+      // y
+      //
+      if (n.name () == "y" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< y_type > r (
+          y_traits::create (i, f, this));
+
+        if (!y_.present ())
+        {
+          this->y_.set (r);
+          continue;
+        }
+      }
+
+      // z
+      //
+      if (n.name () == "z" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< z_type > r (
+          z_traits::create (i, f, this));
+
+        if (!z_.present ())
+        {
+          this->z_.set (r);
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (!x_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "x",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!y_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "y",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!z_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "z",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+  }
+
+  nonNegativeIntegerVector_t* nonNegativeIntegerVector_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class nonNegativeIntegerVector_t (*this, f, c);
+  }
+
+  nonNegativeIntegerVector_t::
+  ~nonNegativeIntegerVector_t ()
   {
   }
 
@@ -2342,15 +2733,22 @@ namespace PSE_Molekulardynamik_WS12
   //
 
   domain_t::
-  domain_t (const x_type& x,
-            const y_type& y,
-            const z_type& z,
+  domain_t (const dimensions_type& dimensions,
             const boundary_type& boundary,
             const cutoff_type& cutoff)
   : ::xml_schema::type (),
-    x_ (x, ::xml_schema::flags (), this),
-    y_ (y, ::xml_schema::flags (), this),
-    z_ (z, ::xml_schema::flags (), this),
+    dimensions_ (dimensions, ::xml_schema::flags (), this),
+    boundary_ (boundary, ::xml_schema::flags (), this),
+    cutoff_ (cutoff, ::xml_schema::flags (), this)
+  {
+  }
+
+  domain_t::
+  domain_t (::std::auto_ptr< dimensions_type >& dimensions,
+            const boundary_type& boundary,
+            const cutoff_type& cutoff)
+  : ::xml_schema::type (),
+    dimensions_ (dimensions, ::xml_schema::flags (), this),
     boundary_ (boundary, ::xml_schema::flags (), this),
     cutoff_ (cutoff, ::xml_schema::flags (), this)
   {
@@ -2361,9 +2759,7 @@ namespace PSE_Molekulardynamik_WS12
             ::xml_schema::flags f,
             ::xml_schema::container* c)
   : ::xml_schema::type (x, f, c),
-    x_ (x.x_, f, this),
-    y_ (x.y_, f, this),
-    z_ (x.z_, f, this),
+    dimensions_ (x.dimensions_, f, this),
     boundary_ (x.boundary_, f, this),
     cutoff_ (x.cutoff_, f, this)
   {
@@ -2374,15 +2770,13 @@ namespace PSE_Molekulardynamik_WS12
             ::xml_schema::flags f,
             ::xml_schema::container* c)
   : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
-    x_ (f, this),
-    y_ (f, this),
-    z_ (f, this),
+    dimensions_ (f, this),
     boundary_ (f, this),
     cutoff_ (f, this)
   {
     if ((f & ::xml_schema::flags::base) == 0)
     {
-      ::xsd::cxx::xml::dom::parser< char > p (e, true, true);
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
       this->parse (p, f);
     }
   }
@@ -2397,44 +2791,44 @@ namespace PSE_Molekulardynamik_WS12
       const ::xsd::cxx::xml::qualified_name< char > n (
         ::xsd::cxx::xml::dom::name< char > (i));
 
-      // x
+      // dimensions
       //
-      if (n.name () == "x" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      if (n.name () == "dimensions" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
       {
-        ::std::auto_ptr< x_type > r (
-          x_traits::create (i, f, this));
+        ::std::auto_ptr< dimensions_type > r (
+          dimensions_traits::create (i, f, this));
 
-        if (!x_.present ())
+        if (!dimensions_.present ())
         {
-          this->x_.set (r);
+          this->dimensions_.set (r);
           continue;
         }
       }
 
-      // y
+      // boundary
       //
-      if (n.name () == "y" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      if (n.name () == "boundary" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
       {
-        ::std::auto_ptr< y_type > r (
-          y_traits::create (i, f, this));
+        ::std::auto_ptr< boundary_type > r (
+          boundary_traits::create (i, f, this));
 
-        if (!y_.present ())
+        if (!boundary_.present ())
         {
-          this->y_.set (r);
+          this->boundary_.set (r);
           continue;
         }
       }
 
-      // z
+      // cutoff
       //
-      if (n.name () == "z" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      if (n.name () == "cutoff" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
       {
-        ::std::auto_ptr< z_type > r (
-          z_traits::create (i, f, this));
+        ::std::auto_ptr< cutoff_type > r (
+          cutoff_traits::create (i, f, this));
 
-        if (!z_.present ())
+        if (!cutoff_.present ())
         {
-          this->z_.set (r);
+          this->cutoff_.set (r);
           continue;
         }
       }
@@ -2442,64 +2836,25 @@ namespace PSE_Molekulardynamik_WS12
       break;
     }
 
-    if (!x_.present ())
+    if (!dimensions_.present ())
     {
       throw ::xsd::cxx::tree::expected_element< char > (
-        "x",
+        "dimensions",
         "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
-    }
-
-    if (!y_.present ())
-    {
-      throw ::xsd::cxx::tree::expected_element< char > (
-        "y",
-        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
-    }
-
-    if (!z_.present ())
-    {
-      throw ::xsd::cxx::tree::expected_element< char > (
-        "z",
-        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
-    }
-
-    while (p.more_attributes ())
-    {
-      const ::xercesc::DOMAttr& i (p.next_attribute ());
-      const ::xsd::cxx::xml::qualified_name< char > n (
-        ::xsd::cxx::xml::dom::name< char > (i));
-
-      if (n.name () == "boundary" && n.namespace_ ().empty ())
-      {
-        ::std::auto_ptr< boundary_type > r (
-          boundary_traits::create (i, f, this));
-
-        this->boundary_.set (r);
-        continue;
-      }
-
-      if (n.name () == "cutoff" && n.namespace_ ().empty ())
-      {
-        ::std::auto_ptr< cutoff_type > r (
-          cutoff_traits::create (i, f, this));
-
-        this->cutoff_.set (r);
-        continue;
-      }
     }
 
     if (!boundary_.present ())
     {
-      throw ::xsd::cxx::tree::expected_attribute< char > (
+      throw ::xsd::cxx::tree::expected_element< char > (
         "boundary",
-        "");
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
     }
 
     if (!cutoff_.present ())
     {
-      throw ::xsd::cxx::tree::expected_attribute< char > (
+      throw ::xsd::cxx::tree::expected_element< char > (
         "cutoff",
-        "");
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
     }
   }
 

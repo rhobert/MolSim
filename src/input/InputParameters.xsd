@@ -29,6 +29,14 @@ elementFormDefault="qualified">
 		</xs:restriction>
 	</xs:simpleType>
 	
+	<xs:complexType name="positiveDecimalVector_t">
+		<xs:sequence>
+			<xs:element name="x" type="positiveDecimal_t" />
+			<xs:element name="y" type="positiveDecimal_t" />
+			<xs:element name="z" type="positiveDecimal_t" />
+		</xs:sequence>
+	</xs:complexType>
+	
 	<xs:complexType name="decimalVector_t">
 		<xs:sequence>
 			<xs:element name="x" type="xs:decimal" />
@@ -39,9 +47,17 @@ elementFormDefault="qualified">
 	
 	<xs:complexType name="positiveIntegerVector_t">
 		<xs:sequence>
-			<xs:element name="x" type="xs:positiveInteger" />
-			<xs:element name="y" type="xs:positiveInteger" />
-			<xs:element name="z" type="xs:positiveInteger" />
+			<xs:element name="x" type="positiveDecimal_t" />
+			<xs:element name="y" type="positiveDecimal_t" />
+			<xs:element name="z" type="positiveDecimal_t" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="nonNegativeIntegerVector_t">
+		<xs:sequence>
+			<xs:element name="x" type="nonNegativeDecimal_t" />
+			<xs:element name="y" type="nonNegativeDecimal_t" />
+			<xs:element name="z" type="nonNegativeDecimal_t" />
 		</xs:sequence>
 	</xs:complexType>
 	
@@ -104,13 +120,11 @@ elementFormDefault="qualified">
 	</xs:simpleType>
 	
 	<xs:complexType name="domain_t">
-		<xs:sequence>
-			<xs:element name="x" type="nonNegativeDecimal_t" />
-			<xs:element name="y" type="nonNegativeDecimal_t" />
-			<xs:element name="z" type="nonNegativeDecimal_t" />
-		</xs:sequence>
-		<xs:attribute name="boundary" type="boundary_t" use="required" />
-		<xs:attribute name="cutoff" type="positiveDecimal_t" use="required" />
+		<xs:all>	
+			<xs:element name="dimensions" type="nonNegativeIntegerVector_t" />
+			<xs:element name="boundary" type="boundary_t" />
+			<xs:element name="cutoff" type="positiveDecimal_t" />
+		</xs:all>
 	</xs:complexType>
 	
 	<xs:complexType name="brownianMotion_t">
