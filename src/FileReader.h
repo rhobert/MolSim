@@ -39,7 +39,7 @@ public:
 /**
 * @brief Initializes the particle-list using the input file.
 * 
-* @param particle List to write read particles in
+* @param particles List to write read particles in
 * 
 * @param filename File to read particles from
 */
@@ -48,7 +48,7 @@ public:
 /**
 * @brief Initializes the particle-list using the input file.
 * 
-* @param particle List to write read particles in
+* @param particles List to write read particles in
 * 
 * @param filename File to read cuboids from
 */

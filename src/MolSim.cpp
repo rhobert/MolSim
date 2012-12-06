@@ -1,6 +1,5 @@
-/**
- * @file
- * @brief Simulation program
+/** 
+ * @brief Molecular dynamics simulation program
  */
 
 #include <list>
@@ -179,7 +178,7 @@ int main(int argc, char* argsv[])
 	
 	LOG4CXX_INFO(logger, "Hello from MolSim for PSE!");
 	
-	// Add available tests to usage info
+	// Add available tests for usage info
 	LOG4CXX_INFO(logger, "Detect available tests");
 	
 	TestSettings ts;
@@ -195,12 +194,12 @@ int main(int argc, char* argsv[])
 	
 	// Check Parameters
 	
-	LOG4CXX_INFO(logger, "Check parameters");
+	LOG4CXX_TRACE(logger, "Check parameters");
 	
 	// Check count of parameters
 	if ( (argc == 2 || argc == 3) && string(argsv[1]).compare("-test") == 0 )
 	{
-		LOG4CXX_INFO(logger, "Test option was passed");
+		LOG4CXX_DEBUG(logger, "Test option was passed");
 		
 		// Start all tests
 		if ( argc == 2 )
@@ -217,7 +216,7 @@ int main(int argc, char* argsv[])
 			
 			if ( ts.runTest(test_name) == 0 )
 			{
-				LOG4CXX_ERROR(logger, "Test " << test_name << " was not found");
+				LOG4CXX_FATAL(logger, "Test " << test_name << " was not found");
 				cout << molsim_usage << endl;
 			}
 		}
@@ -244,7 +243,7 @@ int main(int argc, char* argsv[])
 		return EXIT_FAILURE;
 	}
 	
-	LOG4CXX_INFO(logger, "Checking parameter-file");
+	LOG4CXX_DEBUG(logger, "Checking parameter-file");
 	
 	auto_ptr<PSE_Molekulardynamik_WS12::simulation_t> simulation;
 	
@@ -260,20 +259,21 @@ int main(int argc, char* argsv[])
 		return EXIT_FAILURE;
 	}
 	
-	LOG4CXX_INFO(logger, "Reading in parameters");
+	LOG4CXX_DEBUG(logger, "Reading in parameters");
 	
 	// Init variables by parameters
 	double end_time = simulation->t_end();
 	delta_t = simulation->delta_t();
 	int writeFrequency = simulation->writeFrequency();
 	outputFileName = simulation->outputFile();
+	
 	string file_name;
 	PSE_Molekulardynamik_WS12::boundary_t boundary (PSE_Molekulardynamik_WS12::boundary_t::outflow);
 	
 	PSE_Molekulardynamik_WS12::domain_t* domain = NULL;
 	double cutoff = 0;
 	
-	LOG4CXX_INFO(logger, "Check END_T and DELTA_T");
+	LOG4CXX_DEBUG(logger, "Check END_T and DELTA_T");
 	
 	// Check end_time and delta_t
 	if (end_time < delta_t) 
@@ -287,7 +287,7 @@ int main(int argc, char* argsv[])
 	FileReader fileReader;
 	list<Particle> particles;
 	
-	LOG4CXX_INFO(logger, "Reading in input files");
+	LOG4CXX_DEBUG(logger, "Reading in input files");
 	
 	for ( PSE_Molekulardynamik_WS12::inputs_t::inputFile_const_iterator i = simulation->inputs().inputFile().begin(); 
 		 i != simulation->inputs().inputFile().end(); 
@@ -308,15 +308,13 @@ int main(int argc, char* argsv[])
 		}
 	}
 	
-	LOG4CXX_INFO(logger, "Reading in cuboids");
+	LOG4CXX_DEBUG(logger, "Reading in cuboids");
 	
 	for ( PSE_Molekulardynamik_WS12::inputs_t::cuboid_const_iterator i = simulation->inputs().cuboid().begin(); 
 		 i != simulation->inputs().cuboid().end(); 
 		 i++ )
 	{
 		PSE_Molekulardynamik_WS12::cuboid_t cuboid = *i;
-		
-		LOG4CXX_INFO(logger, "Reading in cuboid");
 		
 		utils::Vector<double,3> position;
 		utils::Vector<double,3> velocity;
@@ -339,18 +337,19 @@ int main(int argc, char* argsv[])
 		mass = cuboid.mass();
 		distance = cuboid.distance();
 		
+		LOG4CXX_INFO(logger, "Reading in cuboid at " << position.toString() << " with velocity " << velocity.toString() 
+			<< ", dimensions " << dimensions.toString() << ", mass " << mass << " and distance " << distance);
+		
 		generateCuboid(particles, position, velocity, dimensions, distance, mass);
 	}
 	
-	LOG4CXX_INFO(logger, "Reading in spheres");
+	LOG4CXX_DEBUG(logger, "Reading in spheres");
 	
 	for ( PSE_Molekulardynamik_WS12::inputs_t::sphere_const_iterator i = simulation->inputs().sphere().begin(); 
 		 i != simulation->inputs().sphere().end(); 
 		 i++ )
 	{
 		PSE_Molekulardynamik_WS12::sphere_t sphere = *i;
-		
-		LOG4CXX_INFO(logger, "Reading in sphere");
 		
 		utils::Vector<double,3> position;
 		utils::Vector<double,3> velocity;
@@ -370,18 +369,20 @@ int main(int argc, char* argsv[])
 		radiusDimension = sphere.radiusDimension();
 		dimensionCount = sphere.dimensionCount();
 		mass = sphere.mass();
-		distance = sphere.distance();
+		distance = sphere.distance();	
+		
+		LOG4CXX_INFO(logger, "Reading in sphere at " << position.toString() << " with velocity " << velocity.toString() 
+			<< ", radius dimension " << radiusDimension << ", mass " << mass << " and distance " << distance << " in " << dimensionCount << " dimensions" );
 		
 		generateSphere(particles, position, velocity, radiusDimension, dimensionCount, distance, mass);
 	}
 	
 	// Read in domain, boundary condition and cutoff radius for LinkedCellParticleContainer 
 	 
-	LOG4CXX_INFO(logger, "Detect if domain size is specified");
+	LOG4CXX_DEBUG(logger, "Detect if domain size is specified");
 	
 	if ( simulation->domain().present() )
 	{
-		LOG4CXX_INFO(logger, "Domain and boundary conditions specified");
 		domain = &simulation->domain().get();
 		
 		domainSize[0] = domain->dimensions().x();
@@ -390,50 +391,55 @@ int main(int argc, char* argsv[])
 		cutoff = domain->cutoff();
 		boundary = domain->boundary();
 		
-		LOG4CXX_INFO(logger, "Create LinkedCellParticleContainer");
+		LOG4CXX_INFO(logger, "Domain " << domainSize.toString() << " with cutoff-radius " << cutoff << " and " << boundary << " boundary condition");
 		
-		linkedCellParticleContainer =  new LinkedCellParticleContainer(particles, domainSize, cutoff );
+		LOG4CXX_DEBUG(logger, "Create LinkedCellParticleContainer");
+		
+		linkedCellParticleContainer =  new LinkedCellParticleContainer(domainSize, cutoff );
 		particleContainer = dynamic_cast<ParticleContainer*>( linkedCellParticleContainer );
 		
 		domainSize = linkedCellParticleContainer->getDomainSize();
 		
-		LOG4CXX_INFO(logger, "Real domain size is " << domainSize.toString() );
+		LOG4CXX_DEBUG(logger, "Real domain size is " << domainSize.toString() );
 	}
 	else
 	{
-		LOG4CXX_INFO(logger, "No domain and boundary conditions specified");
-		LOG4CXX_INFO(logger, "Create SimpleParticleContainer");
+		LOG4CXX_DEBUG(logger, "No domain and boundary conditions specified");
+		LOG4CXX_DEBUG(logger, "Create SimpleParticleContainer");
 		
-		particleContainer = new SimpleParticleContainer(particles);	
+		particleContainer = new SimpleParticleContainer();	
 	}
 	
-	LOG4CXX_INFO(logger, "Set POTENTIAL");
+	LOG4CXX_INFO(logger, "Add " << particles.size() << " particles to ParticleContainer");
+	
+	particleContainer->addParticles( particles );
+	
+	LOG4CXX_INFO(logger, "Set potential for force calulation to " << simulation->potential() );
 	
 	// Check potentialName and set force calculation
 	if ( simulation->potential() == PSE_Molekulardynamik_WS12::potential_t::gravitational )
 	{
-		LOG4CXX_INFO(logger, "force calculation for gravitational potential set");
 		forceCalc = gravitationalPotential;
 	}
 	else if ( simulation->potential() == PSE_Molekulardynamik_WS12::potential_t::lenard_jones )
 	{
-		LOG4CXX_INFO(logger, "force calculation for Lenard-Jones potential set");
 		forceCalc = lenardJonesPotential;
 		
-		LOG4CXX_INFO(logger, "Detect if parameters for Brownian Motion are specified");
+		LOG4CXX_DEBUG(logger, "Detect if parameters for Brownian Motion are specified");
 		
 		if ( simulation->brownianMotion().present() )
 		{
-			LOG4CXX_INFO(logger, "Parameters for Brownian Motion are specified");
 			meanVelocityBrownianMotion = simulation->brownianMotion().get().meanVelocity();
 			dimensionsBrownianMotion = simulation->brownianMotion().get().dimensionCount();
+			
+			LOG4CXX_DEBUG(logger, "Parameters for Brownian Motion are specified");
 		}
 		else
 		{
-			LOG4CXX_INFO(logger, "No parameters for Brownian Motion are specified");
+			LOG4CXX_DEBUG(logger, "No parameters for Brownian Motion are specified");
 		}
 		
-		LOG4CXX_INFO(logger, "Superpose velocity of particles with Brownian motion");
+		LOG4CXX_INFO(logger, "Superpose velocity of particles with Brownian motion with mean velocity " << meanVelocityBrownianMotion << " in " << dimensionsBrownianMotion << " dimensions");
 		
 		// Superpose velocity of particles with Brownian motion
 		particleContainer->applyToSingleParticles ( applyMaxwellBoltzmannDistribution );
@@ -445,12 +451,15 @@ int main(int argc, char* argsv[])
 	particleContainer->applyToSingleParticles ( setNewForce );
 	particleContainer->applyToParticlePairs ( calculateF );
 	
-	LOG4CXX_INFO(logger, "Start simulation");
+	LOG4CXX_INFO(logger, "Write vtk output to files with basename " << outputFileName << " with write frequency " << writeFrequency );
 	
 	// Init iteration variables
 	double start_time = 0;
 	double current_time;
 	int iteration = 0;
+	
+	LOG4CXX_INFO(logger, "Start simulation from time " << start_time << " to " << end_time << " with time steps " << delta_t);
+	LOG4CXX_INFO(logger, "There will be " << floor((end_time - start_time) / delta_t) << " simulation steps and " << ceil(floor((end_time - start_time) / delta_t) / writeFrequency) << " output files" );
 
 	 // for this loop, we assume: current x, current f and current v are known
 	for ( current_time = start_time; 
@@ -554,7 +563,7 @@ void calcReflection (Particle& p)
 			
 			if ( x1_x2.L2Norm() <= d  )
 			{
-				LOG4CXX_DEBUG(logger, "CounterParticle " << x.toString()  );
+				LOG4CXX_TRACE(logger, "CounterParticle " << x.toString() );
 				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
 				calculateF( p, counterParticle );
 			}
@@ -564,7 +573,7 @@ void calcReflection (Particle& p)
 			
 			if ( x1_x2.L2Norm() <= d  )
 			{
-				LOG4CXX_DEBUG(logger, "CounterParticle " << x.toString()  );
+				LOG4CXX_TRACE(logger, "CounterParticle " << x.toString()  );
 				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
 				calculateF( p, counterParticle );
 			}

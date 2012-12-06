@@ -9,6 +9,7 @@
 /**
 * implements the functionality to create a cuboid where particles are arranged in a 3d rectangular grid
 * 
+* @param particles List of particles to append the generated particles
 * @param x the coordinate of the lower left front-side corner
 * @param v the initial velocity of the particles
 * @param N number of particles per dimension
@@ -28,6 +29,7 @@ void generateCuboid(
 /**
 * implements the functionality to create a sphere of particles
 * 
+* @param particles List of particles to append the generated particles
 * @param x the coordinate of the center
 * @param v the initial velocity of the particles
 * @param N number of particles along the radius
