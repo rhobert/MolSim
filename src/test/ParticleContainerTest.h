@@ -163,21 +163,6 @@ public:
 	* @brief Tests if ParticleContainer returns the right count of particle pairs
 	*/
 	void testParticlePairCount();
-	
-	/**
-	* @brief Tests if a ParticleContainer has no duplicate particle pairs
-	*/
-//	void testForDoublesPair();
-	
-	/**
-	* @brief Tests if a ParticleContainer has so much single particle like it should
-	*/
-//	void testCompletenessSingle();
-	
-	/**
-	* @brief Tests if a ParticleContainer has so much particle pairs like it should
-	*/
-//	void testCompletenessPair();
 
 };
 

@@ -152,6 +152,7 @@ int ParticleContainerTest::countParticlePairs(ParticleContainer * container)
 		Particle & p = *i;
 		
 		v += p.getV()[0] - PARTICLE_VELOCITY_STD;
+		p.setV(PARTICLE_VELOCITY_STD);
 	}
 	
 	int count = ( (int) ( v / PARTICLE_VELOCITY_STD ) ) / 2;

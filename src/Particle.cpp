@@ -93,7 +93,7 @@ int Particle::getType() {
 
 std::string Particle::toString() {
 	std::stringstream stream;
-	stream << "Particle: X:" << x <<  " v: " << v << " f: " << f << " old_f: " << old_f << " type: " << type;
+	stream << "Particle: X:" << x <<  " v: " << v << " f: " << f << " old_f: " << old_f << " mass: " << m << " type: " << type;
 	return stream.str();
 }
 
