@@ -3,83 +3,122 @@
 <simulation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
 xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
-
+	
+	<!-- Necessary: Non empty filename of the output -->
 	<outputFile>MD_vtk</outputFile>
 	
+	<!-- Necessary: Positive integer per how many iteration steps a output-file sould be written  -->
 	<writeFrequency>10</writeFrequency>
 	
-	<t_end>20</t_end>
+	<!-- Necessary: Positive decimal value how long the simulation should be -->
+	<t_end>3</t_end>
 	
-	<delta_t>0.0005</delta_t>
+	<!-- Necessary: Positive decimal value how long a time (iteration) step should be (has to be less equal t_end)  -->
+	<delta_t>0.0003</delta_t>
 	
+	<!-- Necessary: Potential from which the force-calculation is resulting (lenard jones or gravitational)  -->
 	<potential>lenard jones</potential>
 	
-	<domain>	
+	<!-- Optional: If set the Linked-Cell-Algorithm is used  -->
+	<domain>
+		
+		<!-- Necessary: Non-negative dimensions of the domain to simulation in.
+		(If a value is set to 0, this dimension is ignored, but all particles should have 0 at this dimension.
+		At least one dimension hat to be set to greater 0) -->
 		<dimensions>
-			<x>180</x>
-			<y>90</y>
+			<x>114.5</x>
+			<y>114.5</y>
 			<z>0</z>
 		</dimensions>
 		
-		<boundary>outflow</boundary>
+		<!-- Necessary: Boundary condition (outflow or reflecting)  -->
+		<boundary>reflecting</boundary>
 		
+		<!-- Necessary: Postive decimal value for cutoff radius for force-calculation (side length of cells) -->
 		<cutoff>3</cutoff>	
+		
 	</domain>
 	
+	<!-- Optional: If the lenard jones potential is set, 
+	this specifies the superposing of the velocity of the particles with the Brownian motion (if not set, default values a used)  -->
 	<brownianMotion>
+		
+		<!-- Necessary: Postive integer for count of dimensions where the Brownian motion is effictive.
+		(If 1 only the first/x dimension, if 2 the first/x and second/y and if 3 all dimensions x-y-z ) -->
 		<dimensionCount>2</dimensionCount>
 		
+		<!-- Necessary: Non-negative decimal value for mean velocity of Brownian motion -->
 		<meanVelocity>0.1</meanVelocity>
 	</brownianMotion>
 	
+	<!-- Necessary: Specification of input sources for particles (any count of input sources is valid) -->
 	<inputs>
+		
+		<!-- Optional (any count): Input file for particle list or cuboid specification -->
+		<!-- <inputFile type="list">eingabe-sonne.txt</inputFile> -->
+		<!-- <inputFile type="cuboid">eingabe-molekuel.txt</inputFile> -->
+		
+		<!-- Optional (any count): Specification of cuboid -->
 		<cuboid>
+			
+			<!-- Necessary: Decimal vector for position of particles -->
 			<position>
-				<x>20</x>
-				<y>20</y>
+				<x>1.1225</x>
+				<y>1.1225</y>
 				<z>0</z>
 			</position>
 			
+			<!-- Necessary: Decimal vector for velocity of particles -->
 			<velocity>
 				<x>0</x>
 				<y>0</y>
 				<z>0</z>
 			</velocity>
 			
+			<!-- Necessary: Positive decimal vector which spans dimension of the cuboid -->
 			<dimensions>
 				<x>100</x>
 				<y>20</y>
 				<z>1</z>
 			</dimensions>
 			
+			<!-- Necessary: Positive decimal value for mass of the particles -->
 			<mass>1</mass>
 			
+			<!-- Necessary: Positive decimal value for meshwidth of the grid -->
 			<distance>1.1225</distance>
 		</cuboid>
 		
-		<cuboid>
+		<!-- Optional (any count): Specification of a sphere -->
+		<sphere>
+			
+			<!-- Necessary: Decimal vector for position of the particles -->
 			<position>
-				<x>70</x>
-				<y>60</y>
+				<x>57</x>
+				<y>50</y>
 				<z>0</z>
 			</position>
 			
+			<!-- Necessary: Decimal vector for velocity of the particles -->
 			<velocity>
 				<x>0</x>
-				<y>-10</y>
+				<y>-30</y>
 				<z>0</z>
 			</velocity>
 			
-			<dimensions>
-				<x>20</x>
-				<y>20</y>
-				<z>1</z>
-			</dimensions>
+			<!-- Necessary: Postive integer for count of dimensions to which the sphere expands.
+				(If 1 only the first/x dimension, if 2 the first/x and second/y and if 3 all dimensions x-y-z ) -->
+			<dimensionCount>2</dimensionCount>
 			
+			<!-- Necessary: Positive integer for the count of particles on the radius -->
+			<radiusDimension>15</radiusDimension>
+			
+			<!-- Necessary: Positive decimal value for mass of the particles -->
 			<mass>1</mass>
 			
+			<!-- Necessary: Positive decimal value for meshwidth of the grid -->
 			<distance>1.1225</distance>
-		</cuboid>
+		</sphere>
 	</inputs>
 	
 </simulation>

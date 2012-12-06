@@ -19,9 +19,9 @@ void SimpleParticleContainer::addParticles( list<Particle> pList )
 		singleList.push_back(*it);
 	}
 	
-	LOG4CXX_INFO(logger, "SingleList generated");
+	LOG4CXX_DEBUG(logger, "SingleList generated");
 	pairList = createPairs(singleList);
-	LOG4CXX_INFO(logger, "PairList generated");
+	LOG4CXX_DEBUG(logger, "PairList generated");
 }
 
 SimpleParticleContainer::PairList SimpleParticleContainer::createPairs( SimpleParticleContainer::SingleList& sList ) 

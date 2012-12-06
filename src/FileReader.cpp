@@ -67,7 +67,7 @@ void FileReader::readFileList(list<Particle>& particles, char* filename)
 			
 			if (datastream.eof()) 
 			{
-				LOG4CXX_FATAL(logger, "Error reading file: eof reached unexpectedly reading from line " << i);
+				LOG4CXX_ERROR(logger, "Error reading file: eof reached unexpectedly reading from line " << i);
 				exit(-1);
 			}
 			
@@ -81,7 +81,7 @@ void FileReader::readFileList(list<Particle>& particles, char* filename)
 	} 
 	else 
 	{
-		LOG4CXX_FATAL(logger, "Error: could not open file " << string(filename));
+		LOG4CXX_ERROR(logger, "Error: could not open file " << string(filename));
 		exit(-1);
 	}
 }
@@ -135,7 +135,7 @@ void FileReader::readFileCuboid(list<Particle>& particles, char* filename)
 			
 			if (datastream.eof()) 
 			{
-				LOG4CXX_FATAL(logger, "Error reading file: eof reached unexpectedly reading from line " << i);
+				LOG4CXX_ERROR(logger, "Error reading file: eof reached unexpectedly reading from line " << i);
 				exit(-1);
 			}
 			
@@ -153,7 +153,7 @@ void FileReader::readFileCuboid(list<Particle>& particles, char* filename)
 	} 
 	else 
 	{
-		LOG4CXX_FATAL(logger, "Error: could not open file " << string(filename));
+		LOG4CXX_ERROR(logger, "Error: could not open file " << string(filename));
 		exit(-1);
 	}
 }

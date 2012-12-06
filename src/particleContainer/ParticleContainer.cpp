@@ -10,6 +10,6 @@ log4cxx::LoggerPtr ParticleContainer::logger(log4cxx::Logger::getLogger("Particl
 
 ParticleContainer::~ParticleContainer() 
 {
-	LOG4CXX_INFO(logger, "ParticleContainer destructed");
+	LOG4CXX_DEBUG(logger, "ParticleContainer destructed");
 }
 

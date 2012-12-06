@@ -158,12 +158,14 @@ double meanVelocityBrownianMotion = 0.1;
  * @brief Program call syntax
 **/
 string molsim_usage = 
-	"\n"
-	"Usage: ./MolSim PARAMETER_FILE" "\n"
-	"   PARAMETER_FILE - xml file with simulation parameters" "\n"
-	"\n"
-	"Usage: ./MolSim -test [TEST_NAME]" "\n"
-	"   TEST_NAME      - run only TEST_NAME" "\n"
+	"\n" "Usage:" "\n"
+	"    ./MolSim help" "\n"
+	"          Prints this usage information on standard output." "\n" "\n"
+	"    ./MolSim run PARAMETER_FILE" "\n"
+	"          Start simulation with parameters specified in PARAMETER_FILE." "\n" 
+	"          File is in xml-format which is specified in ./src/input/InputParameters.xsd (description in input.xml too)" "\n" "\n"
+	"    ./MolSim test [TEST_NAME]" "\n"
+	"          Runs all tests or only TEST_NAME:" "\n"
 ;
 
 log4cxx::LoggerPtr logger(log4cxx::Logger::getLogger("MolSim"));
@@ -184,11 +186,9 @@ int main(int argc, char* argsv[])
 	TestSettings ts;
 	vector<string> testNames = ts.getTestNames();
 	
-	molsim_usage += "Available tests:\n";
-	
 	for (int i; i < testNames.size(); i++)
 	{	
-		molsim_usage = molsim_usage + "   " + testNames[i] + "\n";
+		molsim_usage = molsim_usage + "          - " + testNames[i] + "\n";
 		LOG4CXX_TRACE(logger, "Detected " << testNames[i] << " as test");
 	}
 	
@@ -197,7 +197,7 @@ int main(int argc, char* argsv[])
 	LOG4CXX_TRACE(logger, "Check parameters");
 	
 	// Check count of parameters
-	if ( (argc == 2 || argc == 3) && string(argsv[1]).compare("-test") == 0 )
+	if ( (argc == 2 || argc == 3) && (string(argsv[1]).compare("test") == 0 || string(argsv[1]).compare("-test") == 0 || string(argsv[1]).compare("--test") == 0) )
 	{
 		LOG4CXX_DEBUG(logger, "Test option was passed");
 		
@@ -225,16 +225,22 @@ int main(int argc, char* argsv[])
 		LOG4CXX_INFO(logger, "Finish tests");
 		return EXIT_SUCCESS;
 	}
-	else if (argc != 2) 
+	else if ( argc == 2 && (string(argsv[1]).compare("help") == 0 || string(argsv[1]).compare("-help") == 0 || string(argsv[1]).compare("--help") == 0) )
 	{
-		LOG4CXX_FATAL(logger, "Errounous programme call: Wrong count of parameters!");
+		LOG4CXX_INFO(logger, "Usage information ist printed");
+		cout << molsim_usage << endl;
+		return EXIT_FAILURE;
+	}
+	else if ( argc != 3 || (string(argsv[1]).compare("run") != 0 && string(argsv[1]).compare("-run") != 0 && string(argsv[1]).compare("--run") != 0) )
+	{
+		LOG4CXX_FATAL(logger, "Errounous programme call: Wrong parameters!");
 		cout << molsim_usage << endl;
 		return EXIT_FAILURE;
 	}
 	
-	LOG4CXX_INFO(logger, "Reading parameter-file");
+	LOG4CXX_INFO(logger, "Reading parameter-file " << argsv[2] );
 	
-	std::ifstream file( argsv[1] );
+	std::ifstream file( argsv[2] );
 	
 	if ( !file.is_open() )
 	{
@@ -631,7 +637,7 @@ void plotParticle( Particle& p )
 
 void plotParticles(int iteration) 
 {
-	LOG4CXX_INFO(logger, "Plot particles of Iteration " << iteration);
+	LOG4CXX_DEBUG(logger, "Plot particles of Iteration " << iteration);
 	
 	vtk_writer.initializeOutput(particleContainer->size());
 	

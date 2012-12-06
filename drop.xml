@@ -4,26 +4,26 @@
 xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
 xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
 
-	<outputFile>sasad</outputFile>
+	<outputFile>drop</outputFile>
 	
-	<writeFrequency>10</writeFrequency>
+	<writeFrequency>100</writeFrequency>
 	
-	<t_end>2.0</t_end>
+	<t_end>10</t_end>
 	
-	<delta_t>0.0001</delta_t>
+	<delta_t>0.00005</delta_t>
 	
 	<potential>lenard jones</potential>
 
 	<domain>		
 		<dimensions>
-			<x>114.5</x>
-			<y>114.5</y>
+			<x>120</x>
+			<y>50</y>
 			<z>0</z>
 		</dimensions>
 		
 		<boundary>reflecting</boundary>
 		
-		<cutoff>3.014</cutoff>	
+		<cutoff>3</cutoff>	
 	</domain>
 
 	<brownianMotion>	
@@ -33,51 +33,27 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 	</brownianMotion>
 	
 	<inputs>		
-		<cuboid>			
-			<position>
-				<x>1.1225</x>
-				<y>1.1225</y>
-				<z>0</z>
-			</position>
-			
-			<velocity>
-				<x>0</x>
-				<y>0</y>
-				<z>0</z>
-			</velocity>
-			
-			<dimensions>
-				<x>100</x>
-				<y>20</y>
-				<z>1</z>
-			</dimensions>
-			
-			<mass>1</mass>
-			
-			<distance>1.1225</distance>		
-		</cuboid>
-		
 		<sphere>			
 			<position>
-				<x>57</x>
-				<y>50</y>
+				<x>60</x>
+				<y>25</y>
 				<z>0</z>
 			</position>
 			
 			<velocity>
 				<x>0</x>
-				<y>-100</y>
+				<y>-10</y>
 				<z>0</z>
 			</velocity>
-			
-			<dimensionCount>2</dimensionCount>
 			
 			<radiusDimension>15</radiusDimension>
 			
+			<dimensionCount>2</dimensionCount>
+			
 			<mass>1</mass>
 			
 			<distance>1.1225</distance>		
-		</sphere>		
+		</sphere>	
 	</inputs>
 	
 </simulation>

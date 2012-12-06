@@ -37,7 +37,7 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 	int i[3];
 	int j[3];
 	
-	LOG4CXX_INFO(logger, "Create " << cellCount << " cells");
+	LOG4CXX_DEBUG(logger, "Create " << cellCount << " cells");
 	
 	// Create cells
 	
@@ -55,33 +55,30 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 						  (i[0] == cellDimensions[0]-1 &&  domainSize[0] != 0) || (i[1] == cellDimensions[1]-1 &&  domainSize[1] != 0) || (i[2] == cellDimensions[2]-1 &&  domainSize[2] != 0) )
 				{
 					haloCells.push_back( getCell(i) );
-//					cout << "H ";
 				}
 				// Boundary cell
 				else if	( (i[0] == 1 &&  domainSize[0] != 0) || (i[1] == 1 &&  domainSize[1] != 0) || (i[2] == 1 &&  domainSize[2] != 0) || 
 						  (i[0] == cellDimensions[0]-2 &&  domainSize[0] != 0) || (i[1] == cellDimensions[1]-2 &&  domainSize[1] != 0) || (i[2] == cellDimensions[2]-2 &&  domainSize[2] != 0) )
 				{
 					boundaryCells.push_back( getCell(i) );
-//					cout << "B ";
 				}
 				else
 				{
-//					cout << "N ";
 				}
 			}
 		}
-//		cout << endl;
 	}
 	
-	LOG4CXX_INFO(logger, "Created " << boundaryCells.size() << " boundary cells");
-	LOG4CXX_INFO(logger, "Created " << haloCells.size() << " halo cells");
+	LOG4CXX_DEBUG(logger, "Created " << boundaryCells.size() << " boundary cells");
+	LOG4CXX_DEBUG(logger, "Created " << haloCells.size() << " halo cells");
 	
-	LOG4CXX_INFO(logger, "Create cell pairs");
+	LOG4CXX_DEBUG(logger, "Create cell pairs");
 	
 	// Create cell pairs
 	
 	vector<bool> visted (cellCount, false);
 	int cellVisted;
+	int c = 0;
 	
 	for ( i[0] = 0; i[0] < cellDimensions[0]; i[0]++ )
 	{	
@@ -102,6 +99,7 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 							
 							if ( cellVisted >= 0  && !visted[cellVisted]  )
 							{
+								c++;
 								cellPairs.push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
 							}
 						}
@@ -113,13 +111,13 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 		}
 	}
 	
-	
+	LOG4CXX_DEBUG(logger, "Created" << c << "cell pairs");
 
 }
 
 void LinkedCellParticleContainer::addParticles( list<Particle> pList )
 {
-	LOG4CXX_INFO(logger, "Add particles to cells");
+	LOG4CXX_DEBUG(logger, "Add particles to cells");
 	
 	int cellId;
 	count = 0;

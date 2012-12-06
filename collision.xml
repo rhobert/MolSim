@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<simulation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
+xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
+
+	<outputFile>collision</outputFile>
+	
+	<writeFrequency>20</writeFrequency>
+	
+	<t_end>20</t_end>
+	
+	<delta_t>0.0005</delta_t>
+	
+	<potential>lenard jones</potential>
+	
+	<domain>	
+		<dimensions>
+			<x>180</x>
+			<y>90</y>
+			<z>0</z>
+		</dimensions>
+		
+		<boundary>outflow</boundary>
+		
+		<cutoff>3</cutoff>	
+	</domain>
+	
+	<brownianMotion>
+		<dimensionCount>2</dimensionCount>
+		
+		<meanVelocity>0.1</meanVelocity>
+	</brownianMotion>
+	
+	<inputs>
+		<cuboid>
+			<position>
+				<x>20</x>
+				<y>20</y>
+				<z>0</z>
+			</position>
+			
+			<velocity>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</velocity>
+			
+			<dimensions>
+				<x>100</x>
+				<y>20</y>
+				<z>1</z>
+			</dimensions>
+			
+			<mass>1</mass>
+			
+			<distance>1.1225</distance>
+		</cuboid>
+		
+		<cuboid>
+			<position>
+				<x>70</x>
+				<y>60</y>
+				<z>0</z>
+			</position>
+			
+			<velocity>
+				<x>0</x>
+				<y>-10</y>
+				<z>0</z>
+			</velocity>
+			
+			<dimensions>
+				<x>20</x>
+				<y>20</y>
+				<z>1</z>
+			</dimensions>
+			
+			<mass>1</mass>
+			
+			<distance>1.1225</distance>
+		</cuboid>
+	</inputs>
+	
+</simulation>
