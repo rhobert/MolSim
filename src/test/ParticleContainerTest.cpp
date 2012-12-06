@@ -5,120 +5,210 @@
  *      Author: chris
  */
 
+#include <stdlib.h>
+#include <time.h>
+
 #include "ParticleContainerTest.h"
 
+
+
 using namespace std;
-/*
+
 void ParticleContainerTest::setUp()
 {
-	double x_[] = {0,0,0};
-	double v_[] = {0,0,0};
+	emptyContainer = setUpParticleContainer();
+	oneContainer = setUpParticleContainer();
+	twoContainer = setUpParticleContainer();
+	randomContainer = setUpParticleContainer();
 	
-	utils::Vector<double,3> x (x_);
-	utils::Vector<double,3> v (v_);
+	srand( time(NULL) );
+	randomSize = rand() % (RANDOM_SIZE_MAX - RANDOM_SIZE_MIN + 1) + RANDOM_SIZE_MIN;
+	
+	utils::Vector<double,3> x (PARTICLE_POSITION_STD);
+	utils::Vector<double,3> v (PARTICLE_VELOCITY_STD);
 	double m = 1;
 	
-	Particle p ( x, v, m );
-	particle = p;
+	particle = Particle( x, v, m );
 	
-	particles.push_back(p);
-	particles.push_back(p);
-	particles.push_back(p);
-	particles.push_back(p);
-	particles.push_back(p);
+	Particle p0 = particle;
+	Particle p1 = particle;
+	Particle p2 = particle;
 	
-	container = new ParticleContainer(particles);
+	Particle * randomParticles = new Particle[randomSize];
+	
+	for (int i = 0; i < randomSize; i++)
+		randomParticles[i] = particle;
+	
+	list<Particle> particles;
+	
+	emptyContainer->addParticles(particles);
+	
+	particles.push_back(p0);
+	oneContainer->addParticles(particles);
+	
+	particles.clear();
+	
+	particles.push_back(p1);
+	particles.push_back(p2);
+	twoContainer->addParticles(particles);
+	
+	particles.clear();
+	
+	for (int i = 0; i < randomSize; i++)
+		particles.push_back(randomParticles[i]);
+	
+	randomContainer->addParticles(particles);
 }
 
 void ParticleContainerTest::tearDown()
 {
-	delete container;
+	delete emptyContainer;
+	delete oneContainer;
+	delete twoContainer;
+	delete randomContainer;
 }
 
-void ParticleContainerTest::testEmpty()
+void ParticleContainerTest::testSize()
 {
-	list<Particle> empty_particles;
-	ParticleContainer container (empty_particles);
-	
-	CPPUNIT_ASSERT(container.size() == 0);
-	CPPUNIT_ASSERT(container.beginSingle() == container.endSingle());
-	CPPUNIT_ASSERT(container.beginPair() == container.endPair());
+	CPPUNIT_ASSERT( emptyContainer->size() == 0 );
+	CPPUNIT_ASSERT( oneContainer->size() == 1 );
+	CPPUNIT_ASSERT( twoContainer->size() == 2 );
+	CPPUNIT_ASSERT( randomContainer->size() == randomSize );
 }
 
-void ParticleContainerTest::testOne()
+void ParticleContainerTest::testParticleCount()
 {
-	list<Particle> one_particles;
-	one_particles.push_back(particle);
-	ParticleContainer one_container (one_particles);
-	
-	CPPUNIT_ASSERT(one_container.size() == 1);
-	CPPUNIT_ASSERT(++one_container.beginSingle() == one_container.endSingle());
-	CPPUNIT_ASSERT(one_container.beginPair() == one_container.endPair());
+	CPPUNIT_ASSERT( countParticles( emptyContainer ) == 0 );
+	CPPUNIT_ASSERT( countParticles( oneContainer ) == 1 );
+	CPPUNIT_ASSERT( countParticles( twoContainer ) == 2 );
+	CPPUNIT_ASSERT( countParticles( randomContainer ) == randomSize );
 }
-	
-void ParticleContainerTest::testTwo()
-{
-	list<Particle> two_particles;
-	two_particles.push_back(particle);
-	two_particles.push_back(particle);
-	ParticleContainer container (two_particles);
-	
-	CPPUNIT_ASSERT(container.size() == 2);
-	CPPUNIT_ASSERT(++++container.beginSingle() == container.endSingle());
-	CPPUNIT_ASSERT(++container.beginPair() == container.endPair());
-}
-	
-void ParticleContainerTest::testForDoublesPair()
-{		
-	pair<Particle*, Particle*> pair1;
-	pair<Particle*, Particle*> pair2;
 
-	for( PairParticleIterator i = container->beginPair(); 
-		i != container->endPair(); 
-		i++)
+void ParticleContainerTest::testParticleValues()
+{
+	CPPUNIT_ASSERT( checkParticles( emptyContainer ) );
+	CPPUNIT_ASSERT( checkParticles( oneContainer ) );
+	CPPUNIT_ASSERT( checkParticles( twoContainer ) );
+	CPPUNIT_ASSERT( checkParticles( randomContainer ) );
+}
+
+void ParticleContainerTest::testApplyToSingleParticles()
+{
+	emptyContainer->applyToSingleParticles( modifyParticle );
+	oneContainer->applyToSingleParticles( modifyParticle );
+	twoContainer->applyToSingleParticles( modifyParticle );
+	randomContainer->applyToSingleParticles( modifyParticle );
+	
+	CPPUNIT_ASSERT( checkModfication( emptyContainer ) );
+	CPPUNIT_ASSERT( checkModfication( oneContainer ) );
+	CPPUNIT_ASSERT( checkModfication( twoContainer ) );
+	CPPUNIT_ASSERT( checkModfication( randomContainer ) );
+}
+
+void ParticleContainerTest::testDistinctParticlePairs()
+{
+	emptyContainer->applyToParticlePairs( modifyNotDistinctParticlePair );
+	oneContainer->applyToParticlePairs( modifyNotDistinctParticlePair );
+	twoContainer->applyToParticlePairs( modifyNotDistinctParticlePair );
+	randomContainer->applyToParticlePairs( modifyNotDistinctParticlePair );
+	
+	CPPUNIT_ASSERT( checkParticles( emptyContainer ) );
+	CPPUNIT_ASSERT( checkParticles( oneContainer ) );
+	CPPUNIT_ASSERT( checkParticles( twoContainer ) );
+	CPPUNIT_ASSERT( checkParticles( randomContainer ) );
+}
+
+void ParticleContainerTest::testParticlePairCount()
+{
+	CPPUNIT_ASSERT( countParticlePairs( emptyContainer ) == 0 );
+	CPPUNIT_ASSERT( countParticlePairs( oneContainer ) == 0 );
+	CPPUNIT_ASSERT( countParticlePairs( twoContainer ) == 1 );
+	CPPUNIT_ASSERT( countParticlePairs( randomContainer ) == randomSize * (randomSize - 1) / 2 );
+}
+
+
+int ParticleContainerTest::countParticles(ParticleContainer * container)
+{
+	ParticleContainer::SingleList particles = container->getParticles();
+	
+	int count = 0;
+	
+	for ( ParticleContainer::SingleList::iterator i = particles.begin(); i != particles.end(); i++ )
+		count++;
+	
+	return count;
+}
+
+int ParticleContainerTest::countParticlePairs(ParticleContainer * container)
+{
+	container->applyToParticlePairs( ParticleContainerTest::incrementParticlePair );
+	
+	ParticleContainer::SingleList particles = container->getParticles();
+	
+	double v = 0;
+	
+	for ( ParticleContainer::SingleList::iterator i = particles.begin(); i != particles.end(); i++ )
 	{
-		pair1 = *i;
+		Particle & p = *i;
 		
-		for( PairParticleIterator j = container->beginPair(); 
-			j != container->endPair(); 
-			j++)
-		{
-			pair2 = *j;
-			
-			CPPUNIT_ASSERT(pair1 == pair2 || pair1.first != pair2.first || pair1.second != pair2.second);
-			CPPUNIT_ASSERT(pair1.first != pair2.second || pair1.second != pair2.first);
-		}
+		v += p.getV()[0] - PARTICLE_VELOCITY_STD;
+	}
+	
+	int count = ( (int) ( v / PARTICLE_VELOCITY_STD ) ) / 2;
+	
+	return count;
+}
+
+bool ParticleContainerTest::checkParticles(ParticleContainer * container)
+{
+	ParticleContainer::SingleList particles = container->getParticles();
+		
+	for ( ParticleContainer::SingleList::iterator i = particles.begin(); i != particles.end(); i++ )
+	{
+		Particle & p = *i;
+		
+		if ( !( p == particle  ) )
+			return false;
+	}
+	
+	return true;
+}
+
+bool ParticleContainerTest::checkModfication(ParticleContainer * container)
+{
+	ParticleContainer::SingleList particles = container->getParticles();
+	
+	Particle modifiedParticle = particle;
+	modifyParticle(modifiedParticle);
+	
+	for ( ParticleContainer::SingleList::iterator i = particles.begin(); i != particles.end(); i++ )
+	{
+		Particle & p = *i;
+		
+		if ( !( p == modifiedParticle ) )
+			return false;
+	}
+	
+	return true;
+}
+
+void ParticleContainerTest::modifyParticle(Particle & p)
+{
+	p.setX( 2 * p.getX() );
+	p.setV( 3 * p.getV() );
+}
+
+void ParticleContainerTest::modifyNotDistinctParticlePair(Particle & p1, Particle & p2)
+{
+	if ( &p1 == &p2 )
+	{
+		modifyParticle(p1);
+		modifyParticle(p2);
 	}
 }
 
-void ParticleContainerTest::testCompletenessSingle()
+void ParticleContainerTest::incrementParticlePair(Particle & p1, Particle & p2)
 {
-	CPPUNIT_ASSERT(particles.size() == container->size());
-	
-	int counter = 0;
-	
-	for( SingleParticleIterator i = container->beginSingle(); 
-		i != container->endSingle(); 
-		i++)
-	{
-		counter++;
-	}
-	
-	CPPUNIT_ASSERT(particles.size() == counter);
+	p1.setV( p1.getV() + utils::Vector<double,3>(PARTICLE_VELOCITY_STD) );
+	p2.setV( p2.getV() + utils::Vector<double,3>(PARTICLE_VELOCITY_STD) );
 }
-
-void ParticleContainerTest::testCompletenessPair()
-{
-	int req_size = (particles.size() - 1) * particles.size() /2;
-	int counter = 0;
-	
-	for( PairParticleIterator i = container->beginPair(); 
-		i != container->endPair(); 
-		i++)
-	{
-		counter++;
-	}
-	
-	CPPUNIT_ASSERT(req_size == counter);
-}
-*/

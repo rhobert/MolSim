@@ -13,6 +13,14 @@
 #ifndef PARTICLECONTAINERTEST_H_
 #define PARTICLECONTAINERTEST_H_
 
+#define RANDOM_SIZE_MAX 256
+#define RANDOM_SIZE_MIN 16
+
+#define PARTICLE_POSITION_STD 1.
+#define PARTICLE_VELOCITY_STD 2.
+
+#define PARTICLE_POSITION_ERR 0.
+
 /**
 * @class ParticleContainerTest
 *
@@ -20,59 +28,141 @@
 */
 class ParticleContainerTest : public CppUnit::TestFixture 
 {
-
-	CPPUNIT_TEST_SUITE( ParticleContainerTest );
-/*	
-	CPPUNIT_TEST( testEmpty );
-	CPPUNIT_TEST( testOne );
-	CPPUNIT_TEST( testTwo );
-	CPPUNIT_TEST( testForDoublesPair );
-	CPPUNIT_TEST( testCompletenessSingle );
-	CPPUNIT_TEST( testCompletenessPair );
-*/	
-	CPPUNIT_TEST_SUITE_END();
+protected:
 	
 	/**
-	* @brief Instance of ParticleContainer used for tests
-	*/
-	ParticleContainer * container;
-	
-	/**
-	* @brief Single particle used for tests
+	* @brief Standard Particle used by the tests
 	*/
 	Particle particle;
 	
 	/**
-	* @brief List of particle used for tests
+	* @brief ParticleContainer with no particles
 	*/
-	list<Particle> particles;
-
+	ParticleContainer * emptyContainer;
+	
+	/**
+	* @brief ParticleContainer with one particle
+	*/
+	ParticleContainer * oneContainer;
+	
+	/**
+	* @brief ParticleContainer with two particles
+	*/
+	ParticleContainer * twoContainer;
+	
+	/**
+	* @brief ParticleContainer with a random number of particles
+	*/
+	ParticleContainer * randomContainer;
+		
+	/**
+	* @brief Count of particles in the randomContainer (between RANDSIZEMIN and RANDSIZEMAX)
+	*/
+	int randomSize;
+	
+	/**
+	* @brief Set up an empty ParticleContainer
+	* 
+	* @return Pointer to an empty ParticleContainer
+	*/
+	virtual ParticleContainer * setUpParticleContainer() = 0;
+	
+	/**
+	* @brief Count particles returned  by ParticleContainer::getParticles()
+	* 
+	* @param container ParticleContainer which particles are counted
+	* 
+	* @return Count of particles
+	*/
+	int countParticles(ParticleContainer * container);
+	
+	/**
+	* @brief Count particle pairs
+	* 
+	* @param container ParticleContainer which particle pairs are counted
+	* 
+	* @return Count of particle pairs
+	*/
+	int countParticlePairs(ParticleContainer * container);
+	
+	/**
+	* @brief Checks if all particles of a ParticleContainer have the right values
+	* 
+	* @param container ParticleContainer which particles should be checked
+	*/
+	bool checkParticles(ParticleContainer * container);
+	
+	/**
+	* @brief Checks if all particles of a ParticleContainer were modified
+	* 
+	* @param container ParticleContainer which particles should been modified
+	*/
+	bool checkModfication(ParticleContainer * container);
+	
+	/**
+	* @brief Modifies the values of a particle
+	* 
+	* @param p Particle to modify
+	*/
+	static void modifyParticle(Particle & p);
+	
+	/**
+	* @brief Modifies the values of not distinct particles
+	* 
+	* @param p1 First Particle of pair which to modify if not distinct to second Particle
+	* @param p2 Second Particle of pair which to modify if not distinct to first Particle
+	*/
+	static void modifyNotDistinctParticlePair(Particle & p1, Particle & p2);
+	
+	/**
+	* @brief Increments the velocity for particles in a particle pair 
+	* 
+	* @param p1 First Particle to modify
+	* @param p2 Second Particle  to modify
+	*/
+	static void incrementParticlePair(Particle & p1, Particle & p2);
+	
 public:
 	
 	/**
-	* @brief Set up a test
+	* @brief Set up a test by creating the ParticleContainers and fill them with particles
 	*/	
-//	void setUp();
+	void setUp();
 	
 	/**
 	* @brief Delete test-variables
 	*/
-//	void tearDown();
+	void tearDown();
 	
 	/**
-	* @brief Tests if an empty ParticleContainer has no single particles and no particle pairs
+	* @brief Tests if ParticleContainer has the right number of particles
 	*/
-//	void testEmpty();
+	void testSize();
 	
 	/**
-	* @brief Tests if an one element ParticleContainer has one single particles and no particle pairs
+	* @brief Tests if ParticleContainer returns the right count of particles
 	*/
-//	void testOne();
+	void testParticleCount();
 	
 	/**
-	* @brief Tests if a two element ParticleContainer has two single particles and one particle pair
+	* @brief Tests if particles of ParticleContainer have the right values
 	*/
-//	void testTwo();
+	void testParticleValues();
+	
+	/**
+	 * @brief Tests if functions are applied on all particle
+	 */
+	void testApplyToSingleParticles();
+	
+	/**
+	 * @brief Tests if all particle pairs are distinct
+	 */
+	void testDistinctParticlePairs();
+	
+	/**
+	* @brief Tests if ParticleContainer returns the right count of particle pairs
+	*/
+	void testParticlePairCount();
 	
 	/**
 	* @brief Tests if a ParticleContainer has no duplicate particle pairs

@@ -5,8 +5,7 @@
  *      Author: chris
  */
 
-#include "TestSettings.h"
-#include "ParticleContainerTest.h"
+
 #include <cppunit/ui/text/TestRunner.h>
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
@@ -16,8 +15,13 @@
 #include <cppunit/TestResult.h>
 #include <cppunit/Test.h>
 
+#include "TestSettings.h"
+#include "SimpleParticleContainerTest.h"
+#include "LinkedCellParticleContainerTest.h"
+
 // Register Test-Suites
-CPPUNIT_TEST_SUITE_REGISTRATION( ParticleContainerTest );
+CPPUNIT_TEST_SUITE_REGISTRATION( SimpleParticleContainerTest );
+CPPUNIT_TEST_SUITE_REGISTRATION( LinkedCellParticleContainerTest );
 
 void TestSettings::runTest()
 {
