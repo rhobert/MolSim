@@ -9,7 +9,7 @@ using namespace std;
 
 log4cxx::LoggerPtr LinkedCellParticleContainer::logger(log4cxx::Logger::getLogger("LinkedCellParticleContainer"));
 
-LinkedCellParticleContainer::LinkedCellParticleContainer(list<Particle> pList, utils::Vector<double, 3> domainSize, double cutoff) 
+LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3> domainSize, double cutoff) 
 {
 	LOG4CXX_INFO(logger, "Create LinkedCellParticleContainer");
 	
@@ -102,7 +102,7 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(list<Particle> pList, u
 							
 							if ( cellVisted >= 0  && !visted[cellVisted]  )
 							{
-								cellPairs.push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[ getCell( utils::Vector<int,3>(j) ) ] )) );
+								cellPairs.push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
 							}
 						}
 					}
@@ -113,10 +113,15 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(list<Particle> pList, u
 		}
 	}
 	
+	
+
+}
+
+void LinkedCellParticleContainer::addParticles( list<Particle> pList )
+{
 	LOG4CXX_INFO(logger, "Add particles to cells");
 	
-	// Add particles
-	
+	int cellId;
 	count = 0;
 	
 	for ( list<Particle>::iterator i = pList.begin(); i != pList.end(); i++ )
@@ -165,22 +170,48 @@ void LinkedCellParticleContainer::applyToBoundaryParticles( void (*singleFunctio
 }
 
 void LinkedCellParticleContainer::applyToParticlePairs( void (*pairFunction)(Particle&, Particle&) ) 
-{
+{	
 	for ( LinkedCellParticleContainer::CellPairList::iterator i = cellPairs.begin(); i != cellPairs.end(); i++ )
 	{
 		Cell& cell1 = *(i->first);
 		Cell& cell2 = *(i->second);
 		
-		for ( Cell::SingleList::iterator j1 = cell1.particles.begin(); j1 != cell1.particles.end(); j1++  )
-		{
-			Particle& p1 = *j1;
+		Cell::SingleList::iterator j1;
+		Cell::SingleList::iterator j2;
+		
+		if ( &cell1 == &cell2 )
+		{	
 			
-			for ( Cell::SingleList::iterator j2 = cell2.particles.begin(); j2 != cell2.particles.end(); j2++  )
+			for (  j1 = cell1.particles.begin(); j1 != cell1.particles.end(); j1++  )
 			{
-				Particle& p2 = *j2;
+				Particle& p1 = *j1;
 				
-				if ( j1 != j2 )
+				for ( j2 = j1, j2++; j2 != cell1.particles.end(); j2++ )
 				{
+					Particle& p2 = *j2;
+					
+					utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
+					
+					if ( x1_x2.L2Norm() <= sideLength )
+					{
+						pairFunction(p1,p2);
+					}
+				}
+			}
+		}
+		else
+		{
+			Cell& cell1 = *(i->first);
+			Cell& cell2 = *(i->second);
+			
+			for ( j1 = cell1.particles.begin(); j1 != cell1.particles.end(); j1++  )
+			{
+				Particle& p1 = *j1;
+				
+				for ( j2 = cell2.particles.begin(); j2 != cell2.particles.end(); j2++  )
+				{
+					Particle& p2 = *j2;
+					
 					utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
 					
 					if ( x1_x2.L2Norm() <= sideLength )
@@ -269,4 +300,23 @@ int LinkedCellParticleContainer::getCell( utils::Vector<int,3> x )
 	int cell = x[0] * cellDimensions[1] * cellDimensions[2]  + x[1] * cellDimensions[2] + x[2];
 	
 	return cell;
+}
+
+LinkedCellParticleContainer::SingleList LinkedCellParticleContainer::getParticles()
+{
+	LinkedCellParticleContainer::SingleList sList;
+	
+	for ( LinkedCellParticleContainer::CellList::iterator i = cells.begin(); i != cells.end(); i++ )
+	{
+		Cell& cell = *i;
+		
+		for ( Cell::SingleList::iterator j = cell.particles.begin(); j != cell.particles.end(); j++  )
+		{
+			Particle& p = *j;
+			
+			sList.push_back(p);
+		}
+	}
+	
+	return sList;
 }

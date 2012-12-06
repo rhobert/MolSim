@@ -16,17 +16,6 @@ using namespace std;
 **/
 class SimpleParticleContainer: public ParticleContainer {
 	
-public:
-	/**
-	* @brief Type of a list of single particles
-	**/
-	typedef vector<Particle> SingleList;
-	
-	/**
-	* @brief Type of a list of particles pairs
-	**/
-	typedef list<pair<Particle*, Particle*> > PairList;
-	
 private:
 	
 	/**
@@ -47,39 +36,27 @@ private:
 	/** 
 	* @brief Creates a list of all distinct particles
 	* 
-	* @param list List of single particles
+	* @param slist List of single particles
 	* 
 	* @return List of particle pairs
 	**/
-	PairList createPairs(SingleList& list);	
+	PairList createPairs(SingleList& slist);
 
 public:
-	/**
-	* @brief Create an instance of SimpleParticleContainer constructed of a list of particles
-	* 
-	* @param list Particle list
-	**/
-	SimpleParticleContainer(list<Particle> list);
 	
 	/**
-	* @brief Iterate over all sinlge particles
-	* 
-	* @param singleFunction function to apply on all single particles
-	**/
+	 * @brief Create an instance of LinkedCellParticleContainer which contains no particles yet
+	 */
+	SimpleParticleContainer();
+	
+	void addParticles( list<Particle> pList );
+	
 	void applyToSingleParticles( void (*singleFunction)(Particle&) );
-
-	/**
-	* @brief  Iterate over all particle pairs
-	* 
-	* @param pairFunction function to apply on all particle pairs
-	**/
+	
 	void applyToParticlePairs( void (*pairFunction)(Particle&, Particle&) );
 	
-	/**
-	* @brief Count of all single particles
-	* 
-	* @return Particle count
-	**/
+	SingleList getParticles();
+	
 	int size();
 };
 

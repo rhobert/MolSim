@@ -100,30 +100,30 @@ private:
 	 * @return Cell id which position is maped to and -1 when out of domain and halo
 	 */
 	int getCell( utils::Vector<int,3> x );
-
+	
 public:
 	/**
-	* @brief Create an instance of LinkedCellParticleContainer constructed of a list of particles
+	* @brief Create an instance of LinkedCellParticleContainer which contains no particles yet
 	* 
-	* @param list Particle list
 	* @param domainSize Domain size for simulation
-	* @param cuffoff Cutoff radius for particle pair iteration
+	* @param cutoff Cutoff radius for particle pair iteration
 	**/
-	LinkedCellParticleContainer(list<Particle> list, utils::Vector<double, 3> domainSize, double cutoff);
+	LinkedCellParticleContainer(utils::Vector<double, 3> domainSize, double cutoff);
+	
+	void addParticles( list<Particle> pList );
+	
+	void applyToSingleParticles( void (*singleFunction)(Particle&) );
 	
 	/**
-	* @brief Iterate over all sinlge particles
+	* @brief Iterate over all particle pairs with distance less equal the cutoff radius
 	* 
-	* @param singleFunction function to apply on all single particles
-	**/
-	void applyToSingleParticles( void (*singleFunction)(Particle&) );
-
-	/**
-	* @brief  Iterate over all particle pairs
-	* 
-	* @param pairFunction function to apply on all particle pairs
+	* @param pairFunction function to apply to particle pairs
 	**/
 	void applyToParticlePairs( void (*pairFunction)(Particle&, Particle&) );
+	
+	SingleList getParticles();
+	
+	int size();
 	
 	/**
 	* @brief Iterate over all single boundary particles
@@ -149,12 +149,6 @@ public:
 	 */
 	utils::Vector<double, 3> getDomainSize();
 	
-	/**
-	* @brief Count of all single particles
-	* 
-	* @return Particle count
-	**/
-	int size();
 };
 
 #endif /* LINKEDCELLPARTICLECONTAINER_H_ */

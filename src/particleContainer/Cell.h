@@ -26,15 +26,16 @@ private:
 	 * @brief Logger for Cell class
 	 */
 	static log4cxx::LoggerPtr logger;
-
-private:
 	
 	/**
 	* @brief All particles in this cell
 	**/
 	SingleList particles;
-
+	
 public:
+	/**
+	 * @brief Create an instance of Cell which contains no particles yet
+	 */
 	Cell();
 	
 	/**
