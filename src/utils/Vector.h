@@ -98,6 +98,15 @@ public:
 		return Vector(result);
 	}
 
+	double innerProduct() const{
+		double result = 0.0;
+
+		for (int i = 0; i < length; i++) {
+			result += content[i] * content[i];
+		}
+		return result;
+	}
+
 	double L2Norm() const {
 		double square_sum = 0;
 		for (int i = 0; i < length; i++) {
