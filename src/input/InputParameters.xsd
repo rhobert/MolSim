@@ -91,7 +91,6 @@ elementFormDefault="qualified">
 			<xs:element name="position" type="decimalVector_t" />
 			<xs:element name="velocity" type="decimalVector_t" />
 			<xs:element name="radiusDimension" type="xs:positiveInteger" />
-			<xs:element name="dimensionCount" type="dimensionCount_t" />
 			<xs:element name="mass" type="positiveDecimal_t" />
 			<xs:element name="distance" type="positiveDecimal_t" />
 		</xs:all>
@@ -129,8 +128,17 @@ elementFormDefault="qualified">
 	
 	<xs:complexType name="brownianMotion_t">
 		<xs:all>
-			<xs:element name="dimensionCount" type="dimensionCount_t" />
 			<xs:element name="meanVelocity" type="nonNegativeDecimal_t" />
+		</xs:all>
+	</xs:complexType>
+	
+	<xs:complexType name="thermostat_t">
+		<xs:all>
+			<xs:element name="initialT" type="nonNegativeDecimal_t" />
+			<xs:element name="nThermostat" type="xs:positiveInteger" />
+			<xs:element name="targetT" type="nonNegativeDecimal_t" />
+			<xs:element name="diffT" type="nonNegativeDecimal_t" />
+			<xs:element name="nMax" type="xs:positiveInteger" />
 		</xs:all>
 	</xs:complexType>
 	
@@ -144,6 +152,8 @@ elementFormDefault="qualified">
 			<xs:element name="potential" type="potential_t" />
 			<xs:element name="domain" type="domain_t" minOccurs="0" />
 			<xs:element name="brownianMotion" type="brownianMotion_t" minOccurs="0" />
+			<xs:element name="thermostat" type="thermostat_t" minOccurs="0" />
+			<xs:element name="dimensionCount" type="dimensionCount_t" />
 		</xs:all>	
 	</xs:complexType>
 	

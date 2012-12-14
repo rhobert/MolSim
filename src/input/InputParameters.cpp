@@ -610,30 +610,6 @@ namespace PSE_Molekulardynamik_WS12
     this->radiusDimension_.set (x);
   }
 
-  const sphere_t::dimensionCount_type& sphere_t::
-  dimensionCount () const
-  {
-    return this->dimensionCount_.get ();
-  }
-
-  sphere_t::dimensionCount_type& sphere_t::
-  dimensionCount ()
-  {
-    return this->dimensionCount_.get ();
-  }
-
-  void sphere_t::
-  dimensionCount (const dimensionCount_type& x)
-  {
-    this->dimensionCount_.set (x);
-  }
-
-  void sphere_t::
-  dimensionCount (::std::auto_ptr< dimensionCount_type > x)
-  {
-    this->dimensionCount_.set (x);
-  }
-
   const sphere_t::mass_type& sphere_t::
   mass () const
   {
@@ -910,30 +886,6 @@ namespace PSE_Molekulardynamik_WS12
   // brownianMotion_t
   // 
 
-  const brownianMotion_t::dimensionCount_type& brownianMotion_t::
-  dimensionCount () const
-  {
-    return this->dimensionCount_.get ();
-  }
-
-  brownianMotion_t::dimensionCount_type& brownianMotion_t::
-  dimensionCount ()
-  {
-    return this->dimensionCount_.get ();
-  }
-
-  void brownianMotion_t::
-  dimensionCount (const dimensionCount_type& x)
-  {
-    this->dimensionCount_.set (x);
-  }
-
-  void brownianMotion_t::
-  dimensionCount (::std::auto_ptr< dimensionCount_type > x)
-  {
-    this->dimensionCount_.set (x);
-  }
-
   const brownianMotion_t::meanVelocity_type& brownianMotion_t::
   meanVelocity () const
   {
@@ -956,6 +908,118 @@ namespace PSE_Molekulardynamik_WS12
   meanVelocity (::std::auto_ptr< meanVelocity_type > x)
   {
     this->meanVelocity_.set (x);
+  }
+
+
+  // thermostat_t
+  // 
+
+  const thermostat_t::initialT_type& thermostat_t::
+  initialT () const
+  {
+    return this->initialT_.get ();
+  }
+
+  thermostat_t::initialT_type& thermostat_t::
+  initialT ()
+  {
+    return this->initialT_.get ();
+  }
+
+  void thermostat_t::
+  initialT (const initialT_type& x)
+  {
+    this->initialT_.set (x);
+  }
+
+  void thermostat_t::
+  initialT (::std::auto_ptr< initialT_type > x)
+  {
+    this->initialT_.set (x);
+  }
+
+  const thermostat_t::nThermostat_type& thermostat_t::
+  nThermostat () const
+  {
+    return this->nThermostat_.get ();
+  }
+
+  thermostat_t::nThermostat_type& thermostat_t::
+  nThermostat ()
+  {
+    return this->nThermostat_.get ();
+  }
+
+  void thermostat_t::
+  nThermostat (const nThermostat_type& x)
+  {
+    this->nThermostat_.set (x);
+  }
+
+  const thermostat_t::targetT_type& thermostat_t::
+  targetT () const
+  {
+    return this->targetT_.get ();
+  }
+
+  thermostat_t::targetT_type& thermostat_t::
+  targetT ()
+  {
+    return this->targetT_.get ();
+  }
+
+  void thermostat_t::
+  targetT (const targetT_type& x)
+  {
+    this->targetT_.set (x);
+  }
+
+  void thermostat_t::
+  targetT (::std::auto_ptr< targetT_type > x)
+  {
+    this->targetT_.set (x);
+  }
+
+  const thermostat_t::diffT_type& thermostat_t::
+  diffT () const
+  {
+    return this->diffT_.get ();
+  }
+
+  thermostat_t::diffT_type& thermostat_t::
+  diffT ()
+  {
+    return this->diffT_.get ();
+  }
+
+  void thermostat_t::
+  diffT (const diffT_type& x)
+  {
+    this->diffT_.set (x);
+  }
+
+  void thermostat_t::
+  diffT (::std::auto_ptr< diffT_type > x)
+  {
+    this->diffT_.set (x);
+  }
+
+  const thermostat_t::nMax_type& thermostat_t::
+  nMax () const
+  {
+    return this->nMax_.get ();
+  }
+
+  thermostat_t::nMax_type& thermostat_t::
+  nMax ()
+  {
+    return this->nMax_.get ();
+  }
+
+  void thermostat_t::
+  nMax (const nMax_type& x)
+  {
+    this->nMax_.set (x);
   }
 
 
@@ -1158,6 +1222,60 @@ namespace PSE_Molekulardynamik_WS12
   brownianMotion (::std::auto_ptr< brownianMotion_type > x)
   {
     this->brownianMotion_.set (x);
+  }
+
+  const simulation_t::thermostat_optional& simulation_t::
+  thermostat () const
+  {
+    return this->thermostat_;
+  }
+
+  simulation_t::thermostat_optional& simulation_t::
+  thermostat ()
+  {
+    return this->thermostat_;
+  }
+
+  void simulation_t::
+  thermostat (const thermostat_type& x)
+  {
+    this->thermostat_.set (x);
+  }
+
+  void simulation_t::
+  thermostat (const thermostat_optional& x)
+  {
+    this->thermostat_ = x;
+  }
+
+  void simulation_t::
+  thermostat (::std::auto_ptr< thermostat_type > x)
+  {
+    this->thermostat_.set (x);
+  }
+
+  const simulation_t::dimensionCount_type& simulation_t::
+  dimensionCount () const
+  {
+    return this->dimensionCount_.get ();
+  }
+
+  simulation_t::dimensionCount_type& simulation_t::
+  dimensionCount ()
+  {
+    return this->dimensionCount_.get ();
+  }
+
+  void simulation_t::
+  dimensionCount (const dimensionCount_type& x)
+  {
+    this->dimensionCount_.set (x);
+  }
+
+  void simulation_t::
+  dimensionCount (::std::auto_ptr< dimensionCount_type > x)
+  {
+    this->dimensionCount_.set (x);
   }
 }
 
@@ -2279,14 +2397,12 @@ namespace PSE_Molekulardynamik_WS12
   sphere_t (const position_type& position,
             const velocity_type& velocity,
             const radiusDimension_type& radiusDimension,
-            const dimensionCount_type& dimensionCount,
             const mass_type& mass,
             const distance_type& distance)
   : ::xml_schema::type (),
     position_ (position, ::xml_schema::flags (), this),
     velocity_ (velocity, ::xml_schema::flags (), this),
     radiusDimension_ (radiusDimension, ::xml_schema::flags (), this),
-    dimensionCount_ (dimensionCount, ::xml_schema::flags (), this),
     mass_ (mass, ::xml_schema::flags (), this),
     distance_ (distance, ::xml_schema::flags (), this)
   {
@@ -2296,14 +2412,12 @@ namespace PSE_Molekulardynamik_WS12
   sphere_t (::std::auto_ptr< position_type >& position,
             ::std::auto_ptr< velocity_type >& velocity,
             const radiusDimension_type& radiusDimension,
-            const dimensionCount_type& dimensionCount,
             const mass_type& mass,
             const distance_type& distance)
   : ::xml_schema::type (),
     position_ (position, ::xml_schema::flags (), this),
     velocity_ (velocity, ::xml_schema::flags (), this),
     radiusDimension_ (radiusDimension, ::xml_schema::flags (), this),
-    dimensionCount_ (dimensionCount, ::xml_schema::flags (), this),
     mass_ (mass, ::xml_schema::flags (), this),
     distance_ (distance, ::xml_schema::flags (), this)
   {
@@ -2317,7 +2431,6 @@ namespace PSE_Molekulardynamik_WS12
     position_ (x.position_, f, this),
     velocity_ (x.velocity_, f, this),
     radiusDimension_ (x.radiusDimension_, f, this),
-    dimensionCount_ (x.dimensionCount_, f, this),
     mass_ (x.mass_, f, this),
     distance_ (x.distance_, f, this)
   {
@@ -2331,7 +2444,6 @@ namespace PSE_Molekulardynamik_WS12
     position_ (f, this),
     velocity_ (f, this),
     radiusDimension_ (f, this),
-    dimensionCount_ (f, this),
     mass_ (f, this),
     distance_ (f, this)
   {
@@ -2391,20 +2503,6 @@ namespace PSE_Molekulardynamik_WS12
         }
       }
 
-      // dimensionCount
-      //
-      if (n.name () == "dimensionCount" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
-      {
-        ::std::auto_ptr< dimensionCount_type > r (
-          dimensionCount_traits::create (i, f, this));
-
-        if (!dimensionCount_.present ())
-        {
-          this->dimensionCount_.set (r);
-          continue;
-        }
-      }
-
       // mass
       //
       if (n.name () == "mass" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
@@ -2454,13 +2552,6 @@ namespace PSE_Molekulardynamik_WS12
     {
       throw ::xsd::cxx::tree::expected_element< char > (
         "radiusDimension",
-        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
-    }
-
-    if (!dimensionCount_.present ())
-    {
-      throw ::xsd::cxx::tree::expected_element< char > (
-        "dimensionCount",
         "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
     }
 
@@ -2874,10 +2965,8 @@ namespace PSE_Molekulardynamik_WS12
   //
 
   brownianMotion_t::
-  brownianMotion_t (const dimensionCount_type& dimensionCount,
-                    const meanVelocity_type& meanVelocity)
+  brownianMotion_t (const meanVelocity_type& meanVelocity)
   : ::xml_schema::type (),
-    dimensionCount_ (dimensionCount, ::xml_schema::flags (), this),
     meanVelocity_ (meanVelocity, ::xml_schema::flags (), this)
   {
   }
@@ -2887,7 +2976,6 @@ namespace PSE_Molekulardynamik_WS12
                     ::xml_schema::flags f,
                     ::xml_schema::container* c)
   : ::xml_schema::type (x, f, c),
-    dimensionCount_ (x.dimensionCount_, f, this),
     meanVelocity_ (x.meanVelocity_, f, this)
   {
   }
@@ -2897,7 +2985,6 @@ namespace PSE_Molekulardynamik_WS12
                     ::xml_schema::flags f,
                     ::xml_schema::container* c)
   : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
-    dimensionCount_ (f, this),
     meanVelocity_ (f, this)
   {
     if ((f & ::xml_schema::flags::base) == 0)
@@ -2917,20 +3004,6 @@ namespace PSE_Molekulardynamik_WS12
       const ::xsd::cxx::xml::qualified_name< char > n (
         ::xsd::cxx::xml::dom::name< char > (i));
 
-      // dimensionCount
-      //
-      if (n.name () == "dimensionCount" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
-      {
-        ::std::auto_ptr< dimensionCount_type > r (
-          dimensionCount_traits::create (i, f, this));
-
-        if (!dimensionCount_.present ())
-        {
-          this->dimensionCount_.set (r);
-          continue;
-        }
-      }
-
       // meanVelocity
       //
       if (n.name () == "meanVelocity" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
@@ -2946,13 +3019,6 @@ namespace PSE_Molekulardynamik_WS12
       }
 
       break;
-    }
-
-    if (!dimensionCount_.present ())
-    {
-      throw ::xsd::cxx::tree::expected_element< char > (
-        "dimensionCount",
-        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
     }
 
     if (!meanVelocity_.present ())
@@ -2975,6 +3041,180 @@ namespace PSE_Molekulardynamik_WS12
   {
   }
 
+  // thermostat_t
+  //
+
+  thermostat_t::
+  thermostat_t (const initialT_type& initialT,
+                const nThermostat_type& nThermostat,
+                const targetT_type& targetT,
+                const diffT_type& diffT,
+                const nMax_type& nMax)
+  : ::xml_schema::type (),
+    initialT_ (initialT, ::xml_schema::flags (), this),
+    nThermostat_ (nThermostat, ::xml_schema::flags (), this),
+    targetT_ (targetT, ::xml_schema::flags (), this),
+    diffT_ (diffT, ::xml_schema::flags (), this),
+    nMax_ (nMax, ::xml_schema::flags (), this)
+  {
+  }
+
+  thermostat_t::
+  thermostat_t (const thermostat_t& x,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    initialT_ (x.initialT_, f, this),
+    nThermostat_ (x.nThermostat_, f, this),
+    targetT_ (x.targetT_, f, this),
+    diffT_ (x.diffT_, f, this),
+    nMax_ (x.nMax_, f, this)
+  {
+  }
+
+  thermostat_t::
+  thermostat_t (const ::xercesc::DOMElement& e,
+                ::xml_schema::flags f,
+                ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    initialT_ (f, this),
+    nThermostat_ (f, this),
+    targetT_ (f, this),
+    diffT_ (f, this),
+    nMax_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
+  }
+
+  void thermostat_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // initialT
+      //
+      if (n.name () == "initialT" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< initialT_type > r (
+          initialT_traits::create (i, f, this));
+
+        if (!initialT_.present ())
+        {
+          this->initialT_.set (r);
+          continue;
+        }
+      }
+
+      // nThermostat
+      //
+      if (n.name () == "nThermostat" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!nThermostat_.present ())
+        {
+          this->nThermostat_.set (nThermostat_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      // targetT
+      //
+      if (n.name () == "targetT" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< targetT_type > r (
+          targetT_traits::create (i, f, this));
+
+        if (!targetT_.present ())
+        {
+          this->targetT_.set (r);
+          continue;
+        }
+      }
+
+      // diffT
+      //
+      if (n.name () == "diffT" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< diffT_type > r (
+          diffT_traits::create (i, f, this));
+
+        if (!diffT_.present ())
+        {
+          this->diffT_.set (r);
+          continue;
+        }
+      }
+
+      // nMax
+      //
+      if (n.name () == "nMax" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!nMax_.present ())
+        {
+          this->nMax_.set (nMax_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (!initialT_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "initialT",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!nThermostat_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "nThermostat",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!targetT_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "targetT",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!diffT_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "diffT",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!nMax_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "nMax",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+  }
+
+  thermostat_t* thermostat_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class thermostat_t (*this, f, c);
+  }
+
+  thermostat_t::
+  ~thermostat_t ()
+  {
+  }
+
   // simulation_t
   //
 
@@ -2984,7 +3224,8 @@ namespace PSE_Molekulardynamik_WS12
                 const writeFrequency_type& writeFrequency,
                 const t_end_type& t_end,
                 const delta_t_type& delta_t,
-                const potential_type& potential)
+                const potential_type& potential,
+                const dimensionCount_type& dimensionCount)
   : ::xml_schema::type (),
     outputFile_ (outputFile, ::xml_schema::flags (), this),
     inputs_ (inputs, ::xml_schema::flags (), this),
@@ -2993,7 +3234,9 @@ namespace PSE_Molekulardynamik_WS12
     delta_t_ (delta_t, ::xml_schema::flags (), this),
     potential_ (potential, ::xml_schema::flags (), this),
     domain_ (::xml_schema::flags (), this),
-    brownianMotion_ (::xml_schema::flags (), this)
+    brownianMotion_ (::xml_schema::flags (), this),
+    thermostat_ (::xml_schema::flags (), this),
+    dimensionCount_ (dimensionCount, ::xml_schema::flags (), this)
   {
   }
 
@@ -3003,7 +3246,8 @@ namespace PSE_Molekulardynamik_WS12
                 const writeFrequency_type& writeFrequency,
                 const t_end_type& t_end,
                 const delta_t_type& delta_t,
-                const potential_type& potential)
+                const potential_type& potential,
+                const dimensionCount_type& dimensionCount)
   : ::xml_schema::type (),
     outputFile_ (outputFile, ::xml_schema::flags (), this),
     inputs_ (inputs, ::xml_schema::flags (), this),
@@ -3012,7 +3256,9 @@ namespace PSE_Molekulardynamik_WS12
     delta_t_ (delta_t, ::xml_schema::flags (), this),
     potential_ (potential, ::xml_schema::flags (), this),
     domain_ (::xml_schema::flags (), this),
-    brownianMotion_ (::xml_schema::flags (), this)
+    brownianMotion_ (::xml_schema::flags (), this),
+    thermostat_ (::xml_schema::flags (), this),
+    dimensionCount_ (dimensionCount, ::xml_schema::flags (), this)
   {
   }
 
@@ -3028,7 +3274,9 @@ namespace PSE_Molekulardynamik_WS12
     delta_t_ (x.delta_t_, f, this),
     potential_ (x.potential_, f, this),
     domain_ (x.domain_, f, this),
-    brownianMotion_ (x.brownianMotion_, f, this)
+    brownianMotion_ (x.brownianMotion_, f, this),
+    thermostat_ (x.thermostat_, f, this),
+    dimensionCount_ (x.dimensionCount_, f, this)
   {
   }
 
@@ -3044,7 +3292,9 @@ namespace PSE_Molekulardynamik_WS12
     delta_t_ (f, this),
     potential_ (f, this),
     domain_ (f, this),
-    brownianMotion_ (f, this)
+    brownianMotion_ (f, this),
+    thermostat_ (f, this),
+    dimensionCount_ (f, this)
   {
     if ((f & ::xml_schema::flags::base) == 0)
     {
@@ -3172,6 +3422,34 @@ namespace PSE_Molekulardynamik_WS12
         }
       }
 
+      // thermostat
+      //
+      if (n.name () == "thermostat" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< thermostat_type > r (
+          thermostat_traits::create (i, f, this));
+
+        if (!this->thermostat_)
+        {
+          this->thermostat_.set (r);
+          continue;
+        }
+      }
+
+      // dimensionCount
+      //
+      if (n.name () == "dimensionCount" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< dimensionCount_type > r (
+          dimensionCount_traits::create (i, f, this));
+
+        if (!dimensionCount_.present ())
+        {
+          this->dimensionCount_.set (r);
+          continue;
+        }
+      }
+
       break;
     }
 
@@ -3214,6 +3492,13 @@ namespace PSE_Molekulardynamik_WS12
     {
       throw ::xsd::cxx::tree::expected_element< char > (
         "potential",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!dimensionCount_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "dimensionCount",
         "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
     }
   }
