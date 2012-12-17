@@ -83,6 +83,9 @@ elementFormDefault="qualified">
 			<xs:element name="dimensions" type="positiveIntegerVector_t" />
 			<xs:element name="mass" type="positiveDecimal_t" />
 			<xs:element name="distance" type="positiveDecimal_t" />
+			<xs:element name="sigma" type="xs:decimal" />
+			<xs:element name="epsilon" type="xs:decimal" />
+			<xs:element name="type" type="xs:nonNegativeInteger" />
 		</xs:all>
 	</xs:complexType>
 	
@@ -93,6 +96,9 @@ elementFormDefault="qualified">
 			<xs:element name="radiusDimension" type="xs:positiveInteger" />
 			<xs:element name="mass" type="positiveDecimal_t" />
 			<xs:element name="distance" type="positiveDecimal_t" />
+			<xs:element name="sigma" type="xs:decimal" />
+			<xs:element name="epsilon" type="xs:decimal" />
+			<xs:element name="type" type="xs:nonNegativeInteger" />
 		</xs:all>
 	</xs:complexType>
 		

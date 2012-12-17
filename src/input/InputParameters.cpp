@@ -540,6 +540,60 @@ namespace PSE_Molekulardynamik_WS12
     this->distance_.set (x);
   }
 
+  const cuboid_t::sigma_type& cuboid_t::
+  sigma () const
+  {
+    return this->sigma_.get ();
+  }
+
+  cuboid_t::sigma_type& cuboid_t::
+  sigma ()
+  {
+    return this->sigma_.get ();
+  }
+
+  void cuboid_t::
+  sigma (const sigma_type& x)
+  {
+    this->sigma_.set (x);
+  }
+
+  const cuboid_t::epsilon_type& cuboid_t::
+  epsilon () const
+  {
+    return this->epsilon_.get ();
+  }
+
+  cuboid_t::epsilon_type& cuboid_t::
+  epsilon ()
+  {
+    return this->epsilon_.get ();
+  }
+
+  void cuboid_t::
+  epsilon (const epsilon_type& x)
+  {
+    this->epsilon_.set (x);
+  }
+
+  const cuboid_t::type_type& cuboid_t::
+  type () const
+  {
+    return this->type_.get ();
+  }
+
+  cuboid_t::type_type& cuboid_t::
+  type ()
+  {
+    return this->type_.get ();
+  }
+
+  void cuboid_t::
+  type (const type_type& x)
+  {
+    this->type_.set (x);
+  }
+
 
   // sphere_t
   // 
@@ -656,6 +710,60 @@ namespace PSE_Molekulardynamik_WS12
   distance (::std::auto_ptr< distance_type > x)
   {
     this->distance_.set (x);
+  }
+
+  const sphere_t::sigma_type& sphere_t::
+  sigma () const
+  {
+    return this->sigma_.get ();
+  }
+
+  sphere_t::sigma_type& sphere_t::
+  sigma ()
+  {
+    return this->sigma_.get ();
+  }
+
+  void sphere_t::
+  sigma (const sigma_type& x)
+  {
+    this->sigma_.set (x);
+  }
+
+  const sphere_t::epsilon_type& sphere_t::
+  epsilon () const
+  {
+    return this->epsilon_.get ();
+  }
+
+  sphere_t::epsilon_type& sphere_t::
+  epsilon ()
+  {
+    return this->epsilon_.get ();
+  }
+
+  void sphere_t::
+  epsilon (const epsilon_type& x)
+  {
+    this->epsilon_.set (x);
+  }
+
+  const sphere_t::type_type& sphere_t::
+  type () const
+  {
+    return this->type_.get ();
+  }
+
+  sphere_t::type_type& sphere_t::
+  type ()
+  {
+    return this->type_.get ();
+  }
+
+  void sphere_t::
+  type (const type_type& x)
+  {
+    this->type_.set (x);
   }
 
 
@@ -2203,13 +2311,19 @@ namespace PSE_Molekulardynamik_WS12
             const velocity_type& velocity,
             const dimensions_type& dimensions,
             const mass_type& mass,
-            const distance_type& distance)
+            const distance_type& distance,
+            const sigma_type& sigma,
+            const epsilon_type& epsilon,
+            const type_type& type)
   : ::xml_schema::type (),
     position_ (position, ::xml_schema::flags (), this),
     velocity_ (velocity, ::xml_schema::flags (), this),
     dimensions_ (dimensions, ::xml_schema::flags (), this),
     mass_ (mass, ::xml_schema::flags (), this),
-    distance_ (distance, ::xml_schema::flags (), this)
+    distance_ (distance, ::xml_schema::flags (), this),
+    sigma_ (sigma, ::xml_schema::flags (), this),
+    epsilon_ (epsilon, ::xml_schema::flags (), this),
+    type_ (type, ::xml_schema::flags (), this)
   {
   }
 
@@ -2218,13 +2332,19 @@ namespace PSE_Molekulardynamik_WS12
             ::std::auto_ptr< velocity_type >& velocity,
             ::std::auto_ptr< dimensions_type >& dimensions,
             const mass_type& mass,
-            const distance_type& distance)
+            const distance_type& distance,
+            const sigma_type& sigma,
+            const epsilon_type& epsilon,
+            const type_type& type)
   : ::xml_schema::type (),
     position_ (position, ::xml_schema::flags (), this),
     velocity_ (velocity, ::xml_schema::flags (), this),
     dimensions_ (dimensions, ::xml_schema::flags (), this),
     mass_ (mass, ::xml_schema::flags (), this),
-    distance_ (distance, ::xml_schema::flags (), this)
+    distance_ (distance, ::xml_schema::flags (), this),
+    sigma_ (sigma, ::xml_schema::flags (), this),
+    epsilon_ (epsilon, ::xml_schema::flags (), this),
+    type_ (type, ::xml_schema::flags (), this)
   {
   }
 
@@ -2237,7 +2357,10 @@ namespace PSE_Molekulardynamik_WS12
     velocity_ (x.velocity_, f, this),
     dimensions_ (x.dimensions_, f, this),
     mass_ (x.mass_, f, this),
-    distance_ (x.distance_, f, this)
+    distance_ (x.distance_, f, this),
+    sigma_ (x.sigma_, f, this),
+    epsilon_ (x.epsilon_, f, this),
+    type_ (x.type_, f, this)
   {
   }
 
@@ -2250,7 +2373,10 @@ namespace PSE_Molekulardynamik_WS12
     velocity_ (f, this),
     dimensions_ (f, this),
     mass_ (f, this),
-    distance_ (f, this)
+    distance_ (f, this),
+    sigma_ (f, this),
+    epsilon_ (f, this),
+    type_ (f, this)
   {
     if ((f & ::xml_schema::flags::base) == 0)
     {
@@ -2339,6 +2465,39 @@ namespace PSE_Molekulardynamik_WS12
         }
       }
 
+      // sigma
+      //
+      if (n.name () == "sigma" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!sigma_.present ())
+        {
+          this->sigma_.set (sigma_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      // epsilon
+      //
+      if (n.name () == "epsilon" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!epsilon_.present ())
+        {
+          this->epsilon_.set (epsilon_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      // type
+      //
+      if (n.name () == "type" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!type_.present ())
+        {
+          this->type_.set (type_traits::create (i, f, this));
+          continue;
+        }
+      }
+
       break;
     }
 
@@ -2376,6 +2535,27 @@ namespace PSE_Molekulardynamik_WS12
         "distance",
         "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
     }
+
+    if (!sigma_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "sigma",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!epsilon_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "epsilon",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!type_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "type",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
   }
 
   cuboid_t* cuboid_t::
@@ -2398,13 +2578,19 @@ namespace PSE_Molekulardynamik_WS12
             const velocity_type& velocity,
             const radiusDimension_type& radiusDimension,
             const mass_type& mass,
-            const distance_type& distance)
+            const distance_type& distance,
+            const sigma_type& sigma,
+            const epsilon_type& epsilon,
+            const type_type& type)
   : ::xml_schema::type (),
     position_ (position, ::xml_schema::flags (), this),
     velocity_ (velocity, ::xml_schema::flags (), this),
     radiusDimension_ (radiusDimension, ::xml_schema::flags (), this),
     mass_ (mass, ::xml_schema::flags (), this),
-    distance_ (distance, ::xml_schema::flags (), this)
+    distance_ (distance, ::xml_schema::flags (), this),
+    sigma_ (sigma, ::xml_schema::flags (), this),
+    epsilon_ (epsilon, ::xml_schema::flags (), this),
+    type_ (type, ::xml_schema::flags (), this)
   {
   }
 
@@ -2413,13 +2599,19 @@ namespace PSE_Molekulardynamik_WS12
             ::std::auto_ptr< velocity_type >& velocity,
             const radiusDimension_type& radiusDimension,
             const mass_type& mass,
-            const distance_type& distance)
+            const distance_type& distance,
+            const sigma_type& sigma,
+            const epsilon_type& epsilon,
+            const type_type& type)
   : ::xml_schema::type (),
     position_ (position, ::xml_schema::flags (), this),
     velocity_ (velocity, ::xml_schema::flags (), this),
     radiusDimension_ (radiusDimension, ::xml_schema::flags (), this),
     mass_ (mass, ::xml_schema::flags (), this),
-    distance_ (distance, ::xml_schema::flags (), this)
+    distance_ (distance, ::xml_schema::flags (), this),
+    sigma_ (sigma, ::xml_schema::flags (), this),
+    epsilon_ (epsilon, ::xml_schema::flags (), this),
+    type_ (type, ::xml_schema::flags (), this)
   {
   }
 
@@ -2432,7 +2624,10 @@ namespace PSE_Molekulardynamik_WS12
     velocity_ (x.velocity_, f, this),
     radiusDimension_ (x.radiusDimension_, f, this),
     mass_ (x.mass_, f, this),
-    distance_ (x.distance_, f, this)
+    distance_ (x.distance_, f, this),
+    sigma_ (x.sigma_, f, this),
+    epsilon_ (x.epsilon_, f, this),
+    type_ (x.type_, f, this)
   {
   }
 
@@ -2445,7 +2640,10 @@ namespace PSE_Molekulardynamik_WS12
     velocity_ (f, this),
     radiusDimension_ (f, this),
     mass_ (f, this),
-    distance_ (f, this)
+    distance_ (f, this),
+    sigma_ (f, this),
+    epsilon_ (f, this),
+    type_ (f, this)
   {
     if ((f & ::xml_schema::flags::base) == 0)
     {
@@ -2531,6 +2729,39 @@ namespace PSE_Molekulardynamik_WS12
         }
       }
 
+      // sigma
+      //
+      if (n.name () == "sigma" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!sigma_.present ())
+        {
+          this->sigma_.set (sigma_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      // epsilon
+      //
+      if (n.name () == "epsilon" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!epsilon_.present ())
+        {
+          this->epsilon_.set (epsilon_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      // type
+      //
+      if (n.name () == "type" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!type_.present ())
+        {
+          this->type_.set (type_traits::create (i, f, this));
+          continue;
+        }
+      }
+
       break;
     }
 
@@ -2566,6 +2797,27 @@ namespace PSE_Molekulardynamik_WS12
     {
       throw ::xsd::cxx::tree::expected_element< char > (
         "distance",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!sigma_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "sigma",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!epsilon_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "epsilon",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!type_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "type",
         "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
     }
   }

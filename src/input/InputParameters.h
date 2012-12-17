@@ -940,19 +940,67 @@ namespace PSE_Molekulardynamik_WS12
     void
     distance (::std::auto_ptr< distance_type > p);
 
+    // sigma
+    // 
+    typedef ::xml_schema::decimal sigma_type;
+    typedef ::xsd::cxx::tree::traits< sigma_type, char, ::xsd::cxx::tree::schema_type::decimal > sigma_traits;
+
+    const sigma_type&
+    sigma () const;
+
+    sigma_type&
+    sigma ();
+
+    void
+    sigma (const sigma_type& x);
+
+    // epsilon
+    // 
+    typedef ::xml_schema::decimal epsilon_type;
+    typedef ::xsd::cxx::tree::traits< epsilon_type, char, ::xsd::cxx::tree::schema_type::decimal > epsilon_traits;
+
+    const epsilon_type&
+    epsilon () const;
+
+    epsilon_type&
+    epsilon ();
+
+    void
+    epsilon (const epsilon_type& x);
+
+    // type
+    // 
+    typedef ::xml_schema::non_negative_integer type_type;
+    typedef ::xsd::cxx::tree::traits< type_type, char > type_traits;
+
+    const type_type&
+    type () const;
+
+    type_type&
+    type ();
+
+    void
+    type (const type_type& x);
+
     // Constructors.
     //
     cuboid_t (const position_type&,
               const velocity_type&,
               const dimensions_type&,
               const mass_type&,
-              const distance_type&);
+              const distance_type&,
+              const sigma_type&,
+              const epsilon_type&,
+              const type_type&);
 
     cuboid_t (::std::auto_ptr< position_type >&,
               ::std::auto_ptr< velocity_type >&,
               ::std::auto_ptr< dimensions_type >&,
               const mass_type&,
-              const distance_type&);
+              const distance_type&,
+              const sigma_type&,
+              const epsilon_type&,
+              const type_type&);
 
     cuboid_t (const ::xercesc::DOMElement& e,
               ::xml_schema::flags f = 0,
@@ -982,6 +1030,9 @@ namespace PSE_Molekulardynamik_WS12
     ::xsd::cxx::tree::one< dimensions_type > dimensions_;
     ::xsd::cxx::tree::one< mass_type > mass_;
     ::xsd::cxx::tree::one< distance_type > distance_;
+    ::xsd::cxx::tree::one< sigma_type > sigma_;
+    ::xsd::cxx::tree::one< epsilon_type > epsilon_;
+    ::xsd::cxx::tree::one< type_type > type_;
   };
 
   class sphere_t: public ::xml_schema::type
@@ -1069,19 +1120,67 @@ namespace PSE_Molekulardynamik_WS12
     void
     distance (::std::auto_ptr< distance_type > p);
 
+    // sigma
+    // 
+    typedef ::xml_schema::decimal sigma_type;
+    typedef ::xsd::cxx::tree::traits< sigma_type, char, ::xsd::cxx::tree::schema_type::decimal > sigma_traits;
+
+    const sigma_type&
+    sigma () const;
+
+    sigma_type&
+    sigma ();
+
+    void
+    sigma (const sigma_type& x);
+
+    // epsilon
+    // 
+    typedef ::xml_schema::decimal epsilon_type;
+    typedef ::xsd::cxx::tree::traits< epsilon_type, char, ::xsd::cxx::tree::schema_type::decimal > epsilon_traits;
+
+    const epsilon_type&
+    epsilon () const;
+
+    epsilon_type&
+    epsilon ();
+
+    void
+    epsilon (const epsilon_type& x);
+
+    // type
+    // 
+    typedef ::xml_schema::non_negative_integer type_type;
+    typedef ::xsd::cxx::tree::traits< type_type, char > type_traits;
+
+    const type_type&
+    type () const;
+
+    type_type&
+    type ();
+
+    void
+    type (const type_type& x);
+
     // Constructors.
     //
     sphere_t (const position_type&,
               const velocity_type&,
               const radiusDimension_type&,
               const mass_type&,
-              const distance_type&);
+              const distance_type&,
+              const sigma_type&,
+              const epsilon_type&,
+              const type_type&);
 
     sphere_t (::std::auto_ptr< position_type >&,
               ::std::auto_ptr< velocity_type >&,
               const radiusDimension_type&,
               const mass_type&,
-              const distance_type&);
+              const distance_type&,
+              const sigma_type&,
+              const epsilon_type&,
+              const type_type&);
 
     sphere_t (const ::xercesc::DOMElement& e,
               ::xml_schema::flags f = 0,
@@ -1111,6 +1210,9 @@ namespace PSE_Molekulardynamik_WS12
     ::xsd::cxx::tree::one< radiusDimension_type > radiusDimension_;
     ::xsd::cxx::tree::one< mass_type > mass_;
     ::xsd::cxx::tree::one< distance_type > distance_;
+    ::xsd::cxx::tree::one< sigma_type > sigma_;
+    ::xsd::cxx::tree::one< epsilon_type > epsilon_;
+    ::xsd::cxx::tree::one< type_type > type_;
   };
 
   class inputs_t: public ::xml_schema::type
