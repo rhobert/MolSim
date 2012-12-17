@@ -32,8 +32,8 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 		<initialT>40.0</initialT>	
 		<nThermostat>1000</nThermostat>
 		<targetT>40</targetT>
-		<diffT>0</diffT>
-		<nChangeTemperature>50000</nChangeTemperature>
+		<diffT>1</diffT>
+		<nMax>50000</nMax>
 	</thermostat>
 	
 	<inputs>		
