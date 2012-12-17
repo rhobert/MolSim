@@ -82,20 +82,8 @@ public:
 			utils::Vector<double, 3> x_arg,
 			utils::Vector<double, 3> v_arg,
 			double m_arg,
-			double sigma,
-			double epsilon,
-			int type
-	);
-
-/**
-* @brief Create an instance of Particle using parameters containing position, velocity and mass.
-*/
-	Particle(
-			// for visualization, we need always 3 coordinates
-			// -> in case of 2d, we use only the first and the second
-			utils::Vector<double, 3> x_arg,
-			utils::Vector<double, 3> v_arg,
-			double m_arg,
+			double sigma = 5,
+			double epsilon = 1,
 			int type = 0
 	);
 

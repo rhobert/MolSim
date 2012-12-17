@@ -121,6 +121,7 @@ elementFormDefault="qualified">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="outflow" />
 			<xs:enumeration value="reflecting" />
+			<xs:enumeration value="periodic" />
 		</xs:restriction>
 	</xs:simpleType>
 	
@@ -160,6 +161,7 @@ elementFormDefault="qualified">
 			<xs:element name="brownianMotion" type="brownianMotion_t" minOccurs="0" />
 			<xs:element name="thermostat" type="thermostat_t" minOccurs="0" />
 			<xs:element name="dimensionCount" type="dimensionCount_t" />
+			<xs:element name="gravitation" type="decimalVector_t" minOccurs="0"  />
 		</xs:all>	
 	</xs:complexType>
 	

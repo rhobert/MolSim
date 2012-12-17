@@ -23,7 +23,11 @@ void generateCuboid(
 	utils::Vector<double, 3> v, 
 	utils::Vector<int, 3> N,
 	double h, 
-	double m
+	double m,
+	double sigma = 5,
+	double epsilon = 1,
+	int type = 0
+	
 );
 
 /**
@@ -45,7 +49,10 @@ void generateSphere(
 	int N,
 	int d, 
 	double h, 
-	double m
+	double m,
+	double sigma = 5,
+	double epsilon = 1,
+	int type = 0
 );
 
 #endif /* PARTICLEGENERATOR_H_ */

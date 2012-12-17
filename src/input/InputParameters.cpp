@@ -1385,6 +1385,36 @@ namespace PSE_Molekulardynamik_WS12
   {
     this->dimensionCount_.set (x);
   }
+
+  const simulation_t::gravitation_optional& simulation_t::
+  gravitation () const
+  {
+    return this->gravitation_;
+  }
+
+  simulation_t::gravitation_optional& simulation_t::
+  gravitation ()
+  {
+    return this->gravitation_;
+  }
+
+  void simulation_t::
+  gravitation (const gravitation_type& x)
+  {
+    this->gravitation_.set (x);
+  }
+
+  void simulation_t::
+  gravitation (const gravitation_optional& x)
+  {
+    this->gravitation_ = x;
+  }
+
+  void simulation_t::
+  gravitation (::std::auto_ptr< gravitation_type > x)
+  {
+    this->gravitation_.set (x);
+  }
 }
 
 #include <xsd/cxx/xml/dom/parsing-source.hxx>
@@ -3046,11 +3076,11 @@ namespace PSE_Molekulardynamik_WS12
     ::xsd::cxx::tree::enum_comparator< char > c (_xsd_boundary_t_literals_);
     const value* i (::std::lower_bound (
                       _xsd_boundary_t_indexes_,
-                      _xsd_boundary_t_indexes_ + 2,
+                      _xsd_boundary_t_indexes_ + 3,
                       *this,
                       c));
 
-    if (i == _xsd_boundary_t_indexes_ + 2 || _xsd_boundary_t_literals_[*i] != *this)
+    if (i == _xsd_boundary_t_indexes_ + 3 || _xsd_boundary_t_literals_[*i] != *this)
     {
       throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
     }
@@ -3059,16 +3089,18 @@ namespace PSE_Molekulardynamik_WS12
   }
 
   const char* const boundary_t::
-  _xsd_boundary_t_literals_[2] =
+  _xsd_boundary_t_literals_[3] =
   {
     "outflow",
-    "reflecting"
+    "reflecting",
+    "periodic"
   };
 
   const boundary_t::value boundary_t::
-  _xsd_boundary_t_indexes_[2] =
+  _xsd_boundary_t_indexes_[3] =
   {
     ::PSE_Molekulardynamik_WS12::boundary_t::outflow,
+    ::PSE_Molekulardynamik_WS12::boundary_t::periodic,
     ::PSE_Molekulardynamik_WS12::boundary_t::reflecting
   };
 
@@ -3488,7 +3520,8 @@ namespace PSE_Molekulardynamik_WS12
     domain_ (::xml_schema::flags (), this),
     brownianMotion_ (::xml_schema::flags (), this),
     thermostat_ (::xml_schema::flags (), this),
-    dimensionCount_ (dimensionCount, ::xml_schema::flags (), this)
+    dimensionCount_ (dimensionCount, ::xml_schema::flags (), this),
+    gravitation_ (::xml_schema::flags (), this)
   {
   }
 
@@ -3510,7 +3543,8 @@ namespace PSE_Molekulardynamik_WS12
     domain_ (::xml_schema::flags (), this),
     brownianMotion_ (::xml_schema::flags (), this),
     thermostat_ (::xml_schema::flags (), this),
-    dimensionCount_ (dimensionCount, ::xml_schema::flags (), this)
+    dimensionCount_ (dimensionCount, ::xml_schema::flags (), this),
+    gravitation_ (::xml_schema::flags (), this)
   {
   }
 
@@ -3528,7 +3562,8 @@ namespace PSE_Molekulardynamik_WS12
     domain_ (x.domain_, f, this),
     brownianMotion_ (x.brownianMotion_, f, this),
     thermostat_ (x.thermostat_, f, this),
-    dimensionCount_ (x.dimensionCount_, f, this)
+    dimensionCount_ (x.dimensionCount_, f, this),
+    gravitation_ (x.gravitation_, f, this)
   {
   }
 
@@ -3546,7 +3581,8 @@ namespace PSE_Molekulardynamik_WS12
     domain_ (f, this),
     brownianMotion_ (f, this),
     thermostat_ (f, this),
-    dimensionCount_ (f, this)
+    dimensionCount_ (f, this),
+    gravitation_ (f, this)
   {
     if ((f & ::xml_schema::flags::base) == 0)
     {
@@ -3698,6 +3734,20 @@ namespace PSE_Molekulardynamik_WS12
         if (!dimensionCount_.present ())
         {
           this->dimensionCount_.set (r);
+          continue;
+        }
+      }
+
+      // gravitation
+      //
+      if (n.name () == "gravitation" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< gravitation_type > r (
+          gravitation_traits::create (i, f, this));
+
+        if (!this->gravitation_)
+        {
+          this->gravitation_.set (r);
           continue;
         }
       }

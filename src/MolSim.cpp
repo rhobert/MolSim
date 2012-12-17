@@ -31,6 +31,7 @@ using namespace std;
 
 /**** forward declaration of the calculation functions ****/
 
+
 /**
  * @brief Calculate the force between two particles with the gravitational potential
  *
@@ -59,11 +60,25 @@ utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2);
 void calcReflection (Particle& p);
 
 /**
+ * @brief Calcuation for the periodic boundary condition for lenard jones potential
+ *
+ * @param p Particle to reflect
+**/
+void calcPeriodic(Particle &p);
+
+/**
  * @brief Apply Maxwell Boltzmann Distribution
  *
  * @param p Particle to distribute
 **/
 void applyMaxwellBoltzmannDistribution( Particle& p );
+
+/**
+ * @brief Apply gravitation on partcile
+ *
+ * @param p Particle to modify
+**/
+void applyGravitation(Particle& p);
 
 /**
  * @brief Calculate and set the force between two particles
@@ -142,6 +157,11 @@ utils::Vector<double, 3>  (*forceCalc)(Particle&, Particle&);
  * @brief Count of dimensions where Brownian Motion is effictive
 **/
 utils::Vector<double,3> domainSize (0.0);
+
+/**
+ * @brief Mean velocity for Maxwell-Boltzmann distribution
+**/
+utils::Vector<double,3> gravitation (0.0);
 
 /**
  * @brief Mean velocity for Maxwell-Boltzmann distribution
@@ -448,7 +468,18 @@ int main(int argc, char* argsv[])
 	LOG4CXX_INFO(logger, "Add " << particles.size() << " particles to ParticleContainer");
 
 	particleContainer->addParticles( particles );
-
+	
+	LOG4CXX_DEBUG(logger, "Detect if gravitation is specified");
+	
+	if ( simulation->gravitation().present() )
+	{
+		gravitation[0] = simulation->gravitation().get().x();
+		gravitation[1] = simulation->gravitation().get().y();
+		gravitation[2] = simulation->gravitation().get().z();
+		
+		LOG4CXX_INFO(logger, "Gravitation is set to " << gravitation.toString());
+	}
+	
 	LOG4CXX_INFO(logger, "Set potential for force calulation to " << simulation->potential() );
 
 	// Check potentialName and set force calculation
@@ -550,10 +581,18 @@ int main(int argc, char* argsv[])
 			{
 				linkedCellParticleContainer->applyToBoundaryParticles(calcReflection);
 			}
+			else if (boundary == PSE_Molekulardynamik_WS12::boundary_t::periodic)
+			{
+//				linkedCellParticleContainer->applyToHaloParticles(calcPeriodic);
+			}
 		}
 
 		// calculate new f
 		particleContainer->applyToParticlePairs ( calculateF );
+		
+		// apply gravitation
+		particleContainer->applyToSingleParticles ( applyGravitation );
+		
 		// calculate new v
 		particleContainer->applyToSingleParticles ( calculateV );
 
@@ -591,18 +630,18 @@ utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
 	utils::Vector<double, 3> F1_F2;
 	double l2Norm;
 	double temp;
-	double new_sigma;
-	double new_epsilon;
+	double sigma;
+	double epsilon;
 
 	if ( p1.getType() == p2.getType() )
 	{
-		new_sigma = p1.getSigma();
-		new_epsilon = p1.getEpsilon();
+		sigma = p1.getSigma();
+		epsilon = p1.getEpsilon();
 	}
 	else
 	{
-		new_sigma = ( p1.getSigma() + p2.getSigma() ) / 2;
-		new_epsilon = sqrt( p1.getEpsilon() * p2.getEpsilon() );
+		sigma = ( p1.getSigma() + p2.getSigma() ) / 2;
+		epsilon = sqrt( p1.getEpsilon() * p2.getEpsilon() );
 	}
 
 	//difference between coordinates of p1 and p2
@@ -610,8 +649,8 @@ utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
 	l2Norm = x1_x2.L2Norm();
 
 	//force between p1 and p2
-	temp = pow(new_sigma / l2Norm, 6);
-	F1_F2 = 24*new_epsilon / (l2Norm*l2Norm) * (temp - 2 * temp*temp) * (-1) * x1_x2;
+	temp = pow(sigma / l2Norm, 6);
+	F1_F2 = 24*epsilon / (l2Norm*l2Norm) * (temp - 2 * temp*temp) * (-1) * x1_x2;
 
 	return F1_F2;
 }
@@ -621,7 +660,6 @@ void calcReflection (Particle& p)
 	utils::Vector<double,3> x;
 	utils::Vector<double,3> x1_x2;
 	double d = pow(2,1/6) * p.getSigma();
-
 
 	LOG4CXX_TRACE(logger, "Reflection is checked for " << p.getX().toString() )
 
@@ -654,6 +692,52 @@ void calcReflection (Particle& p)
 			}
 		}
 	}
+}
+
+void calcPeriodic(Particle &p)
+{/*
+	utils::Vector<double,3> h;
+	if(p.getX()[0] < 0){
+		h[0] = domainSize[0];
+		h[1] = 0;
+		h[2] = 0;
+		p.setX(p.getX()+h);
+	}
+	else if(p.getX()[0] > domainSize[0]){
+		h[0] = domainSize[0];
+		h[1] = 0;
+		h[2] = 0;
+		p.setX(p.getX()-h);
+	}
+	else if(p.getX()[1] < 0){
+		h[1] = domainSize[1];
+		h[0] = 0;
+		h[2] = 0;
+		p.setX(p.getX()+h);
+	}
+	else if(p.getX()[1] > domainSize[1]){
+		h[1] = domainSize[1];
+		h[0] = 0;
+		h[2] = 0;
+		p.setX(p.getX()-h);
+	}
+	else if(p.getX()[2] < 0){
+		h[2] = domainSize[2];
+		h[0] = 0;
+		h[1] = 0;
+		p.setX(p.getX()+h);
+	}
+	else if(p.getX()[2] > domainSize[2]){
+		h[2] = domainSize[2];
+		h[0] = 0;
+		h[1] = 0;
+		p.setX(p.getX()-h);
+	}*/
+}
+
+void applyGravitation( Particle& p )
+{
+	p.setF( p.getF() + p.getM() * gravitation );
 }
 
 void setNewForce( Particle& p )

@@ -11,7 +11,10 @@ void generateCuboid(
 	utils::Vector<double, 3> v, 
 	utils::Vector<int, 3> N,
 	double h, 
-	double m
+	double m,
+	double sigma,
+	double epsilon,
+	int type
 )
 {
 	assert(N[0] > 0 && N[1] > 0 && N[2] > 0);
@@ -31,7 +34,7 @@ void generateCuboid(
 			
 			for ( int j2 = 0; j2 < N[2]; j2++ )
 			{	
-				Particle p(particlePosition, v, m);
+				Particle p(particlePosition, v, m, sigma, epsilon, type);
 				particles.push_back(p);
 				
 				particlePosition[2] += h;
@@ -51,7 +54,10 @@ void generateSphere(
 	int N,
 	int d, 
 	double h, 
-	double m
+	double m,
+	double sigma,
+	double epsilon,
+	int type
 )
 {
 	assert(N > 0);
@@ -74,7 +80,7 @@ void generateSphere(
 		c[1] = 0;
 	}
 	
-	generateCuboid(particlesSphere, c, v, n, h, m);
+	generateCuboid(particlesSphere, c, v, n, h, m, sigma, epsilon, type);
 	
 	utils::Vector<double, 3> x1_x2;
 	
