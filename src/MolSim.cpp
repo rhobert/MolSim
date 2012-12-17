@@ -31,9 +31,6 @@ using namespace std;
 
 /**** forward declaration of the calculation functions ****/
 
-#define EPSILON 5
-#define SIGMA 1
-
 /**
  * @brief Calculate the force between two particles with the gravitational potential
  *
@@ -147,7 +144,7 @@ utils::Vector<double, 3>  (*forceCalc)(Particle&, Particle&);
 utils::Vector<double,3> domainSize (0.0);
 
 /**
- * @brief Mean velocity for Thermostat/Brownian Motion
+ * @brief Mean velocity for Maxwell-Boltzmann distribution
 **/
 double meanVelocity;
 
@@ -345,6 +342,9 @@ int main(int argc, char* argsv[])
 		utils::Vector<int,3> dimensions;
 		double mass;
 		double distance;
+		double sigma;
+		double epsilon;
+		int type;
 
 		position[0] = cuboid.position().x();
 		position[1] = cuboid.position().y();
@@ -361,10 +361,15 @@ int main(int argc, char* argsv[])
 		mass = cuboid.mass();
 		distance = cuboid.distance();
 
-		LOG4CXX_INFO(logger, "Reading in cuboid at " << position.toString() << " with velocity " << velocity.toString()
-			<< ", dimensions " << dimensions.toString() << ", mass " << mass << " and distance " << distance);
+		sigma = cuboid.sigma();
+		epsilon = cuboid.epsilon();
+		type = cuboid.type();
 
-		generateCuboid(particles, position, velocity, dimensions, distance, mass);
+		LOG4CXX_INFO(logger, "Reading in cuboid at " << position.toString() << " with velocity " << velocity.toString()
+			<< ", dimensions " << dimensions.toString() << ", mass " << mass << ", distance " << distance << ", sigma " << sigma
+			<< ", epsilon " << epsilon << " and type " << type);
+
+		generateCuboid(particles, position, velocity, dimensions, distance, mass, sigma, epsilon, type);
 	}
 
 	LOG4CXX_DEBUG(logger, "Reading in spheres");
@@ -380,6 +385,9 @@ int main(int argc, char* argsv[])
 		int radiusDimension;
 		double mass;
 		double distance;
+		double sigma;
+		double epsilon;
+		int type;
 
 		position[0] = sphere.position().x();
 		position[1] = sphere.position().y();
@@ -393,10 +401,15 @@ int main(int argc, char* argsv[])
 		mass = sphere.mass();
 		distance = sphere.distance();
 
-		LOG4CXX_INFO(logger, "Reading in sphere at " << position.toString() << " with velocity " << velocity.toString()
-			<< ", radius dimension " << radiusDimension << ", mass " << mass << " and distance " << distance << " in " << dimensionCount << " dimensions" );
+		sigma = sphere.sigma();
+		epsilon = sphere.epsilon();
+		type = sphere.type();
 
-		generateSphere(particles, position, velocity, radiusDimension, dimensionCount, distance, mass);
+		LOG4CXX_INFO(logger, "Reading in sphere at " << position.toString() << " with velocity " << velocity.toString()
+			<< ", radius dimension " << radiusDimension << ", mass " << mass << ", distance " << distance << ", sigma " << sigma
+			<< ", epsilon " << epsilon << " and type " << type << " in " << dimensionCount << " dimensions" );
+
+		generateSphere(particles, position, velocity, radiusDimension, dimensionCount, distance, mass, sigma, epsilon, type);
 	}
 
 	// Read in domain, boundary condition and cutoff radius for LinkedCellParticleContainer
@@ -578,14 +591,27 @@ utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
 	utils::Vector<double, 3> F1_F2;
 	double l2Norm;
 	double temp;
+	double new_sigma;
+	double new_epsilon;
+
+	if ( p1.getType() == p2.getType() )
+	{
+		new_sigma = p1.getSigma();
+		new_epsilon = p1.getEpsilon();
+	}
+	else
+	{
+		new_sigma = ( p1.getSigma() + p2.getSigma() ) / 2;
+		new_epsilon = sqrt( p1.getEpsilon() * p2.getEpsilon() );
+	}
 
 	//difference between coordinates of p1 and p2
 	x1_x2 = p1.getX() - p2.getX();
 	l2Norm = x1_x2.L2Norm();
 
 	//force between p1 and p2
-	temp = pow(SIGMA / l2Norm, 6);
-	F1_F2 = 24*EPSILON / (l2Norm*l2Norm) * (temp - 2 * temp*temp) * (-1) * x1_x2;
+	temp = pow(new_sigma / l2Norm, 6);
+	F1_F2 = 24*new_epsilon / (l2Norm*l2Norm) * (temp - 2 * temp*temp) * (-1) * x1_x2;
 
 	return F1_F2;
 }
@@ -594,7 +620,7 @@ void calcReflection (Particle& p)
 {
 	utils::Vector<double,3> x;
 	utils::Vector<double,3> x1_x2;
-	double d = pow(2,1/6) * SIGMA;
+	double d = pow(2,1/6) * p.getSigma();
 
 
 	LOG4CXX_TRACE(logger, "Reflection is checked for " << p.getX().toString() )

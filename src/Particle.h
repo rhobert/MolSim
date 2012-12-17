@@ -22,7 +22,7 @@ private:
 	 * @brief Logger for Particle class
 	 */
 	static log4cxx::LoggerPtr logger;
-	
+
 	/**
 	* @brief The position of the particle.
 	*/
@@ -49,6 +49,16 @@ private:
 	double m;
 
 	/**
+	* @brief
+    */
+	double sigma;
+
+	/**
+	* @brief
+    */
+	double epsilon;
+
+	/**
 	* @brief Type of the particle. Use it for whatever you want (e.g. to seperate
      * molecules belonging to different bodies, matters, and so on).
     */
@@ -63,6 +73,20 @@ public:
 * @brief Copy-constructor of the class Particle.
 */
 	Particle(const Particle& other);
+/**
+* @brief Create an instance of Particle using parameters containing position, velocity, mass, sigma, epsilon and type.
+*/
+	Particle(
+			// for visualization, we need always 3 coordinates
+			// -> in case of 2d, we use only the first and the second
+			utils::Vector<double, 3> x_arg,
+			utils::Vector<double, 3> v_arg,
+			double m_arg,
+			double sigma,
+			double epsilon,
+			int type
+	);
+
 /**
 * @brief Create an instance of Particle using parameters containing position, velocity and mass.
 */
@@ -114,7 +138,7 @@ public:
 * @brief Changes the forces effective on the particle.
 */
 	void setF(utils::Vector<double, 3> other_f);
-	
+
 /**
 * @brief Changes the forces effective on the particle and saves the old forces effective on the particle.
 */
@@ -124,6 +148,16 @@ public:
 * @brief Returns the mass of the particle.
 */
 	double getM();
+
+/**
+* @brief
+*/
+	double getSigma();
+
+/**
+* @brief
+*/
+	double getEpsilon();
 
 /**
 * @brief Returns the type of the particle.
