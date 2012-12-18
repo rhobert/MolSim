@@ -8,7 +8,7 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 	
 	<writeFrequency>100</writeFrequency>
 	
-	<t_end>25</t_end>
+	<t_end>2.5</t_end>
 	
 	<delta_t>0.00005</delta_t>
 	
@@ -23,11 +23,18 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			<z>0</z>
 		</dimensions>
 		
-		<boundary>periodic</boundary>
+		<x>
+			<lower>periodic</lower>
+			<upper>periodic</upper>
+		</x>
+		<y>
+			<lower>periodic</lower>
+			<upper>periodic</upper>
+		</y>
 		
 		<cutoff>2.5</cutoff>	
 	</domain>
-
+<!--
 	<thermostat>	
 		<initialT>40.0</initialT>	
 		<nThermostat>1000</nThermostat>
@@ -35,6 +42,10 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 		<diffT>1</diffT>
 		<nMax>50000</nMax>
 	</thermostat>
+	-->
+	<brownianMotion>		
+		<meanVelocity>0.1</meanVelocity>
+	</brownianMotion>
 	
 	<inputs>		
 		<cuboid>			

@@ -15,9 +15,30 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 	
 	assert(domainSize[0] != 0 || domainSize[1] != 0|| domainSize[2] != 0);
 	
+	count = 0;
 	cells = CellList();
-	boundaryCells = vector<int>();
-	haloCells = vector<int>();
+	
+	boundaryCells[0] = new vector<int>();
+	boundaryCells[1] = new vector<int>();
+	boundaryCells[2] = new vector<int>();
+	boundaryCells[3] = new vector<int>();
+	boundaryCells[4] = new vector<int>();
+	boundaryCells[5] = new vector<int>();
+	
+	haloCells[0] = new vector<int>();
+	haloCells[1] = new vector<int>();
+	haloCells[2] = new vector<int>();
+	haloCells[3] = new vector<int>();
+	haloCells[4] = new vector<int>();
+	haloCells[5] = new vector<int>();
+	
+	periodicCellPairs[0] = new CellPairList();
+	periodicCellPairs[1] = new CellPairList();
+	periodicCellPairs[2] = new CellPairList();
+	periodicCellPairs[3] = new CellPairList();
+	periodicCellPairs[4] = new CellPairList();
+	periodicCellPairs[5] = new CellPairList();
+	
 	cellPairs = CellPairList();
 	sideLength = cutoff;
 	this->domainSize = utils::Vector<double,3> (0.0);
@@ -36,8 +57,12 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 	int cellId;
 	int i[3];
 	int j[3];
+	int k[3];
 	
-	LOG4CXX_DEBUG(logger, "Create " << cellCount << " cells");
+	int b = 0;
+	int h = 0;
+	
+	LOG4CXX_INFO(logger, "Create " << cellCount << " cells");
 	
 	// Create cells
 	
@@ -51,26 +76,78 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 				cells.push_back( cell );
 				
 				// Halo cell
-				if		( (i[0] == 0 &&  domainSize[0] != 0) || (i[1] == 0 &&  domainSize[1] != 0) || (i[2] == 0 &&  domainSize[2] != 0) || 
-						  (i[0] == cellDimensions[0]-1 &&  domainSize[0] != 0) || (i[1] == cellDimensions[1]-1 &&  domainSize[1] != 0) || (i[2] == cellDimensions[2]-1 &&  domainSize[2] != 0) )
+				
+				if ( isHalo( utils::Vector<int,3>(i) ) )
 				{
-					haloCells.push_back( getCell(i) );
+					if	( i[0] == 0 &&  domainSize[0] != 0 )
+					{
+						haloCells[0]->push_back( getCell(i) );
+					}
+					if	( i[0] == cellDimensions[0]-1 &&  domainSize[0] != 0 )
+					{
+						haloCells[1]->push_back( getCell(i) );
+					}
+					
+					if	( i[1] == 0 &&  domainSize[1] != 0 )
+					{
+						haloCells[2]->push_back( getCell(i) );
+					}
+					if	( i[1] == cellDimensions[1]-1 &&  domainSize[1] != 0 )
+					{
+						haloCells[3]->push_back( getCell(i) );
+					}
+					
+					if	( i[2] == 0 &&  domainSize[2] != 0 )
+					{
+						haloCells[4]->push_back( getCell(i) );
+					}
+					if	( i[2] == cellDimensions[2]-1 &&  domainSize[2] != 0 )
+					{
+						haloCells[5]->push_back( getCell(i) );
+					}
+					
+					h++;
 				}
+				
 				// Boundary cell
-				else if	( (i[0] == 1 &&  domainSize[0] != 0) || (i[1] == 1 &&  domainSize[1] != 0) || (i[2] == 1 &&  domainSize[2] != 0) || 
-						  (i[0] == cellDimensions[0]-2 &&  domainSize[0] != 0) || (i[1] == cellDimensions[1]-2 &&  domainSize[1] != 0) || (i[2] == cellDimensions[2]-2 &&  domainSize[2] != 0) )
-				{
-					boundaryCells.push_back( getCell(i) );
-				}
-				else
-				{
+				
+				if ( isBoundary( utils::Vector<int,3>(i) ) )
+					{
+					if	( i[0] == 1 &&  domainSize[0] != 0 )
+					{
+						boundaryCells[0]->push_back( getCell(i) );
+					}
+					if	( i[0] == cellDimensions[0]-2 &&  domainSize[0] != 0 )
+					{
+						boundaryCells[1]->push_back( getCell(i) );
+					}
+					
+					if	( i[1] == 1 &&  domainSize[1] != 0 )
+					{
+						boundaryCells[2]->push_back( getCell(i) );
+					}
+					if	( i[1] == cellDimensions[1]-2 &&  domainSize[1] != 0 )
+					{
+						boundaryCells[3]->push_back( getCell(i) );
+					}
+					
+					if	( i[2] == 1 &&  domainSize[2] != 0 )
+					{
+						boundaryCells[4]->push_back( getCell(i) );
+					}
+					if	( i[2] == cellDimensions[2]-2 &&  domainSize[2] != 0 )
+					{
+						boundaryCells[5]->push_back( getCell(i) );
+					}
+					
+					b++;
 				}
 			}
 		}
 	}
 	
-	LOG4CXX_DEBUG(logger, "Created " << boundaryCells.size() << " boundary cells");
-	LOG4CXX_DEBUG(logger, "Created " << haloCells.size() << " halo cells");
+	LOG4CXX_DEBUG(logger, "Created " << b << " boundary cells");
+	LOG4CXX_DEBUG(logger, "Created " << h << " halo cells");
 	
 	LOG4CXX_DEBUG(logger, "Create cell pairs");
 	
@@ -79,6 +156,7 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 	vector<bool> visted (cellCount, false);
 	int cellVisted;
 	int c = 0;
+	int p = 0;
 	
 	for ( i[0] = 0; i[0] < cellDimensions[0]; i[0]++ )
 	{	
@@ -87,14 +165,17 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 			for ( i[2] = 0; i[2] < cellDimensions[2]; i[2]++ )
 			{
 				cellId = getCell( utils::Vector<int,3>(i) );
+				vector<bool> visitedPeriodic (cellCount, false);
+				visitedPeriodic[cellId] = true;
+				
+//				cout <<  utils::Vector<int,3>(i) << endl;
 				
 				for ( j[0] = i[0]-1; j[0] <= i[0]+1; j[0]++ )
 				{
 					for ( j[1] = i[1]-1; j[1] <= i[1]+1; j[1]++ )
 					{
 						for ( j[2] = i[2]-1; j[2] <= i[2]+1; j[2]++ )
-						{
-							
+						{			
 							cellVisted = getCell( utils::Vector<int,3>(j) );
 							
 							if ( cellVisted >= 0  && !visted[cellVisted]  )
@@ -102,25 +183,87 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 								c++;
 								cellPairs.push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
 							}
+							
+							// Boundary cell?
+							if ( cellVisted >= 0 && isBoundary( utils::Vector<int,3>(i) ) && isHalo( utils::Vector<int,3>(j) ) )
+							{
+								
+								utils::Vector<int,3> cellPeriodic (j);
+								
+//								cout << "\t" << cellPeriodic << " => ";
+								
+								for ( int n = 0; n <= 2; n++ )
+								{
+									if ( cellDimensions[n] != 1 )
+									{
+										if ( j[n] == 0 )
+										{
+											cellPeriodic[n] += cellDimensions[n] - 2;
+										}
+										if ( j[n] == cellDimensions[n]-1 )
+										{
+											cellPeriodic[n] -= cellDimensions[n] - 2;
+										}
+									}
+								}
+								
+								cellVisted = getCell( cellPeriodic );
+								
+//								cout << cellPeriodic << " - " << cellVisted << endl;
+								
+								if ( !( cellPeriodic == utils::Vector<int,3>(j) || visitedPeriodic[ getCell(cellPeriodic) ] || isHalo(cellPeriodic) ) )
+								{														
+									if	( cellPeriodic[0] == 1 && cellDimensions[0] != 1  )
+									{
+										periodicCellPairs[1]->push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
+									}
+									if	( cellPeriodic[0] == cellDimensions[0]-2 && cellDimensions[0] != 1  )
+									{
+										periodicCellPairs[0]->push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
+									}
+									
+									if	( cellPeriodic[1] == 1 && cellDimensions[1] != 1  )
+									{
+										periodicCellPairs[3]->push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
+									}
+									if	( cellPeriodic[1] == cellDimensions[1]-2 && cellDimensions[1] != 1  )
+									{
+										periodicCellPairs[2]->push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
+									}
+									
+									if	( cellPeriodic[2] == 1 && cellDimensions[2] != 1 )
+									{
+										periodicCellPairs[5]->push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
+									}
+									if	( cellPeriodic[2] == cellDimensions[2]-2 && cellDimensions[2] != 1 )
+									{
+										periodicCellPairs[4]->push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
+									}
+									
+									visitedPeriodic[ getCell(cellPeriodic) ] = true;
+									
+									p++;
+								}
+							}
 						}
 					}
 				}
 				
 				visted[cellId] = true;
+//				cout << endl;
 			}
 		}
 	}
 	
-	LOG4CXX_DEBUG(logger, "Created" << c << "cell pairs");
-
+	LOG4CXX_DEBUG(logger, "Created " << c << " cell pairs");
+	LOG4CXX_DEBUG(logger, "Created " << p << " periodic cell pairs");	
 }
 
 void LinkedCellParticleContainer::addParticles( list<Particle> pList )
 {
-	LOG4CXX_DEBUG(logger, "Add particles to cells");
+	LOG4CXX_TRACE(logger, "Add " << pList.size() << " particles to cells");
 	
 	int cellId;
-	count = 0;
 	
 	for ( list<Particle>::iterator i = pList.begin(); i != pList.end(); i++ )
 	{
@@ -152,9 +295,28 @@ void LinkedCellParticleContainer::applyToSingleParticles( void (*singleFunction)
 	}
 }
 
-void LinkedCellParticleContainer::applyToBoundaryParticles( void (*singleFunction)(Particle&) )
+void LinkedCellParticleContainer::applyToBoundaryParticles( int boundary, void (*singleFunction)(Particle&) )
 {
-	for ( vector<int>::iterator i = boundaryCells.begin(); i != boundaryCells.end(); i++ )
+	assert ( boundary >= 0 && boundary < 6 );
+	
+	for ( vector<int>::iterator i = boundaryCells[boundary]->begin(); i != boundaryCells[boundary]->end(); i++ )
+	{
+		Cell& cell = cells[*i];
+		
+		for ( Cell::SingleList::iterator j = cell.particles.begin(); j != cell.particles.end(); j++ )
+		{
+			Particle& p = *j;
+			
+			singleFunction(p);
+		}
+	}
+}
+
+void LinkedCellParticleContainer::applyToHaloParticles( int boundary, void (*singleFunction)(Particle&) )
+{
+	assert ( boundary >= 0 && boundary < 6 );
+	
+	for ( vector<int>::iterator i = haloCells[boundary]->begin(); i != haloCells[boundary]->end(); i++ )
 	{
 		Cell& cell = cells[*i];
 		
@@ -222,6 +384,54 @@ void LinkedCellParticleContainer::applyToParticlePairs( void (*pairFunction)(Par
 	}
 }
 
+void LinkedCellParticleContainer::applyToPeriodicBoundaryParticlePairs( int boundary, void (*pairFunction)(Particle&, Particle) )
+{
+	assert ( boundary >= 0 && boundary < 6 );
+	
+	for ( LinkedCellParticleContainer::CellPairList::iterator i = periodicCellPairs[boundary]->begin(); i != periodicCellPairs[boundary]->end(); i++ )
+	{
+		Cell& cell1 = *(i->first);
+		Cell& cell2 = *(i->second);
+		
+		for ( Cell::SingleList::iterator j1 = cell1.particles.begin(); j1 != cell1.particles.end(); j1++  )
+		{
+			Particle& p1 = *j1;
+			
+			for ( Cell::SingleList::iterator j2 = cell2.particles.begin(); j2 != cell2.particles.end(); j2++ )
+			{
+				Particle p2 (*j2);
+				utils::Vector<double,3> x(0.0);
+				
+				switch ( boundary )
+				{
+					case 0: x[0] -= domainSize[0]; break;
+					case 1: x[0] += domainSize[0]; break;
+					case 2: x[1] -= domainSize[1]; break;
+					case 3: x[1] += domainSize[1]; break;
+					case 4: x[2] -= domainSize[2]; break;
+					case 5: x[2] += domainSize[2]; break;
+					default: break;
+				}
+				
+//				cout << "Boundary " << boundary << ": ";
+//				cout << "Search partner for " << p1.getX().toString() << ", ";
+//				cout << "test " << p2.getX().toString() << " => ";
+				
+				p2.setX( p2.getX() + x );
+				
+//				cout << p2.getX().toString() << endl;
+				
+				utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
+					
+				if ( x1_x2.L2Norm() <= sideLength )
+				{
+					pairFunction(p1,p2);
+				}
+			}
+		}
+	}
+}
+
 void LinkedCellParticleContainer::updateContainingCells()
 {
 	for ( LinkedCellParticleContainer::CellList::iterator i = cells.begin(); i != cells.end(); i++ )
@@ -237,8 +447,11 @@ void LinkedCellParticleContainer::updateContainingCells()
 			{
 				if ( &cell != &(cells[cellId]) )
 				{
+					LOG4CXX_TRACE(logger, "Move particle " << p.getX().toString() << " to other cell");
+					
 					cells[cellId].addParticle(p);
 					j = cell.particles.erase(j);
+					j--;
 				}
 			}
 			else
@@ -251,15 +464,18 @@ void LinkedCellParticleContainer::updateContainingCells()
 	}
 }
 
-void LinkedCellParticleContainer::deleteHaloParticles()
+void LinkedCellParticleContainer::deleteHaloParticles( int boundary )
 {
-	for ( vector<int>::iterator i = haloCells.begin(); i != haloCells.end(); i++ )
+	assert ( boundary >= 0 && boundary < 6 );
+	
+	for ( vector<int>::iterator i = haloCells[boundary]->begin(); i != haloCells[boundary]->end(); i++ )
 	{
 		Cell& cell = cells[*i];
 		
 		if ( cell.size() > 0 )
 		{
 			LOG4CXX_DEBUG(logger, "Delete " << cell.size() <<  " particles from halo");
+			
 			count -= cell.size();
 			cell.particles.clear();
 		}
@@ -298,6 +514,29 @@ int LinkedCellParticleContainer::getCell( utils::Vector<int,3> x )
 	int cell = x[0] * cellDimensions[1] * cellDimensions[2]  + x[1] * cellDimensions[2] + x[2];
 	
 	return cell;
+}
+
+bool LinkedCellParticleContainer::isHalo( utils::Vector<int,3> x )
+{	
+	if ( cellDimensions[0] != 1 && (x[0] == 0 || x[0] == cellDimensions[0]-1) ||
+		cellDimensions[1] != 1 && (x[1] == 0 || x[1] == cellDimensions[1]-1) ||
+		cellDimensions[2] != 1 && (x[2] == 0 || x[2] == cellDimensions[2]-1)
+	)
+		return true;
+		
+	return false;
+}
+
+bool LinkedCellParticleContainer::isBoundary( utils::Vector<int,3> x )
+{	
+	if ( !isHalo(x) && (
+		cellDimensions[0] != 1 && (x[0] == 1 || x[0] == cellDimensions[0]-2) ||
+		cellDimensions[1] != 1 && (x[1] == 1 || x[1] == cellDimensions[1]-2) ||
+		cellDimensions[2] != 1 && (x[2] == 1 || x[2] == cellDimensions[2]-2)
+	) )
+		return true;
+	
+	return false;
 }
 
 LinkedCellParticleContainer::SingleList LinkedCellParticleContainer::getParticles()

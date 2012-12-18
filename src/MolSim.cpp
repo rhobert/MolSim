@@ -60,11 +60,19 @@ utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2);
 void calcReflection (Particle& p);
 
 /**
- * @brief Calcuation for the periodic boundary condition for lenard jones potential
+ * @brief Calcuation for the periodic boundary condition (move halo particles to their destinied boundary cells)
  *
- * @param p Particle to reflect
+ * @param p Particle to move
 **/
-void calcPeriodic(Particle &p);
+void calcPeriodicHalo(Particle &p);
+
+/**
+ * @brief Calcuation for the periodic boundary condition
+ *
+ * @param p1 Boundary particle to modfiy
+ * @param p2 Boundary particle of the opposite boundary
+**/
+void calcPeriodicBoundary(Particle &p1, Particle p2);
 
 /**
  * @brief Apply Maxwell Boltzmann Distribution
@@ -172,6 +180,11 @@ double meanVelocity;
  * @brief Count of dimensions where the simulation takes place
 **/
 int dimensionCount;
+
+/**
+ * @brief Cutoff-radius for force calulation
+**/
+double cutoff = 0;
 
 /**
  * @brief Thermostat for temperature regulation
@@ -309,10 +322,11 @@ int main(int argc, char* argsv[])
 	dimensionCount = simulation->dimensionCount();
 
 	string file_name;
-	PSE_Molekulardynamik_WS12::boundary_t boundary (PSE_Molekulardynamik_WS12::boundary_t::outflow);
+	PSE_Molekulardynamik_WS12::boundary_t boundary []  = {
+		PSE_Molekulardynamik_WS12::boundary_t::outflow, PSE_Molekulardynamik_WS12::boundary_t::outflow, PSE_Molekulardynamik_WS12::boundary_t::outflow, 
+		PSE_Molekulardynamik_WS12::boundary_t::outflow, PSE_Molekulardynamik_WS12::boundary_t::outflow, PSE_Molekulardynamik_WS12::boundary_t::outflow};
 
 	PSE_Molekulardynamik_WS12::domain_t* domain = NULL;
-	double cutoff = 0;
 
 	LOG4CXX_DEBUG(logger, "Check END_T and DELTA_T");
 
@@ -444,13 +458,49 @@ int main(int argc, char* argsv[])
 		domainSize[1] = domain->dimensions().y();
 		domainSize[2] = domain->dimensions().z();
 		cutoff = domain->cutoff();
-		boundary = domain->boundary();
-
-		LOG4CXX_INFO(logger, "Domain " << domainSize.toString() << " with cutoff-radius " << cutoff << " and " << boundary << " boundary condition");
+		
+		LOG4CXX_INFO(logger, "Domain " << domainSize.toString() << " with cutoff-radius " << cutoff);
+		
+		boundary[0] = domain->x().lower();
+		boundary[1] = domain->x().upper();
+		
+		LOG4CXX_INFO(logger, "In x-dimension the lower boundary condition is " << boundary[0] << " and the upper " << boundary[1]);
+		
+		if ( dimensionCount > 1 )
+		{
+			if ( domain->y().present() )
+			{
+				boundary[2] = domain->y().get().lower();
+				boundary[3] = domain->y().get().upper();
+				
+				LOG4CXX_INFO(logger, "In y-dimension the lower boundary condition is " << boundary[2] << " and the upper " << boundary[3]);
+				
+				if ( dimensionCount > 2 )
+				{
+					if ( domain->z().present() )
+					{
+						boundary[4] = domain->z().get().lower();
+						boundary[5] = domain->z().get().upper();
+						
+						LOG4CXX_INFO(logger, "In z-dimension the lower boundary condition is " << boundary[4] << " and the upper " << boundary[5]);
+					}
+					else
+					{
+						LOG4CXX_ERROR(logger, "Dimension count is set to " << dimensionCount << ", but no boundary condition is set for z-dimension");
+						return EXIT_FAILURE;
+					}
+				}
+			}
+			else
+			{
+				LOG4CXX_ERROR(logger, "Dimension count is set to " << dimensionCount << ", but no boundary condition is set for y-dimension");
+				return EXIT_FAILURE;
+			}
+		}
 
 		LOG4CXX_DEBUG(logger, "Create LinkedCellParticleContainer");
 
-		linkedCellParticleContainer =  new LinkedCellParticleContainer(domainSize, cutoff );
+		linkedCellParticleContainer =  new LinkedCellParticleContainer( domainSize, cutoff );
 		particleContainer = dynamic_cast<ParticleContainer*>( linkedCellParticleContainer );
 
 		domainSize = linkedCellParticleContainer->getDomainSize();
@@ -518,7 +568,7 @@ int main(int argc, char* argsv[])
 
 			thermostat = new Thermostat( targetT, diffT, nMax, dimensionCount );
 
-            int size = particleContainer->size();
+			int size = particleContainer->size();
 
 			meanVelocity = thermostat->initializeTemperature( size, initialT );
 
@@ -556,11 +606,12 @@ int main(int argc, char* argsv[])
 		if (iteration % writeFrequency == 0) {
 			plotParticles(iteration);
 		}
-
+		
 		// apply thermostat
 		if ( thermostatOn == true )
 		{
 			thermostat->regulateTemperature( *particleContainer, iteration, nThermostat );
+			LOG4CXX_DEBUG(logger, "Current temperature " << thermostat->getTemperature() );
 		}
 
 		// calculate new x
@@ -568,34 +619,39 @@ int main(int argc, char* argsv[])
 
 		// Set up new force (Could be modified by boundary condition)
 		particleContainer->applyToSingleParticles ( setNewForce );
-
+		
 		if ( linkedCellParticleContainer != NULL )
-		{
+		{	
 			linkedCellParticleContainer->updateContainingCells();
-
-			if (boundary == PSE_Molekulardynamik_WS12::boundary_t::outflow)
-			{
-				linkedCellParticleContainer->deleteHaloParticles();
-			}
-			else if (boundary == PSE_Molekulardynamik_WS12::boundary_t::reflecting)
-			{
-				linkedCellParticleContainer->applyToBoundaryParticles(calcReflection);
-			}
-			else if (boundary == PSE_Molekulardynamik_WS12::boundary_t::periodic)
-			{
-//				linkedCellParticleContainer->applyToHaloParticles(calcPeriodic);
+			
+			for ( int i = 0; i < dimensionCount * 2; i++ )
+			{					
+				if (boundary[i] == PSE_Molekulardynamik_WS12::boundary_t::outflow)
+				{
+					linkedCellParticleContainer->deleteHaloParticles(i);
+				}
+				else if (boundary[i] == PSE_Molekulardynamik_WS12::boundary_t::reflecting)
+				{
+					linkedCellParticleContainer->applyToBoundaryParticles(i, calcReflection);
+				}
+				else if (boundary[i] == PSE_Molekulardynamik_WS12::boundary_t::periodic)
+				{
+					linkedCellParticleContainer->applyToPeriodicBoundaryParticlePairs(i, calcPeriodicBoundary);	
+					linkedCellParticleContainer->applyToHaloParticles(i, calcPeriodicHalo);			
+					linkedCellParticleContainer->updateContainingCells();
+				}
 			}
 		}
-
+		
 		// calculate new f
 		particleContainer->applyToParticlePairs ( calculateF );
 		
 		// apply gravitation
-		particleContainer->applyToSingleParticles ( applyGravitation );
+//		particleContainer->applyToSingleParticles ( applyGravitation );
 		
 		// calculate new v
 		particleContainer->applyToSingleParticles ( calculateV );
-
+		
 		iteration++;
 		LOG4CXX_TRACE(logger, "Iteration " << iteration << " finished");
 	}
@@ -661,13 +717,13 @@ void calcReflection (Particle& p)
 	utils::Vector<double,3> x1_x2;
 	double d = pow(2,1/6) * p.getSigma();
 
-	LOG4CXX_TRACE(logger, "Reflection is checked for " << p.getX().toString() )
+	LOG4CXX_TRACE(logger, "Reflection is checked for " << p.getX().toString() );
 
 	for ( int i = 0; i < 3; i++ )
 	{
 		if ( domainSize[i] != 0 )
 		{
-			LOG4CXX_TRACE(logger, "Reflection is for " << i << " dimension" );
+			LOG4CXX_TRACE(logger, "Reflection is set for " << i << " dimensions" );
 
 			x = p.getX();
 
@@ -686,7 +742,7 @@ void calcReflection (Particle& p)
 
 			if ( x1_x2.L2Norm() <= d  )
 			{
-				LOG4CXX_TRACE(logger, "CounterParticle " << x.toString()  );
+				LOG4CXX_TRACE(logger, "CounterParticle " << x.toString() );
 				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
 				calculateF( p, counterParticle );
 			}
@@ -694,9 +750,12 @@ void calcReflection (Particle& p)
 	}
 }
 
-void calcPeriodic(Particle &p)
-{/*
+void calcPeriodicHalo(Particle &p)
+{
 	utils::Vector<double,3> h;
+	
+	LOG4CXX_TRACE(logger, "Move particle from " << p.getX().toString() );
+	
 	if(p.getX()[0] < 0){
 		h[0] = domainSize[0];
 		h[1] = 0;
@@ -709,7 +768,8 @@ void calcPeriodic(Particle &p)
 		h[2] = 0;
 		p.setX(p.getX()-h);
 	}
-	else if(p.getX()[1] < 0){
+	
+	if(p.getX()[1] < 0){
 		h[1] = domainSize[1];
 		h[0] = 0;
 		h[2] = 0;
@@ -721,7 +781,8 @@ void calcPeriodic(Particle &p)
 		h[2] = 0;
 		p.setX(p.getX()-h);
 	}
-	else if(p.getX()[2] < 0){
+	
+	if(p.getX()[2] < 0){
 		h[2] = domainSize[2];
 		h[0] = 0;
 		h[1] = 0;
@@ -732,8 +793,69 @@ void calcPeriodic(Particle &p)
 		h[0] = 0;
 		h[1] = 0;
 		p.setX(p.getX()-h);
-	}*/
+	}
+	
+	LOG4CXX_TRACE(logger, "Moved particle to " << p.getX().toString() );
 }
+
+void calcPeriodicBoundary(Particle &p1, Particle p2)
+{
+//	LOG4CXX_TRACE(logger, "Periodic is checked for " << p1.getX().toString() );
+	
+	int i[3];
+	utils::Vector<double,3> x = p2.getX() - domainSize;
+	
+	
+	LOG4CXX_TRACE(logger, "Virtual particle-copy created at " << x.toString() << " in pair with " << p1.getX().toString() );
+	calculateF(p1,p2);
+}
+
+/*
+void calcPeriodicBoundary(Particle &p)
+{
+	list<Particle> particles;
+
+	Particle p1 (p);
+	Particle p2 (p);
+	Particle p3 (p);
+	Particle p4 (p);
+	Particle p5 (p);
+	Particle p6 (p);
+
+	utils::Vector<double,3> h (0.0);
+
+	h[0] = domainSize[0];
+	p1.setX ( p.getX() + h );
+	p2.setX ( p.getX() - h );
+	h[0] = 0;
+
+	particles.push_back(p1);
+	particles.push_back(p2);
+
+	if ( dimensionCount > 1 )
+	{
+		h[1] = domainSize[1];
+		p3.setX ( p.getX() + h );
+		p4.setX ( p.getX() - h );
+		h[1] = 0;
+
+		particles.push_back(p3);
+		particles.push_back(p4);
+
+		if ( dimensionCount > 2 )
+		{
+			h[2] = domainSize[2];
+			p5.setX ( p.getX() + h );
+			p6.setX ( p.getX() - h );
+
+			particles.push_back(p5);
+			particles.push_back(p6);
+		}
+	}
+
+	particleContainer->addParticles ( particles );
+}
+*/
 
 void applyGravitation( Particle& p )
 {

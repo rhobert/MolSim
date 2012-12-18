@@ -61,6 +61,13 @@ elementFormDefault="qualified">
 		</xs:sequence>
 	</xs:complexType>
 	
+	<xs:complexType name="dimensionBoundaries_t">
+		<xs:sequence>
+			<xs:element name="lower" type="boundary_t" />
+			<xs:element name="upper" type="boundary_t" />
+		</xs:sequence>
+	</xs:complexType>
+	
 	<xs:simpleType name="inputType_t">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="list" />
@@ -128,8 +135,10 @@ elementFormDefault="qualified">
 	<xs:complexType name="domain_t">
 		<xs:all>	
 			<xs:element name="dimensions" type="nonNegativeIntegerVector_t" />
-			<xs:element name="boundary" type="boundary_t" />
 			<xs:element name="cutoff" type="positiveDecimal_t" />
+			<xs:element name="x" type="dimensionBoundaries_t" />
+			<xs:element name="y" type="dimensionBoundaries_t" minOccurs="0" />
+			<xs:element name="z" type="dimensionBoundaries_t" minOccurs="0" />
 		</xs:all>
 	</xs:complexType>
 	
@@ -161,7 +170,7 @@ elementFormDefault="qualified">
 			<xs:element name="brownianMotion" type="brownianMotion_t" minOccurs="0" />
 			<xs:element name="thermostat" type="thermostat_t" minOccurs="0" />
 			<xs:element name="dimensionCount" type="dimensionCount_t" />
-			<xs:element name="gravitation" type="decimalVector_t" minOccurs="0"  />
+			<xs:element name="gravitation" type="decimalVector_t" minOccurs="0" />
 		</xs:all>	
 	</xs:complexType>
 	

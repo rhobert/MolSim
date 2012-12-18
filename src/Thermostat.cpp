@@ -55,3 +55,12 @@ void Thermostat::regulateTemperature( ParticleContainer& pc, int iteration, int 
 		}
 }
 
+double Thermostat::getEnergy()
+{
+	return currentEnergy;
+}
+	
+double Thermostat::getTemperature()
+{
+	return currentT;
+}

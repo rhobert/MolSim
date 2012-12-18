@@ -92,6 +92,20 @@ public:
 	* @param nThermostat number of iterations after which the thermostat is applied
 	*/
 	void regulateTemperature( ParticleContainer& pc, int iteration, int nThermostat );
+	
+	/**
+	 * @brief Returns the current energy
+	 * 
+	 * @return current energy
+	 **/
+	double getEnergy();
+	
+	/**
+	 * @brief Returns the current temperature
+	 * 
+	 * @return current temperature
+	 **/
+	double getTemperature();
 
 };
 

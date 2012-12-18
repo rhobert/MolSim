@@ -24,9 +24,9 @@ void generateCuboid(
 	utils::Vector<int, 3> N,
 	double h, 
 	double m,
-	double sigma = 5,
-	double epsilon = 1,
-	int type = 0
+	double sigma = PARTCLE_SIGMA,
+	double epsilon = PARTCLE_EPSILON,
+	int type = PARTCLE_TYPE
 	
 );
 
@@ -50,9 +50,9 @@ void generateSphere(
 	int d, 
 	double h, 
 	double m,
-	double sigma = 5,
-	double epsilon = 1,
-	int type = 0
+	double sigma = PARTCLE_SIGMA,
+	double epsilon = PARTCLE_EPSILON,
+	int type = PARTCLE_TYPE
 );
 
 #endif /* PARTICLEGENERATOR_H_ */

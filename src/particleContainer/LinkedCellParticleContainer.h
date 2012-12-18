@@ -46,17 +46,22 @@ private:
 	/**
 	 * @brief Vector with indicies to of all boundary cells
 	 */
-	vector<int>  boundaryCells;
+	vector<int> * boundaryCells[6];
 	
 	/**
 	 * @brief Vector with indicies to of all halo cells
 	 */
-	vector<int> haloCells;
+	vector<int> * haloCells[6];
 	
 	/**
 	* @brief Pairs of cells which are neighboured
 	**/
 	CellPairList cellPairs;
+	
+	/**
+	* @brief Pairs of neighboured boundary periodic over the boundary
+	**/
+	CellPairList * periodicCellPairs[6];
 	
 	/**
 	 * @brief Count of all cells
@@ -88,7 +93,7 @@ private:
 	 * 
 	 * @param x Position
 	 * 
-	 * @return Cell id which position is maped to and -1 when out of domain and halo
+	 * @return Cell id which position is maped to and -1 if out of domain and halo
 	 */
 	int getCell( utils::Vector<double,3> x );
 	
@@ -97,9 +102,27 @@ private:
 	 * 
 	 * @param x Position
 	 * 
-	 * @return Cell id which position is maped to and -1 when out of domain and halo
+	 * @return Cell id which position is maped to and -1 if out of domain and halo
 	 */
 	int getCell( utils::Vector<int,3> x );
+	
+	/**
+	 * @brief Check if cell is boundary cell
+	 * 
+	 * @param x Position
+	 * 
+	 * @return True if cell is boundary cell
+	 */
+	bool isBoundary( utils::Vector<int,3> x );
+	
+	/**
+	 * @brief Check if cell is halo cell
+	 * 
+	 * @param x Position
+	 * 
+	 * @return True if cell is halo cell
+	 */
+	bool isHalo( utils::Vector<int,3> x );
 	
 public:
 	/**
@@ -107,6 +130,7 @@ public:
 	* 
 	* @param domainSize Domain size for simulation
 	* @param cutoff Cutoff radius for particle pair iteration
+	* @param periodic Indicates whether particle pairs are constructed above domain-boundary
 	**/
 	LinkedCellParticleContainer(utils::Vector<double, 3> domainSize, double cutoff);
 	
@@ -128,9 +152,26 @@ public:
 	/**
 	* @brief Iterate over all single boundary particles
 	* 
+	* @param boundary Specification of the boundary (in 0-5)
 	* @param singleFunction function to apply on all single boundary particles
 	**/
-	void applyToBoundaryParticles( void (*singleFunction)(Particle&) );
+	void applyToBoundaryParticles( int boundary, void (*singleFunction)(Particle&) );
+	
+	/**
+	* @brief Iterate over all periodic boundary particle pairs
+	* 
+	* @param boundary Specification of the boundary (in 0-5)
+	* @param singleFunction function to apply on periodic boundary particles
+	**/
+	void applyToPeriodicBoundaryParticlePairs( int boundary, void (*pairFunction)(Particle&, Particle) );
+	
+	/**
+	* @brief Iterate over all single halo particles
+	* 
+	* @param boundary Specification of the boundary (in 0-5)
+	* @param singleFunction function to apply on all single halo particles
+	**/
+	void applyToHaloParticles( int boundary, void (*singleFunction)(Particle&) );
 	
 	/**
 	* @brief Move particles to their destined cells
@@ -139,8 +180,10 @@ public:
 	
 	/**
 	 * @brief Delete all particles in the halo
+	 * 
+	 * @param boundary Specification of the boundary (in 0-5)
 	 */
-	void deleteHaloParticles();
+	void deleteHaloParticles( int boundary );
 	
 	/**
 	 * @brief Returns the domain size

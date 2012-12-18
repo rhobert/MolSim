@@ -8,13 +8,17 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 	<outputFile>MD_vtk</outputFile>
 	
 	<!-- Necessary: Positive integer per how many iteration steps a output-file sould be written  -->
-	<writeFrequency>10</writeFrequency>
+	<writeFrequency>30</writeFrequency>
 	
 	<!-- Necessary: Positive decimal value how long the simulation should be -->
 	<t_end>3</t_end>
 	
 	<!-- Necessary: Positive decimal value how long a time (iteration) step should be (has to be less equal t_end)  -->
-	<delta_t>0.0003</delta_t>
+	<delta_t>0.0001</delta_t>
+	
+	<!-- Necessary: Postive integer for count of dimensions of simulation domain
+		(If 1 only the first/x dimension, if 2 the first/x and second/y and if 3 all dimensions x-y-z ) -->
+	<dimensionCount>2</dimensionCount>
 	
 	<!-- Necessary: Potential from which the force-calculation is resulting (lenard jones or gravitational)  -->
 	<potential>lenard jones</potential>
@@ -26,13 +30,21 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 		(If a value is set to 0, this dimension is ignored, but all particles should have 0 at this dimension.
 		At least one dimension hat to be set to greater 0) -->
 		<dimensions>
-			<x>114.5</x>
-			<y>114.5</y>
+			<x>114</x>
+			<y>114</y>
 			<z>0</z>
 		</dimensions>
 		
 		<!-- Necessary: Boundary condition (outflow or reflecting)  -->
-		<boundary>reflecting</boundary>
+		<x>
+			<lower>periodic</lower>
+			<upper>periodic</upper>
+		</x>
+		
+		<y>
+			<lower>reflecting</lower>
+			<upper>outflow</upper>
+		</y>
 		
 		<!-- Necessary: Postive decimal value for cutoff radius for force-calculation (side length of cells) -->
 		<cutoff>3</cutoff>	
@@ -41,12 +53,7 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 	
 	<!-- Optional: If the lenard jones potential is set, 
 	this specifies the superposing of the velocity of the particles with the Brownian motion (if not set, default values a used)  -->
-	<brownianMotion>
-		
-		<!-- Necessary: Postive integer for count of dimensions where the Brownian motion is effictive.
-		(If 1 only the first/x dimension, if 2 the first/x and second/y and if 3 all dimensions x-y-z ) -->
-		<dimensionCount>2</dimensionCount>
-		
+	<brownianMotion>		
 		<!-- Necessary: Non-negative decimal value for mean velocity of Brownian motion -->
 		<meanVelocity>0.1</meanVelocity>
 	</brownianMotion>
@@ -87,6 +94,12 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			
 			<!-- Necessary: Positive decimal value for meshwidth of the grid -->
 			<distance>1.1225</distance>
+			
+			<sigma>1</sigma>
+			
+			<epsilon>5</epsilon>
+			
+			<type>0</type>
 		</cuboid>
 		
 		<!-- Optional (any count): Specification of a sphere -->
@@ -102,13 +115,9 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			<!-- Necessary: Decimal vector for velocity of the particles -->
 			<velocity>
 				<x>0</x>
-				<y>-30</y>
+				<y>-100</y>
 				<z>0</z>
 			</velocity>
-			
-			<!-- Necessary: Postive integer for count of dimensions to which the sphere expands.
-				(If 1 only the first/x dimension, if 2 the first/x and second/y and if 3 all dimensions x-y-z ) -->
-			<dimensionCount>2</dimensionCount>
 			
 			<!-- Necessary: Positive integer for the count of particles on the radius -->
 			<radiusDimension>15</radiusDimension>
@@ -118,6 +127,13 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			
 			<!-- Necessary: Positive decimal value for meshwidth of the grid -->
 			<distance>1.1225</distance>
+			
+			<sigma>1</sigma>
+			
+			<epsilon>5</epsilon>
+			
+			<type>0</type>
+			
 		</sphere>
 	</inputs>
 	

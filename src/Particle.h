@@ -11,6 +11,10 @@
 #include "utils/Vector.h"
 #include "log4cxx/logger.h"
 
+#define PARTCLE_EPSILON 5
+#define PARTCLE_SIGMA 1
+#define PARTCLE_TYPE 0
+
 /**
 * @brief This class represents a particle
 **/
@@ -82,9 +86,9 @@ public:
 			utils::Vector<double, 3> x_arg,
 			utils::Vector<double, 3> v_arg,
 			double m_arg,
-			double sigma = 5,
-			double epsilon = 1,
-			int type = 0
+			double sigma = PARTCLE_SIGMA,
+			double epsilon = PARTCLE_EPSILON,
+			int type = PARTCLE_TYPE
 	);
 
 /**

@@ -65,7 +65,7 @@ void LinkedCellParticleContainerTest::setUp()
 }
 
 
-
+/*
 void LinkedCellParticleContainerTest::testDeleteHaloParticles()
 {
 	container->deleteHaloParticles();
@@ -132,4 +132,4 @@ void LinkedCellParticleContainerTest::moveToHalo( Particle& p1, Particle& p2 )
 {
 	p1.setX( utils::Vector<double,3>( -0.25 * CUTOFF_RADIUS_STD ) );
 	p2.setX( utils::Vector<double,3>( -0.75 * CUTOFF_RADIUS_STD ) );
-}
+}*/

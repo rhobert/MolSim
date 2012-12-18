@@ -564,6 +564,7 @@ namespace PSE_Molekulardynamik_WS12
   class decimalVector_t;
   class positiveIntegerVector_t;
   class nonNegativeIntegerVector_t;
+  class dimensionBoundaries_t;
   class inputType_t;
   class inputFile_t;
   class cuboid_t;
@@ -1998,6 +1999,207 @@ namespace PSE_Molekulardynamik_WS12
     ::xsd::cxx::tree::one< x_type > x_;
     ::xsd::cxx::tree::one< y_type > y_;
     ::xsd::cxx::tree::one< z_type > z_;
+
+    //@endcond
+  };
+
+  /**
+   * @brief Class corresponding to the %dimensionBoundaries_t schema type.
+   *
+   * @nosubgrouping
+   */
+  class dimensionBoundaries_t: public ::xml_schema::type
+  {
+    public:
+    /**
+     * @name lower
+     *
+     * @brief Accessor and modifier functions for the %lower
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::PSE_Molekulardynamik_WS12::boundary_t lower_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits< lower_type, char > lower_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const lower_type&
+    lower () const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    lower_type&
+    lower ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    lower (const lower_type& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly
+     * instead of making a copy.
+     */
+    void
+    lower (::std::auto_ptr< lower_type > p);
+
+    //@}
+
+    /**
+     * @name upper
+     *
+     * @brief Accessor and modifier functions for the %upper
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::PSE_Molekulardynamik_WS12::boundary_t upper_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits< upper_type, char > upper_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const upper_type&
+    upper () const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    upper_type&
+    upper ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    upper (const upper_type& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly
+     * instead of making a copy.
+     */
+    void
+    upper (::std::auto_ptr< upper_type > p);
+
+    //@}
+
+    /**
+     * @name Constructors
+     */
+    //@{
+
+    /**
+     * @brief Create an instance from the ultimate base and
+     * initializers for required elements and attributes.
+     */
+    dimensionBoundaries_t (const lower_type&,
+                           const upper_type&);
+
+    /**
+     * @brief Create an instance from a DOM element.
+     *
+     * @param e A DOM element to extract the data from.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    dimensionBoundaries_t (const ::xercesc::DOMElement& e,
+                           ::xml_schema::flags f = 0,
+                           ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy constructor.
+     *
+     * @param x An instance to make a copy of.
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    dimensionBoundaries_t (const dimensionBoundaries_t& x,
+                           ::xml_schema::flags f = 0,
+                           ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy the instance polymorphically.
+     *
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     * @return A pointer to the dynamically allocated copy.
+     *
+     * This function ensures that the dynamic type of the instance is
+     * used for copying and should be used for polymorphic object
+     * models instead of the copy constructor.
+     */
+    virtual dimensionBoundaries_t*
+    _clone (::xml_schema::flags f = 0,
+            ::xml_schema::container* c = 0) const;
+
+    //@}
+
+    /**
+     * @brief Destructor.
+     */
+    virtual 
+    ~dimensionBoundaries_t ();
+
+    // Implementation.
+    //
+
+    //@cond
+
+    protected:
+    void
+    parse (::xsd::cxx::xml::dom::parser< char >&,
+           ::xml_schema::flags);
+
+    protected:
+    ::xsd::cxx::tree::one< lower_type > lower_;
+    ::xsd::cxx::tree::one< upper_type > upper_;
 
     //@endcond
   };
@@ -4023,64 +4225,6 @@ namespace PSE_Molekulardynamik_WS12
     //@}
 
     /**
-     * @name boundary
-     *
-     * @brief Accessor and modifier functions for the %boundary
-     * required element.
-     */
-    //@{
-
-    /**
-     * @brief Element type.
-     */
-    typedef ::PSE_Molekulardynamik_WS12::boundary_t boundary_type;
-
-    /**
-     * @brief Element traits type.
-     */
-    typedef ::xsd::cxx::tree::traits< boundary_type, char > boundary_traits;
-
-    /**
-     * @brief Return a read-only (constant) reference to the element.
-     *
-     * @return A constant reference to the element.
-     */
-    const boundary_type&
-    boundary () const;
-
-    /**
-     * @brief Return a read-write reference to the element.
-     *
-     * @return A reference to the element.
-     */
-    boundary_type&
-    boundary ();
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x A new value to set.
-     *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
-     */
-    void
-    boundary (const boundary_type& x);
-
-    /**
-     * @brief Set the element value without copying.
-     *
-     * @param p A new value to use.
-     *
-     * This function will try to use the passed value directly
-     * instead of making a copy.
-     */
-    void
-    boundary (::std::auto_ptr< boundary_type > p);
-
-    //@}
-
-    /**
      * @name cutoff
      *
      * @brief Accessor and modifier functions for the %cutoff
@@ -4139,6 +4283,216 @@ namespace PSE_Molekulardynamik_WS12
     //@}
 
     /**
+     * @name x
+     *
+     * @brief Accessor and modifier functions for the %x
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::PSE_Molekulardynamik_WS12::dimensionBoundaries_t x_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits< x_type, char > x_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const x_type&
+    x () const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    x_type&
+    x ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    x (const x_type& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly
+     * instead of making a copy.
+     */
+    void
+    x (::std::auto_ptr< x_type > p);
+
+    //@}
+
+    /**
+     * @name y
+     *
+     * @brief Accessor and modifier functions for the %y
+     * optional element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::PSE_Molekulardynamik_WS12::dimensionBoundaries_t y_type;
+
+    /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional< y_type > y_optional;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits< y_type, char > y_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element
+     * container.
+     *
+     * @return A constant reference to the optional container.
+     */
+    const y_optional&
+    y () const;
+
+    /**
+     * @brief Return a read-write reference to the element container.
+     *
+     * @return A reference to the optional container.
+     */
+    y_optional&
+    y ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    y (const y_type& x);
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy 
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void
+    y (const y_optional& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly instead
+     * of making a copy.
+     */
+    void
+    y (::std::auto_ptr< y_type > p);
+
+    //@}
+
+    /**
+     * @name z
+     *
+     * @brief Accessor and modifier functions for the %z
+     * optional element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::PSE_Molekulardynamik_WS12::dimensionBoundaries_t z_type;
+
+    /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional< z_type > z_optional;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits< z_type, char > z_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element
+     * container.
+     *
+     * @return A constant reference to the optional container.
+     */
+    const z_optional&
+    z () const;
+
+    /**
+     * @brief Return a read-write reference to the element container.
+     *
+     * @return A reference to the optional container.
+     */
+    z_optional&
+    z ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    z (const z_type& x);
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy 
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void
+    z (const z_optional& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly instead
+     * of making a copy.
+     */
+    void
+    z (::std::auto_ptr< z_type > p);
+
+    //@}
+
+    /**
      * @name Constructors
      */
     //@{
@@ -4148,8 +4502,8 @@ namespace PSE_Molekulardynamik_WS12
      * initializers for required elements and attributes.
      */
     domain_t (const dimensions_type&,
-              const boundary_type&,
-              const cutoff_type&);
+              const cutoff_type&,
+              const x_type&);
 
     /**
      * @brief Create an instance from the ultimate base and
@@ -4160,8 +4514,8 @@ namespace PSE_Molekulardynamik_WS12
      * instead of making copies.
      */
     domain_t (::std::auto_ptr< dimensions_type >&,
-              const boundary_type&,
-              const cutoff_type&);
+              const cutoff_type&,
+              ::std::auto_ptr< x_type >&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -4223,8 +4577,10 @@ namespace PSE_Molekulardynamik_WS12
 
     protected:
     ::xsd::cxx::tree::one< dimensions_type > dimensions_;
-    ::xsd::cxx::tree::one< boundary_type > boundary_;
     ::xsd::cxx::tree::one< cutoff_type > cutoff_;
+    ::xsd::cxx::tree::one< x_type > x_;
+    y_optional y_;
+    z_optional z_;
 
     //@endcond
   };
