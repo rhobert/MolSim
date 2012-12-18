@@ -44,7 +44,7 @@ public:
 	/**
 	* @brief Type of a list of single particles
 	**/
-	typedef vector<Particle> SingleList;
+	typedef list<Particle> SingleList;
 	
 	/**
 	* @brief Type of a list of particles pairs

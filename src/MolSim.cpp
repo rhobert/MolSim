@@ -12,6 +12,7 @@
 #include <log4cxx/propertyconfigurator.h>
 
 #include "input/InputParameters.h"
+#include "PhaseSpace.h"
 #include "FileReader.h"
 #include "outputWriter/VTKWriter.h"
 
@@ -657,6 +658,17 @@ int main(int argc, char* argsv[])
 	}
 
 	LOG4CXX_INFO(logger, "End simulation");
+	
+	if ( simulation->outputPhaseSpace().present() )
+	{
+		string phaseSpaceFilename = simulation->outputPhaseSpace().get();
+		
+		LOG4CXX_INFO(logger, "Write phase space to " << phaseSpaceFilename );
+		
+		PhaseSpace phaseSpace;
+		list<Particle> pList = particleContainer->getParticles();
+		phaseSpace.writePhaseSpace( *&pList, const_cast<char*> ( phaseSpaceFilename.c_str() ) );
+	}
 
 	return 0;
 }

@@ -1270,6 +1270,36 @@ namespace PSE_Molekulardynamik_WS12
     this->outputFile_.set (x);
   }
 
+  const simulation_t::outputPhaseSpace_optional& simulation_t::
+  outputPhaseSpace () const
+  {
+    return this->outputPhaseSpace_;
+  }
+
+  simulation_t::outputPhaseSpace_optional& simulation_t::
+  outputPhaseSpace ()
+  {
+    return this->outputPhaseSpace_;
+  }
+
+  void simulation_t::
+  outputPhaseSpace (const outputPhaseSpace_type& x)
+  {
+    this->outputPhaseSpace_.set (x);
+  }
+
+  void simulation_t::
+  outputPhaseSpace (const outputPhaseSpace_optional& x)
+  {
+    this->outputPhaseSpace_ = x;
+  }
+
+  void simulation_t::
+  outputPhaseSpace (::std::auto_ptr< outputPhaseSpace_type > x)
+  {
+    this->outputPhaseSpace_.set (x);
+  }
+
   const simulation_t::inputs_type& simulation_t::
   inputs () const
   {
@@ -3765,6 +3795,7 @@ namespace PSE_Molekulardynamik_WS12
                 const dimensionCount_type& dimensionCount)
   : ::xml_schema::type (),
     outputFile_ (outputFile, ::xml_schema::flags (), this),
+    outputPhaseSpace_ (::xml_schema::flags (), this),
     inputs_ (inputs, ::xml_schema::flags (), this),
     writeFrequency_ (writeFrequency, ::xml_schema::flags (), this),
     t_end_ (t_end, ::xml_schema::flags (), this),
@@ -3788,6 +3819,7 @@ namespace PSE_Molekulardynamik_WS12
                 const dimensionCount_type& dimensionCount)
   : ::xml_schema::type (),
     outputFile_ (outputFile, ::xml_schema::flags (), this),
+    outputPhaseSpace_ (::xml_schema::flags (), this),
     inputs_ (inputs, ::xml_schema::flags (), this),
     writeFrequency_ (writeFrequency, ::xml_schema::flags (), this),
     t_end_ (t_end, ::xml_schema::flags (), this),
@@ -3807,6 +3839,7 @@ namespace PSE_Molekulardynamik_WS12
                 ::xml_schema::container* c)
   : ::xml_schema::type (x, f, c),
     outputFile_ (x.outputFile_, f, this),
+    outputPhaseSpace_ (x.outputPhaseSpace_, f, this),
     inputs_ (x.inputs_, f, this),
     writeFrequency_ (x.writeFrequency_, f, this),
     t_end_ (x.t_end_, f, this),
@@ -3826,6 +3859,7 @@ namespace PSE_Molekulardynamik_WS12
                 ::xml_schema::container* c)
   : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
     outputFile_ (f, this),
+    outputPhaseSpace_ (f, this),
     inputs_ (f, this),
     writeFrequency_ (f, this),
     t_end_ (f, this),
@@ -3864,6 +3898,20 @@ namespace PSE_Molekulardynamik_WS12
         if (!outputFile_.present ())
         {
           this->outputFile_.set (r);
+          continue;
+        }
+      }
+
+      // outputPhaseSpace
+      //
+      if (n.name () == "outputPhaseSpace" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< outputPhaseSpace_type > r (
+          outputPhaseSpace_traits::create (i, f, this));
+
+        if (!this->outputPhaseSpace_)
+        {
+          this->outputPhaseSpace_.set (r);
           continue;
         }
       }
