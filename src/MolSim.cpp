@@ -810,53 +810,6 @@ void calcPeriodicBoundary(Particle &p1, Particle p2)
 	calculateF(p1,p2);
 }
 
-/*
-void calcPeriodicBoundary(Particle &p)
-{
-	list<Particle> particles;
-
-	Particle p1 (p);
-	Particle p2 (p);
-	Particle p3 (p);
-	Particle p4 (p);
-	Particle p5 (p);
-	Particle p6 (p);
-
-	utils::Vector<double,3> h (0.0);
-
-	h[0] = domainSize[0];
-	p1.setX ( p.getX() + h );
-	p2.setX ( p.getX() - h );
-	h[0] = 0;
-
-	particles.push_back(p1);
-	particles.push_back(p2);
-
-	if ( dimensionCount > 1 )
-	{
-		h[1] = domainSize[1];
-		p3.setX ( p.getX() + h );
-		p4.setX ( p.getX() - h );
-		h[1] = 0;
-
-		particles.push_back(p3);
-		particles.push_back(p4);
-
-		if ( dimensionCount > 2 )
-		{
-			h[2] = domainSize[2];
-			p5.setX ( p.getX() + h );
-			p6.setX ( p.getX() - h );
-
-			particles.push_back(p5);
-			particles.push_back(p6);
-		}
-	}
-
-	particleContainer->addParticles ( particles );
-}
-*/
-
 void applyGravitation( Particle& p )
 {
 	p.setF( p.getF() + p.getM() * gravitation );
