@@ -36,8 +36,8 @@
  * @brief Generated from InputParameters.xsd.
  */
 
-#ifndef INPUT_PARAMETERS_H
-#define INPUT_PARAMETERS_H
+#ifndef SRC_INPUT_INPUT_PARAMETERS_H
+#define SRC_INPUT_INPUT_PARAMETERS_H
 
 // Begin prologue.
 //
@@ -573,7 +573,6 @@ namespace PSE_Molekulardynamik_WS12
   class potential_t;
   class boundary_t;
   class domain_t;
-  class brownianMotion_t;
   class thermostat_t;
   class simulation_t;
 }
@@ -2218,7 +2217,8 @@ namespace PSE_Molekulardynamik_WS12
     enum value
     {
       list,
-      cuboid
+      cuboid,
+      phaseSpace
     };
 
     /**
@@ -2343,8 +2343,8 @@ namespace PSE_Molekulardynamik_WS12
     _xsd_inputType_t_convert () const;
 
     public:
-    static const char* const _xsd_inputType_t_literals_[2];
-    static const value _xsd_inputType_t_indexes_[2];
+    static const char* const _xsd_inputType_t_literals_[3];
+    static const value _xsd_inputType_t_indexes_[3];
 
     //@endcond
   };
@@ -4586,147 +4586,6 @@ namespace PSE_Molekulardynamik_WS12
   };
 
   /**
-   * @brief Class corresponding to the %brownianMotion_t schema type.
-   *
-   * @nosubgrouping
-   */
-  class brownianMotion_t: public ::xml_schema::type
-  {
-    public:
-    /**
-     * @name meanVelocity
-     *
-     * @brief Accessor and modifier functions for the %meanVelocity
-     * required element.
-     */
-    //@{
-
-    /**
-     * @brief Element type.
-     */
-    typedef ::PSE_Molekulardynamik_WS12::nonNegativeDecimal_t meanVelocity_type;
-
-    /**
-     * @brief Element traits type.
-     */
-    typedef ::xsd::cxx::tree::traits< meanVelocity_type, char > meanVelocity_traits;
-
-    /**
-     * @brief Return a read-only (constant) reference to the element.
-     *
-     * @return A constant reference to the element.
-     */
-    const meanVelocity_type&
-    meanVelocity () const;
-
-    /**
-     * @brief Return a read-write reference to the element.
-     *
-     * @return A reference to the element.
-     */
-    meanVelocity_type&
-    meanVelocity ();
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x A new value to set.
-     *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
-     */
-    void
-    meanVelocity (const meanVelocity_type& x);
-
-    /**
-     * @brief Set the element value without copying.
-     *
-     * @param p A new value to use.
-     *
-     * This function will try to use the passed value directly
-     * instead of making a copy.
-     */
-    void
-    meanVelocity (::std::auto_ptr< meanVelocity_type > p);
-
-    //@}
-
-    /**
-     * @name Constructors
-     */
-    //@{
-
-    /**
-     * @brief Create an instance from the ultimate base and
-     * initializers for required elements and attributes.
-     */
-    brownianMotion_t (const meanVelocity_type&);
-
-    /**
-     * @brief Create an instance from a DOM element.
-     *
-     * @param e A DOM element to extract the data from.
-     * @param f Flags to create the new instance with.
-     * @param c A pointer to the object that will contain the new
-     * instance.
-     */
-    brownianMotion_t (const ::xercesc::DOMElement& e,
-                      ::xml_schema::flags f = 0,
-                      ::xml_schema::container* c = 0);
-
-    /**
-     * @brief Copy constructor.
-     *
-     * @param x An instance to make a copy of.
-     * @param f Flags to create the copy with.
-     * @param c A pointer to the object that will contain the copy.
-     *
-     * For polymorphic object models use the @c _clone function instead.
-     */
-    brownianMotion_t (const brownianMotion_t& x,
-                      ::xml_schema::flags f = 0,
-                      ::xml_schema::container* c = 0);
-
-    /**
-     * @brief Copy the instance polymorphically.
-     *
-     * @param f Flags to create the copy with.
-     * @param c A pointer to the object that will contain the copy.
-     * @return A pointer to the dynamically allocated copy.
-     *
-     * This function ensures that the dynamic type of the instance is
-     * used for copying and should be used for polymorphic object
-     * models instead of the copy constructor.
-     */
-    virtual brownianMotion_t*
-    _clone (::xml_schema::flags f = 0,
-            ::xml_schema::container* c = 0) const;
-
-    //@}
-
-    /**
-     * @brief Destructor.
-     */
-    virtual 
-    ~brownianMotion_t ();
-
-    // Implementation.
-    //
-
-    //@cond
-
-    protected:
-    void
-    parse (::xsd::cxx::xml::dom::parser< char >&,
-           ::xml_schema::flags);
-
-    protected:
-    ::xsd::cxx::tree::one< meanVelocity_type > meanVelocity_;
-
-    //@endcond
-  };
-
-  /**
    * @brief Class corresponding to the %thermostat_t schema type.
    *
    * @nosubgrouping
@@ -4793,216 +4652,6 @@ namespace PSE_Molekulardynamik_WS12
     //@}
 
     /**
-     * @name nThermostat
-     *
-     * @brief Accessor and modifier functions for the %nThermostat
-     * required element.
-     */
-    //@{
-
-    /**
-     * @brief Element type.
-     */
-    typedef ::xml_schema::positive_integer nThermostat_type;
-
-    /**
-     * @brief Element traits type.
-     */
-    typedef ::xsd::cxx::tree::traits< nThermostat_type, char > nThermostat_traits;
-
-    /**
-     * @brief Return a read-only (constant) reference to the element.
-     *
-     * @return A constant reference to the element.
-     */
-    const nThermostat_type&
-    nThermostat () const;
-
-    /**
-     * @brief Return a read-write reference to the element.
-     *
-     * @return A reference to the element.
-     */
-    nThermostat_type&
-    nThermostat ();
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x A new value to set.
-     *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
-     */
-    void
-    nThermostat (const nThermostat_type& x);
-
-    //@}
-
-    /**
-     * @name targetT
-     *
-     * @brief Accessor and modifier functions for the %targetT
-     * required element.
-     */
-    //@{
-
-    /**
-     * @brief Element type.
-     */
-    typedef ::PSE_Molekulardynamik_WS12::nonNegativeDecimal_t targetT_type;
-
-    /**
-     * @brief Element traits type.
-     */
-    typedef ::xsd::cxx::tree::traits< targetT_type, char > targetT_traits;
-
-    /**
-     * @brief Return a read-only (constant) reference to the element.
-     *
-     * @return A constant reference to the element.
-     */
-    const targetT_type&
-    targetT () const;
-
-    /**
-     * @brief Return a read-write reference to the element.
-     *
-     * @return A reference to the element.
-     */
-    targetT_type&
-    targetT ();
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x A new value to set.
-     *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
-     */
-    void
-    targetT (const targetT_type& x);
-
-    /**
-     * @brief Set the element value without copying.
-     *
-     * @param p A new value to use.
-     *
-     * This function will try to use the passed value directly
-     * instead of making a copy.
-     */
-    void
-    targetT (::std::auto_ptr< targetT_type > p);
-
-    //@}
-
-    /**
-     * @name diffT
-     *
-     * @brief Accessor and modifier functions for the %diffT
-     * required element.
-     */
-    //@{
-
-    /**
-     * @brief Element type.
-     */
-    typedef ::PSE_Molekulardynamik_WS12::nonNegativeDecimal_t diffT_type;
-
-    /**
-     * @brief Element traits type.
-     */
-    typedef ::xsd::cxx::tree::traits< diffT_type, char > diffT_traits;
-
-    /**
-     * @brief Return a read-only (constant) reference to the element.
-     *
-     * @return A constant reference to the element.
-     */
-    const diffT_type&
-    diffT () const;
-
-    /**
-     * @brief Return a read-write reference to the element.
-     *
-     * @return A reference to the element.
-     */
-    diffT_type&
-    diffT ();
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x A new value to set.
-     *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
-     */
-    void
-    diffT (const diffT_type& x);
-
-    /**
-     * @brief Set the element value without copying.
-     *
-     * @param p A new value to use.
-     *
-     * This function will try to use the passed value directly
-     * instead of making a copy.
-     */
-    void
-    diffT (::std::auto_ptr< diffT_type > p);
-
-    //@}
-
-    /**
-     * @name nMax
-     *
-     * @brief Accessor and modifier functions for the %nMax
-     * required element.
-     */
-    //@{
-
-    /**
-     * @brief Element type.
-     */
-    typedef ::xml_schema::positive_integer nMax_type;
-
-    /**
-     * @brief Element traits type.
-     */
-    typedef ::xsd::cxx::tree::traits< nMax_type, char > nMax_traits;
-
-    /**
-     * @brief Return a read-only (constant) reference to the element.
-     *
-     * @return A constant reference to the element.
-     */
-    const nMax_type&
-    nMax () const;
-
-    /**
-     * @brief Return a read-write reference to the element.
-     *
-     * @return A reference to the element.
-     */
-    nMax_type&
-    nMax ();
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x A new value to set.
-     *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
-     */
-    void
-    nMax (const nMax_type& x);
-
-    //@}
-
-    /**
      * @name Constructors
      */
     //@{
@@ -5011,11 +4660,7 @@ namespace PSE_Molekulardynamik_WS12
      * @brief Create an instance from the ultimate base and
      * initializers for required elements and attributes.
      */
-    thermostat_t (const initialT_type&,
-                  const nThermostat_type&,
-                  const targetT_type&,
-                  const diffT_type&,
-                  const nMax_type&);
+    thermostat_t (const initialT_type&);
 
     /**
      * @brief Create an instance from a DOM element.
@@ -5077,10 +4722,6 @@ namespace PSE_Molekulardynamik_WS12
 
     protected:
     ::xsd::cxx::tree::one< initialT_type > initialT_;
-    ::xsd::cxx::tree::one< nThermostat_type > nThermostat_;
-    ::xsd::cxx::tree::one< targetT_type > targetT_;
-    ::xsd::cxx::tree::one< diffT_type > diffT_;
-    ::xsd::cxx::tree::one< nMax_type > nMax_;
 
     //@endcond
   };
@@ -5583,82 +5224,6 @@ namespace PSE_Molekulardynamik_WS12
     //@}
 
     /**
-     * @name brownianMotion
-     *
-     * @brief Accessor and modifier functions for the %brownianMotion
-     * optional element.
-     */
-    //@{
-
-    /**
-     * @brief Element type.
-     */
-    typedef ::PSE_Molekulardynamik_WS12::brownianMotion_t brownianMotion_type;
-
-    /**
-     * @brief Element optional container type.
-     */
-    typedef ::xsd::cxx::tree::optional< brownianMotion_type > brownianMotion_optional;
-
-    /**
-     * @brief Element traits type.
-     */
-    typedef ::xsd::cxx::tree::traits< brownianMotion_type, char > brownianMotion_traits;
-
-    /**
-     * @brief Return a read-only (constant) reference to the element
-     * container.
-     *
-     * @return A constant reference to the optional container.
-     */
-    const brownianMotion_optional&
-    brownianMotion () const;
-
-    /**
-     * @brief Return a read-write reference to the element container.
-     *
-     * @return A reference to the optional container.
-     */
-    brownianMotion_optional&
-    brownianMotion ();
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x A new value to set.
-     *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
-     */
-    void
-    brownianMotion (const brownianMotion_type& x);
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x An optional container with the new value to set.
-     *
-     * If the value is present in @a x then this function makes a copy 
-     * of this value and sets it as the new value of the element.
-     * Otherwise the element container is set the 'not present' state.
-     */
-    void
-    brownianMotion (const brownianMotion_optional& x);
-
-    /**
-     * @brief Set the element value without copying.
-     *
-     * @param p A new value to use.
-     *
-     * This function will try to use the passed value directly instead
-     * of making a copy.
-     */
-    void
-    brownianMotion (::std::auto_ptr< brownianMotion_type > p);
-
-    //@}
-
-    /**
      * @name thermostat
      *
      * @brief Accessor and modifier functions for the %thermostat
@@ -5968,7 +5533,6 @@ namespace PSE_Molekulardynamik_WS12
     ::xsd::cxx::tree::one< delta_t_type > delta_t_;
     ::xsd::cxx::tree::one< potential_type > potential_;
     domain_optional domain_;
-    brownianMotion_optional brownianMotion_;
     thermostat_optional thermostat_;
     ::xsd::cxx::tree::one< dimensionCount_type > dimensionCount_;
     gravitation_optional gravitation_;
@@ -6246,4 +5810,4 @@ namespace PSE_Molekulardynamik_WS12
 //
 // End epilogue.
 
-#endif // INPUT_PARAMETERS_H
+#endif // SRC_INPUT_INPUT_PARAMETERS_H

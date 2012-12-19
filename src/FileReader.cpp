@@ -24,7 +24,6 @@ FileReader::FileReader() {
 FileReader::~FileReader() {
 }
 
-
 void FileReader::readFileList(list<Particle>& particles, char* filename) 
 {
 	double x[] = {0,0,0};

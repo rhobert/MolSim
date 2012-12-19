@@ -2,6 +2,9 @@
 #ifndef THERMOSTAT_H_
 #define THERMOSTAT_H_
 
+#define kB 1.3806488e-23
+#define thermostat_mass 1.0
+
 #include "particleContainer/ParticleContainer.h"
 #include "utils/Vector.h"
 #include <cmath>
@@ -17,6 +20,12 @@ private:
 	 * @brief Logger for Thermostat class
 	 */
 	static log4cxx::LoggerPtr logger;
+	
+	/**
+	 * @brief ParticleContainer to regulate
+	 */
+	ParticleContainer * pc;
+	
 	/**
 	 * @brief The desired temperature
 	 */
@@ -49,49 +58,55 @@ private:
 	 * @brief Temperature at a particluar timestep
 	 */
 	double currentT;
-	/**
-	 * @brief Boltzmann-Konstante
-	 */
-	double k;
+	
 	/**
 	 * @brief Scaling factor for particle velocities
 	 */
 	double beta;
+	
 	/**
-	 * @brief Mass of the particles
+	* @brief Apply Maxwell Boltzmann Distribution
+	*
+	* @param p Particle to distribute
+	**/
+	static void applyMaxwellBoltzmannDistribution( Particle& p );
+	
+	/**
+	 * @brief Parameter for Maxwell Boltzmann Distribution
 	 */
-	double m;
-
+	static double meanVelocity;
+	
+	/**
+	 * @brief Parameter for Maxwell Boltzmann Distribution
+	 */
+	static int dimensions;
+	
 public:
-
+	
 	/**
 	* @brief Create an instance of class Thermostat
 	*
-	* @param targetT the disered temperature
-	* @param diffT step size in which temperature should be changed
-	* @param nMax the number of timesteps after which temperature has to be changed
+	* @param pc ParticleContainer which should be regulated
+	* @param initialT Initial temperature for Maxwell-Boltzmann-Distribution
 	* @param dimensionCount count of dimensions for simulation
 	**/
-	Thermostat( double targetT, double diffT, int nMax , int dimensionCount );
+	Thermostat( ParticleContainer& pc, double initialT, int dimensionCount );
 
 	/**
 	* @brief Calculates the initial scaling value for particle velocities to reach initial temperature
 	*
-	* @param size count of all particles
 	* @param initialT initila temperature
 	*
 	* @return mean velocity for Maxwell-Boltzmann distribution
 	*/
-	double initializeTemperature( int size , double initialT );
+	static double initializeTemperature( double initialT );
 
 	/**
 	* @brief Regulates temperature
 	*
-	* @param pc all particles
-	* @param iteration current iteration
-	* @param nThermostat number of iterations after which the thermostat is applied
+	* @param targetT the disered temperature
 	*/
-	void regulateTemperature( ParticleContainer& pc, int iteration, int nThermostat );
+	void regulateTemperature ( double targetT );
 	
 	/**
 	 * @brief Returns the current energy

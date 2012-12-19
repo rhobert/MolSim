@@ -75,12 +75,6 @@ void calcPeriodicHalo(Particle &p);
 **/
 void calcPeriodicBoundary(Particle &p1, Particle p2);
 
-/**
- * @brief Apply Maxwell Boltzmann Distribution
- *
- * @param p Particle to distribute
-**/
-void applyMaxwellBoltzmannDistribution( Particle& p );
 
 /**
  * @brief Apply gravitation on partcile
@@ -321,6 +315,7 @@ int main(int argc, char* argsv[])
 	int writeFrequency = simulation->writeFrequency();
 	outputFileName = simulation->outputFile();
 	dimensionCount = simulation->dimensionCount();
+	PhaseSpace phaseSpace;
 
 	string file_name;
 	PSE_Molekulardynamik_WS12::boundary_t boundary []  = {
@@ -356,11 +351,15 @@ int main(int argc, char* argsv[])
 		// Check file_type
 		if ( i->type() == PSE_Molekulardynamik_WS12::inputType_t::list )
 		{
-			fileReader.readFileList(particles, (char*) file_name.c_str());
+			fileReader.readFileList( particles, (char*) file_name.c_str() );
 		}
 		else if ( i->type() == PSE_Molekulardynamik_WS12::inputType_t::cuboid )
 		{
-			fileReader.readFileCuboid(particles, (char*) file_name.c_str());
+			fileReader.readFileCuboid( particles, (char*) file_name.c_str() );
+		}
+		else if ( i->type() == PSE_Molekulardynamik_WS12::inputType_t::phaseSpace )
+		{
+			phaseSpace.readPhaseSpace( particles, (char*) file_name.c_str() );
 		}
 	}
 
@@ -544,38 +543,21 @@ int main(int argc, char* argsv[])
 
 		LOG4CXX_DEBUG(logger, "Detect if parameters for Brownian Motion or Thermostat are specified");
 
-		if ( simulation->brownianMotion().present() )
-		{
-			meanVelocity = simulation->brownianMotion().get().meanVelocity();
-
-			LOG4CXX_DEBUG(logger, "Parameters for Brownian Motion are specified");
-
-			LOG4CXX_INFO(logger, "Superpose velocity of particles with Brownian motion with mean velocity " << meanVelocity << " in " << dimensionCount << " dimensions");
-
-			// Superpose velocity of particles with Brownian motion
-			particleContainer->applyToSingleParticles ( applyMaxwellBoltzmannDistribution );
-		}
-		else if ( simulation->thermostat().present() )
+		if ( simulation->thermostat().present() )
 		{
 			double initialT = simulation->thermostat().get().initialT();
-			double targetT = simulation->thermostat().get().targetT();
-			double diffT = simulation->thermostat().get().diffT();
-			int nMax = simulation->thermostat().get().nMax();
-			nThermostat = simulation->thermostat().get().nThermostat();
+//			double targetT = simulation->thermostat().get().targetT();
+//			double diffT = simulation->thermostat().get().diffT();
+//			int nMax = simulation->thermostat().get().nMax();
+//			nThermostat = simulation->thermostat().get().nThermostat();
 
 			thermostatOn = true;
 
 			LOG4CXX_DEBUG(logger, "Parameters for Thermostat are specified");
 
-			thermostat = new Thermostat( targetT, diffT, nMax, dimensionCount );
+			thermostat = new Thermostat(*particleContainer, initialT, dimensionCount);
 
-			int size = particleContainer->size();
-
-			meanVelocity = thermostat->initializeTemperature( size, initialT );
-
-			LOG4CXX_INFO(logger, "Superpose velocity of particles to get initial temperature with mean velocity " << meanVelocity << " in " << dimensionCount << " dimensions");
-
-			particleContainer->applyToSingleParticles ( applyMaxwellBoltzmannDistribution );
+			LOG4CXX_INFO(logger, "Superpose velocity of particles to get initial temperature with temperature " << initialT << " in " << dimensionCount << " dimensions");
 		}
 		else
 		{
@@ -586,7 +568,6 @@ int main(int argc, char* argsv[])
 	// Begin Simulation
 
 	// the forces are needed to calculate x, but are not given in the input file.
-	particleContainer->applyToSingleParticles ( setNewForce );
 	particleContainer->applyToParticlePairs ( calculateF );
 
 	LOG4CXX_INFO(logger, "Write vtk output to files with basename " << outputFileName << " with write frequency " << writeFrequency );
@@ -611,7 +592,7 @@ int main(int argc, char* argsv[])
 		// apply thermostat
 		if ( thermostatOn == true )
 		{
-			thermostat->regulateTemperature( *particleContainer, iteration, nThermostat );
+			thermostat->regulateTemperature( iteration );
 			LOG4CXX_DEBUG(logger, "Current temperature " << thermostat->getTemperature() );
 		}
 
@@ -665,7 +646,6 @@ int main(int argc, char* argsv[])
 		
 		LOG4CXX_INFO(logger, "Write phase space to " << phaseSpaceFilename );
 		
-		PhaseSpace phaseSpace;
 		list<Particle> pList = particleContainer->getParticles();
 		phaseSpace.writePhaseSpace( *&pList, const_cast<char*> ( phaseSpaceFilename.c_str() ) );
 	}
@@ -673,10 +653,7 @@ int main(int argc, char* argsv[])
 	return 0;
 }
 
-void applyMaxwellBoltzmannDistribution( Particle& p )
-{
-	MaxwellBoltzmannDistribution(p, meanVelocity, dimensionCount);
-}
+
 
 utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2)
 {
