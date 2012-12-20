@@ -30,26 +30,32 @@ private:
 	 * @brief The desired temperature
 	 */
 	double targetT;
-	/**
-	 * @brief Step size in which temperature should be changed
-	 */
-	double diffT;
-	/**
-	 * @brief The number of timesteps after which temperature has to be changed
-	 */
-	int nMax; 
+	
 	/**
 	 * @brief Count of dimensions for simulation 
 	 */
 	int dimensionCount;
+	
 	/**
-	 * @brief Kinetic energy of all particles at simulation start
+	 * @brief Frequency to regulate temperature
 	 */
-	double initialEnergy;
+	int regulationFrequency;
+	
+	/**
+	 * @brief Step size in which temperature should be changed
+	 */
+	double diffT;
+	
+	/**
+	 * @brief The number of timesteps after which temperature has to be changed
+	 */
+	int nMax; 
+	
 	/**
 	 * @brief Kinetic energy which is needed to reach the disered temperature
 	 */
 	//double targetEnergy;
+	
 	/**
 	 * @brief Kinetic energy of all particles at a particluar timestep 
 	 */
@@ -60,16 +66,18 @@ private:
 	double currentT;
 	
 	/**
-	 * @brief Scaling factor for particle velocities
-	 */
-	double beta;
-	
-	/**
 	* @brief Apply Maxwell Boltzmann Distribution
 	*
 	* @param p Particle to distribute
 	**/
 	static void applyMaxwellBoltzmannDistribution( Particle& p );
+	
+	/**
+	* @brief Scales veclocity of particle by static parameter beta
+	* 
+	* @param p Particle to scale velocity
+	*/
+	static void scaleVelocity( Particle& p );
 	
 	/**
 	 * @brief Parameter for Maxwell Boltzmann Distribution
@@ -81,6 +89,11 @@ private:
 	 */
 	static int dimensions;
 	
+	/**
+	 * @brief Scale factor for velocity
+	 */
+	static double beta;
+	
 public:
 	
 	/**
@@ -91,16 +104,21 @@ public:
 	* @param dimensionCount count of dimensions for simulation
 	**/
 	Thermostat( ParticleContainer& pc, double initialT, int dimensionCount );
-
+	
 	/**
-	* @brief Calculates the initial scaling value for particle velocities to reach initial temperature
+	 * @brief Set the frequency to regulate temperature
+	 * 
+	 * @param frequency Frequency to regulate temperature
+	 */
+	void setFrequency ( int frequency );
+	
+	/**
+	* @brief Checks if temperature should be regulated and do it if neccessary
 	*
-	* @param initialT initila temperature
-	*
-	* @return mean velocity for Maxwell-Boltzmann distribution
+	* @param iteration Current iteration
 	*/
-	static double initializeTemperature( double initialT );
-
+	void apply ( int iteration );
+	
 	/**
 	* @brief Regulates temperature
 	*
@@ -121,7 +139,15 @@ public:
 	 * @return current temperature
 	 **/
 	double getTemperature();
-
+	
+	/**
+	* @brief Calculates the initial scaling value for particle velocities to reach initial temperature
+	*
+	* @param initialT initial temperature
+	*
+	* @return mean velocity for Maxwell-Boltzmann distribution
+	*/
+	static double initializeTemperature( double initialT );
 };
 
 #endif /* THERMOSTAT_H_ */

@@ -5,11 +5,11 @@ xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
 xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
 	
 	<output>
-		<file>thermostat_1</file>
-		<writeFrequency>50</writeFrequency>
+		<file>thermostat_2</file>
+		<writeFrequency>100</writeFrequency>
 	</output>
 	
-	<t_end>25</t_end>
+	<t_end>50</t_end>
 	
 	<delta_t>0.0005</delta_t>
 	
@@ -20,8 +20,8 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 	
 	<domain>		
 		<dimensions>
-			<x>63</x>
-			<y>36</y>
+			<x>300</x>
+			<y>54</y>
 			<z>0</z>
 		</dimensions>
 		
@@ -34,7 +34,7 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			<upper>reflecting</upper>
 		</y>
 		
-		<cutoff>2.5</cutoff>	
+		<cutoff>3</cutoff>	
 	</domain>
 
 	<thermostat>	
@@ -63,8 +63,8 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			</velocity>
 			
 			<dimensions>
-				<x>50</x>
-				<y>14</y>
+				<x>250</x>
+				<y>20</y>
 				<z>1</z>
 			</dimensions>
 			
@@ -72,7 +72,7 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			
 			<distance>1.2</distance>
 
-			<sigma>1.0</sigma>
+			<sigma>1.2</sigma>
 			
 			<epsilon>1.0</epsilon>
 			
@@ -82,7 +82,7 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 		<cuboid>			
 			<position>
 				<x>0.6</x>
-				<y>19</y>
+				<y>27</y>
 				<z>0</z>
 			</position>
 			
@@ -93,8 +93,8 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			</velocity>
 			
 			<dimensions>
-				<x>50</x>
-				<y>14</y>
+				<x>250</x>
+				<y>20</y>
 				<z>1</z>
 			</dimensions>
 			
@@ -102,7 +102,7 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			
 			<distance>1.2</distance>
 
-			<sigma>0.9412</sigma>
+			<sigma>1.1</sigma>
 			
 			<epsilon>1.0</epsilon>
 			

@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
+#include <sys/time.h>
 
 #include <log4cxx/logger.h>
 #include <log4cxx/propertyconfigurator.h>
@@ -319,12 +320,11 @@ int main(int argc, char* argsv[])
 	// Init variables by parameters
 	double end_time = simulation->t_end();
 	delta_t = simulation->delta_t();
-	int writeFrequency = simulation->writeFrequency();
-	outputFileName = simulation->outputFile();
 	dimensionCount = simulation->dimensionCount();
+	
 	PhaseSpace phaseSpace;
-
-	string file_name;
+	int writeFrequency = 0;
+	string file_name = "";
 
 	PSE_Molekulardynamik_WS12::domain_t* domain = NULL;
 
@@ -337,7 +337,21 @@ int main(int argc, char* argsv[])
 		cout << molsim_usage << endl;
 		return EXIT_FAILURE;
 	}
-
+	
+	LOG4CXX_DEBUG(logger, "Check if output is specified");
+	
+	if ( simulation->output().present() )
+	{
+		outputFileName = simulation->output().get().file();
+		writeFrequency = simulation->output().get().writeFrequency();
+		
+		LOG4CXX_INFO(logger, "Write vtk output to files with basename " << outputFileName << " with write frequency " << writeFrequency );
+	}
+	else
+	{
+		LOG4CXX_WARN(logger, "No output specified" );
+	}
+	
 	// Read particles from file to Particle list and build ParticleContainer
 	FileReader fileReader;
 	list<Particle> particles;
@@ -545,11 +559,12 @@ int main(int argc, char* argsv[])
 	{
 		forceCalc = lenardJonesPotential;
 
-		LOG4CXX_DEBUG(logger, "Detect if parameters for Brownian Motion or Thermostat are specified");
+		LOG4CXX_DEBUG(logger, "Detect if parameters for Thermostat are specified");
 
 		if ( simulation->thermostat().present() )
 		{
 			double initialT = simulation->thermostat().get().initialT();
+			
 //			double targetT = simulation->thermostat().get().targetT();
 //			double diffT = simulation->thermostat().get().diffT();
 //			int nMax = simulation->thermostat().get().nMax();
@@ -560,7 +575,15 @@ int main(int argc, char* argsv[])
 			LOG4CXX_DEBUG(logger, "Parameters for Thermostat are specified");
 
 			thermostat = new Thermostat(*particleContainer, initialT, dimensionCount);
-
+			
+			if ( simulation->thermostat().get().frequency().present() )
+			{
+				int regulationFrequency = simulation->thermostat().get().frequency().get();
+				
+				thermostat->setFrequency( regulationFrequency );
+				LOG4CXX_DEBUG(logger, "Regulation frequency for Thermostat is " << regulationFrequency );
+			}
+			
 			LOG4CXX_INFO(logger, "Superpose velocity of particles to get initial temperature with temperature " << initialT << " in " << dimensionCount << " dimensions");
 		}
 		else
@@ -574,32 +597,39 @@ int main(int argc, char* argsv[])
 	// the forces are needed to calculate x, but are not given in the input file.
 	particleContainer->applyToParticlePairs ( calculateF );
 
-	LOG4CXX_INFO(logger, "Write vtk output to files with basename " << outputFileName << " with write frequency " << writeFrequency );
-
 	// Init iteration variables
 	double start_time = 0;
 	double current_time;
 	int iteration = 0;
-
+	
+	double totalTime = 0;
+	double timeDiff;
+	timeval t0, t1; 
+	
+	
 	LOG4CXX_INFO(logger, "Start simulation from time " << start_time << " to " << end_time << " with time steps " << delta_t);
-	LOG4CXX_INFO(logger, "There will be " << floor((end_time - start_time) / delta_t) << " simulation steps and " << ceil(floor((end_time - start_time) / delta_t) / writeFrequency) << " output files" );
-
+	LOG4CXX_INFO(logger, "Expecting " << floor((end_time - start_time) / delta_t) << " simulation steps" );
+	if ( writeFrequency > 0 )
+		LOG4CXX_INFO(logger, "Expecting " << ceil(floor((end_time - start_time) / delta_t) / writeFrequency) << " output files" );
+	
 	 // for this loop, we assume: current x, current f and current v are known
 	for ( current_time = start_time;
 		 current_time < end_time;
 		 current_time += delta_t )
 	{
-		if (iteration % writeFrequency == 0) {
-			plotParticles(iteration);
-		}
+		gettimeofday(&t0, NULL);
 		
 		// apply thermostat
 		if ( thermostatOn == true )
 		{
-			thermostat->regulateTemperature( iteration );
-//			LOG4CXX_DEBUG(logger, "Current temperature " << thermostat->getTemperature() );
+			thermostat->apply( iteration );
 		}
 
+		
+		if (writeFrequency != 0 && iteration % writeFrequency == 0) {
+			plotParticles(iteration);
+		}
+		
 		// calculate new x
 		particleContainer->applyToSingleParticles ( calculateX );
 
@@ -638,11 +668,19 @@ int main(int argc, char* argsv[])
 		// calculate new v
 		particleContainer->applyToSingleParticles ( calculateV );
 		
+		
+		gettimeofday(&t1, NULL);
+		timeDiff = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) * 1e-9;
+		totalTime += timeDiff;
+		
 		iteration++;
-		LOG4CXX_TRACE(logger, "Iteration " << iteration << " finished");
+		LOG4CXX_TRACE(logger, "Iteration " << iteration << " finished in " << timeDiff << " seconds");
 	}
 
-	LOG4CXX_INFO(logger, "End simulation");
+	LOG4CXX_INFO(logger, "End simulation with ");
+	
+	if ( iteration > 0 )
+		LOG4CXX_INFO(logger, (totalTime / (double) iteration) << " per iteration");
 	
 	if ( simulation->outputPhaseSpace().present() )
 	{

@@ -396,6 +396,52 @@ namespace PSE_Molekulardynamik_WS12
   }
 
 
+  // output_t
+  // 
+
+  const output_t::file_type& output_t::
+  file () const
+  {
+    return this->file_.get ();
+  }
+
+  output_t::file_type& output_t::
+  file ()
+  {
+    return this->file_.get ();
+  }
+
+  void output_t::
+  file (const file_type& x)
+  {
+    this->file_.set (x);
+  }
+
+  void output_t::
+  file (::std::auto_ptr< file_type > x)
+  {
+    this->file_.set (x);
+  }
+
+  const output_t::writeFrequency_type& output_t::
+  writeFrequency () const
+  {
+    return this->writeFrequency_.get ();
+  }
+
+  output_t::writeFrequency_type& output_t::
+  writeFrequency ()
+  {
+    return this->writeFrequency_.get ();
+  }
+
+  void output_t::
+  writeFrequency (const writeFrequency_type& x)
+  {
+    this->writeFrequency_.set (x);
+  }
+
+
   // inputType_t
   // 
 
@@ -1130,32 +1176,62 @@ namespace PSE_Molekulardynamik_WS12
     this->initialT_.set (x);
   }
 
+  const thermostat_t::frequency_optional& thermostat_t::
+  frequency () const
+  {
+    return this->frequency_;
+  }
+
+  thermostat_t::frequency_optional& thermostat_t::
+  frequency ()
+  {
+    return this->frequency_;
+  }
+
+  void thermostat_t::
+  frequency (const frequency_type& x)
+  {
+    this->frequency_.set (x);
+  }
+
+  void thermostat_t::
+  frequency (const frequency_optional& x)
+  {
+    this->frequency_ = x;
+  }
+
 
   // simulation_t
   // 
 
-  const simulation_t::outputFile_type& simulation_t::
-  outputFile () const
+  const simulation_t::output_optional& simulation_t::
+  output () const
   {
-    return this->outputFile_.get ();
+    return this->output_;
   }
 
-  simulation_t::outputFile_type& simulation_t::
-  outputFile ()
+  simulation_t::output_optional& simulation_t::
+  output ()
   {
-    return this->outputFile_.get ();
-  }
-
-  void simulation_t::
-  outputFile (const outputFile_type& x)
-  {
-    this->outputFile_.set (x);
+    return this->output_;
   }
 
   void simulation_t::
-  outputFile (::std::auto_ptr< outputFile_type > x)
+  output (const output_type& x)
   {
-    this->outputFile_.set (x);
+    this->output_.set (x);
+  }
+
+  void simulation_t::
+  output (const output_optional& x)
+  {
+    this->output_ = x;
+  }
+
+  void simulation_t::
+  output (::std::auto_ptr< output_type > x)
+  {
+    this->output_.set (x);
   }
 
   const simulation_t::outputPhaseSpace_optional& simulation_t::
@@ -1210,24 +1286,6 @@ namespace PSE_Molekulardynamik_WS12
   inputs (::std::auto_ptr< inputs_type > x)
   {
     this->inputs_.set (x);
-  }
-
-  const simulation_t::writeFrequency_type& simulation_t::
-  writeFrequency () const
-  {
-    return this->writeFrequency_.get ();
-  }
-
-  simulation_t::writeFrequency_type& simulation_t::
-  writeFrequency ()
-  {
-    return this->writeFrequency_.get ();
-  }
-
-  void simulation_t::
-  writeFrequency (const writeFrequency_type& x)
-  {
-    this->writeFrequency_.set (x);
   }
 
   const simulation_t::t_end_type& simulation_t::
@@ -2268,6 +2326,108 @@ namespace PSE_Molekulardynamik_WS12
 
   dimensionBoundaries_t::
   ~dimensionBoundaries_t ()
+  {
+  }
+
+  // output_t
+  //
+
+  output_t::
+  output_t (const file_type& file,
+            const writeFrequency_type& writeFrequency)
+  : ::xml_schema::type (),
+    file_ (file, ::xml_schema::flags (), this),
+    writeFrequency_ (writeFrequency, ::xml_schema::flags (), this)
+  {
+  }
+
+  output_t::
+  output_t (const output_t& x,
+            ::xml_schema::flags f,
+            ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    file_ (x.file_, f, this),
+    writeFrequency_ (x.writeFrequency_, f, this)
+  {
+  }
+
+  output_t::
+  output_t (const ::xercesc::DOMElement& e,
+            ::xml_schema::flags f,
+            ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    file_ (f, this),
+    writeFrequency_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
+  }
+
+  void output_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // file
+      //
+      if (n.name () == "file" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< file_type > r (
+          file_traits::create (i, f, this));
+
+        if (!file_.present ())
+        {
+          this->file_.set (r);
+          continue;
+        }
+      }
+
+      // writeFrequency
+      //
+      if (n.name () == "writeFrequency" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!writeFrequency_.present ())
+        {
+          this->writeFrequency_.set (writeFrequency_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (!file_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "file",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!writeFrequency_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "writeFrequency",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+  }
+
+  output_t* output_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class output_t (*this, f, c);
+  }
+
+  output_t::
+  ~output_t ()
   {
   }
 
@@ -3394,7 +3554,8 @@ namespace PSE_Molekulardynamik_WS12
   thermostat_t::
   thermostat_t (const initialT_type& initialT)
   : ::xml_schema::type (),
-    initialT_ (initialT, ::xml_schema::flags (), this)
+    initialT_ (initialT, ::xml_schema::flags (), this),
+    frequency_ (::xml_schema::flags (), this)
   {
   }
 
@@ -3403,7 +3564,8 @@ namespace PSE_Molekulardynamik_WS12
                 ::xml_schema::flags f,
                 ::xml_schema::container* c)
   : ::xml_schema::type (x, f, c),
-    initialT_ (x.initialT_, f, this)
+    initialT_ (x.initialT_, f, this),
+    frequency_ (x.frequency_, f, this)
   {
   }
 
@@ -3412,7 +3574,8 @@ namespace PSE_Molekulardynamik_WS12
                 ::xml_schema::flags f,
                 ::xml_schema::container* c)
   : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
-    initialT_ (f, this)
+    initialT_ (f, this),
+    frequency_ (f, this)
   {
     if ((f & ::xml_schema::flags::base) == 0)
     {
@@ -3445,6 +3608,17 @@ namespace PSE_Molekulardynamik_WS12
         }
       }
 
+      // frequency
+      //
+      if (n.name () == "frequency" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        if (!this->frequency_)
+        {
+          this->frequency_.set (frequency_traits::create (i, f, this));
+          continue;
+        }
+      }
+
       break;
     }
 
@@ -3472,18 +3646,15 @@ namespace PSE_Molekulardynamik_WS12
   //
 
   simulation_t::
-  simulation_t (const outputFile_type& outputFile,
-                const inputs_type& inputs,
-                const writeFrequency_type& writeFrequency,
+  simulation_t (const inputs_type& inputs,
                 const t_end_type& t_end,
                 const delta_t_type& delta_t,
                 const potential_type& potential,
                 const dimensionCount_type& dimensionCount)
   : ::xml_schema::type (),
-    outputFile_ (outputFile, ::xml_schema::flags (), this),
+    output_ (::xml_schema::flags (), this),
     outputPhaseSpace_ (::xml_schema::flags (), this),
     inputs_ (inputs, ::xml_schema::flags (), this),
-    writeFrequency_ (writeFrequency, ::xml_schema::flags (), this),
     t_end_ (t_end, ::xml_schema::flags (), this),
     delta_t_ (delta_t, ::xml_schema::flags (), this),
     potential_ (potential, ::xml_schema::flags (), this),
@@ -3495,18 +3666,15 @@ namespace PSE_Molekulardynamik_WS12
   }
 
   simulation_t::
-  simulation_t (const outputFile_type& outputFile,
-                ::std::auto_ptr< inputs_type >& inputs,
-                const writeFrequency_type& writeFrequency,
+  simulation_t (::std::auto_ptr< inputs_type >& inputs,
                 const t_end_type& t_end,
                 const delta_t_type& delta_t,
                 const potential_type& potential,
                 const dimensionCount_type& dimensionCount)
   : ::xml_schema::type (),
-    outputFile_ (outputFile, ::xml_schema::flags (), this),
+    output_ (::xml_schema::flags (), this),
     outputPhaseSpace_ (::xml_schema::flags (), this),
     inputs_ (inputs, ::xml_schema::flags (), this),
-    writeFrequency_ (writeFrequency, ::xml_schema::flags (), this),
     t_end_ (t_end, ::xml_schema::flags (), this),
     delta_t_ (delta_t, ::xml_schema::flags (), this),
     potential_ (potential, ::xml_schema::flags (), this),
@@ -3522,10 +3690,9 @@ namespace PSE_Molekulardynamik_WS12
                 ::xml_schema::flags f,
                 ::xml_schema::container* c)
   : ::xml_schema::type (x, f, c),
-    outputFile_ (x.outputFile_, f, this),
+    output_ (x.output_, f, this),
     outputPhaseSpace_ (x.outputPhaseSpace_, f, this),
     inputs_ (x.inputs_, f, this),
-    writeFrequency_ (x.writeFrequency_, f, this),
     t_end_ (x.t_end_, f, this),
     delta_t_ (x.delta_t_, f, this),
     potential_ (x.potential_, f, this),
@@ -3541,10 +3708,9 @@ namespace PSE_Molekulardynamik_WS12
                 ::xml_schema::flags f,
                 ::xml_schema::container* c)
   : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
-    outputFile_ (f, this),
+    output_ (f, this),
     outputPhaseSpace_ (f, this),
     inputs_ (f, this),
-    writeFrequency_ (f, this),
     t_end_ (f, this),
     delta_t_ (f, this),
     potential_ (f, this),
@@ -3570,16 +3736,16 @@ namespace PSE_Molekulardynamik_WS12
       const ::xsd::cxx::xml::qualified_name< char > n (
         ::xsd::cxx::xml::dom::name< char > (i));
 
-      // outputFile
+      // output
       //
-      if (n.name () == "outputFile" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      if (n.name () == "output" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
       {
-        ::std::auto_ptr< outputFile_type > r (
-          outputFile_traits::create (i, f, this));
+        ::std::auto_ptr< output_type > r (
+          output_traits::create (i, f, this));
 
-        if (!outputFile_.present ())
+        if (!this->output_)
         {
-          this->outputFile_.set (r);
+          this->output_.set (r);
           continue;
         }
       }
@@ -3608,17 +3774,6 @@ namespace PSE_Molekulardynamik_WS12
         if (!inputs_.present ())
         {
           this->inputs_.set (r);
-          continue;
-        }
-      }
-
-      // writeFrequency
-      //
-      if (n.name () == "writeFrequency" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
-      {
-        if (!writeFrequency_.present ())
-        {
-          this->writeFrequency_.set (writeFrequency_traits::create (i, f, this));
           continue;
         }
       }
@@ -3724,24 +3879,10 @@ namespace PSE_Molekulardynamik_WS12
       break;
     }
 
-    if (!outputFile_.present ())
-    {
-      throw ::xsd::cxx::tree::expected_element< char > (
-        "outputFile",
-        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
-    }
-
     if (!inputs_.present ())
     {
       throw ::xsd::cxx::tree::expected_element< char > (
         "inputs",
-        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
-    }
-
-    if (!writeFrequency_.present ())
-    {
-      throw ::xsd::cxx::tree::expected_element< char > (
-        "writeFrequency",
         "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
     }
 

@@ -68,6 +68,13 @@ elementFormDefault="qualified">
 		</xs:sequence>
 	</xs:complexType>
 	
+	<xs:complexType name="output_t">
+		<xs:all>
+			<xs:element name="file" type="nonEmptyString_t" />
+			<xs:element name="writeFrequency" type="xs:positiveInteger" />
+		</xs:all>
+	</xs:complexType>
+	
 	<xs:simpleType name="inputType_t">
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="list" />
@@ -146,8 +153,8 @@ elementFormDefault="qualified">
 	<xs:complexType name="thermostat_t">
 		<xs:all>
 			<xs:element name="initialT" type="nonNegativeDecimal_t" />
-		<!--	<xs:element name="nThermostat" type="xs:positiveInteger" />
-			<xs:element name="targetT" type="nonNegativeDecimal_t" />
+			<xs:element name="frequency" type="xs:positiveInteger" minOccurs="0" />
+		<!--	<xs:element name="targetT" type="nonNegativeDecimal_t" />
 			<xs:element name="diffT" type="nonNegativeDecimal_t" />
 			<xs:element name="nMax" type="xs:positiveInteger" /> -->
 		</xs:all>
@@ -155,10 +162,9 @@ elementFormDefault="qualified">
 	
 	<xs:complexType name="simulation_t">
 		<xs:all>
-			<xs:element name="outputFile" type="nonEmptyString_t" />
+			<xs:element name="output" type="output_t" minOccurs="0" />
 			<xs:element name="outputPhaseSpace" type="nonEmptyString_t" minOccurs="0" />
 			<xs:element name="inputs" type="inputs_t" />
-			<xs:element name="writeFrequency" type="xs:positiveInteger" />
 			<xs:element name="t_end" type="positiveDecimal_t" />
 			<xs:element name="delta_t" type="positiveDecimal_t" />
 			<xs:element name="potential" type="potential_t" />

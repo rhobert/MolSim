@@ -565,6 +565,7 @@ namespace PSE_Molekulardynamik_WS12
   class positiveIntegerVector_t;
   class nonNegativeIntegerVector_t;
   class dimensionBoundaries_t;
+  class output_t;
   class inputType_t;
   class inputFile_t;
   class cuboid_t;
@@ -2199,6 +2200,196 @@ namespace PSE_Molekulardynamik_WS12
     protected:
     ::xsd::cxx::tree::one< lower_type > lower_;
     ::xsd::cxx::tree::one< upper_type > upper_;
+
+    //@endcond
+  };
+
+  /**
+   * @brief Class corresponding to the %output_t schema type.
+   *
+   * @nosubgrouping
+   */
+  class output_t: public ::xml_schema::type
+  {
+    public:
+    /**
+     * @name file
+     *
+     * @brief Accessor and modifier functions for the %file
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::PSE_Molekulardynamik_WS12::nonEmptyString_t file_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits< file_type, char > file_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const file_type&
+    file () const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    file_type&
+    file ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    file (const file_type& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly
+     * instead of making a copy.
+     */
+    void
+    file (::std::auto_ptr< file_type > p);
+
+    //@}
+
+    /**
+     * @name writeFrequency
+     *
+     * @brief Accessor and modifier functions for the %writeFrequency
+     * required element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::positive_integer writeFrequency_type;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits< writeFrequency_type, char > writeFrequency_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element.
+     *
+     * @return A constant reference to the element.
+     */
+    const writeFrequency_type&
+    writeFrequency () const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    writeFrequency_type&
+    writeFrequency ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    writeFrequency (const writeFrequency_type& x);
+
+    //@}
+
+    /**
+     * @name Constructors
+     */
+    //@{
+
+    /**
+     * @brief Create an instance from the ultimate base and
+     * initializers for required elements and attributes.
+     */
+    output_t (const file_type&,
+              const writeFrequency_type&);
+
+    /**
+     * @brief Create an instance from a DOM element.
+     *
+     * @param e A DOM element to extract the data from.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    output_t (const ::xercesc::DOMElement& e,
+              ::xml_schema::flags f = 0,
+              ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy constructor.
+     *
+     * @param x An instance to make a copy of.
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    output_t (const output_t& x,
+              ::xml_schema::flags f = 0,
+              ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy the instance polymorphically.
+     *
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     * @return A pointer to the dynamically allocated copy.
+     *
+     * This function ensures that the dynamic type of the instance is
+     * used for copying and should be used for polymorphic object
+     * models instead of the copy constructor.
+     */
+    virtual output_t*
+    _clone (::xml_schema::flags f = 0,
+            ::xml_schema::container* c = 0) const;
+
+    //@}
+
+    /**
+     * @brief Destructor.
+     */
+    virtual 
+    ~output_t ();
+
+    // Implementation.
+    //
+
+    //@cond
+
+    protected:
+    void
+    parse (::xsd::cxx::xml::dom::parser< char >&,
+           ::xml_schema::flags);
+
+    protected:
+    ::xsd::cxx::tree::one< file_type > file_;
+    ::xsd::cxx::tree::one< writeFrequency_type > writeFrequency_;
 
     //@endcond
   };
@@ -4652,6 +4843,71 @@ namespace PSE_Molekulardynamik_WS12
     //@}
 
     /**
+     * @name frequency
+     *
+     * @brief Accessor and modifier functions for the %frequency
+     * optional element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::positive_integer frequency_type;
+
+    /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional< frequency_type > frequency_optional;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits< frequency_type, char > frequency_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element
+     * container.
+     *
+     * @return A constant reference to the optional container.
+     */
+    const frequency_optional&
+    frequency () const;
+
+    /**
+     * @brief Return a read-write reference to the element container.
+     *
+     * @return A reference to the optional container.
+     */
+    frequency_optional&
+    frequency ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    frequency (const frequency_type& x);
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy 
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void
+    frequency (const frequency_optional& x);
+
+    //@}
+
+    /**
      * @name Constructors
      */
     //@{
@@ -4722,6 +4978,7 @@ namespace PSE_Molekulardynamik_WS12
 
     protected:
     ::xsd::cxx::tree::one< initialT_type > initialT_;
+    frequency_optional frequency_;
 
     //@endcond
   };
@@ -4735,38 +4992,44 @@ namespace PSE_Molekulardynamik_WS12
   {
     public:
     /**
-     * @name outputFile
+     * @name output
      *
-     * @brief Accessor and modifier functions for the %outputFile
-     * required element.
+     * @brief Accessor and modifier functions for the %output
+     * optional element.
      */
     //@{
 
     /**
      * @brief Element type.
      */
-    typedef ::PSE_Molekulardynamik_WS12::nonEmptyString_t outputFile_type;
+    typedef ::PSE_Molekulardynamik_WS12::output_t output_type;
+
+    /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional< output_type > output_optional;
 
     /**
      * @brief Element traits type.
      */
-    typedef ::xsd::cxx::tree::traits< outputFile_type, char > outputFile_traits;
+    typedef ::xsd::cxx::tree::traits< output_type, char > output_traits;
 
     /**
-     * @brief Return a read-only (constant) reference to the element.
+     * @brief Return a read-only (constant) reference to the element
+     * container.
      *
-     * @return A constant reference to the element.
+     * @return A constant reference to the optional container.
      */
-    const outputFile_type&
-    outputFile () const;
+    const output_optional&
+    output () const;
 
     /**
-     * @brief Return a read-write reference to the element.
+     * @brief Return a read-write reference to the element container.
      *
-     * @return A reference to the element.
+     * @return A reference to the optional container.
      */
-    outputFile_type&
-    outputFile ();
+    output_optional&
+    output ();
 
     /**
      * @brief Set the element value.
@@ -4777,18 +5040,30 @@ namespace PSE_Molekulardynamik_WS12
      * the new value of the element.
      */
     void
-    outputFile (const outputFile_type& x);
+    output (const output_type& x);
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy 
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void
+    output (const output_optional& x);
 
     /**
      * @brief Set the element value without copying.
      *
      * @param p A new value to use.
      *
-     * This function will try to use the passed value directly
-     * instead of making a copy.
+     * This function will try to use the passed value directly instead
+     * of making a copy.
      */
     void
-    outputFile (::std::auto_ptr< outputFile_type > p);
+    output (::std::auto_ptr< output_type > p);
 
     //@}
 
@@ -4923,53 +5198,6 @@ namespace PSE_Molekulardynamik_WS12
      */
     void
     inputs (::std::auto_ptr< inputs_type > p);
-
-    //@}
-
-    /**
-     * @name writeFrequency
-     *
-     * @brief Accessor and modifier functions for the %writeFrequency
-     * required element.
-     */
-    //@{
-
-    /**
-     * @brief Element type.
-     */
-    typedef ::xml_schema::positive_integer writeFrequency_type;
-
-    /**
-     * @brief Element traits type.
-     */
-    typedef ::xsd::cxx::tree::traits< writeFrequency_type, char > writeFrequency_traits;
-
-    /**
-     * @brief Return a read-only (constant) reference to the element.
-     *
-     * @return A constant reference to the element.
-     */
-    const writeFrequency_type&
-    writeFrequency () const;
-
-    /**
-     * @brief Return a read-write reference to the element.
-     *
-     * @return A reference to the element.
-     */
-    writeFrequency_type&
-    writeFrequency ();
-
-    /**
-     * @brief Set the element value.
-     *
-     * @param x A new value to set.
-     *
-     * This function makes a copy of its argument and sets it as
-     * the new value of the element.
-     */
-    void
-    writeFrequency (const writeFrequency_type& x);
 
     //@}
 
@@ -5442,9 +5670,7 @@ namespace PSE_Molekulardynamik_WS12
      * @brief Create an instance from the ultimate base and
      * initializers for required elements and attributes.
      */
-    simulation_t (const outputFile_type&,
-                  const inputs_type&,
-                  const writeFrequency_type&,
+    simulation_t (const inputs_type&,
                   const t_end_type&,
                   const delta_t_type&,
                   const potential_type&,
@@ -5458,9 +5684,7 @@ namespace PSE_Molekulardynamik_WS12
      * This constructor will try to use the passed values directly
      * instead of making copies.
      */
-    simulation_t (const outputFile_type&,
-                  ::std::auto_ptr< inputs_type >&,
-                  const writeFrequency_type&,
+    simulation_t (::std::auto_ptr< inputs_type >&,
                   const t_end_type&,
                   const delta_t_type&,
                   const potential_type&,
@@ -5525,10 +5749,9 @@ namespace PSE_Molekulardynamik_WS12
            ::xml_schema::flags);
 
     protected:
-    ::xsd::cxx::tree::one< outputFile_type > outputFile_;
+    output_optional output_;
     outputPhaseSpace_optional outputPhaseSpace_;
     ::xsd::cxx::tree::one< inputs_type > inputs_;
-    ::xsd::cxx::tree::one< writeFrequency_type > writeFrequency_;
     ::xsd::cxx::tree::one< t_end_type > t_end_;
     ::xsd::cxx::tree::one< delta_t_type > delta_t_;
     ::xsd::cxx::tree::one< potential_type > potential_;

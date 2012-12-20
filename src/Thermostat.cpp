@@ -8,6 +8,8 @@ Thermostat::Thermostat( ParticleContainer& pc, double initialT, int dimensionCou
 {
 	this->pc = &pc;
 	this->dimensionCount = dimensionCount;
+	this->targetT = initialT;
+	this->regulationFrequency = 0;
 	
 	Thermostat::meanVelocity = initializeTemperature( initialT );
 	Thermostat::dimensions = dimensionCount;
@@ -17,14 +19,25 @@ Thermostat::Thermostat( ParticleContainer& pc, double initialT, int dimensionCou
 	this->pc->applyToSingleParticles( Thermostat::applyMaxwellBoltzmannDistribution );
 }
 
-double Thermostat::initializeTemperature( double initialT )
+
+void Thermostat::setFrequency ( int frequency )
 {
-	return sqrt( kB * initialT / thermostat_mass );
+	regulationFrequency = frequency;
+}
+
+void Thermostat::apply ( int currentIteration )
+{
+	LOG4CXX_TRACE(logger, "Check if temperature should be regulated" );
+	
+	if ( regulationFrequency > 0 && currentIteration % regulationFrequency == 0 )
+	{
+		regulateTemperature(targetT);
+	}
 }
 
 void Thermostat::regulateTemperature( double targetT )
-{
-	ParticleContainer::SingleList pList = pc->getParticles();
+{	
+	ParticleContainer::SingleList& pList = pc->getParticles();
 	double size = (double) pList.size();
 	
 	currentEnergy = 0;
@@ -38,14 +51,12 @@ void Thermostat::regulateTemperature( double targetT )
 	
 	currentT = ( currentEnergy * 2.0 ) / ( ((double) dimensionCount) * size * kB );
 	
-	beta = sqrt( ( currentT + diffT ) / currentT );
-
-	for (ParticleContainer::SingleList::iterator i = pList.begin(); i != pList.end(); i++)
-	{
-		Particle& p = *i;
-
-		p.setV( p.getV() * beta );
-	}
+	
+	
+	LOG4CXX_DEBUG(logger, "Regulate temperature from " << currentT << " to " << targetT);
+	
+	Thermostat::beta = sqrt( targetT / currentT );
+	pc->applyToSingleParticles( scaleVelocity );
 }
 
 double Thermostat::getEnergy()
@@ -60,8 +71,19 @@ double Thermostat::getTemperature()
 
 double Thermostat::meanVelocity = 0.1;
 int Thermostat::dimensions = 3;
+double Thermostat::beta = 1;
 
 void Thermostat::applyMaxwellBoltzmannDistribution( Particle& p )
 {
 	MaxwellBoltzmannDistribution(p, Thermostat::meanVelocity, Thermostat::dimensions);
+}
+
+void Thermostat::scaleVelocity( Particle& p )
+{
+	p.setV( Thermostat::beta * p.getV() );
+}
+
+double Thermostat::initializeTemperature( double initialT )
+{
+	return sqrt( kB * initialT / thermostat_mass );
 }
