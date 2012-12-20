@@ -35,9 +35,8 @@ void Thermostat::regulateTemperature( double targetT )
 
 		currentEnergy += p.getM() / 2.0 * p.getV().innerProduct();
 	}
-		
-	currentT = ( currentEnergy * 2.0 ) / ( ((double) dimensionCount) * size * kB );
 	
+	currentT = ( currentEnergy * 2.0 ) / ( ((double) dimensionCount) * size * kB );
 	
 	beta = sqrt( ( currentT + diffT ) / currentT );
 

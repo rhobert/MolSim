@@ -2,7 +2,7 @@
 #ifndef THERMOSTAT_H_
 #define THERMOSTAT_H_
 
-#define kB 1.3806488e-23
+#define kB 1.0
 #define thermostat_mass 1.0
 
 #include "particleContainer/ParticleContainer.h"

@@ -197,6 +197,13 @@ int nThermostat;
 bool thermostatOn = false;
 
 /**
+ * @brief Boundary conditions for all boundaries
+**/
+PSE_Molekulardynamik_WS12::boundary_t boundary []  = {
+		PSE_Molekulardynamik_WS12::boundary_t::outflow, PSE_Molekulardynamik_WS12::boundary_t::outflow, PSE_Molekulardynamik_WS12::boundary_t::outflow, 
+		PSE_Molekulardynamik_WS12::boundary_t::outflow, PSE_Molekulardynamik_WS12::boundary_t::outflow, PSE_Molekulardynamik_WS12::boundary_t::outflow};
+
+/**
  * @brief Program call syntax
 **/
 string molsim_usage =
@@ -318,9 +325,6 @@ int main(int argc, char* argsv[])
 	PhaseSpace phaseSpace;
 
 	string file_name;
-	PSE_Molekulardynamik_WS12::boundary_t boundary []  = {
-		PSE_Molekulardynamik_WS12::boundary_t::outflow, PSE_Molekulardynamik_WS12::boundary_t::outflow, PSE_Molekulardynamik_WS12::boundary_t::outflow, 
-		PSE_Molekulardynamik_WS12::boundary_t::outflow, PSE_Molekulardynamik_WS12::boundary_t::outflow, PSE_Molekulardynamik_WS12::boundary_t::outflow};
 
 	PSE_Molekulardynamik_WS12::domain_t* domain = NULL;
 
@@ -593,7 +597,7 @@ int main(int argc, char* argsv[])
 		if ( thermostatOn == true )
 		{
 			thermostat->regulateTemperature( iteration );
-			LOG4CXX_DEBUG(logger, "Current temperature " << thermostat->getTemperature() );
+//			LOG4CXX_DEBUG(logger, "Current temperature " << thermostat->getTemperature() );
 		}
 
 		// calculate new x
@@ -618,8 +622,8 @@ int main(int argc, char* argsv[])
 				}
 				else if (boundary[i] == PSE_Molekulardynamik_WS12::boundary_t::periodic)
 				{
-					linkedCellParticleContainer->applyToPeriodicBoundaryParticlePairs(i, calcPeriodicBoundary);	
-					linkedCellParticleContainer->applyToHaloParticles(i, calcPeriodicHalo);			
+					linkedCellParticleContainer->applyToPeriodicBoundaryParticlePairs(i, calcPeriodicBoundary);
+					linkedCellParticleContainer->applyToHaloParticles(i, calcPeriodicHalo);
 					linkedCellParticleContainer->updateContainingCells();
 				}
 			}
@@ -629,7 +633,7 @@ int main(int argc, char* argsv[])
 		particleContainer->applyToParticlePairs ( calculateF );
 		
 		// apply gravitation
-//		particleContainer->applyToSingleParticles ( applyGravitation );
+		particleContainer->applyToSingleParticles ( applyGravitation );
 		
 		// calculate new v
 		particleContainer->applyToSingleParticles ( calculateV );
@@ -712,28 +716,35 @@ void calcReflection (Particle& p)
 	{
 		if ( domainSize[i] != 0 )
 		{
-			LOG4CXX_TRACE(logger, "Reflection is set for " << i << " dimensions" );
+			LOG4CXX_TRACE(logger, "Reflection is set for " << i << " dimension" );
 
 			x = p.getX();
-
-			x[i] = 0;
-			x1_x2 = p.getX() - x;
-
-			if ( x1_x2.L2Norm() <= d  )
+			
+			if ( boundary[i*2] == PSE_Molekulardynamik_WS12::boundary_t::reflecting )
 			{
-				LOG4CXX_TRACE(logger, "CounterParticle " << x.toString() );
-				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
-				calculateF( p, counterParticle );
+				x[i] = 0;
+				x1_x2 = p.getX() - x;
+				
+				if ( x1_x2.L2Norm() <= d  )
+				{
+					LOG4CXX_TRACE(logger, "CounterParticle " << x.toString() );
+					Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
+					calculateF( p, counterParticle );
+				}
 			}
-
-			x[i] = domainSize[i];
-			x1_x2 = p.getX() - x;
-
-			if ( x1_x2.L2Norm() <= d  )
+			
+			if ( boundary[i*2+1] == PSE_Molekulardynamik_WS12::boundary_t::reflecting )
 			{
-				LOG4CXX_TRACE(logger, "CounterParticle " << x.toString() );
-				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
-				calculateF( p, counterParticle );
+			
+				x[i] = domainSize[i];
+				x1_x2 = p.getX() - x;
+
+				if ( x1_x2.L2Norm() <= d  )
+				{
+					LOG4CXX_TRACE(logger, "CounterParticle " << x.toString() );
+					Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
+					calculateF( p, counterParticle );	
+				}
 			}
 		}
 	}
@@ -788,14 +799,8 @@ void calcPeriodicHalo(Particle &p)
 }
 
 void calcPeriodicBoundary(Particle &p1, Particle p2)
-{
-//	LOG4CXX_TRACE(logger, "Periodic is checked for " << p1.getX().toString() );
-	
-	int i[3];
-	utils::Vector<double,3> x = p2.getX() - domainSize;
-	
-	
-	LOG4CXX_TRACE(logger, "Virtual particle-copy created at " << x.toString() << " in pair with " << p1.getX().toString() );
+{	
+	LOG4CXX_TRACE(logger, "Virtual particle-copy created at " << p2.getX().toString() << " in pair with " << p1.getX().toString() );
 	calculateF(p1,p2);
 }
 
@@ -833,7 +838,7 @@ void calculateX( Particle& p )
 		p.getX() +
 		delta_t * p.getV() +
 		delta_t * delta_t / (2 * p.getM()) * p.getF();
-
+		
 	p.setX(x);
 }
 
