@@ -65,73 +65,11 @@ void LinkedCellParticleContainerTest::setUp()
 }
 
 
-void LinkedCellParticleContainerTest::testSize(){
 
-	utils::Vector<double,3> dom_size (5.0);
-	CPPUNIT_ASSERT(container->getDomainSize() == dom_size);
-
-}
-
-void LinkedCellParticleContainerTest::testParticleCount(){
-
-	CPPUNIT_ASSERT(container->size() == 7);
-
-}
-
-void LinkedCellParticleContainerTest::testParticleValues(){
-
-	LinkedCellParticleContainer::SingleList sList = container->getParticles();
-
-	utils::Vector<double,3> v_ (2.0);
-	utils::Vector<double,3> x_1 (-0.8);
-	utils::Vector<double,3> x_2 (0.8);
-	utils::Vector<double,3> x_3 (1.1);
-	utils::Vector<double,3> x_4 (1.2);
-	utils::Vector<double,3> x_5 (2.5);
-	utils::Vector<double,3> x_6 (4.8);
-	utils::Vector<double,3> x_7 (5.1);
-
-	Particle p1 = sList.front();
-	sList.pop_front();
-	Particle p2 = sList.front();
-	sList.pop_front();
-	Particle p3 = sList.front();
-	sList.pop_front();
-	Particle p4 = sList.front();
-	sList.pop_front();
-	Particle p5 = sList.front();
-	sList.pop_front();
-	Particle p6 = sList.front();
-	sList.pop_front();
-	Particle p7 = sList.front();
-
-	CPPUNIT_ASSERT(p1.getX() == x_1 && p1.getV() == v_);
-	CPPUNIT_ASSERT(p2.getX() == x_2 && p2.getV() == v_);
-	CPPUNIT_ASSERT(p3.getX() == x_3 && p3.getV() == v_);
-	CPPUNIT_ASSERT(p4.getX() == x_4 && p4.getV() == v_);
-	CPPUNIT_ASSERT(p5.getX() == x_5 && p5.getV() == v_);
-	CPPUNIT_ASSERT(p6.getX() == x_6 && p6.getV() == v_);
-	CPPUNIT_ASSERT(p7.getX() == x_7 && p7.getV() == v_);
-
-}
-
-void LinkedCellParticleContainerTest::testApplyToSingleParticles(){
-
-	Particle p = container->getParticles().front();
-
-	container->applyToSingleParticles(modifyParticle);
-
-	Particle p_ = container->getParticles().front();
-
-	CPPUNIT_ASSERT(p.getX() * 2 == p_.getX());
-
-}
-
-
-/*
 void LinkedCellParticleContainerTest::testDeleteHaloParticles()
 {
-	container->deleteHaloParticles();
+	for ( int i = 0; i < 6; i++ )
+		container->deleteHaloParticles(i);
 	ParticleContainer::SingleList particles = container->getParticles();
 	
 	int count = 0;
@@ -149,7 +87,8 @@ void LinkedCellParticleContainerTest::testDeleteHaloParticles()
 
 void LinkedCellParticleContainerTest::testApplyToBoundaryParticles()
 {
-	container->applyToBoundaryParticles( LinkedCellParticleContainerTest::modifyParticle );
+	for ( int i = 0; i < 6; i++ )
+		container->applyToBoundaryParticles( i, LinkedCellParticleContainerTest::modifyParticle );
 	Particle modifiedBoundaryParticle = particle;
 	modifyParticle( modifiedBoundaryParticle );
 	
@@ -159,7 +98,7 @@ void LinkedCellParticleContainerTest::testApplyToBoundaryParticles()
 	{
 		Particle & p = *i;
 		
-		CPPUNIT_ASSERT ( p.getM() != BOUNDARY_MASS || p.getV() == modifiedBoundaryParticle.getV() );
+		CPPUNIT_ASSERT ( p.getM() != BOUNDARY_MASS || p.getV() == modifiedBoundaryParticle.getV() || p.getM() == 2 );
 	}
 }
 
@@ -168,9 +107,12 @@ void LinkedCellParticleContainerTest::testCutOffRadius()
 	CPPUNIT_ASSERT( countParticlePairs( container ) == 4 );
 	
 	container->applyToParticlePairs( LinkedCellParticleContainerTest::moveToHalo );
-	
 	container->updateContainingCells();
-	container->deleteHaloParticles();
+	
+	for ( int i = 0; i < 6; i++ )
+	{
+		container->deleteHaloParticles(i);
+	}
 	
 	ParticleContainer::SingleList particles = container->getParticles();
 	
@@ -196,4 +138,3 @@ void LinkedCellParticleContainerTest::moveToHalo( Particle& p1, Particle& p2 )
 	p1.setX( utils::Vector<double,3>( -0.25 * CUTOFF_RADIUS_STD ) );
 	p2.setX( utils::Vector<double,3>( -0.75 * CUTOFF_RADIUS_STD ) );
 }
-*/

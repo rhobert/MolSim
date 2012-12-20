@@ -12,7 +12,7 @@ SimpleParticleContainer * ThermostatTest::setUpParticleContainer()
 void ThermostatTest::setUp()
 {
 	srand( time(NULL) );
-	randomSize = rand() % (RANDOM_SIZE_MAX - RANDOM_SIZE_MIN + 1) + RANDOM_SIZE_MIN;
+	randomSize = rand() % (THERMO_RANDOM_SIZE_MAX - THERMO_RANDOM_SIZE_MIN + 1) + THERMO_RANDOM_SIZE_MIN;
 	randomInitialT = (double) ( rand() % (RANDOM_TEMPERATURE_MAX - RANDOM_TEMPERATURE_MIN + 1) + RANDOM_TEMPERATURE_MIN );
 	randomTargetT = (double) ( rand() % (RANDOM_TEMPERATURE_MAX - RANDOM_TEMPERATURE_MIN + 1) + RANDOM_TEMPERATURE_MIN );
 
@@ -21,9 +21,9 @@ void ThermostatTest::setUp()
 	list<Particle> particles;
 
 	utils::Vector<double,3> x (0.0);
-	utils::Vector<double,3> v (PARTICLE_VELOCITY_STD);
+	utils::Vector<double,3> v (THERMO_PARTICLE_VELOCITY_STD);
 
-	particle = Particle( x, v, MASS );
+	particle = Particle( x, v, THERMO_MASS );
 	Particle * testParticles = new Particle[randomSize];
 
 	for ( int i=0; i<randomSize; i++ )
@@ -34,7 +34,7 @@ void ThermostatTest::setUp()
 
 	container->addParticles(particles);
 
-	thermostat = new Thermostat( *container, randomInitialT, DIMENSION );
+	thermostat = new Thermostat( *container, randomInitialT, THERMO_DIMENSION );
 
 }
 
@@ -53,7 +53,7 @@ void ThermostatTest::testRegulation()
 {
 	thermostat->regulateTemperature( randomTargetT );
 	
-	CPPUNIT_ASSERT( abs(thermostat->getTemperature() - randomTargetT) < 1e-6 );
+	CPPUNIT_ASSERT( abs(thermostat->getTemperature() - randomTargetT) < 1e-3 );
 }
 
 void ThermostatTest::testTemperature()
@@ -72,7 +72,7 @@ void ThermostatTest::testTemperature()
 		currentEnergy += p.getM() / 2.0 * p.getV().innerProduct();
 	}
 
-	double currentT = ( currentEnergy * 2.0 ) / ( ((double) DIMENSION) * size * kB );
-
-	CPPUNIT_ASSERT( currentT == randomTargetT );
+	double currentT = ( currentEnergy * 2.0 ) / ( ((double) THERMO_DIMENSION) * size * kB );
+	
+	CPPUNIT_ASSERT( abs(currentT - randomTargetT) < 1e-3 );
 }

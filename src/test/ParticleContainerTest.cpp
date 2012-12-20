@@ -195,7 +195,6 @@ bool ParticleContainerTest::checkModfication(ParticleContainer * container)
 
 void ParticleContainerTest::modifyParticle(Particle & p)
 {
-	p.setX( 2 * p.getX() );
 	p.setV( 3 * p.getV() );
 }
 
