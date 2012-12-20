@@ -1,0 +1,80 @@
+7    (line 231) INFO  MolSim - Hello from MolSim for PSE!
+7    (line 234) INFO  MolSim - Detect available tests
+8    (line 291) INFO  MolSim - Reading parameter-file input_measurement.xml
+8    (line 302) DEBUG MolSim - Checking parameter-file
+75   (line 318) DEBUG MolSim - Reading in parameters
+75   (line 331) DEBUG MolSim - Check END_T and DELTA_T
+75   (line 341) DEBUG MolSim - Check if output is specified
+75   (line 352) WARN  MolSim - No output specified
+75   (line 359) DEBUG MolSim - Reading in input files
+75   (line 384) DEBUG MolSim - Reading in cuboids
+75   (line 422) INFO  MolSim - Reading in cuboid at [0.6;2;0;] with velocity [0;0;0;], dimensions [250;40;1;], mass 1, distance 1.2, sigma 1.2, epsilon 1 and type 1
+77   (line 422) INFO  MolSim - Reading in cuboid at [0.6;52;0;] with velocity [0;0;0;], dimensions [250;40;1;], mass 2, distance 1.2, sigma 1.1, epsilon 1 and type 2
+79   (line 427) DEBUG MolSim - Reading in spheres
+79   (line 469) DEBUG MolSim - Detect if domain size is specified
+79   (line 480) INFO  MolSim - Domain [300;110;0;] with cutoff-radius 3
+79   (line 485) INFO  MolSim - In x-dimension the lower boundary condition is periodic and the upper periodic
+79   (line 494) INFO  MolSim - In y-dimension the lower boundary condition is reflecting and the upper reflecting
+79   (line 519) DEBUG MolSim - Create LinkedCellParticleContainer
+79   (line 14 ) INFO  LinkedCellParticleContainer - Create LinkedCellParticleContainer
+79   (line 66 ) INFO  LinkedCellParticleContainer - Create 3978 cells
+79   (line 150) DEBUG LinkedCellParticleContainer - Created 270 boundary cells
+79   (line 151) DEBUG LinkedCellParticleContainer - Created 278 halo cells
+79   (line 153) DEBUG LinkedCellParticleContainer - Create cell pairs
+81   (line 259) DEBUG LinkedCellParticleContainer - Created 19469 cell pairs
+81   (line 260) DEBUG LinkedCellParticleContainer - Created 818 periodic cell pairs
+81   (line 526) DEBUG MolSim - Real domain size is [300;111;0;]
+82   (line 536) INFO  MolSim - Add 20000 particles to ParticleContainer
+89   (line 540) DEBUG MolSim - Detect if gravitation is specified
+89   (line 548) INFO  MolSim - Gravitation is set to [0;-12.44;0;]
+89   (line 551) INFO  MolSim - Set potential for force calulation to lenard jones
+89   (line 562) DEBUG MolSim - Detect if parameters for Thermostat are specified
+89   (line 575) DEBUG MolSim - Parameters for Thermostat are specified
+89   (line 17 ) INFO  Thermostat - Mean velocity for Maxwell Boltzmann Distribution is 6.32456
+92   (line 584) DEBUG MolSim - Regulation frequency for Thermostat is 50
+92   (line 587) INFO  MolSim - Superpose velocity of particles to get initial temperature with temperature 40 in 2 dimensions
+114  (line 610) INFO  MolSim - Start simulation from time 0 to 1 with time steps 0.0005
+114  (line 611) INFO  MolSim - Expecting 2000 simulation steps
+116  (line 56 ) DEBUG Thermostat - Regulate temperature from 60.326 to 40
+1571 (line 56 ) DEBUG Thermostat - Regulate temperature from 30.1995 to 40
+3009 (line 56 ) DEBUG Thermostat - Regulate temperature from 36.6571 to 40
+4432 (line 56 ) DEBUG Thermostat - Regulate temperature from 40.3097 to 40
+5853 (line 56 ) DEBUG Thermostat - Regulate temperature from 40.6258 to 40
+7278 (line 56 ) DEBUG Thermostat - Regulate temperature from 40.9072 to 40
+8708 (line 56 ) DEBUG Thermostat - Regulate temperature from 41.1796 to 40
+10141 (line 56 ) DEBUG Thermostat - Regulate temperature from 41.1486 to 40
+11577 (line 56 ) DEBUG Thermostat - Regulate temperature from 41.3243 to 40
+13015 (line 56 ) DEBUG Thermostat - Regulate temperature from 41.4456 to 40
+14456 (line 56 ) DEBUG Thermostat - Regulate temperature from 41.3792 to 40
+15898 (line 56 ) DEBUG Thermostat - Regulate temperature from 41.8787 to 40
+17343 (line 56 ) DEBUG Thermostat - Regulate temperature from 41.4432 to 40
+18814 (line 56 ) DEBUG Thermostat - Regulate temperature from 41.91 to 40
+20261 (line 56 ) DEBUG Thermostat - Regulate temperature from 41.8921 to 40
+21712 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.0276 to 40
+23163 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.0163 to 40
+24614 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.2319 to 40
+26066 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.225 to 40
+27520 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.168 to 40
+28976 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.2662 to 40
+30432 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.5744 to 40
+31892 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.3946 to 40
+33351 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.3293 to 40
+34812 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.6963 to 40
+36273 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.5587 to 40
+37737 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.5303 to 40
+39200 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.7031 to 40
+40664 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.6245 to 40
+42130 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.6874 to 40
+43598 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.859 to 40
+45068 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.7093 to 40
+46538 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.7539 to 40
+48008 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.8063 to 40
+49481 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.8219 to 40
+50956 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.7216 to 40
+52434 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.8833 to 40
+53913 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.8016 to 40
+55394 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.7767 to 40
+56879 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.9535 to 40
+58363 (line 56 ) DEBUG Thermostat - Regulate temperature from 42.8414 to 40
+58394 (line 680) INFO  MolSim - End simulation in 58.9993 seconds
+58394 (line 683) INFO  MolSim - 0.0294849 per iteration

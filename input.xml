@@ -4,16 +4,20 @@
 xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
 xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
 	
-	<!-- Necessary: Non empty filename of the output -->
-	<outputFile>MD_vtk</outputFile>
+	<!-- Optional: Output destination -->
+	<output>
+		<!-- Necessary: Non empty filename of the output -->
+		<file>MD_vtk</file>
+		
+		<!-- Necessary: Positive integer per how many iteration steps a output-file sould be written  -->
+		<writeFrequency>30</writeFrequency>
+	</output>
 	
+	<!-- Optional: Phase space out put destination -->
 	<outputPhaseSpace>phaseSpaceInput.txt</outputPhaseSpace>
 	
-	<!-- Necessary: Positive integer per how many iteration steps a output-file sould be written  -->
-	<writeFrequency>30</writeFrequency>
-	
 	<!-- Necessary: Positive decimal value how long the simulation should be -->
-	<t_end>0.2844</t_end>
+	<t_end>3</t_end>
 	
 	<!-- Necessary: Positive decimal value how long a time (iteration) step should be (has to be less equal t_end)  -->
 	<delta_t>0.0001</delta_t>
@@ -37,27 +41,38 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			<z>0</z>
 		</dimensions>
 		
-		<!-- Necessary: Boundary condition (outflow or reflecting)  -->
+		<!-- Necessary: Boundary condition for x dimension (outflow,reflecting or periodic)  -->
 		<x>
 			<lower>periodic</lower>
 			<upper>periodic</upper>
 		</x>
 		
+		<!-- Optional (if dimensionCount < 2): Boundary condition for y dimension (outflow,reflecting or periodic)  -->
 		<y>
 			<lower>reflecting</lower>
 			<upper>outflow</upper>
 		</y>
+		
+		<!-- Optional (if dimensionCount < 3): Boundary condition for z dimension (outflow,reflecting or periodic)  -->
+		<!--
+			<z>
+				<lower>reflecting</lower>
+				<upper>outflow</upper>
+			</z>
+		-->
+		
 		
 		<!-- Necessary: Postive decimal value for cutoff radius for force-calculation (side length of cells) -->
 		<cutoff>3</cutoff>	
 		
 	</domain>
 	
-	<!-- Optional: If the lenard jones potential is set, 
-	this specifies the superposing of the velocity of the particles with the Brownian motion (if not set, default values a used)  -->
+	<!-- Optional: Thermostat  -->
 	<thermostat>		
 		<!-- Necessary: Non-negative decimal value for mean velocity of Brownian motion -->
 		<initialT>40</initialT>
+		<!-- Optional: Frequency to regulate temperature -->
+		<frequency>1000</frequency>
 	</thermostat>
 	
 	<!-- Necessary: Specification of input sources for particles (any count of input sources is valid) -->
@@ -66,6 +81,7 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 		<!-- Optional (any count): Input file for particle list or cuboid specification -->
 		<!-- <inputFile type="list">eingabe-sonne.txt</inputFile> -->
 		<!-- <inputFile type="cuboid">eingabe-molekuel.txt</inputFile> -->
+		<!-- <inputFile type="phaseSpace">phaseSpaceInput.txt</inputFile> -->
 		
 		<!-- Optional (any count): Specification of cuboid -->
 		<cuboid>
