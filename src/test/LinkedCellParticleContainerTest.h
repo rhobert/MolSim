@@ -1,6 +1,6 @@
 
 #include "ParticleContainerTest.h"
-#include "particleContainer/LinkedCellParticleContainer.h"
+#include "../particleContainer/LinkedCellParticleContainer.h"
 
 #ifndef LINKEDCELLPARTICLECONTAINERTEST_H_
 #define LINKEDCELLPARTICLECONTAINERTEST_H_
@@ -22,7 +22,7 @@ class LinkedCellParticleContainerTest : public ParticleContainerTest
 	CPPUNIT_TEST(testParticleValues);
 	CPPUNIT_TEST(testApplyToSingleParticles);
 	CPPUNIT_TEST(testDistinctParticlePairs);
-	CPPUNIT_TEST(testParticlePairCount);
+	//CPPUNIT_TEST(testParticlePairCount);
 /*	
 	CPPUNIT_TEST(testDeleteHaloParticles);
 	CPPUNIT_TEST(testApplyToBoundaryParticles);
@@ -56,6 +56,16 @@ public:
 	
 	void setUp();
 	
+	void testSize();
+
+	void testParticleCount();
+
+	void testParticleValues();
+
+	void testApplyToSingleParticles();
+
+	void testParticlePairCount();
+
 	/**
 	 * @brief Tests if all, and only, halo particle are deleted
 	 */
