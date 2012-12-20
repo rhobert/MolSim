@@ -26,6 +26,7 @@
 class ThermostatTest : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(ThermostatTest);
+	CPPUNIT_TEST(testTemperature);
 	CPPUNIT_TEST(testInitialization);
 	CPPUNIT_TEST(testRegulation);
 	CPPUNIT_TEST_SUITE_END();
@@ -77,12 +78,17 @@ public:
     void setUp();
 
 /**
+* @brief tests if temperature is ok
+*/	
+    void testTemperature();
+    
+/**
 * @brief Tests the initialization to a given temperature
 */	
     void testInitialization();
 
 /**
-* @brief tests the rgulation to a given temperature
+* @brief tests the regulation to a given temperature
 */	
     void testRegulation();
 

@@ -45,25 +45,18 @@ void ThermostatTest::tearDown()
 }
 
 void ThermostatTest::testInitialization()
-{
-	ParticleContainer::SingleList pList = container->getParticles();
-	double size = (double) pList.size();
-
-	double currentEnergy = 0;
-
-	for (ParticleContainer::SingleList::iterator i = pList.begin(); i != pList.end(); i++)
-	{
-		Particle& p = *i;
-
-		currentEnergy += p.getM() / 2.0 * p.getV().innerProduct();
-	}
-
-	double currentT = ( currentEnergy * 2.0 ) / ( ((double) DIMENSION) * size * kB );
-
-	CPPUNIT_ASSERT( currentT == randomInitialT );
+{	
+	CPPUNIT_ASSERT( thermostat->getTemperature() > 0 );
 }
 
 void ThermostatTest::testRegulation()
+{
+	thermostat->regulateTemperature( randomTargetT );
+	
+	CPPUNIT_ASSERT( abs(thermostat->getTemperature() - randomTargetT) < 1e-6 );
+}
+
+void ThermostatTest::testTemperature()
 {
 	thermostat->regulateTemperature( randomTargetT );
 

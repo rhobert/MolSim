@@ -37,21 +37,7 @@ void Thermostat::apply ( int currentIteration )
 
 void Thermostat::regulateTemperature( double targetT )
 {	
-	ParticleContainer::SingleList& pList = pc->getParticles();
-	double size = (double) pList.size();
-	
-	currentEnergy = 0;
-	
-	for (ParticleContainer::SingleList::iterator i = pList.begin(); i != pList.end(); i++)
-	{
-		Particle& p = *i;
-
-		currentEnergy += p.getM() / 2.0 * p.getV().innerProduct();
-	}
-	
-	currentT = ( currentEnergy * 2.0 ) / ( ((double) dimensionCount) * size * kB );
-	
-	
+	double currentT = getTemperature();
 	
 	LOG4CXX_DEBUG(logger, "Regulate temperature from " << currentT << " to " << targetT);
 	
@@ -61,11 +47,25 @@ void Thermostat::regulateTemperature( double targetT )
 
 double Thermostat::getEnergy()
 {
+	ParticleContainer::SingleList& pList = pc->getParticles();
+	double size = (double) pList.size();
+	
+	double currentEnergy = 0;
+	
+	for (ParticleContainer::SingleList::iterator i = pList.begin(); i != pList.end(); i++)
+	{
+		Particle& p = *i;
+
+		currentEnergy += p.getM() / 2.0 * p.getV().innerProduct();
+	}
+	
 	return currentEnergy;
 }
 	
 double Thermostat::getTemperature()
 {
+	double currentT = ( getEnergy() * 2.0 ) / ( ((double) ( dimensionCount * pc->size() )) * kB );
+	
 	return currentT;
 }
 
