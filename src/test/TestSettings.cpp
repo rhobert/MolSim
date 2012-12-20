@@ -18,10 +18,12 @@
 #include "TestSettings.h"
 #include "SimpleParticleContainerTest.h"
 #include "LinkedCellParticleContainerTest.h"
+#include "ThermostatTest.h"
 
 // Register Test-Suites
 CPPUNIT_TEST_SUITE_REGISTRATION( SimpleParticleContainerTest );
 CPPUNIT_TEST_SUITE_REGISTRATION( LinkedCellParticleContainerTest );
+CPPUNIT_TEST_SUITE_REGISTRATION( ThermostatTest );
 
 void TestSettings::runTest()
 {
