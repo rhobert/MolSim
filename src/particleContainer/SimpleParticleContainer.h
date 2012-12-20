@@ -55,7 +55,7 @@ public:
 	
 	void applyToParticlePairs( void (*pairFunction)(Particle&, Particle&) );
 	
-	SingleList getParticles();
+	SingleList& getParticles();
 	
 	int size();
 };

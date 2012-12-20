@@ -49,6 +49,7 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 	cellDimensions[1] = (domainSize[1] != 0) ? (int) ceil ( domainSize[1] / sideLength ) + 2 : 1;
 	cellDimensions[2] = (domainSize[2] != 0) ? (int) ceil ( domainSize[2] / sideLength ) + 2 : 1;
 	
+		LOG4CXX_INFO(logger, "1");
 	cellCount = cellDimensions[0] * cellDimensions[1] * cellDimensions[2];
 	
 	this->domainSize[0] = ceil ( domainSize[0] / sideLength ) * sideLength;

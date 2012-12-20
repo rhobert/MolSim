@@ -91,7 +91,7 @@ public:
 	 * 
 	 * @return list of all single particles
 	 */
-	virtual SingleList getParticles() = 0;
+	virtual SingleList& getParticles() = 0;
 	
 	/**
 	* @brief Count of all single particles

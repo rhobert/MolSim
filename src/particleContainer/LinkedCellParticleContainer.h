@@ -89,6 +89,11 @@ private:
 	int count;
 	
 	/**
+	 * @brief List of single particles, since last getParticles() call
+	 */
+	SingleList singleList;
+	
+	/**
 	 * @brief Get cell of position
 	 * 
 	 * @param x Position
@@ -145,7 +150,7 @@ public:
 	**/
 	void applyToParticlePairs( void (*pairFunction)(Particle&, Particle&) );
 	
-	SingleList getParticles();
+	SingleList& getParticles();
 	
 	int size();
 	

@@ -63,7 +63,7 @@ void SimpleParticleContainer::applyToParticlePairs( void (*pairFunction)(Particl
 	
 }
 
-SimpleParticleContainer::SingleList SimpleParticleContainer::getParticles()
+SimpleParticleContainer::SingleList& SimpleParticleContainer::getParticles()
 {
 	return singleList;
 }
