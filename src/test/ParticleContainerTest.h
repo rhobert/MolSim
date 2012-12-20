@@ -6,7 +6,7 @@
  */
 
 
-#include "../particleContainer/ParticleContainer.h"
+#include "particleContainer/ParticleContainer.h"
 #include <cppunit/extensions/HelperMacros.h>
 #include <cppunit/TestFixture.h>
 

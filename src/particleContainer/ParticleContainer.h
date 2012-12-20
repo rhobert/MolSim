@@ -3,7 +3,7 @@
 #ifndef PARTICLECONTAINER_H_
 #define PARTICLECONTAINER_H_
 
-#include "../Particle.h"
+#include "Particle.h"
 #include <list>
 #include <vector>
 

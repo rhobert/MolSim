@@ -5,8 +5,8 @@
  *      Author: eckhardw
  */
 
-#include "XYZWriter.h"
-#include "../utils/Vector.h"
+#include "outputWriter/XYZWriter.h"
+#include "utils/Vector.h"
 #include <cstdlib>
 #include <sstream>
 

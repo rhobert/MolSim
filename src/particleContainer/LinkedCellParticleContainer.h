@@ -3,10 +3,10 @@
 #ifndef LINKEDCELLPARTICLECONTAINER_H_
 #define LINKEDCELLPARTICLECONTAINER_H_
 
-#include "../Particle.h"
+#include "Particle.h"
 #include "ParticleContainer.h"
 #include "Cell.h"
-#include "../utils/Vector.h"
+#include "utils/Vector.h"
 #include <list>
 #include <vector>
 
