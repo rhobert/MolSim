@@ -4,7 +4,7 @@
 #define CELL_H_
 
 #include <list>
-#include "Particle.h"
+#include "../Particle.h"
 
 using namespace std;
 

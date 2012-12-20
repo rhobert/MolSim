@@ -4,15 +4,20 @@
 xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
 xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
 
-	<outputFile>drop</outputFile>
-	
-	<writeFrequency>100</writeFrequency>
+<!--	<outputFile>drop</outputFile> -->
+
+	<output>
+		<file>drop</file>
+		<writeFrequency>100</writeFrequency>
+	</output>
 	
 	<t_end>10</t_end>
 	
 	<delta_t>0.00005</delta_t>
 	
 	<potential>lenard jones</potential>
+	
+	<dimensionCount>2</dimensionCount>
 
 	<domain>		
 		<dimensions>
@@ -21,16 +26,37 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			<z>0</z>
 		</dimensions>
 		
-		<boundary>reflecting</boundary>
+<!--		<boundary>reflecting</boundary> -->
+
+		<x>
+			<lower>reflecting</lower>
+			<upper>reflecting</upper>
+		</x>
+		
+		<y>
+			<lower>reflecting</lower>
+			<upper>reflecting</upper>
+		</y>
 		
 		<cutoff>3</cutoff>	
 	</domain>
 
-	<brownianMotion>	
+<!--	<brownianMotion>	
 		<dimensionCount>2</dimensionCount>
 		
 		<meanVelocity>0.1</meanVelocity>		
-	</brownianMotion>
+	</brownianMotion> -->
+	
+	<thermostat>	
+		<initialT>40</initialT>
+		<frequency>1000</frequency>
+	</thermostat>
+	
+	<gravitation>
+		<x>0</x>
+		<y>-9.81</y>
+		<z>0</z>
+	</gravitation>
 	
 	<inputs>		
 		<sphere>			
@@ -48,11 +74,17 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			
 			<radiusDimension>15</radiusDimension>
 			
-			<dimensionCount>2</dimensionCount>
+	<!--		<dimensionCount>2</dimensionCount> -->
 			
 			<mass>1</mass>
 			
 			<distance>1.1225</distance>		
+			
+			<sigma>0.9412</sigma>
+			
+			<epsilon>1.0</epsilon>
+			
+			<type>2</type>
 		</sphere>	
 	</inputs>
 	

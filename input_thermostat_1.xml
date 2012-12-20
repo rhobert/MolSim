@@ -5,7 +5,7 @@ xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
 xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
 	
 	<output>
-		<file>thermostat_1</file>
+		<file>thermostat_10</file>
 		<writeFrequency>50</writeFrequency>
 	</output>
 	

@@ -11,7 +11,7 @@ include files.mk
 
 # Compiler flags
 # -------------------------------------------------------------------------
-CFLAGS=-g -O3
+CFLAGS=-g -O3 
 
 # Linker flags
 # ------------
@@ -25,7 +25,7 @@ EXECUTABLE=MolSim
 all: $(SOURCES) $(EXECUTABLE)
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(OBJECTS) $(LDFLAGS) -o $@ 
+	$(CC) $(OBJECTS) $(LDFLAGS) -o $@
 
 clean:
 	rm $(OBJECTS)

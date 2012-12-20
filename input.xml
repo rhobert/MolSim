@@ -7,11 +7,13 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 	<!-- Necessary: Non empty filename of the output -->
 	<outputFile>MD_vtk</outputFile>
 	
+	<outputPhaseSpace>phaseSpaceInput.txt</outputPhaseSpace>
+	
 	<!-- Necessary: Positive integer per how many iteration steps a output-file sould be written  -->
 	<writeFrequency>30</writeFrequency>
 	
 	<!-- Necessary: Positive decimal value how long the simulation should be -->
-	<t_end>3</t_end>
+	<t_end>0.2844</t_end>
 	
 	<!-- Necessary: Positive decimal value how long a time (iteration) step should be (has to be less equal t_end)  -->
 	<delta_t>0.0001</delta_t>
@@ -53,10 +55,10 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 	
 	<!-- Optional: If the lenard jones potential is set, 
 	this specifies the superposing of the velocity of the particles with the Brownian motion (if not set, default values a used)  -->
-	<brownianMotion>		
+	<thermostat>		
 		<!-- Necessary: Non-negative decimal value for mean velocity of Brownian motion -->
-		<meanVelocity>0.1</meanVelocity>
-	</brownianMotion>
+		<initialT>40</initialT>
+	</thermostat>
 	
 	<!-- Necessary: Specification of input sources for particles (any count of input sources is valid) -->
 	<inputs>

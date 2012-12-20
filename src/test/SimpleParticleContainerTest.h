@@ -1,6 +1,6 @@
 
 #include "ParticleContainerTest.h"
-#include "particleContainer/SimpleParticleContainer.h"
+#include "../particleContainer/SimpleParticleContainer.h"
 
 #ifndef SIMPLEPARTICLECONTAINERTEST_H_
 #define SIMPLEPARTICLECONTAINERTEST_H_
