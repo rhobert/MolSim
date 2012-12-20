@@ -169,4 +169,62 @@ public:
 
 std::ostream& operator<<(std::ostream& stream, Particle& p);
 
+inline  utils::Vector<double, 3>& Particle::getX() {
+	return x;
+}
+
+inline utils::Vector<double, 3>& Particle::getV() {
+	return v;
+}
+
+inline  utils::Vector<double, 3>& Particle::getF() {
+	return f;
+}
+
+inline  utils::Vector<double, 3>& Particle::getOldF() {
+	return old_f;
+}
+
+inline  void Particle::setX(utils::Vector<double, 3> other_x) {
+	x = other_x;
+}
+
+inline  void Particle::setV(utils::Vector<double, 3> other_v) {
+	v = other_v;
+}
+
+inline  void Particle::setF(utils::Vector<double, 3> other_f) {
+	f = other_f;
+}
+
+inline  void Particle::newF(utils::Vector<double, 3> other_f) {
+	old_f = f;
+	f = other_f;
+}
+
+inline  double Particle::getM() {
+	return m;
+}
+
+inline  double Particle::getSigma() {
+	return sigma;
+}
+
+inline  double Particle::getEpsilon() {
+	return epsilon;
+}
+
+inline  int Particle::getType() {
+	return type;
+}
+
+inline bool Particle::operator ==(Particle& other) {
+	if ( (x == other.x) && (v == other.v) && (f == other.f) &&
+			(type == other.type) & (m == other.m) && (old_f == other.old_f)) {
+		return true;
+	}
+
+	return false;
+}
+
 #endif /* PARTICLE_H_ */
