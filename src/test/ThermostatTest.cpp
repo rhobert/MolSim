@@ -81,5 +81,5 @@ void ThermostatTest::testRegulation()
 
 	double currentT = ( currentEnergy * 2.0 ) / ( ((double) DIMENSION) * size * kB );
 
-	CPPUNIT_ASSERT( currentT == randomTargetT )
+	CPPUNIT_ASSERT( currentT == randomTargetT );
 }

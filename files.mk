@@ -7,6 +7,7 @@ src/particleContainer/ParticleContainer.cpp\
 src/particleContainer/SimpleParticleContainer.cpp\
 src/test/SimpleParticleContainerTest.cpp\
 src/test/LinkedCellParticleContainerTest.cpp\
+src/test/ThermostatTest.cpp\
 src/test/TestSettings.cpp\
 src/test/ParticleContainerTest.cpp\
 src/input/InputParameters.cpp\
