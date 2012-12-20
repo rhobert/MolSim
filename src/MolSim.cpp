@@ -236,7 +236,7 @@ int main(int argc, char* argsv[])
 	TestSettings ts;
 	vector<string> testNames = ts.getTestNames();
 
-	for (int i; i < testNames.size(); i++)
+	for (int i = 0; i < testNames.size(); i++)
 	{
 		molsim_usage = molsim_usage + "          - " + testNames[i] + "\n";
 		LOG4CXX_TRACE(logger, "Detected " << testNames[i] << " as test");
@@ -677,7 +677,7 @@ int main(int argc, char* argsv[])
 		LOG4CXX_TRACE(logger, "Iteration " << iteration << " finished in " << timeDiff << " seconds");
 	}
 
-	LOG4CXX_INFO(logger, "End simulation with ");
+	LOG4CXX_INFO(logger, "End simulation in " << totalTime << " seconds" );
 	
 	if ( iteration > 0 )
 		LOG4CXX_INFO(logger, (totalTime / (double) iteration) << " per iteration");
