@@ -8,6 +8,7 @@
 #ifndef PARTICLE_H_
 #define PARTICLE_H_
 
+#include <vector>
 #include "utils/Vector.h"
 #include "log4cxx/logger.h"
 
@@ -68,10 +69,10 @@ private:
     */
 	int type;
 
-	/**
-	* @brief Contains all neighboring particles of a particle
-    */
-	utils::Vector<Particle&> neighbors;
+//	/**
+//	* @brief Contains all neighboring particles of a particle
+//    */
+//	std::vector<Particle*> neighbors;
 
 public:
 /**
@@ -162,14 +163,19 @@ public:
 	int getType();
 
 /**
+	* @brief Contains all neighboring particles of a particle
+    */
+	std::vector<Particle*> neighbors;
+
+/**
 * @brief Returns neighboring particles
 */
-	utils::Vector<Particle&> getNeighbors();
+//	std::vector<Particle&> getNeighbors();
 
 /**
 * @brief Add neighboring particle
 */
-	void addNeighbor(Particle& p);
+//	void addNeighbor(Particle& p);
 
 /**
 * @brief Compares two particles.
@@ -233,13 +239,13 @@ inline  int Particle::getType() {
 	return type;
 }
 
-inline utils::Vector<Particle&> getNeighbors() {
-    return neighbors;
-}
+//inline std::vector<Particle&>& Particle::getNeighbors() {
+//   return neighbors;
+//}
 
-inline void addNeighbor(Particle& p) {
-    neighbors.push_back(p);
-}
+//inline void Particle::addNeighbor(Particle& p) {
+//    neighbors->push_back(p);
+//}
 
 inline bool Particle::operator ==(Particle& other) {
 	if ( (x == other.x) && (v == other.v) && (f == other.f) &&
