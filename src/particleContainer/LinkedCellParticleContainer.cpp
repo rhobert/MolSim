@@ -414,10 +414,15 @@ void LinkedCellParticleContainer::applyToPeriodicBoundaryParticlePairs( int boun
 {
 	assert ( boundary >= 0 && boundary < 6 );
 	
-	for ( LinkedCellParticleContainer::CellPairList::iterator i = periodicCellPairs[boundary]->begin(); i != periodicCellPairs[boundary]->end(); i++ )
+	omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
+	
+	int len = periodicCellPairs[boundary]->size();
+	
+	#pragma omp parallel for
+	for ( int i = 0; i < len; i++ )
 	{
-		Cell& cell1 = *(i->first);
-		Cell& cell2 = *(i->second);
+		Cell& cell1 = *(periodicCellPairs[boundary]->at(i).first);
+		Cell& cell2 = *(periodicCellPairs[boundary]->at(i).second);
 		
 		for ( Cell::SingleList::iterator j1 = cell1.particles.begin(); j1 != cell1.particles.end(); j1++  )
 		{
