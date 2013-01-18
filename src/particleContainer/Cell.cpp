@@ -1,10 +1,11 @@
  
 #include "Cell.h"
 
-
 Cell::Cell ()
 {
-	particles = list<Particle>();
+	particles = Cell::SingleList();
+	neighbours = Cell::CellList();
+	omp_init_lock(&lock);
 }
 
 void Cell::addParticle( Particle& p )

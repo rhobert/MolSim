@@ -69,6 +69,16 @@ private:
 	int cellCount;
 	
 	/**
+	 * @brief Count of boundary cells
+	 */
+	int boundaryCellCount;
+	
+	/**
+	 * @brief Count of halo cells
+	 */
+	int haloCellCount;
+	
+	/**
 	 * @brief Side length of the cells
 	 */
 	double sideLength;

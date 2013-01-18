@@ -1,9 +1,10 @@
- 
+
 
 #ifndef CELL_H_
 #define CELL_H_
 
 #include <list>
+#include <omp.h>
 #include "../Particle.h"
 
 using namespace std;
@@ -20,6 +21,11 @@ public:
 	**/
 	typedef list<Particle> SingleList;
 	
+	/**
+	* @brief Type of a list of cells
+	**/
+	typedef list<Cell*> CellList;
+	
 private:
 	
 	/**
@@ -31,6 +37,16 @@ private:
 	* @brief All particles in this cell
 	**/
 	SingleList particles;
+	
+	/**
+	* @brief Neighboured cells
+	**/
+	CellList neighbours;
+	
+	/**
+	 * @brief Lock for access to particles
+	**/
+	omp_lock_t lock;
 	
 public:
 	/**

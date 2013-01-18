@@ -11,11 +11,11 @@ include files.mk
 
 # Compiler flags
 # -------------------------------------------------------------------------
-CFLAGS=-g -O3 
+CFLAGS=-g -O3 -fopenmp
 
 # Linker flags
 # ------------
-LDFLAGS= -lxerces-c -llog4cxx -lcppunit
+LDFLAGS= -lxerces-c -llog4cxx -lcppunit -fopenmp
 
 INCLUDES= -I./src -I./libxsd
 
