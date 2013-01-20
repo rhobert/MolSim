@@ -170,7 +170,7 @@ public:
 	* @param boundary Specification of the boundary (in 0-5)
 	* @param singleFunction function to apply on all single boundary particles
 	**/
-	void applyToBoundaryParticles( int boundary, void (*singleFunction)(Particle&) );
+	void applyToBoundaryParticles( int boundary, void (*singleFunction)(int, Particle&) );
 	
 	/**
 	* @brief Iterate over all periodic boundary particle pairs
@@ -186,7 +186,7 @@ public:
 	* @param boundary Specification of the boundary (in 0-5)
 	* @param singleFunction function to apply on all single halo particles
 	**/
-	void applyToHaloParticles( int boundary, void (*singleFunction)(Particle&) );
+	void applyToHaloParticles( int boundary, void (*singleFunction)(int, Particle&) );
 	
 	/**
 	* @brief Move particles to their destined cells

@@ -36,8 +36,8 @@
  * @brief Generated from InputParameters.xsd.
  */
 
-#ifndef SRC_INPUT_INPUT_PARAMETERS_H
-#define SRC_INPUT_INPUT_PARAMETERS_H
+#ifndef INPUT_PARAMETERS_H
+#define INPUT_PARAMETERS_H
 
 // Begin prologue.
 //
@@ -4853,7 +4853,7 @@ namespace PSE_Molekulardynamik_WS12
     /**
      * @brief Element type.
      */
-    typedef ::xml_schema::positive_integer frequency_type;
+    typedef ::xml_schema::non_negative_integer frequency_type;
 
     /**
      * @brief Element optional container type.
@@ -6033,4 +6033,4 @@ namespace PSE_Molekulardynamik_WS12
 //
 // End epilogue.
 
-#endif // SRC_INPUT_INPUT_PARAMETERS_H
+#endif // INPUT_PARAMETERS_H

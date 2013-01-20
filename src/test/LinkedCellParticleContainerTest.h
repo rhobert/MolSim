@@ -48,6 +48,14 @@ class LinkedCellParticleContainerTest : public ParticleContainerTest
 	 */
 	static void moveToHalo( Particle& p1, Particle& p2 );
 	
+	/**
+	* @brief Modifies the values of a particle
+	* 
+	* @param boundary Boundary where particle is
+	* @param p Particle to modify
+	*/
+	static void modifyBoundaryParticle(int boundary, Particle & p);
+	
 protected:
 	
 	LinkedCellParticleContainer * setUpParticleContainer();

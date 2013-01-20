@@ -153,7 +153,7 @@ elementFormDefault="qualified">
 	<xs:complexType name="thermostat_t">
 		<xs:all>
 			<xs:element name="initialT" type="nonNegativeDecimal_t" />
-			<xs:element name="frequency" type="xs:positiveInteger" minOccurs="0" />
+			<xs:element name="frequency" type="xs:nonNegativeInteger" minOccurs="0" />
 		<!--	<xs:element name="targetT" type="nonNegativeDecimal_t" />
 			<xs:element name="diffT" type="nonNegativeDecimal_t" />
 			<xs:element name="nMax" type="xs:positiveInteger" /> -->

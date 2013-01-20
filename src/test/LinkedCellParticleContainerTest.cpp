@@ -88,7 +88,7 @@ void LinkedCellParticleContainerTest::testDeleteHaloParticles()
 void LinkedCellParticleContainerTest::testApplyToBoundaryParticles()
 {
 	for ( int i = 0; i < 6; i++ )
-		container->applyToBoundaryParticles( i, LinkedCellParticleContainerTest::modifyParticle );
+		container->applyToBoundaryParticles( i, LinkedCellParticleContainerTest::modifyBoundaryParticle );
 	Particle modifiedBoundaryParticle = particle;
 	modifyParticle( modifiedBoundaryParticle );
 	
@@ -137,4 +137,9 @@ void LinkedCellParticleContainerTest::moveToHalo( Particle& p1, Particle& p2 )
 {
 	p1.setX( utils::Vector<double,3>( -0.25 * CUTOFF_RADIUS_STD ) );
 	p2.setX( utils::Vector<double,3>( -0.75 * CUTOFF_RADIUS_STD ) );
+}
+
+void LinkedCellParticleContainerTest::modifyBoundaryParticle( int boundary, Particle& p )
+{
+	modifyParticle(p);
 }

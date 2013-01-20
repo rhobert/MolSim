@@ -5,7 +5,7 @@
 #include <cassert>
 #include <iostream>
 
-#define LINKED_CELL_THREAD_COUNT 2
+#define LINKED_CELL_THREAD_COUNT 4
 
 using namespace std;
 
@@ -53,9 +53,9 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 	
 	cellCount = cellDimensions[0] * cellDimensions[1] * cellDimensions[2];
 	
-	this->domainSize[0] = ceil ( domainSize[0] / sideLength ) * sideLength;
-	this->domainSize[1] = ceil ( domainSize[1] / sideLength ) * sideLength;
-	this->domainSize[2] = ceil ( domainSize[2] / sideLength ) * sideLength;
+	this->domainSize[0] = (domainSize[0] != 0) ? ceil ( domainSize[0] / sideLength ) * sideLength : 0.0;
+	this->domainSize[1] = (domainSize[1] != 0) ? ceil ( domainSize[1] / sideLength ) * sideLength : 0.0;
+	this->domainSize[2] = (domainSize[2] != 0) ? ceil ( domainSize[2] / sideLength ) * sideLength : 0.0;
 	
 	int cellId;
 	int i[3];
@@ -287,7 +287,9 @@ void LinkedCellParticleContainer::applyToSingleParticles( void (*singleFunction)
 {
 	omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
 	
+	#ifdef _OPENMP
 	#pragma omp parallel for
+	#endif
 	for ( int i = 0; i < cellCount; i++ )
 	{
 		Cell& cell = cells[i];
@@ -301,7 +303,7 @@ void LinkedCellParticleContainer::applyToSingleParticles( void (*singleFunction)
 	}
 }
 
-void LinkedCellParticleContainer::applyToBoundaryParticles( int boundary, void (*singleFunction)(Particle&) )
+void LinkedCellParticleContainer::applyToBoundaryParticles( int boundary, void (*singleFunction)(int, Particle&) )
 {
 	assert ( boundary >= 0 && boundary < 6 );
 	
@@ -309,7 +311,9 @@ void LinkedCellParticleContainer::applyToBoundaryParticles( int boundary, void (
 	
 	int len = boundaryCells[boundary]->size();
 	
+	#ifdef _OPENMP
 	#pragma omp parallel for
+	#endif
 	for ( int i = 0; i < len; i++ )
 	{
 		Cell& cell = cells[ boundaryCells[boundary]->at(i) ];
@@ -318,12 +322,12 @@ void LinkedCellParticleContainer::applyToBoundaryParticles( int boundary, void (
 		{
 			Particle& p = *j;
 			
-			singleFunction(p);
+			singleFunction(boundary,p);
 		}
 	}
 }
 
-void LinkedCellParticleContainer::applyToHaloParticles( int boundary, void (*singleFunction)(Particle&) )
+void LinkedCellParticleContainer::applyToHaloParticles( int boundary, void (*singleFunction)(int, Particle&) )
 {
 	assert ( boundary >= 0 && boundary < 6 );
 	
@@ -331,7 +335,9 @@ void LinkedCellParticleContainer::applyToHaloParticles( int boundary, void (*sin
 	
 	int len = haloCells[boundary]->size();
 	
+	#ifdef _OPENMP
 	#pragma omp parallel for
+	#endif
 	for ( int i = 0; i < len; i++ )
 	{
 		Cell& cell = cells[ haloCells[boundary]->at(i) ];
@@ -340,7 +346,7 @@ void LinkedCellParticleContainer::applyToHaloParticles( int boundary, void (*sin
 		{
 			Particle& p = *j;
 			
-			singleFunction(p);
+			singleFunction(boundary,p);
 		}
 	}
 }
@@ -349,7 +355,9 @@ void LinkedCellParticleContainer::applyToParticlePairs( void (*pairFunction)(Par
 {	
 	omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
 	
+	#ifdef _OPENMP
 	#pragma omp parallel for
+	#endif
 	for ( int i = 0; i < cellCount; i++ )
 	{
 		Cell& cell1 = cells[i];
@@ -418,7 +426,9 @@ void LinkedCellParticleContainer::applyToPeriodicBoundaryParticlePairs( int boun
 	
 	int len = periodicCellPairs[boundary]->size();
 	
+	#ifdef _OPENMP
 	#pragma omp parallel for
+	#endif
 	for ( int i = 0; i < len; i++ )
 	{
 		Cell& cell1 = *(periodicCellPairs[boundary]->at(i).first);
@@ -431,24 +441,23 @@ void LinkedCellParticleContainer::applyToPeriodicBoundaryParticlePairs( int boun
 			for ( Cell::SingleList::iterator j2 = cell2.particles.begin(); j2 != cell2.particles.end(); j2++ )
 			{
 				Particle p2 (*j2);
-				utils::Vector<double,3> x(0.0);
-				
-				switch ( boundary )
-				{
-					case 0: x[0] -= domainSize[0]; break;
-					case 1: x[0] += domainSize[0]; break;
-					case 2: x[1] -= domainSize[1]; break;
-					case 3: x[1] += domainSize[1]; break;
-					case 4: x[2] -= domainSize[2]; break;
-					case 5: x[2] += domainSize[2]; break;
-					default: break;
-				}
-				
+				utils::Vector<double,3> x = p2.getX();
+				int boundaryDimension = boundary / 2;
+		
 //				cout << "Boundary " << boundary << ": ";
 //				cout << "Search partner for " << p1.getX().toString() << ", ";
 //				cout << "test " << p2.getX().toString() << " => ";
 				
-				p2.setX( p2.getX() + x );
+				if ( boundary % 2 == 0 )
+				{
+					x[boundaryDimension] -= domainSize[boundaryDimension];
+				}
+				else
+				{
+					x[boundaryDimension] += domainSize[boundaryDimension];
+				}
+				
+				p2.setX(x);
 				
 //				cout << p2.getX().toString() << endl;
 				
@@ -467,10 +476,14 @@ void LinkedCellParticleContainer::updateContainingCells()
 {
 	omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
 	
+	#ifdef _OPENMP
 	#pragma omp parallel for
+	#endif
 	for ( int i = 0; i < cellCount; i++ )
 	{
 		Cell& cell = cells[i];
+		
+		omp_set_lock ( &cell.lock );
 		
 		for ( Cell::SingleList::iterator j = cell.particles.begin(); j != cell.particles.end(); j++  )
 		{
@@ -483,7 +496,10 @@ void LinkedCellParticleContainer::updateContainingCells()
 				{
 					LOG4CXX_TRACE(logger, "Move particle " << p.getX().toString() << " to other cell");
 					
+					omp_set_lock ( &cells[cellId].lock );
 					cells[cellId].addParticle(p);
+					omp_unset_lock ( &cells[cellId].lock );
+					
 					j = cell.particles.erase(j);
 					j--;
 				}
@@ -495,6 +511,8 @@ void LinkedCellParticleContainer::updateContainingCells()
 				LOG4CXX_DEBUG(logger, "Delete particle " << p.getX().toString() << " from outside of domain and halo");
 			}
 		}
+		
+		omp_unset_lock ( &cell.lock );
 	}
 }
 

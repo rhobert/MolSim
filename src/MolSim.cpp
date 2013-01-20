@@ -12,6 +12,8 @@
 #include <log4cxx/logger.h>
 #include <log4cxx/propertyconfigurator.h>
 
+#include <omp.h>
+
 #include "input/InputParameters.h"
 #include "PhaseSpace.h"
 #include "FileReader.h"
@@ -57,16 +59,18 @@ utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2);
 /**
  * @brief Calcuation for the reflection boundary condition for lenard jones potential
  *
+ * @param boundary Boundary on which boundary conditions are applied
  * @param p Particle to reflect
 **/
-void calcReflection (Particle& p);
+void calcReflection (int boundary, Particle& p);
 
 /**
  * @brief Calcuation for the periodic boundary condition (move halo particles to their destinied boundary cells)
  *
+ * @param boundary Boundary on which boundary conditions are applied
  * @param p Particle to move
 **/
-void calcPeriodicHalo(Particle &p);
+void calcPeriodicHalo(int boundary, Particle &p);
 
 /**
  * @brief Calcuation for the periodic boundary condition
@@ -601,16 +605,19 @@ int main(int argc, char* argsv[])
 	double start_time = 0;
 	double current_time;
 	int iteration = 0;
+	int end_iteration = (int) ( (end_time - start_time) / delta_t );
 	
 	double totalTime = 0;
 	double timeDiff;
 	timeval t0, t1; 
 	
+	double doneTime = totalTime;
+	double doneIteration = iteration;
 	
 	LOG4CXX_INFO(logger, "Start simulation from time " << start_time << " to " << end_time << " with time steps " << delta_t);
-	LOG4CXX_INFO(logger, "Expecting " << floor((end_time - start_time) / delta_t) << " simulation steps" );
+	LOG4CXX_INFO(logger, "Expecting " << end_iteration << " simulation steps" );
 	if ( writeFrequency > 0 )
-		LOG4CXX_INFO(logger, "Expecting " << ceil(floor((end_time - start_time) / delta_t) / writeFrequency) << " output files" );
+		LOG4CXX_INFO(logger, "Expecting " << ceil( ( (double) end_iteration ) / writeFrequency ) << " output files" );
 	
 	 // for this loop, we assume: current x, current f and current v are known
 	for ( current_time = start_time;
@@ -633,7 +640,7 @@ int main(int argc, char* argsv[])
 		// calculate new x
 		particleContainer->applyToSingleParticles ( calculateX );
 
-		// Set up new force (Could be modified by boundary condition)
+		// Set up new force (Could be modified by boundary conditions)
 		particleContainer->applyToSingleParticles ( setNewForce );
 		
 		if ( linkedCellParticleContainer != NULL )
@@ -670,11 +677,24 @@ int main(int argc, char* argsv[])
 		
 		
 		gettimeofday(&t1, NULL);
-		timeDiff = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) * 1e-9;
+		timeDiff = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) * 1e-6;
 		totalTime += timeDiff;
 		
 		iteration++;
+		
 		LOG4CXX_TRACE(logger, "Iteration " << iteration << " finished in " << timeDiff << " seconds");
+		
+		if ( totalTime - doneTime >= 15 || iteration == 1 )
+		{
+			double remainingIterations = (double) (end_iteration - iteration);
+			double deltaIteration = (double) (iteration - doneIteration);
+			
+			LOG4CXX_DEBUG(logger, "Expected remaining runtime " << ( remainingIterations / deltaIteration * (totalTime - doneTime) ) << "s"  
+				<< " (iteration " << iteration << "/" << end_iteration << ")");
+			
+			doneTime = totalTime;
+			doneIteration = iteration;
+		}
 	}
 
 	LOG4CXX_INFO(logger, "End simulation in " << totalTime << " seconds" );
@@ -713,10 +733,6 @@ utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2)
 
 utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
 {
-	utils::Vector<double, 3> x1_x2;
-	utils::Vector<double, 3> F1_F2;
-	double l2Norm;
-	double temp;
 	double sigma;
 	double epsilon;
 
@@ -727,118 +743,99 @@ utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
 	}
 	else
 	{
-		sigma = ( p1.getSigma() + p2.getSigma() ) / 2;
+		sigma = ( p1.getSigma() + p2.getSigma() ) / 2.0;
 		epsilon = sqrt( p1.getEpsilon() * p2.getEpsilon() );
 	}
-
+	
+	double sigmaExp3 = sigma*sigma*sigma;
+	double sigmaExp6 = sigmaExp3 * sigmaExp3;
+	
 	//difference between coordinates of p1 and p2
-	x1_x2 = p1.getX() - p2.getX();
-	l2Norm = x1_x2.L2Norm();
-
+	utils::Vector<double, 3> x1_x2 = p2.getX() - p1.getX();
+	
+	double squareSumExp_1 = 1 / ( x1_x2.innerProduct() );
+	double squareSumExp_3 = squareSumExp_1 * squareSumExp_1 * squareSumExp_1;
+	
+	double temp = sigmaExp6 * squareSumExp_3;
+	
 	//force between p1 and p2
-	temp = pow(sigma / l2Norm, 6);
-	F1_F2 = 24*epsilon / (l2Norm*l2Norm) * (temp - 2 * temp*temp) * (-1) * x1_x2;
+	utils::Vector<double, 3> F1_F2 = 
+		24.0 * epsilon * temp * squareSumExp_1 * 
+		(1.0 - 2.0 * temp) * 
+		x1_x2
+	;
 
 	return F1_F2;
 }
 
-void calcReflection (Particle& p)
+void calcReflection (int cBoundary, Particle& p)
 {
 	utils::Vector<double,3> x;
 	utils::Vector<double,3> x1_x2;
-	double d = pow(2,1/6) * p.getSigma();
-
-	LOG4CXX_TRACE(logger, "Reflection is checked for " << p.getX().toString() );
-
-	for ( int i = 0; i < 3; i++ )
+	double d = pow(2,1.0/6.0) * p.getSigma();
+	int boundaryDimension = cBoundary / 2;
+	
+//	LOG4CXX_TRACE(logger, "Reflection is checked for " << p.getX().toString() );
+		
+	if ( domainSize[boundaryDimension] != 0 )
 	{
-		if ( domainSize[i] != 0 )
+		x = p.getX();
+		
+		if ( boundary[cBoundary] == PSE_Molekulardynamik_WS12::boundary_t::reflecting )
 		{
-			LOG4CXX_TRACE(logger, "Reflection is set for " << i << " dimension" );
-
-			x = p.getX();
+			x[boundaryDimension] = 0;
+			x1_x2 = p.getX() - x;
 			
-			if ( boundary[i*2] == PSE_Molekulardynamik_WS12::boundary_t::reflecting )
+			if ( x1_x2.L2Norm() <= d  )
 			{
-				x[i] = 0;
-				x1_x2 = p.getX() - x;
-				
-				if ( x1_x2.L2Norm() <= d  )
-				{
-					LOG4CXX_TRACE(logger, "CounterParticle " << x.toString() );
-					Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
-					calculateF( p, counterParticle );
-				}
+				LOG4CXX_TRACE(logger, "CounterParticle for " << p.getX().toString() << " is " << x.toString() );
+				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
+				calculateF( p, counterParticle );
 			}
-			
-			if ( boundary[i*2+1] == PSE_Molekulardynamik_WS12::boundary_t::reflecting )
-			{
-			
-				x[i] = domainSize[i];
-				x1_x2 = p.getX() - x;
+		}
+		
+		if ( boundary[cBoundary] == PSE_Molekulardynamik_WS12::boundary_t::reflecting )
+		{
+		
+			x[boundaryDimension] = domainSize[boundaryDimension];
+			x1_x2 = p.getX() - x;
 
-				if ( x1_x2.L2Norm() <= d  )
-				{
-					LOG4CXX_TRACE(logger, "CounterParticle " << x.toString() );
-					Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
-					calculateF( p, counterParticle );	
-				}
+			if ( x1_x2.L2Norm() <= d  )
+			{
+				LOG4CXX_TRACE(logger, "CounterParticle " << p.getX().toString() << " is " << x.toString() );
+				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
+				calculateF( p, counterParticle );	
 			}
 		}
 	}
 }
 
-void calcPeriodicHalo(Particle &p)
+void calcPeriodicHalo(int cBoundary, Particle &p)
 {
-	utils::Vector<double,3> h;
+	int boundaryDimension = cBoundary / 2;
+	utils::Vector<double,3> x = p.getX();
+//	utils::Vector<double,3> h;
 	
 	LOG4CXX_TRACE(logger, "Move particle from " << p.getX().toString() );
 	
-	if(p.getX()[0] < 0){
-		h[0] = domainSize[0];
-		h[1] = 0;
-		h[2] = 0;
-		p.setX(p.getX()+h);
+	if ( cBoundary % 2 == 0 )
+	{
+		x[boundaryDimension] += domainSize[boundaryDimension];
+		p.setX(x);
 	}
-	else if(p.getX()[0] > domainSize[0]){
-		h[0] = domainSize[0];
-		h[1] = 0;
-		h[2] = 0;
-		p.setX(p.getX()-h);
-	}
-	
-	if(p.getX()[1] < 0){
-		h[1] = domainSize[1];
-		h[0] = 0;
-		h[2] = 0;
-		p.setX(p.getX()+h);
-	}
-	else if(p.getX()[1] > domainSize[1]){
-		h[1] = domainSize[1];
-		h[0] = 0;
-		h[2] = 0;
-		p.setX(p.getX()-h);
-	}
-	
-	if(p.getX()[2] < 0){
-		h[2] = domainSize[2];
-		h[0] = 0;
-		h[1] = 0;
-		p.setX(p.getX()+h);
-	}
-	else if(p.getX()[2] > domainSize[2]){
-		h[2] = domainSize[2];
-		h[0] = 0;
-		h[1] = 0;
-		p.setX(p.getX()-h);
+	else
+	{
+		x[boundaryDimension] -= domainSize[boundaryDimension];
+		p.setX(x);
 	}
 	
 	LOG4CXX_TRACE(logger, "Moved particle to " << p.getX().toString() );
 }
 
 void calcPeriodicBoundary(Particle &p1, Particle p2)
-{	
+{
 	LOG4CXX_TRACE(logger, "Virtual particle-copy created at " << p2.getX().toString() << " in pair with " << p1.getX().toString() );
+	
 	calculateF(p1,p2);
 }
 
@@ -854,7 +851,6 @@ void setNewForce( Particle& p )
 
 void calculateF( Particle& p1, Particle& p2 )
 {
-	utils::Vector<double, 3> x1_x2;
 	utils::Vector<double, 3> F1_F2;
 	utils::Vector<double, 3> F;
 
@@ -875,7 +871,7 @@ void calculateX( Particle& p )
 	utils::Vector<double,3> x =
 		p.getX() +
 		delta_t * p.getV() +
-		delta_t * delta_t / (2 * p.getM()) * p.getF();
+		delta_t * delta_t / (2.0 * p.getM()) * p.getF();
 		
 	p.setX(x);
 }
@@ -885,13 +881,14 @@ void calculateV( Particle& p )
 {
 	utils::Vector<double,3> v =
 		p.getV() +
-		delta_t / (2 * p.getM()) * (p.getF() + p.getOldF());
+		delta_t / (2.0 * p.getM()) * (p.getF() + p.getOldF());
 
 	p.setV(v);
 }
 
 void plotParticle( Particle& p )
 {
+	#pragma omp critical
 	vtk_writer.plotParticle(p);
 }
 
