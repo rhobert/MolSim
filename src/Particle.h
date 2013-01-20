@@ -8,6 +8,7 @@
 #ifndef PARTICLE_H_
 #define PARTICLE_H_
 
+#include <vector>
 #include "utils/Vector.h"
 #include "log4cxx/logger.h"
 
@@ -64,9 +65,14 @@ private:
 
 	/**
 	* @brief Type of the particle. Use it for whatever you want (e.g. to seperate
-     * molecules belonging to different bodies, matters, and so on).
+    * molecules belonging to different bodies, matters, and so on).
     */
 	int type;
+
+//	/**
+//	* @brief Contains all neighboring particles of a particle
+//    */
+//	std::vector<Particle*> neighbors;
 
 public:
 /**
@@ -157,6 +163,21 @@ public:
 	int getType();
 
 /**
+	* @brief Contains all neighboring particles of a particle
+    */
+	std::vector<Particle*> neighbors;
+
+/**
+* @brief Returns neighboring particles
+*/
+//	std::vector<Particle&> getNeighbors();
+
+/**
+* @brief Add neighboring particle
+*/
+//	void addNeighbor(Particle& p);
+
+/**
 * @brief Compares two particles.
 */
 	bool operator==(Particle& other);
@@ -217,6 +238,14 @@ inline  double Particle::getEpsilon() {
 inline  int Particle::getType() {
 	return type;
 }
+
+//inline std::vector<Particle&>& Particle::getNeighbors() {
+//   return neighbors;
+//}
+
+//inline void Particle::addNeighbor(Particle& p) {
+//    neighbors->push_back(p);
+//}
 
 inline bool Particle::operator ==(Particle& other) {
 	if ( (x == other.x) && (v == other.v) && (f == other.f) &&
