@@ -12,9 +12,9 @@ SimpleParticleContainer::SimpleParticleContainer()
 	
 }
 
-void SimpleParticleContainer::addParticles( list<Particle> pList )
+void SimpleParticleContainer::addParticles( list<Particle*> pList )
 {
-	for ( list<Particle>::iterator it = pList.begin(); it != pList.end(); it++ )
+	for ( list<Particle*>::iterator it = pList.begin(); it != pList.end(); it++ )
 	{	
 		singleList.push_back(*it);
 	}
@@ -33,7 +33,7 @@ SimpleParticleContainer::PairList SimpleParticleContainer::createPairs( SimplePa
 	
 	for (it1 = sList.begin(); it1 != sList.end(); it1++){
 		for (it2 = it1, it2++; it2 != sList.end(); it2++){
-			pair<Particle*, Particle*> help (&(*it1), &(*it2));
+			pair<Particle*, Particle*> help (*it1, *it2);
 			pList.push_back(help);
 		}
 	}
@@ -48,7 +48,7 @@ void SimpleParticleContainer::applyToSingleParticles( void (*singleFunction)(Par
 		 i != singleList.end();
 		 i++ )
 	{
-		singleFunction( *i );
+		singleFunction( **i );
 	}
 }
 

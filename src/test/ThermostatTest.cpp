@@ -18,18 +18,16 @@ void ThermostatTest::setUp()
 
 	container = setUpParticleContainer();
 
-	list<Particle> particles;
+	list<Particle*> particles;
 
 	utils::Vector<double,3> x (0.0);
 	utils::Vector<double,3> v (THERMO_PARTICLE_VELOCITY_STD);
 
 	particle = Particle( x, v, THERMO_MASS );
-	Particle * testParticles = new Particle[randomSize];
 
 	for ( int i=0; i<randomSize; i++ )
 	{
-		testParticles[i] = particle;
-		particles.push_back(testParticles[i]);
+		particles.push_back( new Particle(particle) );
 	}
 
 	container->addParticles(particles);
@@ -67,7 +65,7 @@ void ThermostatTest::testTemperature()
 
 	for (ParticleContainer::SingleList::iterator i = pList.begin(); i != pList.end(); i++)
 	{
-		Particle& p = *i;
+		Particle& p = **i;
 
 		currentEnergy += p.getM() / 2.0 * p.getV().innerProduct();
 	}

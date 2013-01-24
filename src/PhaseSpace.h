@@ -38,7 +38,7 @@ public:
 	* 
 	* @param inStream Stream to read phase space from
 	*/
-	void readPhaseSpace(std::list<Particle>& particles, std::istream & inStream);
+	void readPhaseSpace(std::list<Particle*>& particles, std::istream & inStream);
 	
 	/**
 	* @brief Read in a particle-list using the input file.
@@ -47,7 +47,7 @@ public:
 	* 
 	* @param filename File to read phase space from
 	*/
-	void readPhaseSpace(std::list<Particle>& particles, char* filename);
+	void readPhaseSpace(std::list<Particle*>& particles, char* filename);
     
 	/**
 	* @brief Write out a particle-list using output stream
@@ -56,7 +56,7 @@ public:
 	* 
 	* @param outStream Stream to write phase space in
 	*/
-	void writePhaseSpace(std::list<Particle>& particles, std::ostream & outStream);
+	void writePhaseSpace(std::list<Particle*>& particles, std::ostream & outStream);
 	
 	/**
 	* @brief Write out a particle-list using the output file.
@@ -65,7 +65,7 @@ public:
 	* 
 	* @param filename File to write phase space in
 	*/
-	void writePhaseSpace(std::list<Particle>& particles, char* filename);
+	void writePhaseSpace(std::list<Particle*>& particles, char* filename);
 
 };
 

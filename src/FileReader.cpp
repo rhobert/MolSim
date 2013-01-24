@@ -24,7 +24,7 @@ FileReader::FileReader() {
 FileReader::~FileReader() {
 }
 
-void FileReader::readFileList(list<Particle>& particles, char* filename) 
+void FileReader::readFileList(list<Particle*>& particles, char* filename) 
 {
 	double x[] = {0,0,0};
 	double v[] = {1,1,1};
@@ -71,7 +71,7 @@ void FileReader::readFileList(list<Particle>& particles, char* filename)
 			}
 			
 			datastream >> m;
-			Particle p(x, v, m);
+			Particle* p = new Particle(x, v, m);
 			particles.push_back(p);
 
 			getline(input_file, tmp_string);
@@ -85,7 +85,7 @@ void FileReader::readFileList(list<Particle>& particles, char* filename)
 	}
 }
 
-void FileReader::readFileCuboid(list<Particle>& particles, char* filename) 
+void FileReader::readFileCuboid(list<Particle*>& particles, char* filename) 
 {
 	double x[] = {0,0,0};
 	double v[] = {1,1,1};

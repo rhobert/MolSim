@@ -18,7 +18,7 @@
 */
 
 void generateCuboid(
-	std::list<Particle> &particles, 
+	std::list<Particle*> &particles, 
 	utils::Vector<double, 3> x,
 	utils::Vector<double, 3> v, 
 	utils::Vector<int, 3> N,
@@ -43,7 +43,7 @@ void generateCuboid(
 */
 
 void generateSphere(
-	std::list<Particle> &particles, 
+	std::list<Particle*> &particles, 
 	utils::Vector<double, 3> x,
 	utils::Vector<double, 3> v, 
 	int N,

@@ -19,7 +19,7 @@ PhaseSpace::~PhaseSpace()
 	
 }
 
-void PhaseSpace::readPhaseSpace(std::list<Particle>& particles, istream & inStream)
+void PhaseSpace::readPhaseSpace(std::list<Particle*>& particles, istream & inStream)
 {
 	string line;
 
@@ -58,21 +58,22 @@ void PhaseSpace::readPhaseSpace(std::list<Particle>& particles, istream & inStre
 		in >> epsilon;
 		in >> type;
 
-		Particle p ( x, v, m, sigma, epsilon, type );
-		p.setF(oldF);
-		p.newF(F);
+		Particle* p = new Particle( x, v, m, sigma, epsilon, type );
+		p->setF(oldF);
+		p->newF();
+		p->setF(F);
 		
 		particles.push_back(p);
 	}
 }
 
-void PhaseSpace::writePhaseSpace(std::list<Particle>& particles, ostream & outStream)
+void PhaseSpace::writePhaseSpace(std::list<Particle*>& particles, ostream & outStream)
 {
 	outStream.setf(ios_base::showpoint);
 		
-	for ( list<Particle>::iterator i = particles.begin(); i != particles.end(); i++ )
+	for ( list<Particle*>::iterator i = particles.begin(); i != particles.end(); i++ )
 	{
-		Particle& p = *i;
+		Particle& p = **i;
 		
 		for ( int j = 0; j < 3; j++ )
 			outStream << p.getX()[j] << " ";
@@ -103,7 +104,7 @@ void PhaseSpace::writePhaseSpace(std::list<Particle>& particles, ostream & outSt
 	}
 }
 
-void PhaseSpace::readPhaseSpace(std::list<Particle>& particles, char* filename)
+void PhaseSpace::readPhaseSpace(std::list<Particle*>& particles, char* filename)
 {
 	LOG4CXX_INFO(logger, "Read phase space to " << filename );
 	
@@ -124,7 +125,7 @@ void PhaseSpace::readPhaseSpace(std::list<Particle>& particles, char* filename)
 	file.close();
 }
     
-void PhaseSpace::writePhaseSpace(std::list<Particle>& particles, char* filename)
+void PhaseSpace::writePhaseSpace(std::list<Particle*>& particles, char* filename)
 {
 	LOG4CXX_INFO(logger, "Write phase space to " << filename );
 	

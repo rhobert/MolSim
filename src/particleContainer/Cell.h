@@ -19,7 +19,7 @@ public:
 	/**
 	* @brief Type of a list of single particles
 	**/
-	typedef list<Particle> SingleList;
+	typedef list<Particle*> SingleList;
 	
 	/**
 	* @brief Type of a list of cells

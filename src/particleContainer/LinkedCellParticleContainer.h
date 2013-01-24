@@ -149,7 +149,7 @@ public:
 	**/
 	LinkedCellParticleContainer(utils::Vector<double, 3> domainSize, double cutoff);
 	
-	void addParticles( list<Particle> pList );
+	void addParticles( SingleList pList );
 	
 	void applyToSingleParticles( void (*singleFunction)(Particle&) );
 	

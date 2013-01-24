@@ -10,7 +10,7 @@ Cell::Cell ()
 
 void Cell::addParticle( Particle& p )
 {
-	particles.push_back(p);
+	particles.push_back(&p);
 }
 
 int Cell::size() 

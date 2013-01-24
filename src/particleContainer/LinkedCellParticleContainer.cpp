@@ -263,15 +263,15 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 	LOG4CXX_DEBUG(logger, "Created " << p << " periodic cell pairs");	
 }
 
-void LinkedCellParticleContainer::addParticles( list<Particle> pList )
+void LinkedCellParticleContainer::addParticles( ParticleContainer::SingleList pList )
 {
 	LOG4CXX_TRACE(logger, "Add " << pList.size() << " particles to cells");
 	
 	int cellId;
 	
-	for ( list<Particle>::iterator i = pList.begin(); i != pList.end(); i++ )
+	for ( ParticleContainer::SingleList::iterator i = pList.begin(); i != pList.end(); i++ )
 	{
-		Particle& p = *i;
+		Particle& p = **i;
 		
 		cellId = getCell( p.getX() );
 		
@@ -296,7 +296,7 @@ void LinkedCellParticleContainer::applyToSingleParticles( void (*singleFunction)
 		
 		for ( Cell::SingleList::iterator j = cell.particles.begin(); j != cell.particles.end(); j++  )
 		{
-			Particle& p = *j;
+			Particle& p = **j;
 			
 			singleFunction(p);
 		}
@@ -320,7 +320,7 @@ void LinkedCellParticleContainer::applyToBoundaryParticles( int boundary, void (
 		
 		for ( Cell::SingleList::iterator j = cell.particles.begin(); j != cell.particles.end(); j++ )
 		{
-			Particle& p = *j;
+			Particle& p = **j;
 			
 			singleFunction(boundary,p);
 		}
@@ -344,7 +344,7 @@ void LinkedCellParticleContainer::applyToHaloParticles( int boundary, void (*sin
 		
 		for ( Cell::SingleList::iterator j = cell.particles.begin(); j != cell.particles.end(); j++ )
 		{
-			Particle& p = *j;
+			Particle& p = **j;
 			
 			singleFunction(boundary,p);
 		}
@@ -376,11 +376,11 @@ void LinkedCellParticleContainer::applyToParticlePairs( void (*pairFunction)(Par
 			{	
 				for (  j1 = cell1.particles.begin(); j1 != cell1.particles.end(); j1++  )
 				{
-					Particle& p1 = *j1;
+					Particle& p1 = **j1;
 					
 					for ( j2 = j1, j2++; j2 != cell1.particles.end(); j2++ )
 					{
-						Particle& p2 = *j2;
+						Particle& p2 = **j2;
 						
 						utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
 						
@@ -397,11 +397,11 @@ void LinkedCellParticleContainer::applyToParticlePairs( void (*pairFunction)(Par
 				
 				for ( j1 = cell1.particles.begin(); j1 != cell1.particles.end(); j1++  )
 				{
-					Particle& p1 = *j1;
+					Particle& p1 = **j1;
 					
 					for ( j2 = cell2.particles.begin(); j2 != cell2.particles.end(); j2++  )
 					{
-						Particle& p2 = *j2;
+						Particle& p2 = **j2;
 						
 						utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
 						
@@ -440,11 +440,11 @@ void LinkedCellParticleContainer::applyToPeriodicBoundaryParticlePairs( int boun
 		
 		for ( Cell::SingleList::iterator j1 = cell1.particles.begin(); j1 != cell1.particles.end(); j1++  )
 		{
-			Particle& p1 = *j1;
+			Particle& p1 = **j1;
 			
 			for ( Cell::SingleList::iterator j2 = cell2.particles.begin(); j2 != cell2.particles.end(); j2++ )
 			{
-				Particle p2 (*j2);
+				Particle p2 (**j2);
 				utils::Vector<double,3> x = p2.getX();
 				int boundaryDimension = boundary / 2;
 		
@@ -491,7 +491,7 @@ void LinkedCellParticleContainer::updateContainingCells()
 		
 		for ( Cell::SingleList::iterator j = cell.particles.begin(); j != cell.particles.end(); j++  )
 		{
-			Particle& p = *j;
+			Particle& p = **j;
 			int cellId = getCell( p.getX() );
 			
 			if ( cellId >= 0 )
@@ -501,7 +501,7 @@ void LinkedCellParticleContainer::updateContainingCells()
 					LOG4CXX_TRACE(logger, "Move particle " << p.getX().toString() << " to other cell");
 					
 					omp_set_lock ( &cells[cellId].lock );
-					cells[cellId].particles.push_back(p);
+					cells[cellId].particles.push_back(&p);
 					omp_unset_lock ( &cells[cellId].lock );
 					
 					j = cell.particles.erase(j);
@@ -605,9 +605,9 @@ LinkedCellParticleContainer::SingleList& LinkedCellParticleContainer::getParticl
 		
 		for ( Cell::SingleList::iterator j = cell.particles.begin(); j != cell.particles.end(); j++  )
 		{
-			Particle& p = *j;
+			Particle& p = **j;
 			
-			singleList.push_back(p);
+			singleList.push_back(&p);
 		}
 	}
 	

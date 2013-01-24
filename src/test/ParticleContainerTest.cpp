@@ -30,16 +30,11 @@ void ParticleContainerTest::setUp()
 	
 	particle = Particle( x, v, m );
 	
-	Particle p0 = particle;
-	Particle p1 = particle;
-	Particle p2 = particle;
+	Particle * p0 = new Particle(particle);
+	Particle * p1 = new Particle(particle);
+	Particle * p2 = new Particle(particle);
 	
-	Particle * randomParticles = new Particle[randomSize];
-	
-	for (int i = 0; i < randomSize; i++)
-		randomParticles[i] = particle;
-	
-	list<Particle> particles;
+	list<Particle*> particles;
 	
 	emptyContainer->addParticles(particles);
 	
@@ -55,7 +50,7 @@ void ParticleContainerTest::setUp()
 	particles.clear();
 	
 	for (int i = 0; i < randomSize; i++)
-		particles.push_back(randomParticles[i]);
+		particles.push_back( new Particle(particle));
 	
 	randomContainer->addParticles(particles);
 }
@@ -149,7 +144,7 @@ int ParticleContainerTest::countParticlePairs(ParticleContainer * container)
 	
 	for ( ParticleContainer::SingleList::iterator i = particles.begin(); i != particles.end(); i++ )
 	{
-		Particle & p = *i;
+		Particle & p = **i;
 		
 		v += p.getV()[0] - PARTICLE_VELOCITY_STD;
 		p.setV(PARTICLE_VELOCITY_STD);
@@ -166,7 +161,7 @@ bool ParticleContainerTest::checkParticles(ParticleContainer * container)
 		
 	for ( ParticleContainer::SingleList::iterator i = particles.begin(); i != particles.end(); i++ )
 	{
-		Particle & p = *i;
+		Particle & p = **i;
 		
 		if ( !( p == particle  ) )
 			return false;
@@ -184,7 +179,7 @@ bool ParticleContainerTest::checkModfication(ParticleContainer * container)
 	
 	for ( ParticleContainer::SingleList::iterator i = particles.begin(); i != particles.end(); i++ )
 	{
-		Particle & p = *i;
+		Particle & p = **i;
 		
 		if ( !( p == modifiedParticle ) )
 			return false;

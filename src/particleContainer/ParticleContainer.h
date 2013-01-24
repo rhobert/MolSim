@@ -44,7 +44,7 @@ public:
 	/**
 	* @brief Type of a list of single particles
 	**/
-	typedef list<Particle> SingleList;
+	typedef list<Particle*> SingleList;
 	
 	/**
 	* @brief Type of a list of particles pairs
@@ -70,7 +70,7 @@ public:
 	* 
 	* @param pList function to apply on all single particles
 	**/
-	virtual void addParticles( list<Particle> pList ) = 0;
+	virtual void addParticles( SingleList pList ) = 0;
 	
 	/**
 	* @brief Iterate over all sinlge particles

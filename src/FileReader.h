@@ -43,7 +43,7 @@ public:
 	* 
 	* @param filename File to read particles from
 	*/
-	void readFileList(std::list<Particle>& particles, char* filename);
+	void readFileList(std::list<Particle*>& particles, char* filename);
     
 	/**
 	* @brief Initializes the particle-list using the input file.
@@ -52,7 +52,7 @@ public:
 	* 
 	* @param filename File to read cuboids from
 	*/
-	void readFileCuboid(std::list<Particle>& particles, char* filename);
+	void readFileCuboid(std::list<Particle*>& particles, char* filename);
 
 };
 

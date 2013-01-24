@@ -6,7 +6,7 @@
 #include <list>
 
 void generateCuboid(
-	std::list<Particle> &particles,
+	std::list<Particle*> &particles,
 	utils::Vector<double, 3> x,
 	utils::Vector<double, 3> v,
 	utils::Vector<int, 3> N,
@@ -36,29 +36,10 @@ void generateCuboid(
 
 			for ( int j2 = 0; j2 < N[2]; j2++ )
 			{
-				Particle p(particlePosition, v, m, sigma, epsilon, type);
+				Particle* p = new Particle(particlePosition, v, m, sigma, epsilon, type);
 				particles.push_back(p);
 
 				particlePosition[2] += h;
-
-				grid[j0][j1] = &p;
-
-				if( j0 != 0 )
-				{
-					grid[j0-1][j1]->neighbors.push_back(grid[j0][j1]);
-				}
-				if( j1 != 0 )
-				{
-					grid[j0][j1-1]->neighbors.push_back(grid[j0][j1]);
-				}
-				if( j0 != 0 && j1 != 0 )
-				{
-					grid[j0-1][j1-1]->neighbors.push_back(grid[j0][j1]);
-				}
-				if( j0 != 0 && j1 != 0 && j1 < N[1]-1 )
-				{
-					grid[j0][j1]->neighbors.push_back(grid[j0-1][j1+1]);
-				}
 			}
 
 			particlePosition[1] += h;
@@ -69,7 +50,7 @@ void generateCuboid(
 }
 
 void generateSphere(
-	std::list<Particle> &particles,
+	std::list<Particle*> &particles,
 	utils::Vector<double, 3> x,
 	utils::Vector<double, 3> v,
 	int N,
@@ -86,7 +67,7 @@ void generateSphere(
 	assert(h >= 0);
 	assert(m > 0);
 
-	std::list<Particle> particlesSphere;
+	std::list<Particle*> particlesSphere;
 	utils::Vector<double, 3> c ( x + utils::Vector<double,3>(- h * (N-1)) );
 	utils::Vector<int, 3> n (2 * N - 1);
 
@@ -105,9 +86,9 @@ void generateSphere(
 
 	utils::Vector<double, 3> x1_x2;
 
-	for ( std::list<Particle>::iterator i = particlesSphere.begin(); i != particlesSphere.end(); i++ )
+	for ( std::list<Particle*>::iterator i = particlesSphere.begin(); i != particlesSphere.end(); i++ )
 	{
-		x1_x2 = (*i).getX() - x;
+		x1_x2 = (*i)->getX() - x;
 
 		if ( x1_x2.L2Norm() <= (N-1)*h )
 		{

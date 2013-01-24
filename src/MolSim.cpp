@@ -357,7 +357,7 @@ int main(int argc, char* argsv[])
 	
 	// Read particles from file to Particle list and build ParticleContainer
 	FileReader fileReader;
-	list<Particle> particles;
+	list<Particle*> particles;
 
 	LOG4CXX_DEBUG(logger, "Reading in input files");
 
@@ -739,7 +739,7 @@ int main(int argc, char* argsv[])
 		
 		LOG4CXX_INFO(logger, "Write phase space to " << phaseSpaceFilename );
 		
-		list<Particle> pList = particleContainer->getParticles();
+		list<Particle*> pList = particleContainer->getParticles();
 		phaseSpace.writePhaseSpace( *&pList, const_cast<char*> ( phaseSpaceFilename.c_str() ) );
 	}
 

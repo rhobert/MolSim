@@ -49,7 +49,7 @@ public:
 	 */
 	SimpleParticleContainer();
 	
-	void addParticles( list<Particle> pList );
+	void addParticles( SingleList pList );
 	
 	void applyToSingleParticles( void (*singleFunction)(Particle&) );
 	

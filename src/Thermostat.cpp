@@ -54,7 +54,7 @@ double Thermostat::getEnergy()
 	
 	for (ParticleContainer::SingleList::iterator i = pList.begin(); i != pList.end(); i++)
 	{
-		Particle& p = *i;
+		Particle& p = **i;
 
 		currentEnergy += p.getM() / 2.0 * p.getV().innerProduct();
 	}

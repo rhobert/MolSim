@@ -17,7 +17,7 @@ void LinkedCellParticleContainerTest::setUp()
 	
 	container = setUpParticleContainer();
 	
-	list<Particle> particles;
+	list<Particle*> particles;
 	
 	utils::Vector<double,3> x (0.0);
 	utils::Vector<double,3> v (PARTICLE_VELOCITY_STD);
@@ -26,23 +26,23 @@ void LinkedCellParticleContainerTest::setUp()
 	boundaryParticle =  Particle( x, v, BOUNDARY_MASS );
 	haloParticle =  Particle( x, v, HALO_MASS );
 	
-	Particle innerParticle1 = innerParticle;
-	Particle innerParticle2 = innerParticle;
-	Particle innerParticle3 = innerParticle;
-	Particle boundaryParticle1 = boundaryParticle;
-	Particle boundaryParticle2 = boundaryParticle;
-	Particle haloParticle1 = haloParticle;
-	Particle haloParticle2 = haloParticle;
+	Particle * innerParticle1 = new Particle(innerParticle);
+	Particle * innerParticle2 = new Particle(innerParticle);
+	Particle * innerParticle3 = new Particle(innerParticle);
+	Particle * boundaryParticle1 = new Particle(boundaryParticle);
+	Particle * boundaryParticle2 = new Particle(boundaryParticle);
+	Particle * haloParticle1 = new Particle(haloParticle);
+	Particle * haloParticle2 = new Particle(haloParticle);
 	
-	innerParticle1.setX( utils::Vector<double,3>( 0.5  * container->getDomainSize() )  );
-	innerParticle2.setX( utils::Vector<double,3>( 1.1  * CUTOFF_RADIUS_STD ) );
-	innerParticle3.setX( utils::Vector<double,3>( 1.2 * CUTOFF_RADIUS_STD ) );
+	innerParticle1->setX( utils::Vector<double,3>( 0.5  * container->getDomainSize() )  );
+	innerParticle2->setX( utils::Vector<double,3>( 1.1  * CUTOFF_RADIUS_STD ) );
+	innerParticle3->setX( utils::Vector<double,3>( 1.2 * CUTOFF_RADIUS_STD ) );
 	
-	boundaryParticle1.setX(  utils::Vector<double,3>( utils::Vector<double,3>( 0.8 * CUTOFF_RADIUS_STD ) ) );
-	boundaryParticle2.setX(  utils::Vector<double,3>( container->getDomainSize() ) - utils::Vector<double,3>( 0.2 * CUTOFF_RADIUS_STD ) );
+	boundaryParticle1->setX(  utils::Vector<double,3>( utils::Vector<double,3>( 0.8 * CUTOFF_RADIUS_STD ) ) );
+	boundaryParticle2->setX(  utils::Vector<double,3>( container->getDomainSize() ) - utils::Vector<double,3>( 0.2 * CUTOFF_RADIUS_STD ) );
 	
-	haloParticle1.setX(  utils::Vector<double,3>( utils::Vector<double,3>( -0.8 * CUTOFF_RADIUS_STD ) ) );
-	haloParticle2.setX(  utils::Vector<double,3>( container->getDomainSize() ) + utils::Vector<double,3>( 0.1 * CUTOFF_RADIUS_STD ) );
+	haloParticle1->setX(  utils::Vector<double,3>( utils::Vector<double,3>( -0.8 * CUTOFF_RADIUS_STD ) ) );
+	haloParticle2->setX(  utils::Vector<double,3>( container->getDomainSize() ) + utils::Vector<double,3>( 0.1 * CUTOFF_RADIUS_STD ) );
 	
 	particles.push_back(innerParticle1);
 	particles.push_back(innerParticle2);
@@ -76,7 +76,7 @@ void LinkedCellParticleContainerTest::testDeleteHaloParticles()
 	
 	for ( ParticleContainer::SingleList::iterator i = particles.begin(); i != particles.end(); i++ )
 	{
-		Particle & p = *i;
+		Particle & p = **i;
 		
 		CPPUNIT_ASSERT(p.getM() != HALO_MASS);
 		count++;
@@ -96,7 +96,7 @@ void LinkedCellParticleContainerTest::testApplyToBoundaryParticles()
 	
 	for ( ParticleContainer::SingleList::iterator i = particles.begin(); i != particles.end(); i++ )
 	{
-		Particle & p = *i;
+		Particle & p = **i;
 		
 		CPPUNIT_ASSERT ( p.getM() != BOUNDARY_MASS || p.getV() == modifiedBoundaryParticle.getV() || p.getM() == 2 );
 	}
@@ -120,7 +120,7 @@ void LinkedCellParticleContainerTest::testCutOffRadius()
 	
 	for ( ParticleContainer::SingleList::iterator i = particles.begin(); i != particles.end(); i++ )
 	{
-		Particle & p = *i;
+		Particle & p = **i;
 		
 		count++;
 	}
