@@ -13,6 +13,7 @@
 #include <log4cxx/propertyconfigurator.h>
 
 #include <omp.h>
+#include <papi.h>
 
 #include "input/InputParameters.h"
 #include "PhaseSpace.h"
@@ -24,8 +25,6 @@
 #include "particleContainer/LinkedCellParticleContainer.h"
 
 #include "ParticleGenerator.h"
-
-#include "MaxwellBoltzmannDistribution.h"
 
 #include "Thermostat.h"
 
@@ -82,11 +81,11 @@ void calcPeriodicBoundary(Particle &p1, Particle p2);
 
 
 /**
- * @brief Apply gravitation on partcile
+ * @brief Set gravitation as static force on this particle
  *
  * @param p Particle to modify
 **/
-void applyGravitation(Particle& p);
+void setGravitation(Particle& p);
 
 /**
  * @brief Calculate and set the force between two particles
@@ -597,10 +596,14 @@ int main(int argc, char* argsv[])
 	}
 
 	// Begin Simulation
-
+	
+	
+	// set up static gravitation
+	particleContainer->applyToSingleParticles ( setGravitation );
+	
 	// the forces are needed to calculate x, but are not given in the input file.
 	particleContainer->applyToParticlePairs ( calculateF );
-
+	
 	// Init iteration variables
 	double start_time = 0;
 	double current_time;
@@ -613,6 +616,22 @@ int main(int argc, char* argsv[])
 	
 	double doneTime = totalTime;
 	double doneIteration = iteration;
+	
+	
+	#define NUM_EVENTS 4
+	int events[NUM_EVENTS] = { PAPI_TOT_CYC, PAPI_L1_TCM, PAPI_L2_TCM, PAPI_L3_TCM  };
+	long_long values[NUM_EVENTS];
+	int retval;
+	char EventCodeStr[PAPI_MAX_STR_LEN];
+	
+	retval = PAPI_library_init(PAPI_VER_CURRENT);
+	
+	if (retval != PAPI_VER_CURRENT) 
+	{
+		fprintf(stderr, "PAPI library init error!\n");
+		exit(1);
+	}
+	
 	
 	LOG4CXX_INFO(logger, "Start simulation from time " << start_time << " to " << end_time << " with time steps " << delta_t);
 	LOG4CXX_INFO(logger, "Expecting " << end_iteration << " simulation steps" );
@@ -669,13 +688,25 @@ int main(int argc, char* argsv[])
 		// calculate new f
 		particleContainer->applyToParticlePairs ( calculateF );
 		
-		// apply gravitation
-		particleContainer->applyToSingleParticles ( applyGravitation );
+//		PAPI_start_counters(events, NUM_EVENTS);
 		
 		// calculate new v
 		particleContainer->applyToSingleParticles ( calculateV );
 		
-		
+//		PAPI_stop_counters(values, NUM_EVENTS);
+/*		
+		for ( int i = 0; i < NUM_EVENTS; i++ )
+		{
+			for ( int i = 0; i < NUM_EVENTS; i++ )
+			{
+				if (PAPI_event_code_to_name(events[i], EventCodeStr) == PAPI_OK)
+				{
+//					LOG4CXX_DEBUG(logger, EventCodeStr << ": " << values[i]);
+					printf ( "%s: %lld \n", EventCodeStr, values[i] );
+				}
+			}
+		}
+*/	
 		gettimeofday(&t1, NULL);
 		timeDiff = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) * 1e-6;
 		totalTime += timeDiff;
@@ -839,14 +870,15 @@ void calcPeriodicBoundary(Particle &p1, Particle p2)
 	calculateF(p1,p2);
 }
 
-void applyGravitation( Particle& p )
+// We don't need this anymore -> void setNewForce(Particle& p)
+void setGravitation( Particle& p )
 {
-	p.setF( p.getF() + p.getM() * gravitation );
+	p.setStaticF( p.getStaticF() + p.getM() * gravitation );
 }
 
 void setNewForce( Particle& p )
 {
-	p.newF( utils::Vector<double,3>(0.0) );
+	p.newF();
 }
 
 void calculateF( Particle& p1, Particle& p2 )
@@ -897,7 +929,16 @@ void plotParticles(int iteration)
 	LOG4CXX_DEBUG(logger, "Plot particles of Iteration " << iteration);
 
 	vtk_writer.initializeOutput(particleContainer->size());
-
+	
+/*	LinkedCellParticleContainer::SingleList& particles = particleContainer->getParticles();
+	
+	for ( LinkedCellParticleContainer::SingleList::iterator i = particles.begin();
+		 i != particles.end();
+		 i++ )
+	{
+		plotParticle(*i);
+	}
+*/	
 	particleContainer->applyToSingleParticles( plotParticle );
 
 	vtk_writer.writeFile(outputFileName, iteration);

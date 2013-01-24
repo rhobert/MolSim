@@ -47,7 +47,12 @@ private:
 	* @brief The force wich was effective on this particle.
 	*/
 	utils::Vector<double, 3> old_f;
-
+	
+	/**
+	* @brief The force which static effective on this particle
+     */
+	utils::Vector<double, 3> static_f;
+	
 	/**
 	* @brief The mass of this particle.
     */
@@ -140,7 +145,7 @@ public:
 /**
 * @brief Changes the forces effective on the particle and saves the old forces effective on the particle.
 */
-	void newF(utils::Vector<double, 3> other_f);
+	void newF();
 
 /**
 * @brief Returns the mass of the particle.
@@ -161,6 +166,21 @@ public:
 * @brief Returns the type of the particle.
 */
 	int getType();
+	
+/**
+* @brief Returns the static force effective on the particle.
+*/
+	utils::Vector<double, 3>& getStaticF();
+	
+/**
+* @brief Changes the static force effective on the particle
+*/	
+	 void setStaticF(utils::Vector<double, 3> other_f);
+	 
+/**
+* @brief Returns the type of the particle.
+*/
+
 
 /**
 	* @brief Contains all neighboring particles of a particle
@@ -206,6 +226,11 @@ inline  utils::Vector<double, 3>& Particle::getOldF() {
 	return old_f;
 }
 
+inline  utils::Vector<double, 3>& Particle::getStaticF() {
+	return static_f;
+}
+
+
 inline  void Particle::setX(utils::Vector<double, 3> other_x) {
 	x = other_x;
 }
@@ -218,9 +243,13 @@ inline  void Particle::setF(utils::Vector<double, 3> other_f) {
 	f = other_f;
 }
 
-inline  void Particle::newF(utils::Vector<double, 3> other_f) {
+inline  void Particle::setStaticF(utils::Vector<double, 3> other_f) {
+	static_f = other_f;
+}
+
+inline  void Particle::newF() {
 	old_f = f;
-	f = other_f;
+	f = static_f;
 }
 
 inline  double Particle::getM() {

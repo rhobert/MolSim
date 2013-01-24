@@ -5,7 +5,7 @@
 #include <cassert>
 #include <iostream>
 
-#define LINKED_CELL_THREAD_COUNT 4
+#define LINKED_CELL_THREAD_COUNT 2
 
 using namespace std;
 
@@ -353,6 +353,8 @@ void LinkedCellParticleContainer::applyToHaloParticles( int boundary, void (*sin
 
 void LinkedCellParticleContainer::applyToParticlePairs( void (*pairFunction)(Particle&, Particle&) ) 
 {	
+	const double cutOffSquare = sideLength*sideLength;
+	
 	omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
 	
 	#ifdef _OPENMP
@@ -382,7 +384,7 @@ void LinkedCellParticleContainer::applyToParticlePairs( void (*pairFunction)(Par
 						
 						utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
 						
-						if ( x1_x2.L2Norm() <= sideLength )
+						if ( x1_x2.innerProduct() <= cutOffSquare )
 						{
 							pairFunction(p1,p2);
 						}
@@ -403,7 +405,7 @@ void LinkedCellParticleContainer::applyToParticlePairs( void (*pairFunction)(Par
 						
 						utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
 						
-						if ( x1_x2.L2Norm() <= sideLength )
+						if ( x1_x2.innerProduct() <= cutOffSquare )
 						{
 							pairFunction(p1,p2);
 						}
@@ -421,6 +423,8 @@ void LinkedCellParticleContainer::applyToParticlePairs( void (*pairFunction)(Par
 void LinkedCellParticleContainer::applyToPeriodicBoundaryParticlePairs( int boundary, void (*pairFunction)(Particle&, Particle) )
 {
 	assert ( boundary >= 0 && boundary < 6 );
+	
+	const double cutOffSquare = sideLength*sideLength;
 	
 	omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
 	
@@ -463,7 +467,7 @@ void LinkedCellParticleContainer::applyToPeriodicBoundaryParticlePairs( int boun
 				
 				utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
 					
-				if ( x1_x2.L2Norm() <= sideLength )
+				if ( x1_x2.innerProduct() <= cutOffSquare )
 				{
 					pairFunction(p1,p2);
 				}
@@ -497,7 +501,7 @@ void LinkedCellParticleContainer::updateContainingCells()
 					LOG4CXX_TRACE(logger, "Move particle " << p.getX().toString() << " to other cell");
 					
 					omp_set_lock ( &cells[cellId].lock );
-					cells[cellId].addParticle(p);
+					cells[cellId].particles.push_back(p);
 					omp_unset_lock ( &cells[cellId].lock );
 					
 					j = cell.particles.erase(j);

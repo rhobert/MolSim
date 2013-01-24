@@ -79,7 +79,7 @@ private:
 	int haloCellCount;
 	
 	/**
-	 * @brief Side length of the cells
+	 * @brief Side length of the cells (cutoff radius)
 	 */
 	double sideLength;
 	

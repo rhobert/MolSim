@@ -44,6 +44,10 @@ private:
 	CellList neighbours;
 	
 	/**
+	 * @brief 
+	**/
+	
+	/**
 	 * @brief Lock for access to particles
 	**/
 	omp_lock_t lock;
