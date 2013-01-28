@@ -61,6 +61,12 @@ elementFormDefault="qualified">
 		</xs:sequence>
 	</xs:complexType>
 	
+	<xs:complexType name="nonNegativeIntegerVectorList_t">
+		<xs:sequence>
+			<xs:element name="position" type="nonNegativeIntegerVector_t" minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+	
 	<xs:complexType name="dimensionBoundaries_t">
 		<xs:sequence>
 			<xs:element name="lower" type="boundary_t" />
@@ -91,6 +97,22 @@ elementFormDefault="qualified">
 		</xs:simpleContent>
 	</xs:complexType>
 	
+	<xs:complexType name="staticForce_t">
+		<xs:all>
+			<xs:element name="F" type="decimalVector_t" />
+			<xs:element name="positions" type="nonNegativeIntegerVectorList_t" />
+			<xs:element name="timeEffective" type="nonNegativeDecimal_t" minOccurs="0" />
+		</xs:all>
+	</xs:complexType>
+	
+	<xs:complexType name="membrane_t">
+		<xs:all>
+			<xs:element name="stiffnessConstant" type="positiveDecimal_t" />
+			<xs:element name="averageBondLength" type="positiveDecimal_t" />
+			<xs:element name="staticForce" type="staticForce_t" minOccurs="0" />
+		</xs:all>
+	</xs:complexType>
+	
 	<xs:complexType name="cuboid_t">
 		<xs:all>
 			<xs:element name="position" type="decimalVector_t" />
@@ -101,6 +123,7 @@ elementFormDefault="qualified">
 			<xs:element name="sigma" type="xs:decimal" />
 			<xs:element name="epsilon" type="xs:decimal" />
 			<xs:element name="type" type="xs:nonNegativeInteger" />
+			<xs:element name="membrane" type="membrane_t"  minOccurs="0" />
 		</xs:all>
 	</xs:complexType>
 	

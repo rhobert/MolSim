@@ -438,6 +438,16 @@ void LinkedCellParticleContainer::applyToPeriodicBoundaryParticlePairs( int boun
 		Cell& cell1 = *(periodicCellPairs[boundary]->at(i).first);
 		Cell& cell2 = *(periodicCellPairs[boundary]->at(i).second);
 		
+		while ( true )
+		{
+			omp_set_lock(&cell1.lock);
+			
+			if ( omp_test_lock(&cell2.lock) )
+				break;
+			
+			omp_unset_lock(&cell1.lock);
+		}
+		
 		for ( Cell::SingleList::iterator j1 = cell1.particles.begin(); j1 != cell1.particles.end(); j1++  )
 		{
 			Particle& p1 = **j1;
@@ -473,6 +483,9 @@ void LinkedCellParticleContainer::applyToPeriodicBoundaryParticlePairs( int boun
 				}
 			}
 		}
+		
+		omp_unset_lock(&cell1.lock);
+		omp_unset_lock(&cell2.lock);
 	}
 }
 
@@ -510,6 +523,7 @@ void LinkedCellParticleContainer::updateContainingCells()
 			}
 			else
 			{
+				delete &p;
 				j = cell.particles.erase(j);
 				count--;
 				LOG4CXX_DEBUG(logger, "Delete particle " << p.getX().toString() << " from outside of domain and halo");
@@ -533,6 +547,12 @@ void LinkedCellParticleContainer::deleteHaloParticles( int boundary )
 			LOG4CXX_DEBUG(logger, "Delete " << cell.size() <<  " particles from halo");
 			
 			count -= cell.size();
+			
+			for ( Cell::SingleList::iterator j = cell.particles.begin(); j != cell.particles.end(); j++ )
+			{
+				delete &(*j);
+			}
+			
 			cell.particles.clear();
 		}
 	}
@@ -540,7 +560,12 @@ void LinkedCellParticleContainer::deleteHaloParticles( int boundary )
 
 int LinkedCellParticleContainer::size() 
 {
-	return count;
+	int particleCount;
+	
+	#pragma omp critical
+	particleCount = count;
+	
+	return particleCount;
 }
 
 utils::Vector<double, 3> LinkedCellParticleContainer::getDomainSize()

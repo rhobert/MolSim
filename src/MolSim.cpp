@@ -25,15 +25,19 @@
 #include "particleContainer/LinkedCellParticleContainer.h"
 
 #include "ParticleGenerator.h"
+#include "Membrane.h"
+#include "MembraneParticle.h"
 
 #include "Thermostat.h"
 
 #include "test/TestSettings.h"
 
+#define root6of2 1.122462048
+#define root3of2 1.25992105
+
 using namespace std;
 
 /**** forward declaration of the calculation functions ****/
-
 
 /**
  * @brief Calculate the force between two particles with the gravitational potential
@@ -54,6 +58,22 @@ utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2);
  * @return Force between particles
 **/
 utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2);
+
+/**
+ * @brief Calculate and set the membrane force between this particle and its neighbours (only if the particle is a MembranParticle)
+ *
+ * @param p Particle to modfiy
+**/
+void calcMembraneForces( Particle& p );
+
+/**
+ * @brief Calculate and set the membrane force between the particle and on of his neighbours
+ *
+ * @param type type of neighbourship
+ * @param p1 Particle to modfiy
+ * @param p2 Neighbour particle
+**/
+void calcMembraneForce( int type, MembraneParticle& p1, MembraneParticle& p2 );
 
 /**
  * @brief Calcuation for the reflection boundary condition for lenard jones potential
@@ -170,6 +190,14 @@ utils::Vector<double,3> domainSize (0.0);
 **/
 utils::Vector<double,3> gravitation (0.0);
 
+template <class Type1, class Type2, class Type3>
+struct Triple
+{
+	Type1 first;
+	Type2 second;
+	Type3 third;
+};
+
 /**
  * @brief Mean velocity for Maxwell-Boltzmann distribution
 **/
@@ -199,6 +227,11 @@ int nThermostat;
  * @brief Controls use of thermostat
 **/
 bool thermostatOn = false;
+
+/**
+* @brief Controls use of membrane force calculation
+**/
+bool membraneOn = false;
 
 /**
  * @brief Boundary conditions for all boundaries
@@ -330,6 +363,8 @@ int main(int argc, char* argsv[])
 	string file_name = "";
 
 	PSE_Molekulardynamik_WS12::domain_t* domain = NULL;
+	
+	list< Triple<double, list<MembraneParticle*>*, utils::Vector<double,3> > > staticForcesList;
 
 	LOG4CXX_DEBUG(logger, "Check END_T and DELTA_T");
 
@@ -419,12 +454,71 @@ int main(int argc, char* argsv[])
 		sigma = cuboid.sigma();
 		epsilon = cuboid.epsilon();
 		type = cuboid.type();
-
+		
 		LOG4CXX_INFO(logger, "Reading in cuboid at " << position.toString() << " with velocity " << velocity.toString()
 			<< ", dimensions " << dimensions.toString() << ", mass " << mass << ", distance " << distance << ", sigma " << sigma
 			<< ", epsilon " << epsilon << " and type " << type);
-
-		generateCuboid(particles, position, velocity, dimensions, distance, mass, sigma, epsilon, type);
+		
+		if ( cuboid.membrane().present() )
+		{
+			membraneOn = true;
+			PSE_Molekulardynamik_WS12::membrane_t membrane = cuboid.membrane().get();
+			
+			double stiffnessConstant = membrane.stiffnessConstant();
+			double averageBondLength = membrane.averageBondLength();
+			list<utils::Vector<int,3> > positions;
+			list<MembraneParticle*>* positionParticles = new list<MembraneParticle*>;
+			
+			utils::Vector<double,3> F (0.0);
+			
+			if ( membrane.staticForce().present() )
+			{
+				PSE_Molekulardynamik_WS12::staticForce_t force = membrane.staticForce().get();
+					
+				F[0] = force.F().x();
+				F[1] = force.F().y();
+				F[2] = force.F().z();
+				
+				for ( PSE_Molekulardynamik_WS12::nonNegativeIntegerVectorList_t::position_const_iterator i = force.positions().position().begin();
+					i != force.positions().position().end();
+					i++ )
+				{
+					utils::Vector<int,3> position;
+					
+					position[0] = i->x();
+					position[1] = i->y();
+					position[2] = i->z();
+					
+					positions.push_back( position );
+				}
+				
+				if ( force.timeEffective().present() )
+				{
+					Triple<double, list<MembraneParticle*>*, utils::Vector<double,3> > staticForceReset;
+					
+					staticForceReset.first = force.timeEffective().get();
+					staticForceReset.second = positionParticles;
+					staticForceReset.third = -1.0*F;
+					
+					staticForcesList.push_back( staticForceReset );
+				}
+			}
+			
+			generateCuboidMembrane(particles, position, velocity, dimensions, distance, mass, sigma, epsilon, type, stiffnessConstant, averageBondLength, positions, *positionParticles);
+			
+			for ( list<MembraneParticle*>::iterator i = positionParticles->begin();
+				 i != positionParticles->end();
+				 i++ )
+			{
+				(*i)->setStaticF(F);	
+			}
+			
+			LOG4CXX_INFO(logger, "Cuboid is membrane with stiffness constant " << stiffnessConstant << " and average bond length " << averageBondLength)
+		}
+		else
+		{
+			generateCuboid(particles, position, velocity, dimensions, distance, mass, sigma, epsilon, type);
+		}
 	}
 
 	LOG4CXX_DEBUG(logger, "Reading in spheres");
@@ -650,7 +744,28 @@ int main(int argc, char* argsv[])
 		{
 			thermostat->apply( iteration );
 		}
-
+		
+		// check if we should reset static forces
+		for ( list< Triple<double, list<MembraneParticle*>*, utils::Vector<double,3> > >::iterator i = staticForcesList.begin();
+			 i != staticForcesList.end();
+			 i++ )
+		{
+			if ( i->first <= current_time )
+			{
+				for ( list<MembraneParticle*>::iterator j = i->second->begin();
+					 j != i->second->end();
+					 j++ )
+				{
+					MembraneParticle& mp = **j;
+					
+					mp.setStaticF( mp.getStaticF() + i->third );
+				}
+				
+				LOG4CXX_DEBUG(logger, "Reset static forces");
+				
+				i = staticForcesList.erase(i);
+			}
+		}
 		
 		if (writeFrequency != 0 && iteration % writeFrequency == 0) {
 			plotParticles(iteration);
@@ -687,6 +802,9 @@ int main(int argc, char* argsv[])
 		
 		// calculate new f
 		particleContainer->applyToParticlePairs ( calculateF );
+		
+		if ( membraneOn )
+			particleContainer->applyToSingleParticles ( calcMembraneForces );
 		
 //		PAPI_start_counters(events, NUM_EVENTS);
 		
@@ -746,8 +864,6 @@ int main(int argc, char* argsv[])
 	return 0;
 }
 
-
-
 utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2)
 {
 	utils::Vector<double, 3> x1_x2;
@@ -761,7 +877,7 @@ utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2)
 
 	return F1_F2;
 }
-
+/*
 utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
 {
 	double sigma;
@@ -798,43 +914,119 @@ utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
 
 	return F1_F2;
 }
+*/
+
+utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
+{
+	//difference between coordinates of p1 and p2
+	utils::Vector<double, 3> x1_x2 = p2.getX() - p1.getX();
+	double squareSum = x1_x2.innerProduct();
+	
+	if ( membraneOn )
+	{
+		MembraneParticle* mp1 = MembraneParticle::castMembraneParticle(p1);
+	
+		if ( mp1 != NULL )
+		{
+			MembraneParticle* mp2 = MembraneParticle::castMembraneParticle(p2);
+			
+			if ( mp2 != NULL )
+			{
+				if ( MembraneParticle::sameMembrane(mp1,mp2) )
+				{
+					double d = root6of2 * p1.getSigma();
+					d = d*d;
+					
+					if ( squareSum > d || MembraneParticle::neighboured(mp1,mp2) )
+						return utils::Vector<double, 3>(0.0);
+				}
+			}
+		}
+	}
+	
+	double sigma;
+	double epsilon;
+	
+	if ( p1.getSigma() == p2.getSigma() )
+		sigma = p1.getSigma();
+	else
+		sigma = ( p1.getSigma() + p2.getSigma() ) / 2.0;
+	
+	if ( p1.getEpsilon() == p2.getEpsilon() )
+		epsilon = p1.getEpsilon();
+	else
+		epsilon = sqrt( p1.getEpsilon() * p2.getEpsilon() );
+		
+	
+	double sigmaExp3 = sigma*sigma*sigma;
+	double sigmaExp6 = sigmaExp3 * sigmaExp3;
+	
+	double squareSumExp_1 = 1 / squareSum;
+	double squareSumExp_3 = squareSumExp_1 * squareSumExp_1 * squareSumExp_1;
+	
+	double temp = sigmaExp6 * squareSumExp_3;
+	
+	//force between p1 and p2
+	utils::Vector<double, 3> F1_F2 = 
+		24.0 * epsilon * temp * squareSumExp_1 * 
+		(1.0 - 2.0 * temp) * 
+		x1_x2
+	;
+
+	return F1_F2;
+}
+
+void calcMembraneForces( Particle& p )
+{
+	MembraneParticle* mp = MembraneParticle::castMembraneParticle(p);
+	
+	if (mp != NULL)
+	{
+		mp->applyToNeighbours( calcMembraneForce );
+	}
+}
+
+void calcMembraneForce( int type, MembraneParticle& p1, MembraneParticle& p2 )
+{
+	utils::Vector<double, 3> x1_x2 = p2.getX() - p1.getX();
+	utils::Vector<double, 3> F1_F2 = p1.getStiffnessConstant() * ( x1_x2.L2Norm() - p1.getAverageBondLengthTyped(type) ) / x1_x2.L2Norm() * x1_x2;
+
+	//sum forces
+	p1.setF( p1.getF() + F1_F2 );
+}
 
 void calcReflection (int cBoundary, Particle& p)
 {
 	utils::Vector<double,3> x;
-	utils::Vector<double,3> x1_x2;
-	double d = pow(2,1.0/6.0) * p.getSigma();
+	double d = root6of2 * p.getSigma();
 	int boundaryDimension = cBoundary / 2;
 	
 //	LOG4CXX_TRACE(logger, "Reflection is checked for " << p.getX().toString() );
 		
 	if ( domainSize[boundaryDimension] != 0 )
 	{
-		x = p.getX();
-		
 		if ( boundary[cBoundary] == PSE_Molekulardynamik_WS12::boundary_t::reflecting )
 		{
-			x[boundaryDimension] = 0;
-			x1_x2 = p.getX() - x;
-			
-			if ( x1_x2.L2Norm() <= d  )
+			if ( p.getX()[boundaryDimension] <= d  )
 			{
+				x = p.getX();
+				x[boundaryDimension] = 0;
+				
 				LOG4CXX_TRACE(logger, "CounterParticle for " << p.getX().toString() << " is " << x.toString() );
-				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
+				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM(), p.getSigma(), p.getEpsilon(), p.getType() );
 				calculateF( p, counterParticle );
 			}
 		}
 		
 		if ( boundary[cBoundary] == PSE_Molekulardynamik_WS12::boundary_t::reflecting )
 		{
-		
-			x[boundaryDimension] = domainSize[boundaryDimension];
-			x1_x2 = p.getX() - x;
-
-			if ( x1_x2.L2Norm() <= d  )
+			if ( domainSize[boundaryDimension] - p.getX()[boundaryDimension] <= d  )
 			{
+				x = p.getX();
+				x[boundaryDimension] = domainSize[boundaryDimension];
+				
 				LOG4CXX_TRACE(logger, "CounterParticle " << p.getX().toString() << " is " << x.toString() );
-				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM() );
+				Particle counterParticle ( x, utils::Vector<double,3>(0.0), p.getM(), p.getSigma(), p.getEpsilon(), p.getType() );
 				calculateF( p, counterParticle );	
 			}
 		}

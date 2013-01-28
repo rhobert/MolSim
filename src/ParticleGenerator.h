@@ -3,6 +3,7 @@
 
 #include "utils/Vector.h"
 #include "Particle.h"
+#include "MembraneParticle.h"
 #include <list>
 
 
@@ -28,6 +29,37 @@ void generateCuboid(
 	double epsilon = PARTCLE_EPSILON,
 	int type = PARTCLE_TYPE
 	
+);
+
+/**
+* implements the functionality to create a membran where particles are arranged in a 3d rectangular grid
+* 
+* @param particles List of particles to append the generated particles
+* @param x the coordinate of the lower left front-side corner
+* @param v the initial velocity of the particles
+* @param N number of particles per dimension
+* @param h the distance of the particles (mesh width of the grid)
+* @param m the mass of the particles
+* @param stiffnessConstant the stiffness constant of particle pair
+* @param averageBondLength the average bond length of a particle pair
+* @param positions list of grid positions on, which particles are additionally stored
+* @param positionParticles list of a additionally stored particles which a picked via the position list
+*/
+
+void generateCuboidMembrane(
+	std::list<Particle*> &particles, 
+	utils::Vector<double, 3> x,
+	utils::Vector<double, 3> v, 
+	utils::Vector<int, 3> N,
+	double h, 
+	double m,
+	double sigma,
+	double epsilon,
+	int type,
+	double stiffnessConstant,
+	double averageBondLength,
+	std::list<utils::Vector<int,3> >& positions,
+	std::list<MembraneParticle*>& positionParticles
 );
 
 /**

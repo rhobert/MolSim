@@ -344,6 +344,28 @@ namespace PSE_Molekulardynamik_WS12
   }
 
 
+  // nonNegativeIntegerVectorList_t
+  // 
+
+  const nonNegativeIntegerVectorList_t::position_sequence& nonNegativeIntegerVectorList_t::
+  position () const
+  {
+    return this->position_;
+  }
+
+  nonNegativeIntegerVectorList_t::position_sequence& nonNegativeIntegerVectorList_t::
+  position ()
+  {
+    return this->position_;
+  }
+
+  void nonNegativeIntegerVectorList_t::
+  position (const position_sequence& s)
+  {
+    this->position_ = s;
+  }
+
+
   // dimensionBoundaries_t
   // 
 
@@ -512,6 +534,170 @@ namespace PSE_Molekulardynamik_WS12
   type (::std::auto_ptr< type_type > x)
   {
     this->type_.set (x);
+  }
+
+
+  // staticForce_t
+  // 
+
+  const staticForce_t::F_type& staticForce_t::
+  F () const
+  {
+    return this->F_.get ();
+  }
+
+  staticForce_t::F_type& staticForce_t::
+  F ()
+  {
+    return this->F_.get ();
+  }
+
+  void staticForce_t::
+  F (const F_type& x)
+  {
+    this->F_.set (x);
+  }
+
+  void staticForce_t::
+  F (::std::auto_ptr< F_type > x)
+  {
+    this->F_.set (x);
+  }
+
+  const staticForce_t::positions_type& staticForce_t::
+  positions () const
+  {
+    return this->positions_.get ();
+  }
+
+  staticForce_t::positions_type& staticForce_t::
+  positions ()
+  {
+    return this->positions_.get ();
+  }
+
+  void staticForce_t::
+  positions (const positions_type& x)
+  {
+    this->positions_.set (x);
+  }
+
+  void staticForce_t::
+  positions (::std::auto_ptr< positions_type > x)
+  {
+    this->positions_.set (x);
+  }
+
+  const staticForce_t::timeEffective_optional& staticForce_t::
+  timeEffective () const
+  {
+    return this->timeEffective_;
+  }
+
+  staticForce_t::timeEffective_optional& staticForce_t::
+  timeEffective ()
+  {
+    return this->timeEffective_;
+  }
+
+  void staticForce_t::
+  timeEffective (const timeEffective_type& x)
+  {
+    this->timeEffective_.set (x);
+  }
+
+  void staticForce_t::
+  timeEffective (const timeEffective_optional& x)
+  {
+    this->timeEffective_ = x;
+  }
+
+  void staticForce_t::
+  timeEffective (::std::auto_ptr< timeEffective_type > x)
+  {
+    this->timeEffective_.set (x);
+  }
+
+
+  // membrane_t
+  // 
+
+  const membrane_t::stiffnessConstant_type& membrane_t::
+  stiffnessConstant () const
+  {
+    return this->stiffnessConstant_.get ();
+  }
+
+  membrane_t::stiffnessConstant_type& membrane_t::
+  stiffnessConstant ()
+  {
+    return this->stiffnessConstant_.get ();
+  }
+
+  void membrane_t::
+  stiffnessConstant (const stiffnessConstant_type& x)
+  {
+    this->stiffnessConstant_.set (x);
+  }
+
+  void membrane_t::
+  stiffnessConstant (::std::auto_ptr< stiffnessConstant_type > x)
+  {
+    this->stiffnessConstant_.set (x);
+  }
+
+  const membrane_t::averageBondLength_type& membrane_t::
+  averageBondLength () const
+  {
+    return this->averageBondLength_.get ();
+  }
+
+  membrane_t::averageBondLength_type& membrane_t::
+  averageBondLength ()
+  {
+    return this->averageBondLength_.get ();
+  }
+
+  void membrane_t::
+  averageBondLength (const averageBondLength_type& x)
+  {
+    this->averageBondLength_.set (x);
+  }
+
+  void membrane_t::
+  averageBondLength (::std::auto_ptr< averageBondLength_type > x)
+  {
+    this->averageBondLength_.set (x);
+  }
+
+  const membrane_t::staticForce_optional& membrane_t::
+  staticForce () const
+  {
+    return this->staticForce_;
+  }
+
+  membrane_t::staticForce_optional& membrane_t::
+  staticForce ()
+  {
+    return this->staticForce_;
+  }
+
+  void membrane_t::
+  staticForce (const staticForce_type& x)
+  {
+    this->staticForce_.set (x);
+  }
+
+  void membrane_t::
+  staticForce (const staticForce_optional& x)
+  {
+    this->staticForce_ = x;
+  }
+
+  void membrane_t::
+  staticForce (::std::auto_ptr< staticForce_type > x)
+  {
+    this->staticForce_.set (x);
   }
 
 
@@ -690,6 +876,36 @@ namespace PSE_Molekulardynamik_WS12
   type (const type_type& x)
   {
     this->type_.set (x);
+  }
+
+  const cuboid_t::membrane_optional& cuboid_t::
+  membrane () const
+  {
+    return this->membrane_;
+  }
+
+  cuboid_t::membrane_optional& cuboid_t::
+  membrane ()
+  {
+    return this->membrane_;
+  }
+
+  void cuboid_t::
+  membrane (const membrane_type& x)
+  {
+    this->membrane_.set (x);
+  }
+
+  void cuboid_t::
+  membrane (const membrane_optional& x)
+  {
+    this->membrane_ = x;
+  }
+
+  void cuboid_t::
+  membrane (::std::auto_ptr< membrane_type > x)
+  {
+    this->membrane_.set (x);
   }
 
 
@@ -2224,6 +2440,76 @@ namespace PSE_Molekulardynamik_WS12
   {
   }
 
+  // nonNegativeIntegerVectorList_t
+  //
+
+  nonNegativeIntegerVectorList_t::
+  nonNegativeIntegerVectorList_t ()
+  : ::xml_schema::type (),
+    position_ (::xml_schema::flags (), this)
+  {
+  }
+
+  nonNegativeIntegerVectorList_t::
+  nonNegativeIntegerVectorList_t (const nonNegativeIntegerVectorList_t& x,
+                                  ::xml_schema::flags f,
+                                  ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    position_ (x.position_, f, this)
+  {
+  }
+
+  nonNegativeIntegerVectorList_t::
+  nonNegativeIntegerVectorList_t (const ::xercesc::DOMElement& e,
+                                  ::xml_schema::flags f,
+                                  ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    position_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
+  }
+
+  void nonNegativeIntegerVectorList_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // position
+      //
+      if (n.name () == "position" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< position_type > r (
+          position_traits::create (i, f, this));
+
+        this->position_.push_back (r);
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  nonNegativeIntegerVectorList_t* nonNegativeIntegerVectorList_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class nonNegativeIntegerVectorList_t (*this, f, c);
+  }
+
+  nonNegativeIntegerVectorList_t::
+  ~nonNegativeIntegerVectorList_t ()
+  {
+  }
+
   // dimensionBoundaries_t
   //
 
@@ -2600,6 +2886,260 @@ namespace PSE_Molekulardynamik_WS12
   {
   }
 
+  // staticForce_t
+  //
+
+  staticForce_t::
+  staticForce_t (const F_type& F,
+                 const positions_type& positions)
+  : ::xml_schema::type (),
+    F_ (F, ::xml_schema::flags (), this),
+    positions_ (positions, ::xml_schema::flags (), this),
+    timeEffective_ (::xml_schema::flags (), this)
+  {
+  }
+
+  staticForce_t::
+  staticForce_t (::std::auto_ptr< F_type >& F,
+                 ::std::auto_ptr< positions_type >& positions)
+  : ::xml_schema::type (),
+    F_ (F, ::xml_schema::flags (), this),
+    positions_ (positions, ::xml_schema::flags (), this),
+    timeEffective_ (::xml_schema::flags (), this)
+  {
+  }
+
+  staticForce_t::
+  staticForce_t (const staticForce_t& x,
+                 ::xml_schema::flags f,
+                 ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    F_ (x.F_, f, this),
+    positions_ (x.positions_, f, this),
+    timeEffective_ (x.timeEffective_, f, this)
+  {
+  }
+
+  staticForce_t::
+  staticForce_t (const ::xercesc::DOMElement& e,
+                 ::xml_schema::flags f,
+                 ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    F_ (f, this),
+    positions_ (f, this),
+    timeEffective_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
+  }
+
+  void staticForce_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // F
+      //
+      if (n.name () == "F" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< F_type > r (
+          F_traits::create (i, f, this));
+
+        if (!F_.present ())
+        {
+          this->F_.set (r);
+          continue;
+        }
+      }
+
+      // positions
+      //
+      if (n.name () == "positions" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< positions_type > r (
+          positions_traits::create (i, f, this));
+
+        if (!positions_.present ())
+        {
+          this->positions_.set (r);
+          continue;
+        }
+      }
+
+      // timeEffective
+      //
+      if (n.name () == "timeEffective" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< timeEffective_type > r (
+          timeEffective_traits::create (i, f, this));
+
+        if (!this->timeEffective_)
+        {
+          this->timeEffective_.set (r);
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (!F_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "F",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!positions_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "positions",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+  }
+
+  staticForce_t* staticForce_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class staticForce_t (*this, f, c);
+  }
+
+  staticForce_t::
+  ~staticForce_t ()
+  {
+  }
+
+  // membrane_t
+  //
+
+  membrane_t::
+  membrane_t (const stiffnessConstant_type& stiffnessConstant,
+              const averageBondLength_type& averageBondLength)
+  : ::xml_schema::type (),
+    stiffnessConstant_ (stiffnessConstant, ::xml_schema::flags (), this),
+    averageBondLength_ (averageBondLength, ::xml_schema::flags (), this),
+    staticForce_ (::xml_schema::flags (), this)
+  {
+  }
+
+  membrane_t::
+  membrane_t (const membrane_t& x,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    stiffnessConstant_ (x.stiffnessConstant_, f, this),
+    averageBondLength_ (x.averageBondLength_, f, this),
+    staticForce_ (x.staticForce_, f, this)
+  {
+  }
+
+  membrane_t::
+  membrane_t (const ::xercesc::DOMElement& e,
+              ::xml_schema::flags f,
+              ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    stiffnessConstant_ (f, this),
+    averageBondLength_ (f, this),
+    staticForce_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
+  }
+
+  void membrane_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // stiffnessConstant
+      //
+      if (n.name () == "stiffnessConstant" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< stiffnessConstant_type > r (
+          stiffnessConstant_traits::create (i, f, this));
+
+        if (!stiffnessConstant_.present ())
+        {
+          this->stiffnessConstant_.set (r);
+          continue;
+        }
+      }
+
+      // averageBondLength
+      //
+      if (n.name () == "averageBondLength" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< averageBondLength_type > r (
+          averageBondLength_traits::create (i, f, this));
+
+        if (!averageBondLength_.present ())
+        {
+          this->averageBondLength_.set (r);
+          continue;
+        }
+      }
+
+      // staticForce
+      //
+      if (n.name () == "staticForce" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< staticForce_type > r (
+          staticForce_traits::create (i, f, this));
+
+        if (!this->staticForce_)
+        {
+          this->staticForce_.set (r);
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (!stiffnessConstant_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "stiffnessConstant",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+
+    if (!averageBondLength_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "averageBondLength",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+  }
+
+  membrane_t* membrane_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class membrane_t (*this, f, c);
+  }
+
+  membrane_t::
+  ~membrane_t ()
+  {
+  }
+
   // cuboid_t
   //
 
@@ -2620,7 +3160,8 @@ namespace PSE_Molekulardynamik_WS12
     distance_ (distance, ::xml_schema::flags (), this),
     sigma_ (sigma, ::xml_schema::flags (), this),
     epsilon_ (epsilon, ::xml_schema::flags (), this),
-    type_ (type, ::xml_schema::flags (), this)
+    type_ (type, ::xml_schema::flags (), this),
+    membrane_ (::xml_schema::flags (), this)
   {
   }
 
@@ -2641,7 +3182,8 @@ namespace PSE_Molekulardynamik_WS12
     distance_ (distance, ::xml_schema::flags (), this),
     sigma_ (sigma, ::xml_schema::flags (), this),
     epsilon_ (epsilon, ::xml_schema::flags (), this),
-    type_ (type, ::xml_schema::flags (), this)
+    type_ (type, ::xml_schema::flags (), this),
+    membrane_ (::xml_schema::flags (), this)
   {
   }
 
@@ -2657,7 +3199,8 @@ namespace PSE_Molekulardynamik_WS12
     distance_ (x.distance_, f, this),
     sigma_ (x.sigma_, f, this),
     epsilon_ (x.epsilon_, f, this),
-    type_ (x.type_, f, this)
+    type_ (x.type_, f, this),
+    membrane_ (x.membrane_, f, this)
   {
   }
 
@@ -2673,7 +3216,8 @@ namespace PSE_Molekulardynamik_WS12
     distance_ (f, this),
     sigma_ (f, this),
     epsilon_ (f, this),
-    type_ (f, this)
+    type_ (f, this),
+    membrane_ (f, this)
   {
     if ((f & ::xml_schema::flags::base) == 0)
     {
@@ -2791,6 +3335,20 @@ namespace PSE_Molekulardynamik_WS12
         if (!type_.present ())
         {
           this->type_.set (type_traits::create (i, f, this));
+          continue;
+        }
+      }
+
+      // membrane
+      //
+      if (n.name () == "membrane" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< membrane_type > r (
+          membrane_traits::create (i, f, this));
+
+        if (!this->membrane_)
+        {
+          this->membrane_.set (r);
           continue;
         }
       }
