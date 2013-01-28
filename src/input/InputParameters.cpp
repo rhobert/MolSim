@@ -1139,48 +1139,125 @@ namespace PSE_Molekulardynamik_WS12
   }
 
 
+  // smoothedLennardJones_t
+  // 
+
+  const smoothedLennardJones_t::rl_type& smoothedLennardJones_t::
+  rl () const
+  {
+    return this->rl_.get ();
+  }
+
+  smoothedLennardJones_t::rl_type& smoothedLennardJones_t::
+  rl ()
+  {
+    return this->rl_.get ();
+  }
+
+  void smoothedLennardJones_t::
+  rl (const rl_type& x)
+  {
+    this->rl_.set (x);
+  }
+
+  void smoothedLennardJones_t::
+  rl (::std::auto_ptr< rl_type > x)
+  {
+    this->rl_.set (x);
+  }
+
+
   // potential_t
   // 
 
-  potential_t::
-  potential_t (value v)
-  : ::xml_schema::string (_xsd_potential_t_literals_[v])
+  const potential_t::gravitational_optional& potential_t::
+  gravitational () const
   {
+    return this->gravitational_;
   }
 
-  potential_t::
-  potential_t (const char* v)
-  : ::xml_schema::string (v)
+  potential_t::gravitational_optional& potential_t::
+  gravitational ()
   {
+    return this->gravitational_;
   }
 
-  potential_t::
-  potential_t (const ::std::string& v)
-  : ::xml_schema::string (v)
+  void potential_t::
+  gravitational (const gravitational_type& x)
   {
+    this->gravitational_.set (x);
   }
 
-  potential_t::
-  potential_t (const ::xml_schema::string& v)
-  : ::xml_schema::string (v)
+  void potential_t::
+  gravitational (const gravitational_optional& x)
   {
+    this->gravitational_ = x;
   }
 
-  potential_t::
-  potential_t (const potential_t& v,
-               ::xml_schema::flags f,
-               ::xml_schema::container* c)
-  : ::xml_schema::string (v, f, c)
+  void potential_t::
+  gravitational (::std::auto_ptr< gravitational_type > x)
   {
+    this->gravitational_.set (x);
   }
 
-  potential_t& potential_t::
-  operator= (value v)
+  const potential_t::lennardJones_optional& potential_t::
+  lennardJones () const
   {
-    static_cast< ::xml_schema::string& > (*this) = 
-    ::xml_schema::string (_xsd_potential_t_literals_[v]);
+    return this->lennardJones_;
+  }
 
-    return *this;
+  potential_t::lennardJones_optional& potential_t::
+  lennardJones ()
+  {
+    return this->lennardJones_;
+  }
+
+  void potential_t::
+  lennardJones (const lennardJones_type& x)
+  {
+    this->lennardJones_.set (x);
+  }
+
+  void potential_t::
+  lennardJones (const lennardJones_optional& x)
+  {
+    this->lennardJones_ = x;
+  }
+
+  void potential_t::
+  lennardJones (::std::auto_ptr< lennardJones_type > x)
+  {
+    this->lennardJones_.set (x);
+  }
+
+  const potential_t::smoothedLennardJones_optional& potential_t::
+  smoothedLennardJones () const
+  {
+    return this->smoothedLennardJones_;
+  }
+
+  potential_t::smoothedLennardJones_optional& potential_t::
+  smoothedLennardJones ()
+  {
+    return this->smoothedLennardJones_;
+  }
+
+  void potential_t::
+  smoothedLennardJones (const smoothedLennardJones_type& x)
+  {
+    this->smoothedLennardJones_.set (x);
+  }
+
+  void potential_t::
+  smoothedLennardJones (const smoothedLennardJones_optional& x)
+  {
+    this->smoothedLennardJones_ = x;
+  }
+
+  void potential_t::
+  smoothedLennardJones (::std::auto_ptr< smoothedLennardJones_type > x)
+  {
+    this->smoothedLennardJones_.set (x);
   }
 
 
@@ -3787,35 +3864,179 @@ namespace PSE_Molekulardynamik_WS12
   {
   }
 
+  // smoothedLennardJones_t
+  //
+
+  smoothedLennardJones_t::
+  smoothedLennardJones_t (const rl_type& rl)
+  : ::xml_schema::type (),
+    rl_ (rl, ::xml_schema::flags (), this)
+  {
+  }
+
+  smoothedLennardJones_t::
+  smoothedLennardJones_t (const smoothedLennardJones_t& x,
+                          ::xml_schema::flags f,
+                          ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    rl_ (x.rl_, f, this)
+  {
+  }
+
+  smoothedLennardJones_t::
+  smoothedLennardJones_t (const ::xercesc::DOMElement& e,
+                          ::xml_schema::flags f,
+                          ::xml_schema::container* c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    rl_ (f, this)
+  {
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
+  }
+
+  void smoothedLennardJones_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
+  {
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
+
+      // rl
+      //
+      if (n.name () == "rl" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< rl_type > r (
+          rl_traits::create (i, f, this));
+
+        if (!rl_.present ())
+        {
+          this->rl_.set (r);
+          continue;
+        }
+      }
+
+      break;
+    }
+
+    if (!rl_.present ())
+    {
+      throw ::xsd::cxx::tree::expected_element< char > (
+        "rl",
+        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+    }
+  }
+
+  smoothedLennardJones_t* smoothedLennardJones_t::
+  _clone (::xml_schema::flags f,
+          ::xml_schema::container* c) const
+  {
+    return new class smoothedLennardJones_t (*this, f, c);
+  }
+
+  smoothedLennardJones_t::
+  ~smoothedLennardJones_t ()
+  {
+  }
+
   // potential_t
   //
+
+  potential_t::
+  potential_t ()
+  : ::xml_schema::type (),
+    gravitational_ (::xml_schema::flags (), this),
+    lennardJones_ (::xml_schema::flags (), this),
+    smoothedLennardJones_ (::xml_schema::flags (), this)
+  {
+  }
+
+  potential_t::
+  potential_t (const potential_t& x,
+               ::xml_schema::flags f,
+               ::xml_schema::container* c)
+  : ::xml_schema::type (x, f, c),
+    gravitational_ (x.gravitational_, f, this),
+    lennardJones_ (x.lennardJones_, f, this),
+    smoothedLennardJones_ (x.smoothedLennardJones_, f, this)
+  {
+  }
 
   potential_t::
   potential_t (const ::xercesc::DOMElement& e,
                ::xml_schema::flags f,
                ::xml_schema::container* c)
-  : ::xml_schema::string (e, f, c)
+  : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
+    gravitational_ (f, this),
+    lennardJones_ (f, this),
+    smoothedLennardJones_ (f, this)
   {
-    _xsd_potential_t_convert ();
+    if ((f & ::xml_schema::flags::base) == 0)
+    {
+      ::xsd::cxx::xml::dom::parser< char > p (e, true, false);
+      this->parse (p, f);
+    }
   }
 
-  potential_t::
-  potential_t (const ::xercesc::DOMAttr& a,
-               ::xml_schema::flags f,
-               ::xml_schema::container* c)
-  : ::xml_schema::string (a, f, c)
+  void potential_t::
+  parse (::xsd::cxx::xml::dom::parser< char >& p,
+         ::xml_schema::flags f)
   {
-    _xsd_potential_t_convert ();
-  }
+    for (; p.more_elements (); p.next_element ())
+    {
+      const ::xercesc::DOMElement& i (p.cur_element ());
+      const ::xsd::cxx::xml::qualified_name< char > n (
+        ::xsd::cxx::xml::dom::name< char > (i));
 
-  potential_t::
-  potential_t (const ::std::string& s,
-               const ::xercesc::DOMElement* e,
-               ::xml_schema::flags f,
-               ::xml_schema::container* c)
-  : ::xml_schema::string (s, e, f, c)
-  {
-    _xsd_potential_t_convert ();
+      // gravitational
+      //
+      if (n.name () == "gravitational" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< gravitational_type > r (
+          gravitational_traits::create (i, f, this));
+
+        if (!this->gravitational_)
+        {
+          this->gravitational_.set (r);
+          continue;
+        }
+      }
+
+      // lennardJones
+      //
+      if (n.name () == "lennardJones" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< lennardJones_type > r (
+          lennardJones_traits::create (i, f, this));
+
+        if (!this->lennardJones_)
+        {
+          this->lennardJones_.set (r);
+          continue;
+        }
+      }
+
+      // smoothedLennardJones
+      //
+      if (n.name () == "smoothedLennardJones" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< smoothedLennardJones_type > r (
+          smoothedLennardJones_traits::create (i, f, this));
+
+        if (!this->smoothedLennardJones_)
+        {
+          this->smoothedLennardJones_.set (r);
+          continue;
+        }
+      }
+
+      break;
+    }
   }
 
   potential_t* potential_t::
@@ -3825,37 +4046,10 @@ namespace PSE_Molekulardynamik_WS12
     return new class potential_t (*this, f, c);
   }
 
-  potential_t::value potential_t::
-  _xsd_potential_t_convert () const
+  potential_t::
+  ~potential_t ()
   {
-    ::xsd::cxx::tree::enum_comparator< char > c (_xsd_potential_t_literals_);
-    const value* i (::std::lower_bound (
-                      _xsd_potential_t_indexes_,
-                      _xsd_potential_t_indexes_ + 2,
-                      *this,
-                      c));
-
-    if (i == _xsd_potential_t_indexes_ + 2 || _xsd_potential_t_literals_[*i] != *this)
-    {
-      throw ::xsd::cxx::tree::unexpected_enumerator < char > (*this);
-    }
-
-    return *i;
   }
-
-  const char* const potential_t::
-  _xsd_potential_t_literals_[2] =
-  {
-    "gravitational",
-    "lenard jones"
-  };
-
-  const potential_t::value potential_t::
-  _xsd_potential_t_indexes_[2] =
-  {
-    ::PSE_Molekulardynamik_WS12::potential_t::gravitational,
-    ::PSE_Molekulardynamik_WS12::potential_t::lenard_jones
-  };
 
   // boundary_t
   //
@@ -4227,7 +4421,7 @@ namespace PSE_Molekulardynamik_WS12
   simulation_t (::std::auto_ptr< inputs_type >& inputs,
                 const t_end_type& t_end,
                 const delta_t_type& delta_t,
-                const potential_type& potential,
+                ::std::auto_ptr< potential_type >& potential,
                 const dimensionCount_type& dimensionCount)
   : ::xml_schema::type (),
     output_ (::xml_schema::flags (), this),

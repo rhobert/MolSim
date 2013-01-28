@@ -50,14 +50,24 @@ using namespace std;
 utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2);
 
 /**
- * @brief Calculate the force between two particles with the Lenard-Jones potential
+ * @brief Calculate the force between two particles with the Lennard-Jones potential
  *
  * @param p1 First particle
  * @param p2 Second particle
  *
  * @return Force between particles
 **/
-utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2);
+utils::Vector<double, 3> lennardJonesPotential(Particle& p1, Particle& p2);
+
+/**
+ * @brief Calculate the force between two particles with the smoothed Lennard-Jones potential
+ *
+ * @param p1 First particle
+ * @param p2 Second particle
+ *
+ * @return Force between particles
+**/
+utils::Vector<double, 3> smoothedLennardJonesPotential(Particle& p1, Particle& p2);
 
 /**
  * @brief Calculate and set the membrane force between this particle and its neighbours (only if the particle is a MembranParticle)
@@ -76,7 +86,7 @@ void calcMembraneForces( Particle& p );
 void calcMembraneForce( int type, MembraneParticle& p1, MembraneParticle& p2 );
 
 /**
- * @brief Calcuation for the reflection boundary condition for lenard jones potential
+ * @brief Calcuation for the reflection boundary condition for lennard jones potential
  *
  * @param boundary Boundary on which boundary conditions are applied
  * @param p Particle to reflect
@@ -198,6 +208,13 @@ struct Triple
 	Type3 third;
 };
 
+struct SmoothedLennardJonesPotentialParameter
+{
+	double cutoff;
+	double cutoff3_rl;
+	double cutoff_rl_exp3;
+} sLJparamter;
+
 /**
  * @brief Mean velocity for Maxwell-Boltzmann distribution
 **/
@@ -212,6 +229,11 @@ int dimensionCount;
  * @brief Cutoff-radius for force calulation
 **/
 double cutoff = 0;
+
+/**
+ * @brief Parameter for smoothed Lennard-Jones potential
+**/ 
+double r_l = 0;
 
 /**
  * @brief Thermostat for temperature regulation
@@ -645,48 +667,58 @@ int main(int argc, char* argsv[])
 		LOG4CXX_INFO(logger, "Gravitation is set to " << gravitation.toString());
 	}
 	
-	LOG4CXX_INFO(logger, "Set potential for force calulation to " << simulation->potential() );
-
-	// Check potentialName and set force calculation
-	if ( simulation->potential() == PSE_Molekulardynamik_WS12::potential_t::gravitational )
+	LOG4CXX_DEBUG(logger, "Detect if parameters for Thermostat are specified");
+	
+	if ( simulation->thermostat().present() )
 	{
-		forceCalc = gravitationalPotential;
-	}
-	else if ( simulation->potential() == PSE_Molekulardynamik_WS12::potential_t::lenard_jones )
-	{
-		forceCalc = lenardJonesPotential;
-
-		LOG4CXX_DEBUG(logger, "Detect if parameters for Thermostat are specified");
-
-		if ( simulation->thermostat().present() )
-		{
-			double initialT = simulation->thermostat().get().initialT();
-			
+		double initialT = simulation->thermostat().get().initialT();
+		
 //			double targetT = simulation->thermostat().get().targetT();
 //			double diffT = simulation->thermostat().get().diffT();
 //			int nMax = simulation->thermostat().get().nMax();
 //			nThermostat = simulation->thermostat().get().nThermostat();
 
-			thermostatOn = true;
+		thermostatOn = true;
 
-			LOG4CXX_DEBUG(logger, "Parameters for Thermostat are specified");
+		LOG4CXX_DEBUG(logger, "Parameters for Thermostat are specified");
 
-			thermostat = new Thermostat(*particleContainer, initialT, dimensionCount);
-			
-			if ( simulation->thermostat().get().frequency().present() )
-			{
-				int regulationFrequency = simulation->thermostat().get().frequency().get();
-				
-				thermostat->setFrequency( regulationFrequency );
-				LOG4CXX_DEBUG(logger, "Regulation frequency for Thermostat is " << regulationFrequency );
-			}
-			
-			LOG4CXX_INFO(logger, "Superpose velocity of particles to get initial temperature with temperature " << initialT << " in " << dimensionCount << " dimensions");
-		}
-		else
+		thermostat = new Thermostat(*particleContainer, initialT, dimensionCount);
+		
+		if ( simulation->thermostat().get().frequency().present() )
 		{
-			LOG4CXX_DEBUG(logger, "No parameters for Brownian Motion or Thermostat are specified");
+			int regulationFrequency = simulation->thermostat().get().frequency().get();
+			
+			thermostat->setFrequency( regulationFrequency );
+			LOG4CXX_DEBUG(logger, "Regulation frequency for Thermostat is " << regulationFrequency );
 		}
+		
+		LOG4CXX_INFO(logger, "Superpose velocity of particles to get initial temperature with temperature " << initialT << " in " << dimensionCount << " dimensions");
+	}
+	else
+	{
+		LOG4CXX_DEBUG(logger, "No parameters for Brownian Motion or Thermostat are specified");
+	}
+
+	// Check potentialName and set force calculation
+	if ( simulation->potential().gravitational().present() )
+	{
+		forceCalc = gravitationalPotential;
+		LOG4CXX_INFO(logger, "Set potential for force calulation to gravitational potential" );
+	}
+	else if ( simulation->potential().lennardJones().present() )
+	{
+		forceCalc = lennardJonesPotential;
+		LOG4CXX_INFO(logger, "Set potential for force calulation to Lennard-Jones potential" );
+	}
+	else if ( simulation->potential().smoothedLennardJones().present() )
+	{
+		forceCalc = smoothedLennardJonesPotential;
+		r_l = simulation->potential().smoothedLennardJones().get().rl();
+		LOG4CXX_INFO(logger, "Set potential for force calulation to smoothed Lennard-Jones potential" );
+		
+		sLJparamter.cutoff = cutoff;
+		sLJparamter.cutoff3_rl = 3.0*cutoff - r_l;
+		sLJparamter.cutoff_rl_exp3 = pow(cutoff - r_l, 3.0);
 	}
 
 	// Begin Simulation
@@ -878,7 +910,7 @@ utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2)
 	return F1_F2;
 }
 /*
-utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
+utils::Vector<double, 3> lennardJonesPotential(Particle& p1, Particle& p2)
 {
 	double sigma;
 	double epsilon;
@@ -916,7 +948,7 @@ utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
 }
 */
 
-utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
+utils::Vector<double, 3> lennardJonesPotential(Particle& p1, Particle& p2)
 {
 	//difference between coordinates of p1 and p2
 	utils::Vector<double, 3> x1_x2 = p2.getX() - p1.getX();
@@ -965,6 +997,81 @@ utils::Vector<double, 3> lenardJonesPotential(Particle& p1, Particle& p2)
 	double squareSumExp_3 = squareSumExp_1 * squareSumExp_1 * squareSumExp_1;
 	
 	double temp = sigmaExp6 * squareSumExp_3;
+	
+	//force between p1 and p2
+	utils::Vector<double, 3> F1_F2 = 
+		24.0 * epsilon * temp * squareSumExp_1 * 
+		(1.0 - 2.0 * temp) * 
+		x1_x2
+	;
+
+	return F1_F2;
+}
+
+utils::Vector<double, 3> smoothedLennardJonesPotential(Particle& p1, Particle& p2)
+{
+	//difference between coordinates of p1 and p2
+	utils::Vector<double, 3> x1_x2 = p2.getX() - p1.getX();
+	double squareSum = x1_x2.innerProduct();
+	
+	if ( membraneOn )
+	{
+		MembraneParticle* mp1 = MembraneParticle::castMembraneParticle(p1);
+	
+		if ( mp1 != NULL )
+		{
+			MembraneParticle* mp2 = MembraneParticle::castMembraneParticle(p2);
+			
+			if ( mp2 != NULL )
+			{
+				if ( MembraneParticle::sameMembrane(mp1,mp2) )
+				{
+					double d = root6of2 * p1.getSigma();
+					d = d*d;
+					
+					if ( squareSum > d || MembraneParticle::neighboured(mp1,mp2) )
+						return utils::Vector<double, 3>(0.0);
+				}
+			}
+		}
+	}
+	
+	double sigma;
+	double epsilon;
+	
+	if ( p1.getSigma() == p2.getSigma() )
+		sigma = p1.getSigma();
+	else
+		sigma = ( p1.getSigma() + p2.getSigma() ) / 2.0;
+	
+	if ( p1.getEpsilon() == p2.getEpsilon() )
+		epsilon = p1.getEpsilon();
+	else
+		epsilon = sqrt( p1.getEpsilon() * p2.getEpsilon() );
+	
+	double l2Norm = sqrt(squareSum);
+	
+	double sigmaExp3 = sigma*sigma*sigma;
+	double sigmaExp6 = sigmaExp3 * sigmaExp3;
+	
+	double squareSumExp_1 = 1 / squareSum;
+	double squareSumExp_3 = squareSumExp_1 * squareSumExp_1 * squareSumExp_1;
+	
+	double temp = sigmaExp6 * squareSumExp_3;
+	
+	/* begin smoothing */
+	
+	if ( l2Norm >= r_l )
+	{
+		double S1_S2 = 
+			1.0 - (l2Norm - r_l)*(l2Norm - r_l) *
+			sLJparamter.cutoff3_rl - 2.0 * l2Norm /	sLJparamter.cutoff_rl_exp3;
+		;
+		
+		temp = temp * S1_S2;
+	}
+	
+	/* end smoothing */
 	
 	//force between p1 and p2
 	utils::Vector<double, 3> F1_F2 = 

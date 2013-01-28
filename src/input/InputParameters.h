@@ -574,6 +574,7 @@ namespace PSE_Molekulardynamik_WS12
   class cuboid_t;
   class sphere_t;
   class inputs_t;
+  class smoothedLennardJones_t;
   class potential_t;
   class boundary_t;
   class domain_t;
@@ -4853,49 +4854,392 @@ namespace PSE_Molekulardynamik_WS12
   };
 
   /**
-   * @brief Enumeration class corresponding to the %potential_t
-   * schema type.
+   * @brief Class corresponding to the %smoothedLennardJones_t schema type.
+   *
+   * @nosubgrouping
    */
-  class potential_t: public ::xml_schema::string
+  class smoothedLennardJones_t: public ::xml_schema::type
   {
     public:
-
     /**
-     * @brief Underlying enum type.
-     */
-    enum value
-    {
-      gravitational,
-      lenard_jones
-    };
-
-    /**
-     * @brief Create an instance from the underlying enum value.
+     * @name rl
      *
-     * @param v A enum value.
+     * @brief Accessor and modifier functions for the %rl
+     * required element.
      */
-    potential_t (value v);
+    //@{
 
     /**
-     * @brief Create an instance from a C string.
-     *
-     * @param v A string value.
+     * @brief Element type.
      */
-    potential_t (const char* v);
+    typedef ::PSE_Molekulardynamik_WS12::positiveDecimal_t rl_type;
 
     /**
-     * @brief Create an instance from a string.
-     *
-     * @param v A string value.
+     * @brief Element traits type.
      */
-    potential_t (const ::std::string& v);
+    typedef ::xsd::cxx::tree::traits< rl_type, char > rl_traits;
 
     /**
-     * @brief Create an instance from the base value.
+     * @brief Return a read-only (constant) reference to the element.
      *
-     * @param v A base value.
+     * @return A constant reference to the element.
      */
-    potential_t (const ::xml_schema::string& v);
+    const rl_type&
+    rl () const;
+
+    /**
+     * @brief Return a read-write reference to the element.
+     *
+     * @return A reference to the element.
+     */
+    rl_type&
+    rl ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    rl (const rl_type& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly
+     * instead of making a copy.
+     */
+    void
+    rl (::std::auto_ptr< rl_type > p);
+
+    //@}
+
+    /**
+     * @name Constructors
+     */
+    //@{
+
+    /**
+     * @brief Create an instance from the ultimate base and
+     * initializers for required elements and attributes.
+     */
+    smoothedLennardJones_t (const rl_type&);
+
+    /**
+     * @brief Create an instance from a DOM element.
+     *
+     * @param e A DOM element to extract the data from.
+     * @param f Flags to create the new instance with.
+     * @param c A pointer to the object that will contain the new
+     * instance.
+     */
+    smoothedLennardJones_t (const ::xercesc::DOMElement& e,
+                            ::xml_schema::flags f = 0,
+                            ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy constructor.
+     *
+     * @param x An instance to make a copy of.
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     *
+     * For polymorphic object models use the @c _clone function instead.
+     */
+    smoothedLennardJones_t (const smoothedLennardJones_t& x,
+                            ::xml_schema::flags f = 0,
+                            ::xml_schema::container* c = 0);
+
+    /**
+     * @brief Copy the instance polymorphically.
+     *
+     * @param f Flags to create the copy with.
+     * @param c A pointer to the object that will contain the copy.
+     * @return A pointer to the dynamically allocated copy.
+     *
+     * This function ensures that the dynamic type of the instance is
+     * used for copying and should be used for polymorphic object
+     * models instead of the copy constructor.
+     */
+    virtual smoothedLennardJones_t*
+    _clone (::xml_schema::flags f = 0,
+            ::xml_schema::container* c = 0) const;
+
+    //@}
+
+    /**
+     * @brief Destructor.
+     */
+    virtual 
+    ~smoothedLennardJones_t ();
+
+    // Implementation.
+    //
+
+    //@cond
+
+    protected:
+    void
+    parse (::xsd::cxx::xml::dom::parser< char >&,
+           ::xml_schema::flags);
+
+    protected:
+    ::xsd::cxx::tree::one< rl_type > rl_;
+
+    //@endcond
+  };
+
+  /**
+   * @brief Class corresponding to the %potential_t schema type.
+   *
+   * @nosubgrouping
+   */
+  class potential_t: public ::xml_schema::type
+  {
+    public:
+    /**
+     * @name gravitational
+     *
+     * @brief Accessor and modifier functions for the %gravitational
+     * optional element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::type gravitational_type;
+
+    /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional< gravitational_type > gravitational_optional;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits< gravitational_type, char > gravitational_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element
+     * container.
+     *
+     * @return A constant reference to the optional container.
+     */
+    const gravitational_optional&
+    gravitational () const;
+
+    /**
+     * @brief Return a read-write reference to the element container.
+     *
+     * @return A reference to the optional container.
+     */
+    gravitational_optional&
+    gravitational ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    gravitational (const gravitational_type& x);
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy 
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void
+    gravitational (const gravitational_optional& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly instead
+     * of making a copy.
+     */
+    void
+    gravitational (::std::auto_ptr< gravitational_type > p);
+
+    //@}
+
+    /**
+     * @name lennardJones
+     *
+     * @brief Accessor and modifier functions for the %lennardJones
+     * optional element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::xml_schema::type lennardJones_type;
+
+    /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional< lennardJones_type > lennardJones_optional;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits< lennardJones_type, char > lennardJones_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element
+     * container.
+     *
+     * @return A constant reference to the optional container.
+     */
+    const lennardJones_optional&
+    lennardJones () const;
+
+    /**
+     * @brief Return a read-write reference to the element container.
+     *
+     * @return A reference to the optional container.
+     */
+    lennardJones_optional&
+    lennardJones ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    lennardJones (const lennardJones_type& x);
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy 
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void
+    lennardJones (const lennardJones_optional& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly instead
+     * of making a copy.
+     */
+    void
+    lennardJones (::std::auto_ptr< lennardJones_type > p);
+
+    //@}
+
+    /**
+     * @name smoothedLennardJones
+     *
+     * @brief Accessor and modifier functions for the %smoothedLennardJones
+     * optional element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::PSE_Molekulardynamik_WS12::smoothedLennardJones_t smoothedLennardJones_type;
+
+    /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional< smoothedLennardJones_type > smoothedLennardJones_optional;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits< smoothedLennardJones_type, char > smoothedLennardJones_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element
+     * container.
+     *
+     * @return A constant reference to the optional container.
+     */
+    const smoothedLennardJones_optional&
+    smoothedLennardJones () const;
+
+    /**
+     * @brief Return a read-write reference to the element container.
+     *
+     * @return A reference to the optional container.
+     */
+    smoothedLennardJones_optional&
+    smoothedLennardJones ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    smoothedLennardJones (const smoothedLennardJones_type& x);
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy 
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void
+    smoothedLennardJones (const smoothedLennardJones_optional& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly instead
+     * of making a copy.
+     */
+    void
+    smoothedLennardJones (::std::auto_ptr< smoothedLennardJones_type > p);
+
+    //@}
+
+    /**
+     * @name Constructors
+     */
+    //@{
+
+    /**
+     * @brief Create an instance from the ultimate base and
+     * initializers for required elements and attributes.
+     */
+    potential_t ();
 
     /**
      * @brief Create an instance from a DOM element.
@@ -4906,32 +5250,6 @@ namespace PSE_Molekulardynamik_WS12
      * instance.
      */
     potential_t (const ::xercesc::DOMElement& e,
-                 ::xml_schema::flags f = 0,
-                 ::xml_schema::container* c = 0);
-
-    /**
-     * @brief Create an instance from a DOM attribute.
-     *
-     * @param a A DOM attribute to extract the data from.
-     * @param f Flags to create the new instance with.
-     * @param c A pointer to the object that will contain the new
-     * instance.
-     */
-    potential_t (const ::xercesc::DOMAttr& a,
-                 ::xml_schema::flags f = 0,
-                 ::xml_schema::container* c = 0);
-
-    /**
-     * @brief Create an instance from a string fragment.
-     *
-     * @param s A string fragment to extract the data from.
-     * @param e A pointer to DOM element containing the string fragment.
-     * @param f Flags to create the new instance with.
-     * @param c A pointer to the object that will contain the new
-     * instance.
-     */
-    potential_t (const ::std::string& s,
-                 const ::xercesc::DOMElement* e,
                  ::xml_schema::flags f = 0,
                  ::xml_schema::container* c = 0);
 
@@ -4963,36 +5281,28 @@ namespace PSE_Molekulardynamik_WS12
     _clone (::xml_schema::flags f = 0,
             ::xml_schema::container* c = 0) const;
 
-    /**
-     * @brief Assign the underlying enum value.
-     *
-     * @param v A enum value.
-     * @return A refernce to the instance.
-     */
-    potential_t&
-    operator= (value v);
+    //@}
 
     /**
-     * @brief Implicit conversion operator to the underlying
-     * enum value.
-     *
-     * @return A enum value.
+     * @brief Destructor.
      */
-    virtual
-    operator value () const
-    {
-      return _xsd_potential_t_convert ();
-    }
+    virtual 
+    ~potential_t ();
+
+    // Implementation.
+    //
 
     //@cond
 
     protected:
-    value
-    _xsd_potential_t_convert () const;
+    void
+    parse (::xsd::cxx::xml::dom::parser< char >&,
+           ::xml_schema::flags);
 
-    public:
-    static const char* const _xsd_potential_t_literals_[2];
-    static const value _xsd_potential_t_indexes_[2];
+    protected:
+    gravitational_optional gravitational_;
+    lennardJones_optional lennardJones_;
+    smoothedLennardJones_optional smoothedLennardJones_;
 
     //@endcond
   };
@@ -6481,7 +6791,7 @@ namespace PSE_Molekulardynamik_WS12
     simulation_t (::std::auto_ptr< inputs_type >&,
                   const t_end_type&,
                   const delta_t_type&,
-                  const potential_type&,
+                  ::std::auto_ptr< potential_type >&,
                   const dimensionCount_type&);
 
     /**

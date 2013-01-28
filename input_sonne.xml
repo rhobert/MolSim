@@ -13,7 +13,9 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 	
 	<delta_t>0.001</delta_t>
 	
-	<potential>gravitational</potential>
+	<potential>
+		<gravitational />
+	</potential>
 	
 	<dimensionCount>2</dimensionCount>
 	

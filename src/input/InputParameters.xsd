@@ -148,12 +148,19 @@ elementFormDefault="qualified">
 		</xs:sequence>
 	</xs:complexType>
 	
-	<xs:simpleType name="potential_t">
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="gravitational" />
-			<xs:enumeration value="lenard jones" />
-		</xs:restriction>
-	</xs:simpleType>
+	<xs:complexType name="smoothedLennardJones_t">
+		<xs:all>
+			<xs:element name="rl" type="positiveDecimal_t" />
+		</xs:all>
+	</xs:complexType>
+	
+	<xs:complexType name="potential_t">
+		<xs:choice>
+			<xs:element name="gravitational" type="xs:anyType" />
+			<xs:element name="lennardJones" type="xs:anyType" />
+			<xs:element name="smoothedLennardJones" type="smoothedLennardJones_t" />
+		</xs:choice>
+	</xs:complexType>
 	
 	<xs:simpleType name="boundary_t">
 		<xs:restriction base="xs:string">

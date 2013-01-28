@@ -13,7 +13,9 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 	
 	<delta_t>0.0005</delta_t>
 	
-	<potential>lenard jones</potential>
+	<potential>
+		<lennardJones />
+	</potential>
 	
 	<dimensionCount>2</dimensionCount>
 	
@@ -38,8 +40,8 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 	</domain>
 	
 	<thermostat>	
-		<initialT>40</initialT>
-		<frequency>1000</frequency>
+		<initialT>1</initialT>
+		<frequency>0</frequency>
 	</thermostat>
 	
 	<gravitation>
@@ -58,7 +60,7 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 			
 			<velocity>
 				<x>0</x>
-				<y>0</y>
+				<y>20</y>
 				<z>0</z>
 			</velocity>
 			
