@@ -19,3 +19,6 @@ src/outputWriter/VTKWriter.cpp\
 src/Particle.cpp\
 src/ParticleGenerator.cpp\
 src/FileReader.cpp\
+src/Membrane.cpp\
+src/MembraneParticle.cpp
+

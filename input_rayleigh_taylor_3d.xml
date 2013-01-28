@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+
+<simulation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
+xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
+	
+	<output>
+		<file>rayleigh_taylor_3d</file>
+		<writeFrequency>200</writeFrequency>
+	</output>
+	
+	<t_end>100</t_end>
+	
+	<delta_t>0.0005</delta_t>
+	
+	<potential>lenard jones</potential>
+	
+	<dimensionCount>3</dimensionCount>
+	
+	<domain>		
+		<dimensions>
+			<x>60</x>
+			<y>24</y>
+			<z>51</z>
+		</dimensions>
+		
+		<x>
+			<lower>periodic</lower>
+			<upper>periodic</upper>
+		</x>
+		<y>
+			<lower>reflecting</lower>
+			<upper>reflecting</upper>
+		</y>
+		<z>
+			<lower>periodic</lower>
+			<upper>periodic</upper>
+		</z>
+		
+		<cutoff>2.875</cutoff>	
+	</domain>
+
+	<thermostat>	
+		<initialT>40</initialT>
+		<frequency>1000</frequency>
+	</thermostat>
+	
+	<gravitation>
+		<x>0</x>
+		<y>-12.44</y>
+		<z>0</z>
+	</gravitation>
+	
+	<inputs>		
+		<cuboid>			
+			<position>
+				<x>0.6</x>
+				<y>0.6</y>
+				<z>0.6</z>
+			</position>
+			
+			<velocity>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</velocity>
+			
+			<dimensions>
+				<x>48</x>
+				<y>9</y>
+				<z>42</z>
+			</dimensions>
+			
+			<mass>40.0</mass>
+			
+			<distance>1.2</distance>
+
+			<sigma>1.15</sigma>
+			
+			<epsilon>2.0</epsilon>
+			
+			<type>1</type>
+		</cuboid>	
+		
+		<cuboid>			
+			<position>
+				<x>0.6</x>
+				<y>11.4</y>
+				<z>0.6</z>
+			</position>
+			
+			<velocity>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</velocity>
+			
+			<dimensions>
+				<x>48</x>
+				<y>9</y>
+				<z>42</z>
+			</dimensions>
+			
+			<mass>80.0</mass>
+			
+			<distance>1.2</distance>
+
+			<sigma>1.15</sigma>
+			
+			<epsilon>2.0</epsilon>
+			
+			<type>2</type>
+		</cuboid>
+	</inputs>
+	
+</simulation>

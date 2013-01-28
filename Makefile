@@ -15,7 +15,7 @@ CFLAGS=-g -O3 -fopenmp
 
 # Linker flags
 # ------------
-LDFLAGS= -lxerces-c -llog4cxx -lcppunit -fopenmp
+LDFLAGS= -lxerces-c -llog4cxx -lcppunit -lpapi -fopenmp
 
 INCLUDES= -I./src -I./libxsd
 
