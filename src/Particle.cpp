@@ -18,6 +18,7 @@ Particle::Particle(int type_arg) {
 	LOG4CXX_DEBUG(logger, "Particle generated");
 	f = 0.0;
 	old_f = 0.0;
+	old_x = 0.0;
 	static_f = 0.0;
 }
 

@@ -11,14 +11,14 @@ src/test/TestSettings.cpp\
 src/test/ThermostatTest.cpp\
 src/test/ParticleContainerTest.cpp\
 src/input/InputParameters.cpp\
+src/MembraneParticle.cpp\
 src/MolSim.cpp\
 src/Thermostat.cpp\
 src/outputWriter/vtk-unstructured.cpp\
 src/outputWriter/XYZWriter.cpp\
 src/outputWriter/VTKWriter.cpp\
 src/Particle.cpp\
+src/Statistics.cpp\
 src/ParticleGenerator.cpp\
-src/FileReader.cpp\
 src/Membrane.cpp\
-src/MembraneParticle.cpp
-
+src/FileReader.cpp\

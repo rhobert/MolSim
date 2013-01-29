@@ -29,6 +29,7 @@
 #include "MembraneParticle.h"
 
 #include "Thermostat.h"
+#include "Statistics.h"
 
 #include "test/TestSettings.h"
 
@@ -656,6 +657,8 @@ int main(int argc, char* argsv[])
 
 	particleContainer->addParticles( particles );
 	
+	Statistics statistics (*particleContainer);
+	
 	LOG4CXX_DEBUG(logger, "Detect if gravitation is specified");
 	
 	if ( simulation->gravitation().present() )
@@ -801,6 +804,29 @@ int main(int argc, char* argsv[])
 		
 		if (writeFrequency != 0 && iteration % writeFrequency == 0) {
 			plotParticles(iteration);
+		}
+		
+		if ( iteration % 1000 == 0 )
+		{
+			statistics.beginCalcDiffusion();
+		}
+		
+		if ( iteration % 1000 == 5 )
+		{
+			double diffusion = statistics.endCalcDiffusion();
+			double* rdf = statistics.calcRDF(10, cutoff);
+			
+			LOG4CXX_INFO(logger, "Diffusion " << current_time <<  ": " << diffusion );
+			
+			string rdfOut = "";
+			stringstream ss;
+			
+			for ( int i = 0; i < 10; i++ )
+			{
+				ss << "(" << i  << ", " << rdf[i] << ") ";
+			}
+			
+			LOG4CXX_INFO(logger, "RDF " << current_time << ": " << ss.str() );
 		}
 		
 		// calculate new x

@@ -21,8 +21,6 @@
 **/
 class Particle {
 
-private:
-
 	/**
 	 * @brief Logger for Particle class
 	 */
@@ -32,6 +30,11 @@ private:
 	* @brief The position of the particle.
 	*/
 	utils::Vector<double, 3> x;
+	
+	/**
+	* @brief A old position of the particle.
+	*/
+	utils::Vector<double, 3> old_x;
 
 	/**
 	* @brief The velocity of the particle.
@@ -74,12 +77,8 @@ private:
     */
 	int type;
 
-//	/**
-//	* @brief Contains all neighboring particles of a particle
-//    */
-//	std::vector<Particle*> neighbors;
-
 public:
+	
 /**
 * @brief Create an instance of Particle.
 */
@@ -148,6 +147,16 @@ public:
 	void newF();
 
 /**
+* @brief Returns the old position of the particle.
+*/
+	utils::Vector<double, 3>& getOldX();
+
+/**
+* @brief Save current position
+*/
+	void saveX();
+	
+/**
 * @brief Returns the mass of the particle.
 */
 	double getM();
@@ -183,19 +192,9 @@ public:
 
 
 /**
-	* @brief Contains all neighboring particles of a particle
-    */
+* @brief Contains all neighboring particles of a particle
+*/
 	std::vector<Particle*> neighbors;
-
-/**
-* @brief Returns neighboring particles
-*/
-//	std::vector<Particle&> getNeighbors();
-
-/**
-* @brief Add neighboring particle
-*/
-//	void addNeighbor(Particle& p);
 
 /**
 * @brief Compares two particles.
@@ -250,6 +249,16 @@ inline  void Particle::setStaticF(utils::Vector<double, 3> other_f) {
 inline  void Particle::newF() {
 	old_f = f;
 	f = static_f;
+}
+
+inline utils::Vector<double, 3>& Particle::getOldX()
+{
+	return old_x;
+}
+
+inline void Particle::saveX()
+{
+	old_x = x;
 }
 
 inline  double Particle::getM() {
