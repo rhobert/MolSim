@@ -825,10 +825,10 @@ int main(int argc, char* argsv[])
 			statistics.beginCalcDiffusion();
 		}
 		
-		if ( iteration % 1000 == 5 )
+		if ( iteration % 1000 == 1 )
 		{
 			double diffusion = statistics.endCalcDiffusion();
-			double* rdf = statistics.calcRDF(10, cutoff);
+			double* rdf = statistics.calcRDF(50, cutoff);
 			
 			LOG4CXX_INFO(logger, "Diffusion " << current_time <<  ": " << diffusion );
 			
