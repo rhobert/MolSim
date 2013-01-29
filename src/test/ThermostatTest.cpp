@@ -32,7 +32,9 @@ void ThermostatTest::setUp()
 
 	container->addParticles(particles);
 
-	thermostat = new Thermostat( *container, randomInitialT, THERMO_DIMENSION );
+	thermostat = new Thermostat( *container, THERMO_DIMENSION );
+	thermostat->initializeTemperature( randomInitialT );
+	thermostat->regulate(0, randomTargetT);
 
 }
 

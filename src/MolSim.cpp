@@ -674,28 +674,42 @@ int main(int argc, char* argsv[])
 	
 	if ( simulation->thermostat().present() )
 	{
-		double initialT = simulation->thermostat().get().initialT();
-		
-//			double targetT = simulation->thermostat().get().targetT();
-//			double diffT = simulation->thermostat().get().diffT();
-//			int nMax = simulation->thermostat().get().nMax();
-//			nThermostat = simulation->thermostat().get().nThermostat();
-
+		thermostat = new Thermostat( *particleContainer, dimensionCount );
 		thermostatOn = true;
-
-		LOG4CXX_DEBUG(logger, "Parameters for Thermostat are specified");
-
-		thermostat = new Thermostat(*particleContainer, initialT, dimensionCount);
 		
+		if ( simulation->thermostat().get().initialT().present() )
+		{
+			double initialT = simulation->thermostat().get().initialT().get();
+			thermostat->initializeTemperature( initialT );
+			
+			LOG4CXX_INFO(logger, "Superpose velocity of particles to get initial temperature with temperature " << initialT << " in " << dimensionCount << " dimensions");
+		}
+
 		if ( simulation->thermostat().get().frequency().present() )
 		{
-			int regulationFrequency = simulation->thermostat().get().frequency().get();
+			double frequency = simulation->thermostat().get().frequency().get();
+			double targetT = 0;
+			double deltaT = 0;
 			
-			thermostat->setFrequency( regulationFrequency );
-			LOG4CXX_DEBUG(logger, "Regulation frequency for Thermostat is " << regulationFrequency );
+			if ( simulation->thermostat().get().targetT().present() )
+			{
+				targetT = simulation->thermostat().get().targetT().get();
+			}
+			else if ( simulation->thermostat().get().initialT().present() )
+			{
+				targetT = simulation->thermostat().get().initialT().get();
+			}
+			
+			if ( simulation->thermostat().get().deltaT().present() )
+			{
+				deltaT = simulation->thermostat().get().deltaT().get();
+			}
+			
+			thermostat->regulate(frequency, targetT, deltaT);
+			LOG4CXX_DEBUG(logger, "Regulation frequency for Thermostat is " << frequency );
 		}
 		
-		LOG4CXX_INFO(logger, "Superpose velocity of particles to get initial temperature with temperature " << initialT << " in " << dimensionCount << " dimensions");
+		
 	}
 	else
 	{

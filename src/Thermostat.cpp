@@ -4,25 +4,24 @@
 
 log4cxx::LoggerPtr Thermostat::logger(log4cxx::Logger::getLogger("Thermostat"));
 
-Thermostat::Thermostat( ParticleContainer& pc, double initialT, int dimensionCount )
+Thermostat::Thermostat( ParticleContainer& pc, int dimensionCount )
 {
 	this->pc = &pc;
 	this->dimensionCount = dimensionCount;
-	this->targetT = initialT;
+	this->deltaT = 0;
+	this->targetT = 0;
+	this->currentTargetT = 0;
 	this->regulationFrequency = 0;
-	
-	Thermostat::meanVelocity = initializeTemperature( initialT );
+
 	Thermostat::dimensions = dimensionCount;
-	
-	LOG4CXX_INFO(logger, "Mean velocity for Maxwell Boltzmann Distribution is " << Thermostat::meanVelocity );
-	
-	this->pc->applyToSingleParticles( Thermostat::applyMaxwellBoltzmannDistribution );
 }
 
-
-void Thermostat::setFrequency ( int frequency )
+void Thermostat::regulate( int frequency, double targetT, double deltaT )
 {
-	regulationFrequency = frequency;
+	this->regulationFrequency = frequency;
+	this->targetT = targetT;
+	this->currentTargetT = getTemperature();
+	this->deltaT = (currentTargetT < targetT) ? deltaT : -deltaT;
 }
 
 void Thermostat::apply ( int currentIteration )
@@ -31,14 +30,25 @@ void Thermostat::apply ( int currentIteration )
 	
 	if ( regulationFrequency > 0 && currentIteration % regulationFrequency == 0 )
 	{
-		regulateTemperature(targetT);
+		double regulateT = targetT;
+		
+		if ( deltaT != 0.0 )
+		{
+			if ( abs(currentT - targetT) > abs(deltaT) && abs(currentTargetT - targetT) > abs(deltaT) )
+			{
+				currentTargetT += deltaT;
+				regulateT = currentTargetT; 
+			}
+		}
+
+		regulateTemperature(regulateT);
 	}
 }
 
 void Thermostat::regulateTemperature( double targetT )
 {	
 	double currentT = getTemperature();
-	
+
 	LOG4CXX_DEBUG(logger, "Regulate temperature from " << currentT << " to " << targetT);
 	
 	Thermostat::beta = sqrt( targetT / currentT );
@@ -83,7 +93,11 @@ void Thermostat::scaleVelocity( Particle& p )
 	p.setV( Thermostat::beta * p.getV() );
 }
 
-double Thermostat::initializeTemperature( double initialT )
+void Thermostat::initializeTemperature( double initialT )
 {
-	return sqrt( kB * initialT / thermostat_mass );
+	Thermostat::meanVelocity = sqrt( kB * initialT / thermostat_mass );
+	
+	LOG4CXX_INFO(logger, "Mean velocity for Maxwell Boltzmann Distribution is " << Thermostat::meanVelocity );
+	
+	this->pc->applyToSingleParticles( Thermostat::applyMaxwellBoltzmannDistribution );
 }

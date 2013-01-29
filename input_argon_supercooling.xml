@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<simulation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
+xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
+	
+	<output>
+		<file>argon_supercooling</file>
+		<writeFrequency>40</writeFrequency>
+	</output>
+	
+	<t_end>100</t_end>
+	
+	<delta_t>0.001</delta_t>
+	
+	<potential>
+		<smoothedLennardJones>
+			<rl>1.9</rl>
+		</smoothedLennardJones>
+	</potential>
+	
+	<dimensionCount>3</dimensionCount>
+
+	<domain>		
+		<dimensions>
+			<x>9.2</x>
+			<y>9.2</y>
+			<z>9.2</z>
+		</dimensions>
+		
+		<x>
+			<lower>reflecting</lower>
+			<upper>reflecting</upper>
+		</x>
+		<y>
+			<lower>reflecting</lower>
+			<upper>reflecting</upper>
+		</y>
+		<z>
+			<lower>reflecting</lower>
+			<upper>reflecting</upper>
+		</z>
+		
+		<cutoff>2.3</cutoff>	
+	</domain>
+	
+	<thermostat>	
+		<frequency>25</frequency>
+		<targetT>0.02</targetT>
+		<deltaT>0.0025</deltaT>
+	</thermostat>
+	
+	<inputs>		
+		<inputFile type="phaseSpace">phaseSpaceArgon.txt</inputFile>
+	</inputs>
+	
+</simulation>

@@ -5892,7 +5892,7 @@ namespace PSE_Molekulardynamik_WS12
      * @name initialT
      *
      * @brief Accessor and modifier functions for the %initialT
-     * required element.
+     * optional element.
      */
     //@{
 
@@ -5902,24 +5902,30 @@ namespace PSE_Molekulardynamik_WS12
     typedef ::PSE_Molekulardynamik_WS12::nonNegativeDecimal_t initialT_type;
 
     /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional< initialT_type > initialT_optional;
+
+    /**
      * @brief Element traits type.
      */
     typedef ::xsd::cxx::tree::traits< initialT_type, char > initialT_traits;
 
     /**
-     * @brief Return a read-only (constant) reference to the element.
+     * @brief Return a read-only (constant) reference to the element
+     * container.
      *
-     * @return A constant reference to the element.
+     * @return A constant reference to the optional container.
      */
-    const initialT_type&
+    const initialT_optional&
     initialT () const;
 
     /**
-     * @brief Return a read-write reference to the element.
+     * @brief Return a read-write reference to the element container.
      *
-     * @return A reference to the element.
+     * @return A reference to the optional container.
      */
-    initialT_type&
+    initialT_optional&
     initialT ();
 
     /**
@@ -5934,12 +5940,24 @@ namespace PSE_Molekulardynamik_WS12
     initialT (const initialT_type& x);
 
     /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy 
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void
+    initialT (const initialT_optional& x);
+
+    /**
      * @brief Set the element value without copying.
      *
      * @param p A new value to use.
      *
-     * This function will try to use the passed value directly
-     * instead of making a copy.
+     * This function will try to use the passed value directly instead
+     * of making a copy.
      */
     void
     initialT (::std::auto_ptr< initialT_type > p);
@@ -6012,6 +6030,158 @@ namespace PSE_Molekulardynamik_WS12
     //@}
 
     /**
+     * @name targetT
+     *
+     * @brief Accessor and modifier functions for the %targetT
+     * optional element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::PSE_Molekulardynamik_WS12::nonNegativeDecimal_t targetT_type;
+
+    /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional< targetT_type > targetT_optional;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits< targetT_type, char > targetT_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element
+     * container.
+     *
+     * @return A constant reference to the optional container.
+     */
+    const targetT_optional&
+    targetT () const;
+
+    /**
+     * @brief Return a read-write reference to the element container.
+     *
+     * @return A reference to the optional container.
+     */
+    targetT_optional&
+    targetT ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    targetT (const targetT_type& x);
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy 
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void
+    targetT (const targetT_optional& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly instead
+     * of making a copy.
+     */
+    void
+    targetT (::std::auto_ptr< targetT_type > p);
+
+    //@}
+
+    /**
+     * @name deltaT
+     *
+     * @brief Accessor and modifier functions for the %deltaT
+     * optional element.
+     */
+    //@{
+
+    /**
+     * @brief Element type.
+     */
+    typedef ::PSE_Molekulardynamik_WS12::nonNegativeDecimal_t deltaT_type;
+
+    /**
+     * @brief Element optional container type.
+     */
+    typedef ::xsd::cxx::tree::optional< deltaT_type > deltaT_optional;
+
+    /**
+     * @brief Element traits type.
+     */
+    typedef ::xsd::cxx::tree::traits< deltaT_type, char > deltaT_traits;
+
+    /**
+     * @brief Return a read-only (constant) reference to the element
+     * container.
+     *
+     * @return A constant reference to the optional container.
+     */
+    const deltaT_optional&
+    deltaT () const;
+
+    /**
+     * @brief Return a read-write reference to the element container.
+     *
+     * @return A reference to the optional container.
+     */
+    deltaT_optional&
+    deltaT ();
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x A new value to set.
+     *
+     * This function makes a copy of its argument and sets it as
+     * the new value of the element.
+     */
+    void
+    deltaT (const deltaT_type& x);
+
+    /**
+     * @brief Set the element value.
+     *
+     * @param x An optional container with the new value to set.
+     *
+     * If the value is present in @a x then this function makes a copy 
+     * of this value and sets it as the new value of the element.
+     * Otherwise the element container is set the 'not present' state.
+     */
+    void
+    deltaT (const deltaT_optional& x);
+
+    /**
+     * @brief Set the element value without copying.
+     *
+     * @param p A new value to use.
+     *
+     * This function will try to use the passed value directly instead
+     * of making a copy.
+     */
+    void
+    deltaT (::std::auto_ptr< deltaT_type > p);
+
+    //@}
+
+    /**
      * @name Constructors
      */
     //@{
@@ -6020,7 +6190,7 @@ namespace PSE_Molekulardynamik_WS12
      * @brief Create an instance from the ultimate base and
      * initializers for required elements and attributes.
      */
-    thermostat_t (const initialT_type&);
+    thermostat_t ();
 
     /**
      * @brief Create an instance from a DOM element.
@@ -6081,8 +6251,10 @@ namespace PSE_Molekulardynamik_WS12
            ::xml_schema::flags);
 
     protected:
-    ::xsd::cxx::tree::one< initialT_type > initialT_;
+    initialT_optional initialT_;
     frequency_optional frequency_;
+    targetT_optional targetT_;
+    deltaT_optional deltaT_;
 
     //@endcond
   };

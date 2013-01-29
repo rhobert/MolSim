@@ -1445,22 +1445,28 @@ namespace PSE_Molekulardynamik_WS12
   // thermostat_t
   // 
 
-  const thermostat_t::initialT_type& thermostat_t::
+  const thermostat_t::initialT_optional& thermostat_t::
   initialT () const
   {
-    return this->initialT_.get ();
+    return this->initialT_;
   }
 
-  thermostat_t::initialT_type& thermostat_t::
+  thermostat_t::initialT_optional& thermostat_t::
   initialT ()
   {
-    return this->initialT_.get ();
+    return this->initialT_;
   }
 
   void thermostat_t::
   initialT (const initialT_type& x)
   {
     this->initialT_.set (x);
+  }
+
+  void thermostat_t::
+  initialT (const initialT_optional& x)
+  {
+    this->initialT_ = x;
   }
 
   void thermostat_t::
@@ -1491,6 +1497,66 @@ namespace PSE_Molekulardynamik_WS12
   frequency (const frequency_optional& x)
   {
     this->frequency_ = x;
+  }
+
+  const thermostat_t::targetT_optional& thermostat_t::
+  targetT () const
+  {
+    return this->targetT_;
+  }
+
+  thermostat_t::targetT_optional& thermostat_t::
+  targetT ()
+  {
+    return this->targetT_;
+  }
+
+  void thermostat_t::
+  targetT (const targetT_type& x)
+  {
+    this->targetT_.set (x);
+  }
+
+  void thermostat_t::
+  targetT (const targetT_optional& x)
+  {
+    this->targetT_ = x;
+  }
+
+  void thermostat_t::
+  targetT (::std::auto_ptr< targetT_type > x)
+  {
+    this->targetT_.set (x);
+  }
+
+  const thermostat_t::deltaT_optional& thermostat_t::
+  deltaT () const
+  {
+    return this->deltaT_;
+  }
+
+  thermostat_t::deltaT_optional& thermostat_t::
+  deltaT ()
+  {
+    return this->deltaT_;
+  }
+
+  void thermostat_t::
+  deltaT (const deltaT_type& x)
+  {
+    this->deltaT_.set (x);
+  }
+
+  void thermostat_t::
+  deltaT (const deltaT_optional& x)
+  {
+    this->deltaT_ = x;
+  }
+
+  void thermostat_t::
+  deltaT (::std::auto_ptr< deltaT_type > x)
+  {
+    this->deltaT_.set (x);
   }
 
 
@@ -4304,10 +4370,12 @@ namespace PSE_Molekulardynamik_WS12
   //
 
   thermostat_t::
-  thermostat_t (const initialT_type& initialT)
+  thermostat_t ()
   : ::xml_schema::type (),
-    initialT_ (initialT, ::xml_schema::flags (), this),
-    frequency_ (::xml_schema::flags (), this)
+    initialT_ (::xml_schema::flags (), this),
+    frequency_ (::xml_schema::flags (), this),
+    targetT_ (::xml_schema::flags (), this),
+    deltaT_ (::xml_schema::flags (), this)
   {
   }
 
@@ -4317,7 +4385,9 @@ namespace PSE_Molekulardynamik_WS12
                 ::xml_schema::container* c)
   : ::xml_schema::type (x, f, c),
     initialT_ (x.initialT_, f, this),
-    frequency_ (x.frequency_, f, this)
+    frequency_ (x.frequency_, f, this),
+    targetT_ (x.targetT_, f, this),
+    deltaT_ (x.deltaT_, f, this)
   {
   }
 
@@ -4327,7 +4397,9 @@ namespace PSE_Molekulardynamik_WS12
                 ::xml_schema::container* c)
   : ::xml_schema::type (e, f | ::xml_schema::flags::base, c),
     initialT_ (f, this),
-    frequency_ (f, this)
+    frequency_ (f, this),
+    targetT_ (f, this),
+    deltaT_ (f, this)
   {
     if ((f & ::xml_schema::flags::base) == 0)
     {
@@ -4353,7 +4425,7 @@ namespace PSE_Molekulardynamik_WS12
         ::std::auto_ptr< initialT_type > r (
           initialT_traits::create (i, f, this));
 
-        if (!initialT_.present ())
+        if (!this->initialT_)
         {
           this->initialT_.set (r);
           continue;
@@ -4371,14 +4443,35 @@ namespace PSE_Molekulardynamik_WS12
         }
       }
 
-      break;
-    }
+      // targetT
+      //
+      if (n.name () == "targetT" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< targetT_type > r (
+          targetT_traits::create (i, f, this));
 
-    if (!initialT_.present ())
-    {
-      throw ::xsd::cxx::tree::expected_element< char > (
-        "initialT",
-        "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12");
+        if (!this->targetT_)
+        {
+          this->targetT_.set (r);
+          continue;
+        }
+      }
+
+      // deltaT
+      //
+      if (n.name () == "deltaT" && n.namespace_ () == "http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12")
+      {
+        ::std::auto_ptr< deltaT_type > r (
+          deltaT_traits::create (i, f, this));
+
+        if (!this->deltaT_)
+        {
+          this->deltaT_.set (r);
+          continue;
+        }
+      }
+
+      break;
     }
   }
 

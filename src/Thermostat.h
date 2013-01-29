@@ -32,6 +32,16 @@ private:
 	double targetT;
 	
 	/**
+	 * @brief The desired temperature for one regulation step
+	 */
+	double currentTargetT;
+	
+	/**
+	 * @brief The temperature step size (0.0 means unbounded step size)
+	 */
+	double deltaT;
+	
+	/**
 	 * @brief Count of dimensions for simulation 
 	 */
 	int dimensionCount;
@@ -100,10 +110,18 @@ public:
 	* @brief Create an instance of class Thermostat
 	*
 	* @param pc ParticleContainer which should be regulated
-	* @param initialT Initial temperature for Maxwell-Boltzmann-Distribution
 	* @param dimensionCount count of dimensions for simulation
 	**/
-	Thermostat( ParticleContainer& pc, double initialT, int dimensionCount );
+	Thermostat( ParticleContainer& pc, int dimensionCount );
+	
+	/**
+	* @brief Setting up the regulation of the temperature
+	*
+	* @param frequency Frequency to regulate temperature
+	* @param targetT Temperature to which regulate
+	* @param deltaT Max temperature step size
+	**/
+	void regulate( int frequency, double targetT, double deltaT = 0.0 );
 	
 	/**
 	 * @brief Set the frequency to regulate temperature
@@ -122,7 +140,7 @@ public:
 	/**
 	* @brief Regulates temperature
 	*
-	* @param targetT the disered temperature
+	* @param targetT The disered temperature
 	*/
 	void regulateTemperature ( double targetT );
 	
@@ -143,11 +161,9 @@ public:
 	/**
 	* @brief Calculates the initial scaling value for particle velocities to reach initial temperature
 	*
-	* @param initialT initial temperature
-	*
-	* @return mean velocity for Maxwell-Boltzmann distribution
+	* @param initialT Initial temperature for Maxwell-Boltzmann-Distribution
 	*/
-	static double initializeTemperature( double initialT );
+	void initializeTemperature( double initialT );
 };
 
 #endif /* THERMOSTAT_H_ */

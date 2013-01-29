@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+
+<simulation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
+xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
+
+	<output>
+		<file>drop</file>
+		<writeFrequency>40</writeFrequency>
+	</output>
+	
+	<t_end>40</t_end>
+	
+	<delta_t>0.0005</delta_t>
+	
+	<potential>lenard jones</potential>
+	
+	<dimensionCount>2</dimensionCount>
+	
+	<domain>	
+		<dimensions>
+			<x>502</x>
+			<y>300</y>
+			<z>0</z>
+		</dimensions>
+		
+		<x>
+			<lower>reflecting</lower>
+			<upper>reflecting</upper>
+		</x>
+		
+		<y>
+			<lower>reflecting</lower>
+			<upper>reflecting</upper>
+		</y>
+		
+		<cutoff>3</cutoff>	
+	</domain>
+	
+	<gravitation>
+		<x>0</x>
+		<y>-15</y>
+		<z>0</z>
+	</gravitation>
+	
+	<inputs>
+		<inputFile type="phaseSpace">phaseSpaceDrop.txt</inputFile>
+		
+		<sphere>
+			
+			<position>
+				<x>251</x>
+				<y>240</y>
+				<z>0</z>
+			</position>
+			
+			<velocity>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</velocity>
+			
+			<radiusDimension>50</radiusDimension>
+			
+			<mass>1.0</mass>
+			
+			<distance>1.0</distance>
+			
+			<sigma>0.8909</sigma>
+			
+			<epsilon>1.0</epsilon>
+			
+			<type>0</type>
+			
+		</sphere>
+	</inputs>
+	
+</simulation>
