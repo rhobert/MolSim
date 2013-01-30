@@ -317,7 +317,7 @@ int main(int argc, char* argsv[])
 
 			ts.runTest();
 		}
-		// Start sinlge test
+		// Start single test
 		else
 		{
 			string test_name (argsv[2]);

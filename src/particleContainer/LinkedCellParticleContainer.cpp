@@ -701,7 +701,7 @@ void LinkedCellParticleContainer::deleteHaloParticles( int boundary )
 			
 			for ( Cell::SingleList::iterator j = cell.particles.begin(); j != cell.particles.end(); j++ )
 			{
-				delete &(*j);
+				delete *j;
 			}
 			
 			cell.particles.clear();
