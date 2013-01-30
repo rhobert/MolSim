@@ -3,17 +3,12 @@
 <simulation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
 xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
-	
-	<output>
-		<file>argon_pre</file>
-		<writeFrequency>10</writeFrequency>
-	</output>
-	
+		
 	<outputPhaseSpace>phaseSpaceArgon.txt</outputPhaseSpace>
 	
 	<t_end>150</t_end>
 	
-	<delta_t>0.0005</delta_t>
+	<delta_t>0.001</delta_t>
 	
 	<potential>
 		<smoothedLennardJones>

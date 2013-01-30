@@ -828,7 +828,7 @@ int main(int argc, char* argsv[])
 		if ( iteration % 1000 == 1 )
 		{
 			double diffusion = statistics.endCalcDiffusion();
-			double* rdf = statistics.calcRDF(50, cutoff);
+			double* rdf = statistics.calcRDF(10, cutoff);
 			
 			LOG4CXX_INFO(logger, "Diffusion " << current_time <<  ": " << diffusion );
 			
@@ -851,7 +851,24 @@ int main(int argc, char* argsv[])
 		
 		if ( linkedCellParticleContainer != NULL )
 		{	
+			bool* periodic = new bool[6];
+			
+			for ( int i = 0; i < 6; i++ )
+				periodic[i] = false;
+				
 			linkedCellParticleContainer->updateContainingCells();
+			
+			for ( int i = 0; i < dimensionCount * 2; i++ )
+			{
+				if (boundary[i] == PSE_Molekulardynamik_WS12::boundary_t::periodic)
+				{
+					periodic[i] = true;
+					linkedCellParticleContainer->applyToHaloParticles(i, calcPeriodicHalo);
+					linkedCellParticleContainer->updateContainingCells();
+				}
+			}
+			
+			linkedCellParticleContainer->applyToPeriodicBoundaryParticlePairs(periodic, calcPeriodicBoundary);
 			
 			for ( int i = 0; i < dimensionCount * 2; i++ )
 			{					
@@ -862,12 +879,6 @@ int main(int argc, char* argsv[])
 				else if (boundary[i] == PSE_Molekulardynamik_WS12::boundary_t::reflecting)
 				{
 					linkedCellParticleContainer->applyToBoundaryParticles(i, calcReflection);
-				}
-				else if (boundary[i] == PSE_Molekulardynamik_WS12::boundary_t::periodic)
-				{
-					linkedCellParticleContainer->applyToPeriodicBoundaryParticlePairs(i, calcPeriodicBoundary);
-					linkedCellParticleContainer->applyToHaloParticles(i, calcPeriodicHalo);
-					linkedCellParticleContainer->updateContainingCells();
 				}
 			}
 		}

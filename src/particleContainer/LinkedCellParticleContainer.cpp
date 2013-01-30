@@ -42,7 +42,6 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 	periodicCellPairs[4] = new CellPairList();
 	periodicCellPairs[5] = new CellPairList();
 	
-	cellPairs = CellPairList();
 	sideLength = cutoff;
 	this->domainSize = utils::Vector<double,3> (0.0);
 	
@@ -115,7 +114,9 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 				// Boundary cell
 				
 				if ( isBoundary( utils::Vector<int,3>(i) ) )
-					{
+				{
+					boundaryCellsAll.push_back( getCell(i) );
+					
 					if	( i[0] == 1 &&  domainSize[0] != 0 )
 					{
 						boundaryCells[0]->push_back( getCell(i) );
@@ -185,7 +186,6 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 							{
 								c++;
 								cells[cellId].neighbours.push_back( & cells[cellVisted] );
-								cellPairs.push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
 							}
 							
 							// Boundary cell?
@@ -216,33 +216,43 @@ LinkedCellParticleContainer::LinkedCellParticleContainer(utils::Vector<double, 3
 //								cout << cellPeriodic << " - " << cellVisted << endl;
 								
 								if ( !( cellPeriodic == utils::Vector<int,3>(j) || visitedPeriodic[ getCell(cellPeriodic) ] || isHalo(cellPeriodic) ) )
-								{														
-									if	( cellPeriodic[0] == 1 && cellDimensions[0] != 1  )
-									{
-										periodicCellPairs[1]->push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
-									}
-									if	( cellPeriodic[0] == cellDimensions[0]-2 && cellDimensions[0] != 1  )
-									{
-										periodicCellPairs[0]->push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
-									}
+								{
+									bool* periodic = new bool[6];
 									
-									if	( cellPeriodic[1] == 1 && cellDimensions[1] != 1  )
-									{
-										periodicCellPairs[3]->push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
-									}
-									if	( cellPeriodic[1] == cellDimensions[1]-2 && cellDimensions[1] != 1  )
-									{
-										periodicCellPairs[2]->push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
-									}
+									if	( j[0] == 0 && cellDimensions[0] != 1  )
+										periodic[0] = true;
+									else
+										periodic[0] = false;
 									
-									if	( cellPeriodic[2] == 1 && cellDimensions[2] != 1 )
-									{
-										periodicCellPairs[5]->push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
-									}
-									if	( cellPeriodic[2] == cellDimensions[2]-2 && cellDimensions[2] != 1 )
-									{
-										periodicCellPairs[4]->push_back ( pair<Cell*, Cell*>( &(cells[cellId]), &(cells[cellVisted] )) );
-									}
+									if	( j[0] == cellDimensions[0]-1 && cellDimensions[0] != 1  )
+										periodic[1] = true;
+									else
+										periodic[1] = false;
+									
+									
+									if	( j[1] == 0 && cellDimensions[1] != 1  )
+										periodic[2] = true;
+									else
+										periodic[2] = false;
+									
+									if	( j[1] == cellDimensions[1]-1 && cellDimensions[1] != 1  )
+										periodic[3] = true;
+									else
+										periodic[3] = false;
+									
+									
+									if	( j[2] == 0 && cellDimensions[2] != 1  )
+										periodic[4] = true;
+									else
+										periodic[4] = false;
+									
+									if	( j[2] == cellDimensions[2]-1 && cellDimensions[2] != 1  )
+										periodic[5] = true;
+									else
+										periodic[5] = false;
+									
+									
+									cells[cellId].periodicNeighbours.push_back( pair<Cell*,bool*>(&cells[cellVisted], periodic) );
 									
 									visitedPeriodic[ getCell(cellPeriodic) ] = true;
 									
@@ -420,72 +430,203 @@ void LinkedCellParticleContainer::applyToParticlePairs( void (*pairFunction)(Par
 	}
 }
 
-void LinkedCellParticleContainer::applyToPeriodicBoundaryParticlePairs( int boundary, void (*pairFunction)(Particle&, Particle) )
+void LinkedCellParticleContainer::applyToPeriodicBoundaryParticlePairs( bool* periodic, void (*pairFunction)(Particle&, Particle) )
 {
-	assert ( boundary >= 0 && boundary < 6 );
+//	assert ( boundary >= 0 && boundary < 6 );
 	
 	const double cutOffSquare = sideLength*sideLength;
 	
 	omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
 	
-	int len = periodicCellPairs[boundary]->size();
+	int len = boundaryCellsAll.size();
 	
 	#ifdef _OPENMP
 	#pragma omp parallel for
 	#endif
 	for ( int i = 0; i < len; i++ )
 	{
-		Cell& cell1 = *(periodicCellPairs[boundary]->at(i).first);
-		Cell& cell2 = *(periodicCellPairs[boundary]->at(i).second);
+		Cell& cell1 = cells[boundaryCellsAll.at(i)];
 		
-		while ( true )
+		for ( list<pair<Cell*,bool*> >::iterator j = cell1.periodicNeighbours.begin();
+			 j != cell1.periodicNeighbours.end();
+			 j++
+		)
 		{
-			omp_set_lock(&cell1.lock);
+			Cell& cell2 = *(j->first);
+			bool* periodicCell = j->second;
 			
-			if ( omp_test_lock(&cell2.lock) )
-				break;
-			
-			omp_unset_lock(&cell1.lock);
-		}
-		
-		for ( Cell::SingleList::iterator j1 = cell1.particles.begin(); j1 != cell1.particles.end(); j1++  )
-		{
-			Particle& p1 = **j1;
-			
-			for ( Cell::SingleList::iterator j2 = cell2.particles.begin(); j2 != cell2.particles.end(); j2++ )
+			for ( Cell::SingleList::iterator j1 = cell1.particles.begin(); j1 != cell1.particles.end(); j1++  )
 			{
-				Particle p2 (**j2);
-				utils::Vector<double,3> x = p2.getX();
-				int boundaryDimension = boundary / 2;
-		
-//				cout << "Boundary " << boundary << ": ";
-//				cout << "Search partner for " << p1.getX().toString() << ", ";
-//				cout << "test " << p2.getX().toString() << " => ";
+				Particle& p1 = **j1;
 				
-				if ( boundary % 2 == 0 )
+				for ( Cell::SingleList::iterator j2 = cell2.particles.begin(); j2 != cell2.particles.end(); j2++ )
 				{
-					x[boundaryDimension] -= domainSize[boundaryDimension];
-				}
-				else
-				{
-					x[boundaryDimension] += domainSize[boundaryDimension];
-				}
-				
-				p2.setX(x);
-				
-//				cout << p2.getX().toString() << endl;
-				
-				utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
+					Particle p2 (**j2);
 					
-				if ( x1_x2.innerProduct() <= cutOffSquare )
-				{
-					pairFunction(p1,p2);
-				}
+					for ( int boundary1 = 0; boundary1 <= 1; boundary1++ )
+					{
+						for ( int boundary2 = 2; boundary2 <= 3; boundary2++ )
+						{
+							for ( int boundary3 = 4; boundary3 <= 5; boundary3++ )
+							{
+								if ( periodic[boundary1] && periodicCell[boundary1] && 
+									periodic[boundary2] && periodicCell[boundary2] &&
+									periodic[boundary3] && periodicCell[boundary3] )
+								{
+									utils::Vector<double,3> x = p2.getX();
+									
+									if ( boundary1 % 2 == 0 )
+										x[0] -= domainSize[0];
+									else
+										x[0] += domainSize[0];
+									
+									if ( boundary2 % 2 == 0 )
+										x[1] -= domainSize[1];
+									else
+										x[1] += domainSize[1];
+									
+									if ( boundary3 % 2 == 0 )
+										x[2] -= domainSize[2];
+									else
+										x[2] += domainSize[2];
+									
+									p2.setX(x);
+									
+									utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
+										
+									if ( x1_x2.innerProduct() <= cutOffSquare )
+									{
+										pairFunction(p1,p2);
+									}
+								}
+							}
+						}
+					}
+					
+					for ( int boundary1 = 0; boundary1 <= 1; boundary1++ )
+					{
+						for ( int boundary2 = 2; boundary2 <= 3; boundary2++ )
+						{
+							if ( periodic[boundary1] && periodicCell[boundary1] && periodic[boundary2] && periodicCell[boundary2] )
+							{
+								utils::Vector<double,3> x = p2.getX();
+								int boundaryDimension1 = boundary1 / 2;
+								int boundaryDimension2 = boundary2 / 2;
+								
+								if ( boundary1 % 2 == 0 )
+									x[boundaryDimension1] -= domainSize[boundaryDimension1];
+								else
+									x[boundaryDimension1] += domainSize[boundaryDimension1];
+								
+								if ( boundary2 % 2 == 0 )
+									x[boundaryDimension2] -= domainSize[boundaryDimension2];
+								else
+									x[boundaryDimension2] += domainSize[boundaryDimension2];
+								
+								p2.setX(x);
+								
+								utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
+									
+								if ( x1_x2.innerProduct() <= cutOffSquare )
+								{
+									pairFunction(p1,p2);
+								}
+							}
+						}
+					}
+					
+					for ( int boundary1 = 0; boundary1 <= 1; boundary1++ )
+					{
+						for ( int boundary3 = 4; boundary3 <= 5; boundary3++ )
+						{
+							if ( periodic[boundary1] && periodicCell[boundary1] && periodic[boundary3] && periodicCell[boundary3] )
+							{
+								utils::Vector<double,3> x = p2.getX();
+								
+								if ( boundary1 % 2 == 0 )
+									x[0] -= domainSize[0];
+								else
+									x[0] += domainSize[0];
+								
+								if ( boundary3 % 2 == 0 )
+									x[2] -= domainSize[2];
+								else
+									x[2] += domainSize[2];
+								
+								p2.setX(x);
+								
+								utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
+									
+								if ( x1_x2.innerProduct() <= cutOffSquare )
+								{
+									pairFunction(p1,p2);
+								}
+							}
+						}
+					}
+					
+					for ( int boundary2 = 2; boundary2 <= 3; boundary2++ )
+					{
+						for ( int boundary3 = 4; boundary3 <= 5; boundary3++ )
+						{
+							if ( periodic[boundary2] && periodicCell[boundary2] && periodic[boundary3] && periodicCell[boundary3] )
+							{
+								utils::Vector<double,3> x = p2.getX();
+								
+								if ( boundary2 % 2 == 0 )
+									x[1] -= domainSize[1];
+								else
+									x[1] += domainSize[1];
+								
+								if ( boundary3 % 2 == 0 )
+									x[2] -= domainSize[2];
+								else
+									x[2] += domainSize[2];
+								
+								p2.setX(x);
+								
+								utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
+									
+								if ( x1_x2.innerProduct() <= cutOffSquare )
+								{
+									pairFunction(p1,p2);
+								}
+							}
+						}
+					}
+					
+					for ( int boundary = 0; boundary < 6; boundary++ )
+					{
+						if ( periodic[boundary] && periodicCell[boundary] )
+						{
+							utils::Vector<double,3> x = p2.getX();
+							int boundaryDimension = boundary / 2;
+					
+			//				cout << "Boundary " << boundary << ": ";
+			//				cout << "Search partner for " << p1.getX().toString() << ", ";
+			//				cout << "test " << p2.getX().toString() << " => ";
+							
+							if ( boundary % 2 == 0 )
+								x[boundaryDimension] -= domainSize[boundaryDimension];
+							else
+								x[boundaryDimension] += domainSize[boundaryDimension];
+							
+							p2.setX(x);
+							
+			//				cout << p2.getX().toString() << endl;
+							
+							utils::Vector<double,3> x1_x2 = p1.getX() - p2.getX();
+								
+							if ( x1_x2.innerProduct() <= cutOffSquare )
+							{
+								pairFunction(p1,p2);
+							}
+						}
+					}
+					
+				}	
 			}
 		}
-		
-		omp_unset_lock(&cell1.lock);
-		omp_unset_lock(&cell2.lock);
 	}
 }
 

@@ -46,17 +46,17 @@ private:
 	/**
 	 * @brief Vector with indicies to of all boundary cells
 	 */
+	vector<int> boundaryCellsAll;
+	
+	/**
+	 * @brief Vector with indicies to of all boundary cells
+	 */
 	vector<int> * boundaryCells[6];
 	
 	/**
 	 * @brief Vector with indicies to of all halo cells
 	 */
 	vector<int> * haloCells[6];
-	
-	/**
-	* @brief Pairs of cells which are neighboured
-	**/
-	CellPairList cellPairs;
 	
 	/**
 	* @brief Pairs of neighboured boundary periodic over the boundary
@@ -175,10 +175,10 @@ public:
 	/**
 	* @brief Iterate over all periodic boundary particle pairs
 	* 
-	* @param boundary Specification of the boundary (in 0-5)
+	* @param boundary Specification of which boundaries are periodic
 	* @param singleFunction function to apply on periodic boundary particles
 	**/
-	void applyToPeriodicBoundaryParticlePairs( int boundary, void (*pairFunction)(Particle&, Particle) );
+	void applyToPeriodicBoundaryParticlePairs( bool* periodic, void (*pairFunction)(Particle&, Particle) );
 	
 	/**
 	* @brief Iterate over all single halo particles

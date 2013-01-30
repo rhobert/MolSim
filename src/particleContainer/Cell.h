@@ -44,6 +44,11 @@ private:
 	CellList neighbours;
 	
 	/**
+	* @brief Neighboured periodic cells
+	**/
+	list<pair<Cell*,bool*> > periodicNeighbours;
+	
+	/**
 	 * @brief 
 	**/
 	
