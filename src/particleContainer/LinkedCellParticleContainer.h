@@ -145,7 +145,6 @@ public:
 	* 
 	* @param domainSize Domain size for simulation
 	* @param cutoff Cutoff radius for particle pair iteration
-	* @param periodic Indicates whether particle pairs are constructed above domain-boundary
 	**/
 	LinkedCellParticleContainer(utils::Vector<double, 3> domainSize, double cutoff);
 	
@@ -175,8 +174,8 @@ public:
 	/**
 	* @brief Iterate over all periodic boundary particle pairs
 	* 
-	* @param boundary Specification of which boundaries are periodic
-	* @param singleFunction function to apply on periodic boundary particles
+	* @param periodic Array of length 6 which indicates whether the associated boundary is periodic
+	* @param pairFunction function to apply on periodic boundary particles
 	**/
 	void applyToPeriodicBoundaryParticlePairs( bool* periodic, void (*pairFunction)(Particle&, Particle) );
 	

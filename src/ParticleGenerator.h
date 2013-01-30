@@ -16,6 +16,9 @@
 * @param N number of particles per dimension
 * @param h the distance of the particles (mesh width of the grid)
 * @param m the mass of the particles
+* @param sigma Sigma parameter for Lennard-Jones potential of the particles
+* @param epsilon Epsilon parameter for Lennard-Jones potential of the particles
+* @param type Type of the particles
 */
 
 void generateCuboid(
@@ -32,7 +35,7 @@ void generateCuboid(
 );
 
 /**
-* implements the functionality to create a membran where particles are arranged in a 3d rectangular grid
+* @brief implements the functionality to create a membran where particles are arranged in a 3d rectangular grid
 * 
 * @param particles List of particles to append the generated particles
 * @param x the coordinate of the lower left front-side corner
@@ -40,6 +43,9 @@ void generateCuboid(
 * @param N number of particles per dimension
 * @param h the distance of the particles (mesh width of the grid)
 * @param m the mass of the particles
+* @param sigma Sigma parameter for Lennard-Jones potential of the particles
+* @param epsilon Epsilon parameter for Lennard-Jones potential of the particles
+* @param type Type of the particles
 * @param stiffnessConstant the stiffness constant of particle pair
 * @param averageBondLength the average bond length of a particle pair
 * @param positions list of grid positions on, which particles are additionally stored
@@ -63,7 +69,7 @@ void generateCuboidMembrane(
 );
 
 /**
-* implements the functionality to create a sphere of particles
+* @brief implements the functionality to create a sphere of particles
 * 
 * @param particles List of particles to append the generated particles
 * @param x the coordinate of the center
@@ -72,6 +78,9 @@ void generateCuboidMembrane(
 * @param d dimension count to which the sphere should expand
 * @param h the distance of the particles (mesh width of the grid)
 * @param m the mass of the particles
+* @param sigma Sigma parameter for Lennard-Jones potential of the particles
+* @param epsilon Epsilon parameter for Lennard-Jones potential of the particles
+* @param type Type of the particles
 */
 
 void generateSphere(

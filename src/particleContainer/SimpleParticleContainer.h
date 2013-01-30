@@ -36,11 +36,11 @@ private:
 	/** 
 	* @brief Creates a list of all distinct particles
 	* 
-	* @param slist List of single particles
+	* @param sList List of single particles
 	* 
 	* @return List of particle pairs
 	**/
-	PairList createPairs(SingleList& slist);
+	PairList createPairs(SingleList& sList);
 
 public:
 	

@@ -70,6 +70,8 @@ void Statistics::updateRDFStatistics(Particle& p1, Particle& p2)
 {
 	int container = (int) ((p1.getX() - p2.getX()).L2Norm() / rdfDeltaR);
 	
-	#pragma omp critical
+	#ifdef _OPENMP
+		#pragma omp critical
+	#endif
 	rdfStatistics[container] += 2;
 }
