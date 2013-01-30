@@ -13,7 +13,6 @@
 #include <log4cxx/propertyconfigurator.h>
 
 #include <omp.h>
-#include <papi.h>
 
 #include "input/InputParameters.h"
 #include "PhaseSpace.h"
@@ -760,21 +759,8 @@ int main(int argc, char* argsv[])
 	double doneTime = totalTime;
 	double doneIteration = iteration;
 	
-	
-	#define NUM_EVENTS 4
-	int events[NUM_EVENTS] = { PAPI_TOT_CYC, PAPI_L1_TCM, PAPI_L2_TCM, PAPI_L3_TCM  };
-	long_long values[NUM_EVENTS];
-	int retval;
-	char EventCodeStr[PAPI_MAX_STR_LEN];
-	
-	retval = PAPI_library_init(PAPI_VER_CURRENT);
-	
-	if (retval != PAPI_VER_CURRENT) 
-	{
-		fprintf(stderr, "PAPI library init error!\n");
-		exit(1);
-	}
-	
+	double diffusion = 0;;
+	double* rdf;
 	
 	LOG4CXX_INFO(logger, "Start simulation from time " << start_time << " to " << end_time << " with time steps " << delta_t);
 	LOG4CXX_INFO(logger, "Expecting " << end_iteration << " simulation steps" );
@@ -820,29 +806,6 @@ int main(int argc, char* argsv[])
 			plotParticles(iteration);
 		}
 		
-		if ( iteration % 1000 == 0 )
-		{
-			statistics.beginCalcDiffusion();
-		}
-		
-		if ( iteration % 1000 == 1 )
-		{
-			double diffusion = statistics.endCalcDiffusion();
-			double* rdf = statistics.calcRDF(10, cutoff);
-			
-			LOG4CXX_INFO(logger, "Diffusion " << current_time <<  ": " << diffusion );
-			
-			string rdfOut = "";
-			stringstream ss;
-			
-			for ( int i = 0; i < 10; i++ )
-			{
-				ss << "(" << i  << ", " << rdf[i] << ") ";
-			}
-			
-			LOG4CXX_INFO(logger, "RDF " << current_time << ": " << ss.str() );
-		}
-		
 		// calculate new x
 		particleContainer->applyToSingleParticles ( calculateX );
 
@@ -851,6 +814,53 @@ int main(int argc, char* argsv[])
 		
 		if ( linkedCellParticleContainer != NULL )
 		{	
+			// Init statistics
+		
+			#define statisticsFrequency 1000
+			#define statisticsInterval 5
+			#define rdfIntervalCount 100
+			
+			if ( iteration % statisticsFrequency == 0 )
+			{
+				diffusion = 0;
+				rdf = statistics.calcRDF(rdfIntervalCount, cutoff);
+				statistics.beginCalcDiffusion();
+			}
+			
+			// Capture statistics
+			
+			if ( iteration % statisticsFrequency > 0 && iteration % statisticsFrequency < statisticsInterval )
+			{
+				diffusion += statistics.endCalcDiffusion();
+				statistics.beginCalcDiffusion();
+				double* rdfTemp = statistics.calcRDF(rdfIntervalCount, cutoff);
+							
+				for ( int i = 0; i < rdfIntervalCount; i++ )
+					rdf[i] += rdfTemp[i];
+			}
+			
+			// Output statistics
+			
+			if ( iteration % statisticsFrequency == statisticsInterval )
+			{
+				diffusion += statistics.endCalcDiffusion();
+				diffusion = diffusion / (double) statisticsInterval;
+				
+				LOG4CXX_INFO(logger, "Diffusion " << current_time <<  ": " << diffusion );
+				
+				string rdfOut = "";
+				stringstream ss;
+				
+				for ( int i = 0; i < rdfIntervalCount; i++ )
+				{
+					ss << "(" << i << ", " << (rdf[i] / (double) statisticsInterval) << ") ";
+				}
+				
+				LOG4CXX_INFO(logger, "RDF " << current_time << ": " << ss.str() );
+			}
+			
+			// Apply boundary conditions
+			
 			bool* periodic = new bool[6];
 			
 			for ( int i = 0; i < 6; i++ )
@@ -889,25 +899,9 @@ int main(int argc, char* argsv[])
 		if ( membraneOn )
 			particleContainer->applyToSingleParticles ( calcMembraneForces );
 		
-//		PAPI_start_counters(events, NUM_EVENTS);
-		
 		// calculate new v
 		particleContainer->applyToSingleParticles ( calculateV );
-		
-//		PAPI_stop_counters(values, NUM_EVENTS);
-/*		
-		for ( int i = 0; i < NUM_EVENTS; i++ )
-		{
-			for ( int i = 0; i < NUM_EVENTS; i++ )
-			{
-				if (PAPI_event_code_to_name(events[i], EventCodeStr) == PAPI_OK)
-				{
-//					LOG4CXX_DEBUG(logger, EventCodeStr << ": " << values[i]);
-					printf ( "%s: %lld \n", EventCodeStr, values[i] );
-				}
-			}
-		}
-*/	
+			
 		gettimeofday(&t1, NULL);
 		timeDiff = (t1.tv_sec - t0.tv_sec) + (t1.tv_usec - t0.tv_usec) * 1e-6;
 		totalTime += timeDiff;
@@ -960,44 +954,6 @@ utils::Vector<double, 3> gravitationalPotential(Particle& p1, Particle& p2)
 
 	return F1_F2;
 }
-/*
-utils::Vector<double, 3> lennardJonesPotential(Particle& p1, Particle& p2)
-{
-	double sigma;
-	double epsilon;
-
-	if ( p1.getType() == p2.getType() )
-	{
-		sigma = p1.getSigma();
-		epsilon = p1.getEpsilon();
-	}
-	else
-	{
-		sigma = ( p1.getSigma() + p2.getSigma() ) / 2.0;
-		epsilon = sqrt( p1.getEpsilon() * p2.getEpsilon() );
-	}
-	
-	double sigmaExp3 = sigma*sigma*sigma;
-	double sigmaExp6 = sigmaExp3 * sigmaExp3;
-	
-	//difference between coordinates of p1 and p2
-	utils::Vector<double, 3> x1_x2 = p2.getX() - p1.getX();
-	
-	double squareSumExp_1 = 1 / ( x1_x2.innerProduct() );
-	double squareSumExp_3 = squareSumExp_1 * squareSumExp_1 * squareSumExp_1;
-	
-	double temp = sigmaExp6 * squareSumExp_3;
-	
-	//force between p1 and p2
-	utils::Vector<double, 3> F1_F2 = 
-		24.0 * epsilon * temp * squareSumExp_1 * 
-		(1.0 - 2.0 * temp) * 
-		x1_x2
-	;
-
-	return F1_F2;
-}
-*/
 
 utils::Vector<double, 3> lennardJonesPotential(Particle& p1, Particle& p2)
 {

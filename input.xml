@@ -26,8 +26,10 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 		(If 1 only the first/x dimension, if 2 the first/x and second/y and if 3 all dimensions x-y-z ) -->
 	<dimensionCount>2</dimensionCount>
 	
-	<!-- Necessary: Potential from which the force-calculation is resulting (lenard jones or gravitational)  -->
-	<potential>lenard jones</potential>
+	<!-- Necessary: Potential from which the force-calculation is resulting (lennard jones or gravitational)  -->
+	<potential>
+		<lennardJones />
+	</potential>
 	
 	<!-- Optional: If set the Linked-Cell-Algorithm is used  -->
 	<domain>
