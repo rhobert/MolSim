@@ -1,0 +1,10 @@
+Setting:
+	- 2D
+	- 20000 particles
+	- reflecting and periodic boundary conditions
+	
+cores	time per iteration [ms]	speedup 
+1		16.5					1.00
+2		8.64					1.91
+4		4.84					3.41
+8		2.99					5.51

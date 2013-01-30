@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+
+<simulation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12"
+xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS12 src/input/InputParameters.xsd">
+	
+	<t_end>0.5</t_end>
+	
+	<delta_t>0.0005</delta_t>
+	
+	<potential>
+		<lennardJones />
+	</potential>
+	
+	<!--
+	<potential>
+		<smoothedLennardJones>
+			<rl>1.5</rl>
+		</smoothedLennardJones>
+	</potential>
+	-->
+	
+	<dimensionCount>2</dimensionCount>
+	
+	<domain>		
+		<dimensions>
+			<x>300</x>
+			<y>110</y>
+			<z>0</z>
+		</dimensions>
+		
+		<x>
+			<lower>periodic</lower>
+			<upper>periodic</upper>
+		</x>
+		<y>
+			<lower>reflecting</lower>
+			<upper>reflecting</upper>
+		</y>
+		
+		<cutoff>3</cutoff>	
+	</domain>
+
+	<thermostat>	
+		<initialT>40</initialT>
+		<frequency>0</frequency>
+	</thermostat>
+	
+	<gravitation>
+		<x>0</x>
+		<y>-12.44</y>
+		<z>0</z>
+	</gravitation>
+	
+	<inputs>		
+		<cuboid>			
+			<position>
+				<x>0.6</x>
+				<y>2</y>
+				<z>0</z>
+			</position>
+			
+			<velocity>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</velocity>
+			
+			<dimensions>
+				<x>250</x>
+				<y>40</y>
+				<z>1</z>
+			</dimensions>
+			
+			<mass>1.0</mass>
+			
+			<distance>1.2</distance>
+
+			<sigma>1.2</sigma>
+			
+			<epsilon>1.0</epsilon>
+			
+			<type>1</type>
+		</cuboid>	
+		
+		<cuboid>			
+			<position>
+				<x>0.6</x>
+				<y>52</y>
+				<z>0</z>
+			</position>
+			
+			<velocity>
+				<x>0</x>
+				<y>0</y>
+				<z>0</z>
+			</velocity>
+			
+			<dimensions>
+				<x>250</x>
+				<y>40</y>
+				<z>1</z>
+			</dimensions>
+			
+			<mass>2.0</mass>
+			
+			<distance>1.2</distance>
+
+			<sigma>1.1</sigma>
+			
+			<epsilon>1.0</epsilon>
+			
+			<type>2</type>
+		</cuboid>
+	</inputs>
+	
+</simulation>

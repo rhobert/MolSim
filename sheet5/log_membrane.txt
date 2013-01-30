@@ -1,0 +1,1222 @@
+0    (line 290) INFO  MolSim - Hello from MolSim for PSE!
+0    (line 293) INFO  MolSim - Detect available tests
+0    (line 350) INFO  MolSim - Reading parameter-file sheet5/input_membrane.xml
+1    (line 361) DEBUG MolSim - Checking parameter-file
+6    (line 377) DEBUG MolSim - Reading in parameters
+6    (line 392) DEBUG MolSim - Check END_T and DELTA_T
+6    (line 402) DEBUG MolSim - Check if output is specified
+6    (line 409) INFO  MolSim - Write vtk output to files with basename membrane with write frequency 50
+6    (line 420) DEBUG MolSim - Reading in input files
+6    (line 445) DEBUG MolSim - Reading in cuboids
+6    (line 483) INFO  MolSim - Reading in cuboid at [15;15;1.5;] with velocity [0;0;0;], dimensions [50;50;1;], mass 1, distance 2.2, sigma 1, epsilon 1 and type 0
+8    (line 539) INFO  MolSim - Cuboid is membrane with stiffness constant 300 and average bond length 2.2
+8    (line 547) DEBUG MolSim - Reading in spheres
+8    (line 589) DEBUG MolSim - Detect if domain size is specified
+8    (line 600) INFO  MolSim - Domain [148;148;148;] with cutoff-radius 4
+8    (line 605) INFO  MolSim - In x-dimension the lower boundary condition is reflecting and the upper reflecting
+8    (line 614) INFO  MolSim - In y-dimension the lower boundary condition is reflecting and the upper reflecting
+8    (line 623) INFO  MolSim - In z-dimension the lower boundary condition is reflecting and the upper reflecting
+8    (line 639) DEBUG MolSim - Create LinkedCellParticleContainer
+8    (line 16 ) INFO  LinkedCellParticleContainer - Create LinkedCellParticleContainer
+8    (line 67 ) INFO  LinkedCellParticleContainer - Create 59319 cells
+15   (line 153) DEBUG LinkedCellParticleContainer - Created 7778 boundary cells
+15   (line 154) DEBUG LinkedCellParticleContainer - Created 8666 halo cells
+15   (line 156) DEBUG LinkedCellParticleContainer - Create cell pairs
+95   (line 272) DEBUG LinkedCellParticleContainer - Created 790097 cell pairs
+95   (line 273) DEBUG LinkedCellParticleContainer - Created 72602 periodic cell pairs
+95   (line 646) DEBUG MolSim - Real domain size is [148;148;148;]
+95   (line 656) INFO  MolSim - Add 2500 particles to ParticleContainer
+96   (line 662) DEBUG MolSim - Detect if gravitation is specified
+96   (line 670) INFO  MolSim - Gravitation is set to [0;0;-0.001;]
+96   (line 673) DEBUG MolSim - Detect if parameters for Thermostat are specified
+96   (line 716) DEBUG MolSim - No parameters for Brownian Motion or Thermostat are specified
+96   (line 728) INFO  MolSim - Set potential for force calulation to Lennard-Jones potential
+118  (line 781) INFO  MolSim - Start simulation from time 0 to 500 with time steps 0.01
+118  (line 782) INFO  MolSim - Expecting 50000 simulation steps
+118  (line 784) INFO  MolSim - Expecting 1000 output files
+118  (line 1268) DEBUG MolSim - Plot particles of Iteration 0
+198  (line 950) DEBUG MolSim - Expected remaining runtime 4022.87s (iteration 1/50000)
+310  (line 857) INFO  MolSim - Diffusion 0.05: 4.5536e-07
+310  (line 867) INFO  MolSim - RDF 0.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 0) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 0) (44, 0) (45, 0) (46, 0) (47, 0) (48, 0) (49, 0) (50, 0) (51, 0) (52, 0) (53, 0) (54, 773.583) (55, 3209.88) (56, 0) (57, 0) (58, 0) (59, 0) (60, 0) (61, 0) (62, 0) (63, 0) (64, 0) (65, 0) (66, 0) (67, 0) (68, 0) (69, 0) (70, 0) (71, 0) (72, 0) (73, 0) (74, 0) (75, 0) (76, 0) (77, 1988.17) (78, 0) (79, 0) (80, 0) (81, 0) (82, 0) (83, 0) (84, 0) (85, 0) (86, 0) (87, 0) (88, 0) (89, 0) (90, 0) (91, 0) (92, 0) (93, 0) (94, 0) (95, 0) (96, 0) (97, 0) (98, 0) (99, 0) 
+1094 (line 1268) DEBUG MolSim - Plot particles of Iteration 50
+1987 (line 1268) DEBUG MolSim - Plot particles of Iteration 100
+2918 (line 1268) DEBUG MolSim - Plot particles of Iteration 150
+3868 (line 1268) DEBUG MolSim - Plot particles of Iteration 200
+4762 (line 1268) DEBUG MolSim - Plot particles of Iteration 250
+5800 (line 1268) DEBUG MolSim - Plot particles of Iteration 300
+6849 (line 1268) DEBUG MolSim - Plot particles of Iteration 350
+7736 (line 1268) DEBUG MolSim - Plot particles of Iteration 400
+8616 (line 1268) DEBUG MolSim - Plot particles of Iteration 450
+9532 (line 1268) DEBUG MolSim - Plot particles of Iteration 500
+10456 (line 1268) DEBUG MolSim - Plot particles of Iteration 550
+11370 (line 1268) DEBUG MolSim - Plot particles of Iteration 600
+12337 (line 1268) DEBUG MolSim - Plot particles of Iteration 650
+13403 (line 1268) DEBUG MolSim - Plot particles of Iteration 700
+14376 (line 1268) DEBUG MolSim - Plot particles of Iteration 750
+15215 (line 950) DEBUG MolSim - Expected remaining runtime 930.528s (iteration 795/50000)
+15296 (line 1268) DEBUG MolSim - Plot particles of Iteration 800
+16219 (line 1268) DEBUG MolSim - Plot particles of Iteration 850
+17116 (line 1268) DEBUG MolSim - Plot particles of Iteration 900
+18030 (line 1268) DEBUG MolSim - Plot particles of Iteration 950
+18931 (line 1268) DEBUG MolSim - Plot particles of Iteration 1000
+19138 (line 857) INFO  MolSim - Diffusion 10.05: 0.000242724
+19138 (line 867) INFO  MolSim - RDF 10.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 0) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 0) (44, 0) (45, 0) (46, 0) (47, 0) (48, 0) (49, 0) (50, 0) (51, 0) (52, 0) (53, 0) (54, 2026.55) (55, 2001.65) (56, 0) (57, 0) (58, 0) (59, 0) (60, 0) (61, 0) (62, 0) (63, 0) (64, 0) (65, 0) (66, 0) (67, 0) (68, 0) (69, 0) (70, 0) (71, 0) (72, 0) (73, 0) (74, 0) (75, 0) (76, 0) (77, 1988.17) (78, 0) (79, 0) (80, 0) (81, 0) (82, 0) (83, 0) (84, 0) (85, 0) (86, 0) (87, 0) (88, 0) (89, 0) (90, 0) (91, 0) (92, 0) (93, 0) (94, 0) (95, 0) (96, 0) (97, 0) (98, 0) (99, 0) 
+19905 (line 1268) DEBUG MolSim - Plot particles of Iteration 1050
+20785 (line 1268) DEBUG MolSim - Plot particles of Iteration 1100
+21682 (line 1268) DEBUG MolSim - Plot particles of Iteration 1150
+22564 (line 1268) DEBUG MolSim - Plot particles of Iteration 1200
+23449 (line 1268) DEBUG MolSim - Plot particles of Iteration 1250
+24356 (line 1268) DEBUG MolSim - Plot particles of Iteration 1300
+25237 (line 1268) DEBUG MolSim - Plot particles of Iteration 1350
+26177 (line 1268) DEBUG MolSim - Plot particles of Iteration 1400
+27080 (line 1268) DEBUG MolSim - Plot particles of Iteration 1450
+27977 (line 1268) DEBUG MolSim - Plot particles of Iteration 1500
+28890 (line 1268) DEBUG MolSim - Plot particles of Iteration 1550
+29862 (line 1268) DEBUG MolSim - Plot particles of Iteration 1600
+30225 (line 950) DEBUG MolSim - Expected remaining runtime 880.093s (iteration 1620/50000)
+30830 (line 1268) DEBUG MolSim - Plot particles of Iteration 1650
+31835 (line 1268) DEBUG MolSim - Plot particles of Iteration 1700
+32820 (line 1268) DEBUG MolSim - Plot particles of Iteration 1750
+33726 (line 1268) DEBUG MolSim - Plot particles of Iteration 1800
+34629 (line 1268) DEBUG MolSim - Plot particles of Iteration 1850
+35559 (line 1268) DEBUG MolSim - Plot particles of Iteration 1900
+36468 (line 1268) DEBUG MolSim - Plot particles of Iteration 1950
+37382 (line 1268) DEBUG MolSim - Plot particles of Iteration 2000
+37625 (line 857) INFO  MolSim - Diffusion 20.05: 0.000388092
+37625 (line 867) INFO  MolSim - RDF 20.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 0) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 0) (44, 0) (45, 0) (46, 0) (47, 0) (48, 0) (49, 0) (50, 0) (51, 0) (52, 0) (53, 0) (54, 1998.26) (55, 2028.94) (56, 0) (57, 0) (58, 0) (59, 0) (60, 0) (61, 0) (62, 0) (63, 0) (64, 0) (65, 0) (66, 0) (67, 0) (68, 0) (69, 0) (70, 0) (71, 0) (72, 0) (73, 0) (74, 0) (75, 0) (76, 0) (77, 1985.68) (78, 2.42129) (79, 0) (80, 0) (81, 0) (82, 0) (83, 0) (84, 0) (85, 0) (86, 0) (87, 0) (88, 0) (89, 0) (90, 0) (91, 0) (92, 0) (93, 0) (94, 0) (95, 0) (96, 0) (97, 0) (98, 0) (99, 0) 
+38413 (line 1268) DEBUG MolSim - Plot particles of Iteration 2050
+39363 (line 1268) DEBUG MolSim - Plot particles of Iteration 2100
+40314 (line 1268) DEBUG MolSim - Plot particles of Iteration 2150
+41248 (line 1268) DEBUG MolSim - Plot particles of Iteration 2200
+42171 (line 1268) DEBUG MolSim - Plot particles of Iteration 2250
+43078 (line 1268) DEBUG MolSim - Plot particles of Iteration 2300
+44003 (line 1268) DEBUG MolSim - Plot particles of Iteration 2350
+44909 (line 1268) DEBUG MolSim - Plot particles of Iteration 2400
+45229 (line 950) DEBUG MolSim - Expected remaining runtime 896.866s (iteration 2416/50000)
+45834 (line 1268) DEBUG MolSim - Plot particles of Iteration 2450
+46777 (line 1268) DEBUG MolSim - Plot particles of Iteration 2500
+47771 (line 1268) DEBUG MolSim - Plot particles of Iteration 2550
+48795 (line 1268) DEBUG MolSim - Plot particles of Iteration 2600
+49725 (line 1268) DEBUG MolSim - Plot particles of Iteration 2650
+50756 (line 1268) DEBUG MolSim - Plot particles of Iteration 2700
+51677 (line 1268) DEBUG MolSim - Plot particles of Iteration 2750
+52622 (line 1268) DEBUG MolSim - Plot particles of Iteration 2800
+53576 (line 1268) DEBUG MolSim - Plot particles of Iteration 2850
+54503 (line 1268) DEBUG MolSim - Plot particles of Iteration 2900
+55413 (line 1268) DEBUG MolSim - Plot particles of Iteration 2950
+56359 (line 1268) DEBUG MolSim - Plot particles of Iteration 3000
+56566 (line 857) INFO  MolSim - Diffusion 30.05: 0.000546599
+56566 (line 867) INFO  MolSim - RDF 30.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 0) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 0) (44, 0) (45, 0) (46, 0) (47, 0) (48, 0) (49, 0) (50, 0) (51, 0) (52, 0) (53, 0) (54, 1927.76) (55, 2096.92) (56, 0) (57, 0) (58, 0) (59, 0) (60, 0) (61, 0) (62, 0) (63, 0) (64, 0) (65, 0) (66, 0) (67, 0) (68, 0) (69, 0) (70, 0) (71, 0) (72, 0) (73, 0) (74, 0) (75, 0) (76, 0) (77, 1986.93) (78, 1.21064) (79, 0) (80, 0) (81, 0) (82, 0) (83, 0) (84, 0) (85, 0) (86, 0) (87, 0) (88, 0) (89, 0) (90, 0) (91, 0) (92, 0) (93, 0) (94, 0) (95, 0) (96, 0) (97, 0) (98, 0) (99, 0.251183) 
+57346 (line 1268) DEBUG MolSim - Plot particles of Iteration 3050
+58292 (line 1268) DEBUG MolSim - Plot particles of Iteration 3100
+59196 (line 1268) DEBUG MolSim - Plot particles of Iteration 3150
+60105 (line 1268) DEBUG MolSim - Plot particles of Iteration 3200
+60245 (line 950) DEBUG MolSim - Expected remaining runtime 890.486s (iteration 3205/50000)
+60990 (line 1268) DEBUG MolSim - Plot particles of Iteration 3250
+61898 (line 1268) DEBUG MolSim - Plot particles of Iteration 3300
+62772 (line 1268) DEBUG MolSim - Plot particles of Iteration 3350
+63685 (line 1268) DEBUG MolSim - Plot particles of Iteration 3400
+64579 (line 1268) DEBUG MolSim - Plot particles of Iteration 3450
+65513 (line 1268) DEBUG MolSim - Plot particles of Iteration 3500
+66437 (line 1268) DEBUG MolSim - Plot particles of Iteration 3550
+67331 (line 1268) DEBUG MolSim - Plot particles of Iteration 3600
+68254 (line 1268) DEBUG MolSim - Plot particles of Iteration 3650
+69151 (line 1268) DEBUG MolSim - Plot particles of Iteration 3700
+70082 (line 1268) DEBUG MolSim - Plot particles of Iteration 3750
+70990 (line 1268) DEBUG MolSim - Plot particles of Iteration 3800
+71911 (line 1268) DEBUG MolSim - Plot particles of Iteration 3850
+72867 (line 1268) DEBUG MolSim - Plot particles of Iteration 3900
+73770 (line 1268) DEBUG MolSim - Plot particles of Iteration 3950
+74691 (line 1268) DEBUG MolSim - Plot particles of Iteration 4000
+74901 (line 857) INFO  MolSim - Diffusion 40.05: 0.000666618
+74901 (line 867) INFO  MolSim - RDF 40.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 0) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 0) (44, 0) (45, 0) (46, 0) (47, 0) (48, 0) (49, 0) (50, 0) (51, 0) (52, 0) (53, 0) (54, 1815.07) (55, 2205.58) (56, 0) (57, 0) (58, 0) (59, 0) (60, 0) (61, 0) (62, 0) (63, 0) (64, 0) (65, 0) (66, 0) (67, 0) (68, 0) (69, 0) (70, 0) (71, 0) (72, 0) (73, 0) (74, 0) (75, 0) (76, 0) (77, 1986.51) (78, 1.61419) (79, 0) (80, 0) (81, 0) (82, 0) (83, 0) (84, 0) (85, 0) (86, 0) (87, 0) (88, 0) (89, 0) (90, 0) (91, 0) (92, 0) (93, 0) (94, 0) (95, 0) (96, 0) (97, 0) (98, 0) (99, 0.502366) 
+75259 (line 950) DEBUG MolSim - Expected remaining runtime 838.575s (iteration 4028/50000)
+75689 (line 1268) DEBUG MolSim - Plot particles of Iteration 4050
+76602 (line 1268) DEBUG MolSim - Plot particles of Iteration 4100
+77527 (line 1268) DEBUG MolSim - Plot particles of Iteration 4150
+78471 (line 1268) DEBUG MolSim - Plot particles of Iteration 4200
+79388 (line 1268) DEBUG MolSim - Plot particles of Iteration 4250
+80309 (line 1268) DEBUG MolSim - Plot particles of Iteration 4300
+81208 (line 1268) DEBUG MolSim - Plot particles of Iteration 4350
+82121 (line 1268) DEBUG MolSim - Plot particles of Iteration 4400
+83015 (line 1268) DEBUG MolSim - Plot particles of Iteration 4450
+83945 (line 1268) DEBUG MolSim - Plot particles of Iteration 4500
+84858 (line 1268) DEBUG MolSim - Plot particles of Iteration 4550
+85770 (line 1268) DEBUG MolSim - Plot particles of Iteration 4600
+86672 (line 1268) DEBUG MolSim - Plot particles of Iteration 4650
+87585 (line 1268) DEBUG MolSim - Plot particles of Iteration 4700
+88538 (line 1268) DEBUG MolSim - Plot particles of Iteration 4750
+89444 (line 1268) DEBUG MolSim - Plot particles of Iteration 4800
+90262 (line 950) DEBUG MolSim - Expected remaining runtime 831.193s (iteration 4843/50000)
+90367 (line 1268) DEBUG MolSim - Plot particles of Iteration 4850
+91284 (line 1268) DEBUG MolSim - Plot particles of Iteration 4900
+92213 (line 1268) DEBUG MolSim - Plot particles of Iteration 4950
+93124 (line 1268) DEBUG MolSim - Plot particles of Iteration 5000
+93333 (line 857) INFO  MolSim - Diffusion 50.05: 0.000859848
+93333 (line 867) INFO  MolSim - RDF 50.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 0) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 0) (44, 0) (45, 0) (46, 0) (47, 0) (48, 0) (49, 0) (50, 0) (51, 0) (52, 0) (53, 0) (54, 1717.29) (55, 2299.88) (56, 0) (57, 0) (58, 0) (59, 0) (60, 0) (61, 0) (62, 0) (63, 0) (64, 0) (65, 0) (66, 0) (67, 0) (68, 0) (69, 0) (70, 0) (71, 0) (72, 0) (73, 0) (74, 0) (75, 0) (76, 0) (77, 1987.92) (78, 0.242129) (79, 0) (80, 0) (81, 0) (82, 0) (83, 0) (84, 0) (85, 0) (86, 0) (87, 0) (88, 0) (89, 0) (90, 0) (91, 0) (92, 0) (93, 0) (94, 0.278466) (95, 0) (96, 0.267043) (97, 0.156956) (98, 1.0765) (99, 0.30142) 
+94135 (line 1268) DEBUG MolSim - Plot particles of Iteration 5050
+95069 (line 1268) DEBUG MolSim - Plot particles of Iteration 5100
+96002 (line 1268) DEBUG MolSim - Plot particles of Iteration 5150
+96915 (line 1268) DEBUG MolSim - Plot particles of Iteration 5200
+97831 (line 1268) DEBUG MolSim - Plot particles of Iteration 5250
+98723 (line 1268) DEBUG MolSim - Plot particles of Iteration 5300
+99629 (line 1268) DEBUG MolSim - Plot particles of Iteration 5350
+100590 (line 1268) DEBUG MolSim - Plot particles of Iteration 5400
+101545 (line 1268) DEBUG MolSim - Plot particles of Iteration 5450
+102485 (line 1268) DEBUG MolSim - Plot particles of Iteration 5500
+103428 (line 1268) DEBUG MolSim - Plot particles of Iteration 5550
+104355 (line 1268) DEBUG MolSim - Plot particles of Iteration 5600
+105262 (line 1268) DEBUG MolSim - Plot particles of Iteration 5650
+105368 (line 950) DEBUG MolSim - Expected remaining runtime 829.057s (iteration 5651/50000)
+106224 (line 1268) DEBUG MolSim - Plot particles of Iteration 5700
+107149 (line 1268) DEBUG MolSim - Plot particles of Iteration 5750
+108073 (line 1268) DEBUG MolSim - Plot particles of Iteration 5800
+108979 (line 1268) DEBUG MolSim - Plot particles of Iteration 5850
+109909 (line 1268) DEBUG MolSim - Plot particles of Iteration 5900
+110809 (line 1268) DEBUG MolSim - Plot particles of Iteration 5950
+111719 (line 1268) DEBUG MolSim - Plot particles of Iteration 6000
+111933 (line 857) INFO  MolSim - Diffusion 60.05: 0.00104935
+111933 (line 867) INFO  MolSim - RDF 60.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 0) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 0) (44, 0) (45, 0) (46, 0) (47, 0) (48, 0) (49, 0) (50, 0) (51, 0) (52, 0) (53, 0) (54, 1621.85) (55, 2391.91) (56, 0) (57, 0) (58, 0) (59, 0) (60, 0) (61, 0) (62, 0) (63, 0) (64, 0) (65, 0) (66, 0) (67, 0) (68, 0) (69, 0) (70, 0) (71, 0) (72, 0) (73, 0) (74, 0) (75, 0) (76, 0) (77, 1986.93) (78, 1.21064) (79, 0) (80, 0) (81, 0) (82, 0) (83, 0.356666) (84, 0.557239) (85, 0.476246) (86, 0.265885) (87, 0.0649605) (88, 0.508006) (89, 0.745076) (90, 0.607252) (91, 0.297025) (92, 0.290638) (93, 0.568909) (94, 0) (95, 0.272665) (96, 0.267043) (97, 0.575506) (98, 0.461356) (99, 0.753549) 
+112702 (line 1268) DEBUG MolSim - Plot particles of Iteration 6050
+113607 (line 1268) DEBUG MolSim - Plot particles of Iteration 6100
+114498 (line 1268) DEBUG MolSim - Plot particles of Iteration 6150
+115401 (line 1268) DEBUG MolSim - Plot particles of Iteration 6200
+116319 (line 1268) DEBUG MolSim - Plot particles of Iteration 6250
+117229 (line 1268) DEBUG MolSim - Plot particles of Iteration 6300
+118163 (line 1268) DEBUG MolSim - Plot particles of Iteration 6350
+119064 (line 1268) DEBUG MolSim - Plot particles of Iteration 6400
+120009 (line 1268) DEBUG MolSim - Plot particles of Iteration 6450
+120377 (line 950) DEBUG MolSim - Expected remaining runtime 797.656s (iteration 6470/50000)
+121002 (line 1268) DEBUG MolSim - Plot particles of Iteration 6500
+121919 (line 1268) DEBUG MolSim - Plot particles of Iteration 6550
+122847 (line 1268) DEBUG MolSim - Plot particles of Iteration 6600
+123800 (line 1268) DEBUG MolSim - Plot particles of Iteration 6650
+124721 (line 1268) DEBUG MolSim - Plot particles of Iteration 6700
+125659 (line 1268) DEBUG MolSim - Plot particles of Iteration 6750
+126581 (line 1268) DEBUG MolSim - Plot particles of Iteration 6800
+127514 (line 1268) DEBUG MolSim - Plot particles of Iteration 6850
+128450 (line 1268) DEBUG MolSim - Plot particles of Iteration 6900
+129390 (line 1268) DEBUG MolSim - Plot particles of Iteration 6950
+130324 (line 1268) DEBUG MolSim - Plot particles of Iteration 7000
+130534 (line 857) INFO  MolSim - Diffusion 70.05: 0.00121337
+130534 (line 867) INFO  MolSim - RDF 70.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 0) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 0) (44, 0) (45, 0) (46, 0) (47, 0) (48, 0) (49, 0) (50, 0) (51, 0) (52, 0) (53, 0) (54, 1635.74) (55, 2378.51) (56, 0) (57, 0) (58, 0) (59, 0) (60, 0) (61, 0) (62, 0) (63, 0) (64, 0) (65, 0) (66, 0) (67, 0.545789) (68, 0) (69, 0) (70, 0.700459) (71, 0.291858) (72, 1.13545) (73, 0.276191) (74, 0) (75, 0) (76, 0.424924) (77, 1984.44) (78, 3.63193) (79, 0) (80, 0) (81, 0) (82, 0.365365) (83, 0.356666) (84, 0) (85, 0.340175) (86, 0.332356) (87, 0.324802) (88, 0.317504) (89, 1.05552) (90, 1.2145) (91, 1.30691) (92, 0.930042) (93, 0.568909) (94, 0.16708) (95, 0.109066) (96, 2.13635) (97, 1.30797) (98, 0.512618) (99, 0.251183) 
+131308 (line 1268) DEBUG MolSim - Plot particles of Iteration 7050
+132230 (line 1268) DEBUG MolSim - Plot particles of Iteration 7100
+133194 (line 1268) DEBUG MolSim - Plot particles of Iteration 7150
+134266 (line 1268) DEBUG MolSim - Plot particles of Iteration 7200
+135240 (line 1268) DEBUG MolSim - Plot particles of Iteration 7250
+135382 (line 950) DEBUG MolSim - Expected remaining runtime 816.975s (iteration 7255/50000)
+136275 (line 1268) DEBUG MolSim - Plot particles of Iteration 7300
+137268 (line 1268) DEBUG MolSim - Plot particles of Iteration 7350
+138266 (line 1268) DEBUG MolSim - Plot particles of Iteration 7400
+139196 (line 1268) DEBUG MolSim - Plot particles of Iteration 7450
+140139 (line 1268) DEBUG MolSim - Plot particles of Iteration 7500
+141053 (line 1268) DEBUG MolSim - Plot particles of Iteration 7550
+142103 (line 1268) DEBUG MolSim - Plot particles of Iteration 7600
+143028 (line 1268) DEBUG MolSim - Plot particles of Iteration 7650
+143944 (line 1268) DEBUG MolSim - Plot particles of Iteration 7700
+144892 (line 1268) DEBUG MolSim - Plot particles of Iteration 7750
+145823 (line 1268) DEBUG MolSim - Plot particles of Iteration 7800
+146735 (line 1268) DEBUG MolSim - Plot particles of Iteration 7850
+147678 (line 1268) DEBUG MolSim - Plot particles of Iteration 7900
+148600 (line 1268) DEBUG MolSim - Plot particles of Iteration 7950
+149515 (line 1268) DEBUG MolSim - Plot particles of Iteration 8000
+149728 (line 857) INFO  MolSim - Diffusion 80.05: 0.00134538
+149728 (line 867) INFO  MolSim - RDF 80.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 1.8665) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 0) (44, 0) (45, 0) (46, 0) (47, 0) (48, 0) (49, 0) (50, 1.95017) (51, 0) (52, 0) (53, 0) (54, 1585.34) (55, 2427.11) (56, 0) (57, 0.752131) (58, 0) (59, 0) (60, 0) (61, 0) (62, 0) (63, 0) (64, 0.59774) (65, 0) (66, 0) (67, 0) (68, 1.37792) (69, 0.205932) (70, 0.500328) (71, 0.486431) (72, 0) (73, 0.460319) (74, 0) (75, 0.436255) (76, 2.29459) (77, 1984.52) (78, 3.79335) (79, 0.39346) (80, 0) (81, 0.374386) (82, 0) (83, 0) (84, 0.348275) (85, 0.612316) (86, 0.664711) (87, 0.584644) (88, 0.127002) (89, 0.931346) (90, 1.33595) (91, 0.475241) (92, 0.871914) (93, 0.284455) (94, 0.891092) (95, 0.763462) (96, 2.40339) (97, 2.04043) (98, 1.58912) (99, 0.502366) 
+150390 (line 950) DEBUG MolSim - Expected remaining runtime 798.014s (iteration 8044/50000)
+150500 (line 1268) DEBUG MolSim - Plot particles of Iteration 8050
+151397 (line 1268) DEBUG MolSim - Plot particles of Iteration 8100
+152314 (line 1268) DEBUG MolSim - Plot particles of Iteration 8150
+153212 (line 1268) DEBUG MolSim - Plot particles of Iteration 8200
+154135 (line 1268) DEBUG MolSim - Plot particles of Iteration 8250
+155027 (line 1268) DEBUG MolSim - Plot particles of Iteration 8300
+156001 (line 1268) DEBUG MolSim - Plot particles of Iteration 8350
+156902 (line 1268) DEBUG MolSim - Plot particles of Iteration 8400
+157801 (line 1268) DEBUG MolSim - Plot particles of Iteration 8450
+158690 (line 1268) DEBUG MolSim - Plot particles of Iteration 8500
+159592 (line 1268) DEBUG MolSim - Plot particles of Iteration 8550
+160495 (line 1268) DEBUG MolSim - Plot particles of Iteration 8600
+161403 (line 1268) DEBUG MolSim - Plot particles of Iteration 8650
+162319 (line 1268) DEBUG MolSim - Plot particles of Iteration 8700
+163207 (line 1268) DEBUG MolSim - Plot particles of Iteration 8750
+164112 (line 1268) DEBUG MolSim - Plot particles of Iteration 8800
+164998 (line 1268) DEBUG MolSim - Plot particles of Iteration 8850
+165401 (line 950) DEBUG MolSim - Expected remaining runtime 747.36s (iteration 8870/50000)
+165974 (line 1268) DEBUG MolSim - Plot particles of Iteration 8900
+166891 (line 1268) DEBUG MolSim - Plot particles of Iteration 8950
+167828 (line 1268) DEBUG MolSim - Plot particles of Iteration 9000
+168035 (line 857) INFO  MolSim - Diffusion 90.05: 0.00145427
+168035 (line 867) INFO  MolSim - RDF 90.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 1.8665) (37, 1.76828) (38, 3.35525) (39, 0) (40, 0) (41, 0) (42, 0) (43, 0) (44, 0) (45, 0) (46, 1.15005) (47, 0) (48, 0) (49, 0) (50, 0) (51, 0) (52, 0.902212) (53, 0) (54, 1556.04) (55, 2455.04) (56, 1.09059) (57, 0) (58, 0) (59, 0) (60, 0.271756) (61, 0.394486) (62, 0) (63, 0) (64, 1.79322) (65, 1.15926) (66, 1.01219) (67, 0.654947) (68, 1.58991) (69, 0) (70, 1.00066) (71, 0) (72, 0) (73, 0.920638) (74, 0.896089) (75, 1.74502) (76, 1.6997) (77, 1985.27) (78, 2.42129) (79, 0) (80, 1.15124) (81, 0.52414) (82, 1.31531) (83, 0.356666) (84, 0.348275) (85, 1.02053) (86, 0.664711) (87, 0.649605) (88, 1.77802) (89, 1.30388) (90, 0.364351) (91, 0.891076) (92, 1.27881) (93, 2.10496) (94, 1.78218) (95, 1.63599) (96, 2.13635) (97, 0.994056) (98, 1.99921) (99, 3.06443) 
+168816 (line 1268) DEBUG MolSim - Plot particles of Iteration 9050
+169758 (line 1268) DEBUG MolSim - Plot particles of Iteration 9100
+170672 (line 1268) DEBUG MolSim - Plot particles of Iteration 9150
+171601 (line 1268) DEBUG MolSim - Plot particles of Iteration 9200
+172504 (line 1268) DEBUG MolSim - Plot particles of Iteration 9250
+173405 (line 1268) DEBUG MolSim - Plot particles of Iteration 9300
+174332 (line 1268) DEBUG MolSim - Plot particles of Iteration 9350
+175285 (line 1268) DEBUG MolSim - Plot particles of Iteration 9400
+176210 (line 1268) DEBUG MolSim - Plot particles of Iteration 9450
+177140 (line 1268) DEBUG MolSim - Plot particles of Iteration 9500
+178070 (line 1268) DEBUG MolSim - Plot particles of Iteration 9550
+178990 (line 1268) DEBUG MolSim - Plot particles of Iteration 9600
+179899 (line 1268) DEBUG MolSim - Plot particles of Iteration 9650
+180412 (line 950) DEBUG MolSim - Expected remaining runtime 748.111s (iteration 9679/50000)
+180800 (line 1268) DEBUG MolSim - Plot particles of Iteration 9700
+181766 (line 1268) DEBUG MolSim - Plot particles of Iteration 9750
+182680 (line 1268) DEBUG MolSim - Plot particles of Iteration 9800
+185259 (line 1268) DEBUG MolSim - Plot particles of Iteration 9850
+186616 (line 1268) DEBUG MolSim - Plot particles of Iteration 9900
+187524 (line 1268) DEBUG MolSim - Plot particles of Iteration 9950
+188434 (line 1268) DEBUG MolSim - Plot particles of Iteration 10000
+188649 (line 857) INFO  MolSim - Diffusion 100.05: 0.00156212
+188649 (line 867) INFO  MolSim - RDF 100.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 2.35418) (33, 2.21574) (34, 4.17832) (35, 0) (36, 1.8665) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 1.31414) (44, 0) (45, 0) (46, 0) (47, 0) (48, 0) (49, 1.01488) (50, 0) (51, 0) (52, 0) (53, 1.21632) (54, 1522.22) (55, 2487.66) (56, 1.55798) (57, 0) (58, 0) (59, 0) (60, 2.03817) (61, 0) (62, 0.636606) (63, 1.23343) (64, 1.19548) (65, 1.73888) (66, 1.68698) (67, 2.18316) (68, 1.58991) (69, 0) (70, 1.00066) (71, 0.972861) (72, 1.41931) (73, 0) (74, 1.79218) (75, 1.74502) (76, 3.14444) (77, 1985.35) (78, 3.3898) (79, 0.786919) (80, 0.230247) (81, 0.898526) (82, 0.73073) (83, 1.42667) (84, 0) (85, 2.38123) (86, 1.32942) (87, 2.1437) (88, 2.22253) (89, 1.36597) (90, 1.51813) (91, 1.30691) (92, 1.22068) (93, 1.99118) (94, 2.33912) (95, 2.18132) (96, 2.61702) (97, 1.56956) (98, 1.58912) (99, 2.26065) 
+189433 (line 1268) DEBUG MolSim - Plot particles of Iteration 10050
+190374 (line 1268) DEBUG MolSim - Plot particles of Iteration 10100
+191365 (line 1268) DEBUG MolSim - Plot particles of Iteration 10150
+192324 (line 1268) DEBUG MolSim - Plot particles of Iteration 10200
+193262 (line 1268) DEBUG MolSim - Plot particles of Iteration 10250
+194190 (line 1268) DEBUG MolSim - Plot particles of Iteration 10300
+195105 (line 1268) DEBUG MolSim - Plot particles of Iteration 10350
+195418 (line 950) DEBUG MolSim - Expected remaining runtime 865.627s (iteration 10366/50000)
+196059 (line 1268) DEBUG MolSim - Plot particles of Iteration 10400
+196995 (line 1268) DEBUG MolSim - Plot particles of Iteration 10450
+197961 (line 1268) DEBUG MolSim - Plot particles of Iteration 10500
+198899 (line 1268) DEBUG MolSim - Plot particles of Iteration 10550
+199850 (line 1268) DEBUG MolSim - Plot particles of Iteration 10600
+200774 (line 1268) DEBUG MolSim - Plot particles of Iteration 10650
+201704 (line 1268) DEBUG MolSim - Plot particles of Iteration 10700
+202607 (line 1268) DEBUG MolSim - Plot particles of Iteration 10750
+203514 (line 1268) DEBUG MolSim - Plot particles of Iteration 10800
+204430 (line 1268) DEBUG MolSim - Plot particles of Iteration 10850
+205318 (line 1268) DEBUG MolSim - Plot particles of Iteration 10900
+207999 (line 1268) DEBUG MolSim - Plot particles of Iteration 10950
+208915 (line 1268) DEBUG MolSim - Plot particles of Iteration 11000
+209134 (line 857) INFO  MolSim - Diffusion 110.05: 0.00168549
+209134 (line 867) INFO  MolSim - RDF 110.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 2.67302) (31, 0) (32, 2.35418) (33, 0) (34, 4.17832) (35, 1.97313) (36, 0) (37, 0) (38, 0) (39, 0) (40, 0) (41, 2.31016) (42, 0.550684) (43, 0) (44, 0) (45, 0) (46, 0) (47, 1.10214) (48, 0) (49, 0) (50, 0.975087) (51, 0) (52, 0.902212) (53, 1.7376) (54, 1587.69) (55, 2423.23) (56, 2.33697) (57, 1.50426) (58, 1.16262) (59, 1.96677) (60, 0.407634) (61, 1.31495) (62, 2.03714) (63, 2.46686) (64, 1.67367) (65, 0) (66, 0.787257) (67, 2.51063) (68, 0.423976) (69, 1.64745) (70, 2.00131) (71, 0.486431) (72, 0.946209) (73, 0) (74, 1.79218) (75, 0.872509) (76, 2.46456) (77, 1985.93) (78, 5.0847) (79, 0.786919) (80, 1.68848) (81, 0.599017) (82, 2.77677) (83, 1.926) (84, 2.08965) (85, 0.816421) (86, 2.79179) (87, 1.29921) (88, 0.381005) (89, 2.29732) (90, 1.7003) (91, 1.78215) (92, 1.16255) (93, 1.70673) (94, 1.6708) (95, 2.45399) (96, 1.8693) (97, 2.35434) (98, 2.30678) (99, 3.11467) 
+209950 (line 1268) DEBUG MolSim - Plot particles of Iteration 11050
+210424 (line 950) DEBUG MolSim - Expected remaining runtime 821.414s (iteration 11077/50000)
+210872 (line 1268) DEBUG MolSim - Plot particles of Iteration 11100
+211811 (line 1268) DEBUG MolSim - Plot particles of Iteration 11150
+212720 (line 1268) DEBUG MolSim - Plot particles of Iteration 11200
+213777 (line 1268) DEBUG MolSim - Plot particles of Iteration 11250
+214699 (line 1268) DEBUG MolSim - Plot particles of Iteration 11300
+215619 (line 1268) DEBUG MolSim - Plot particles of Iteration 11350
+217954 (line 1268) DEBUG MolSim - Plot particles of Iteration 11400
+219600 (line 1268) DEBUG MolSim - Plot particles of Iteration 11450
+220532 (line 1268) DEBUG MolSim - Plot particles of Iteration 11500
+221450 (line 1268) DEBUG MolSim - Plot particles of Iteration 11550
+222383 (line 1268) DEBUG MolSim - Plot particles of Iteration 11600
+223308 (line 1268) DEBUG MolSim - Plot particles of Iteration 11650
+224246 (line 1268) DEBUG MolSim - Plot particles of Iteration 11700
+225154 (line 1268) DEBUG MolSim - Plot particles of Iteration 11750
+225440 (line 950) DEBUG MolSim - Expected remaining runtime 835.629s (iteration 11764/50000)
+226092 (line 1268) DEBUG MolSim - Plot particles of Iteration 11800
+226999 (line 1268) DEBUG MolSim - Plot particles of Iteration 11850
+227948 (line 1268) DEBUG MolSim - Plot particles of Iteration 11900
+228880 (line 1268) DEBUG MolSim - Plot particles of Iteration 11950
+230418 (line 1268) DEBUG MolSim - Plot particles of Iteration 12000
+231172 (line 857) INFO  MolSim - Diffusion 120.05: 0.00178293
+231173 (line 867) INFO  MolSim - RDF 120.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 2.85729) (30, 0) (31, 0) (32, 0) (33, 2.21574) (34, 2.08916) (35, 0) (36, 1.8665) (37, 1.76828) (38, 0) (39, 0) (40, 1.51603) (41, 0) (42, 0) (43, 1.31414) (44, 1.25575) (45, 1.20116) (46, 2.3001) (47, 1.10214) (48, 0) (49, 1.01488) (50, 0) (51, 0) (52, 0) (53, 0.8688) (54, 1572.62) (55, 2437.77) (56, 2.33697) (57, 0) (58, 0) (59, 1.40484) (60, 0) (61, 0.657477) (62, 2.4191) (63, 1.35677) (64, 0.59774) (65, 1.73888) (66, 0.562327) (67, 2.18316) (68, 1.05994) (69, 2.57415) (70, 2.30151) (71, 1.65386) (72, 0.946209) (73, 1.84128) (74, 1.34413) (75, 1.30876) (76, 2.12462) (77, 1984.85) (78, 4.03548) (79, 0.786919) (80, 2.07222) (81, 1.6473) (82, 1.16917) (83, 1.07) (84, 1.18413) (85, 1.22463) (86, 1.66178) (87, 2.27362) (88, 2.47653) (89, 1.30388) (90, 1.51813) (91, 2.01977) (92, 2.55761) (93, 2.27564) (94, 1.78218) (95, 1.90866) (96, 2.67043) (97, 2.87753) (98, 2.56309) (99, 1.5071) 
+232603 (line 1268) DEBUG MolSim - Plot particles of Iteration 12050
+233563 (line 1268) DEBUG MolSim - Plot particles of Iteration 12100
+234461 (line 1268) DEBUG MolSim - Plot particles of Iteration 12150
+235417 (line 1268) DEBUG MolSim - Plot particles of Iteration 12200
+236460 (line 1268) DEBUG MolSim - Plot particles of Iteration 12250
+237385 (line 1268) DEBUG MolSim - Plot particles of Iteration 12300
+238438 (line 1268) DEBUG MolSim - Plot particles of Iteration 12350
+239356 (line 1268) DEBUG MolSim - Plot particles of Iteration 12400
+240339 (line 1268) DEBUG MolSim - Plot particles of Iteration 12450
+240453 (line 950) DEBUG MolSim - Expected remaining runtime 818.048s (iteration 12453/50000)
+242682 (line 1268) DEBUG MolSim - Plot particles of Iteration 12500
+244315 (line 1268) DEBUG MolSim - Plot particles of Iteration 12550
+245302 (line 1268) DEBUG MolSim - Plot particles of Iteration 12600
+246314 (line 1268) DEBUG MolSim - Plot particles of Iteration 12650
+247274 (line 1268) DEBUG MolSim - Plot particles of Iteration 12700
+249866 (line 1268) DEBUG MolSim - Plot particles of Iteration 12750
+251265 (line 1268) DEBUG MolSim - Plot particles of Iteration 12800
+252267 (line 1268) DEBUG MolSim - Plot particles of Iteration 12850
+253193 (line 1268) DEBUG MolSim - Plot particles of Iteration 12900
+254134 (line 1268) DEBUG MolSim - Plot particles of Iteration 12950
+255074 (line 1268) DEBUG MolSim - Plot particles of Iteration 13000
+255289 (line 857) INFO  MolSim - Diffusion 130.05: 0.00188096
+255289 (line 867) INFO  MolSim - RDF 130.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 3.0613) (29, 5.71458) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 1.18388) (36, 0.746599) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 0) (44, 0) (45, 1.20116) (46, 0) (47, 0) (48, 1.05716) (49, 0.405952) (50, 0.585052) (51, 0) (52, 0) (53, 0) (54, 1599.07) (55, 2413.06) (56, 1.55798) (57, 0) (58, 0.726638) (59, 0) (60, 2.71756) (61, 1.18346) (62, 3.31035) (63, 2.46686) (64, 0.59774) (65, 0.579628) (66, 0.562327) (67, 1.63737) (68, 0) (69, 2.05932) (70, 1.00066) (71, 0.972861) (72, 2.83863) (73, 1.84128) (74, 1.34413) (75, 0.436255) (76, 1.6997) (77, 1985.68) (78, 4.84257) (79, 0.708227) (80, 2.76296) (81, 1.49754) (82, 0.365365) (83, 1.42667) (84, 1.95034) (85, 2.85747) (86, 2.65885) (87, 1.62401) (88, 2.92104) (89, 3.10449) (90, 4.06859) (91, 5.16824) (92, 0.988169) (93, 2.90144) (94, 2.72897) (95, 3.10838) (96, 1.38863) (97, 2.35434) (98, 3.99842) (99, 2.86349) 
+255461 (line 950) DEBUG MolSim - Expected remaining runtime 985.819s (iteration 13016/50000)
+256095 (line 1268) DEBUG MolSim - Plot particles of Iteration 13050
+257009 (line 1268) DEBUG MolSim - Plot particles of Iteration 13100
+258023 (line 1268) DEBUG MolSim - Plot particles of Iteration 13150
+260898 (line 1268) DEBUG MolSim - Plot particles of Iteration 13200
+261958 (line 1268) DEBUG MolSim - Plot particles of Iteration 13250
+262882 (line 1268) DEBUG MolSim - Plot particles of Iteration 13300
+263869 (line 1268) DEBUG MolSim - Plot particles of Iteration 13350
+264849 (line 1268) DEBUG MolSim - Plot particles of Iteration 13400
+265761 (line 1268) DEBUG MolSim - Plot particles of Iteration 13450
+266665 (line 1268) DEBUG MolSim - Plot particles of Iteration 13500
+267608 (line 1268) DEBUG MolSim - Plot particles of Iteration 13550
+268515 (line 1268) DEBUG MolSim - Plot particles of Iteration 13600
+269430 (line 1268) DEBUG MolSim - Plot particles of Iteration 13650
+270379 (line 1268) DEBUG MolSim - Plot particles of Iteration 13700
+270476 (line 950) DEBUG MolSim - Expected remaining runtime 794.411s (iteration 13702/50000)
+271309 (line 1268) DEBUG MolSim - Plot particles of Iteration 13750
+272230 (line 1268) DEBUG MolSim - Plot particles of Iteration 13800
+273137 (line 1268) DEBUG MolSim - Plot particles of Iteration 13850
+274065 (line 1268) DEBUG MolSim - Plot particles of Iteration 13900
+275490 (line 1268) DEBUG MolSim - Plot particles of Iteration 13950
+277673 (line 1268) DEBUG MolSim - Plot particles of Iteration 14000
+277882 (line 857) INFO  MolSim - Diffusion 140.05: 0.00196328
+277882 (line 867) INFO  MolSim - RDF 140.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 3.28796) (28, 6.1226) (29, 2.85729) (30, 0) (31, 0) (32, 0) (33, 0.886295) (34, 3.34266) (35, 1.97313) (36, 0) (37, 0) (38, 1.67762) (39, 0) (40, 2.42565) (41, 3.46525) (42, 0) (43, 0) (44, 2.51149) (45, 1.20116) (46, 2.07009) (47, 1.32257) (48, 0) (49, 0) (50, 0.975087) (51, 1.87518) (52, 0.902212) (53, 0.8688) (54, 1502.63) (55, 2510.91) (56, 1.55798) (57, 0) (58, 0.726638) (59, 2.80967) (60, 3.1252) (61, 2.8929) (62, 1.27321) (63, 1.23343) (64, 3.82553) (65, 3.82554) (66, 2.81163) (67, 1.09158) (68, 3.92178) (69, 2.36821) (70, 3.00197) (71, 1.94572) (72, 1.7978) (73, 2.85398) (74, 1.34413) (75, 5.3223) (76, 5.18407) (77, 1984.11) (78, 8.31308) (79, 1.41645) (80, 2.37922) (81, 1.87193) (82, 3.72672) (83, 2.42533) (84, 2.36827) (85, 3.12961) (86, 5.31769) (87, 3.18306) (88, 2.98454) (89, 1.24179) (90, 3.33988) (91, 0.831671) (92, 3.42953) (93, 2.5032) (94, 2.39481) (95, 2.07225) (96, 2.4568) (97, 3.3484) (98, 1.69164) (99, 2.71278) 
+278675 (line 1268) DEBUG MolSim - Plot particles of Iteration 14050
+279579 (line 1268) DEBUG MolSim - Plot particles of Iteration 14100
+280478 (line 1268) DEBUG MolSim - Plot particles of Iteration 14150
+281417 (line 1268) DEBUG MolSim - Plot particles of Iteration 14200
+282354 (line 1268) DEBUG MolSim - Plot particles of Iteration 14250
+283260 (line 1268) DEBUG MolSim - Plot particles of Iteration 14300
+284205 (line 1268) DEBUG MolSim - Plot particles of Iteration 14350
+285142 (line 1268) DEBUG MolSim - Plot particles of Iteration 14400
+285492 (line 950) DEBUG MolSim - Expected remaining runtime 746.17s (iteration 14418/50000)
+286084 (line 1268) DEBUG MolSim - Plot particles of Iteration 14450
+287008 (line 1268) DEBUG MolSim - Plot particles of Iteration 14500
+289097 (line 1268) DEBUG MolSim - Plot particles of Iteration 14550
+290610 (line 1268) DEBUG MolSim - Plot particles of Iteration 14600
+291513 (line 1268) DEBUG MolSim - Plot particles of Iteration 14650
+292440 (line 1268) DEBUG MolSim - Plot particles of Iteration 14700
+293340 (line 1268) DEBUG MolSim - Plot particles of Iteration 14750
+294249 (line 1268) DEBUG MolSim - Plot particles of Iteration 14800
+295144 (line 1268) DEBUG MolSim - Plot particles of Iteration 14850
+296707 (line 1268) DEBUG MolSim - Plot particles of Iteration 14900
+299218 (line 1268) DEBUG MolSim - Plot particles of Iteration 14950
+300160 (line 815) DEBUG MolSim - Reset static forces
+300160 (line 1268) DEBUG MolSim - Plot particles of Iteration 15000
+300391 (line 857) INFO  MolSim - Diffusion 150.05: 0.00203333
+300391 (line 867) INFO  MolSim - RDF 150.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 3.0613) (29, 8.57187) (30, 2.67302) (31, 0) (32, 2.35418) (33, 2.21574) (34, 2.92482) (35, 3.157) (36, 3.73299) (37, 0) (38, 3.35525) (39, 1.91251) (40, 2.72886) (41, 0) (42, 0) (43, 0) (44, 2.51149) (45, 2.40231) (46, 1.15005) (47, 2.20428) (48, 0) (49, 1.01488) (50, 2.92526) (51, 3.75035) (52, 2.70664) (53, 5.2128) (54, 1554.7) (55, 2456.98) (56, 3.58335) (57, 3.76066) (58, 0) (59, 0) (60, 2.71756) (61, 0.657477) (62, 2.54642) (63, 4.317) (64, 1.79322) (65, 2.78221) (66, 2.9241) (67, 3.27473) (68, 1.58991) (69, 0.102966) (70, 3.40223) (71, 3.40502) (72, 3.78484) (73, 4.14287) (74, 2.24022) (75, 2.79203) (76, 3.22942) (77, 1987.75) (78, 4.35832) (79, 2.04599) (80, 1.53498) (81, 4.41775) (82, 3.36136) (83, 2.42533) (84, 2.99516) (85, 3.60586) (86, 2.59237) (87, 2.92322) (88, 1.65102) (89, 2.11105) (90, 2.06466) (91, 1.30691) (92, 1.97634) (93, 1.99118) (94, 2.84036) (95, 1.30879) (96, 2.56362) (97, 2.09275) (98, 4.35725) (99, 3.11467) 
+300503 (line 950) DEBUG MolSim - Expected remaining runtime 884.12s (iteration 15012/50000)
+301263 (line 1268) DEBUG MolSim - Plot particles of Iteration 15050
+302323 (line 1268) DEBUG MolSim - Plot particles of Iteration 15100
+305121 (line 1268) DEBUG MolSim - Plot particles of Iteration 15150
+306747 (line 1268) DEBUG MolSim - Plot particles of Iteration 15200
+307872 (line 1268) DEBUG MolSim - Plot particles of Iteration 15250
+308840 (line 1268) DEBUG MolSim - Plot particles of Iteration 15300
+310627 (line 1268) DEBUG MolSim - Plot particles of Iteration 15350
+312965 (line 1268) DEBUG MolSim - Plot particles of Iteration 15400
+313959 (line 1268) DEBUG MolSim - Plot particles of Iteration 15450
+314964 (line 1268) DEBUG MolSim - Plot particles of Iteration 15500
+315522 (line 950) DEBUG MolSim - Expected remaining runtime 997.352s (iteration 15531/50000)
+316280 (line 1268) DEBUG MolSim - Plot particles of Iteration 15550
+319018 (line 1268) DEBUG MolSim - Plot particles of Iteration 15600
+319984 (line 1268) DEBUG MolSim - Plot particles of Iteration 15650
+320929 (line 1268) DEBUG MolSim - Plot particles of Iteration 15700
+321878 (line 1268) DEBUG MolSim - Plot particles of Iteration 15750
+322835 (line 1268) DEBUG MolSim - Plot particles of Iteration 15800
+324406 (line 1268) DEBUG MolSim - Plot particles of Iteration 15850
+326724 (line 1268) DEBUG MolSim - Plot particles of Iteration 15900
+327686 (line 1268) DEBUG MolSim - Plot particles of Iteration 15950
+328602 (line 1268) DEBUG MolSim - Plot particles of Iteration 16000
+328813 (line 857) INFO  MolSim - Diffusion 160.05: 0.00197227
+328813 (line 867) INFO  MolSim - RDF 160.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 3.0613) (29, 2.85729) (30, 2.67302) (31, 2.50601) (32, 4.70835) (33, 6.64721) (34, 0) (35, 0) (36, 1.8665) (37, 1.76828) (38, 1.67762) (39, 2.23126) (40, 2.42565) (41, 0) (42, 5.50684) (43, 3.41677) (44, 1.75804) (45, 0) (46, 2.99014) (47, 0.881712) (48, 2.74862) (49, 3.04464) (50, 0.195017) (51, 2.62525) (52, 0.180442) (53, 5.03904) (54, 1501.62) (55, 2508.16) (56, 8.2573) (57, 2.25639) (58, 0) (59, 0.983386) (60, 3.1252) (61, 0.657477) (62, 1.7825) (63, 1.60346) (64, 2.9887) (65, 2.66629) (66, 2.47424) (67, 1.96484) (68, 1.05994) (69, 2.05932) (70, 3.50229) (71, 3.40502) (72, 2.36552) (73, 1.56508) (74, 2.95709) (75, 2.61753) (76, 10.6231) (77, 1985.52) (78, 6.61818) (79, 2.04599) (80, 1.84198) (81, 2.54582) (82, 0.438438) (83, 2.06866) (84, 1.46275) (85, 3.74193) (86, 1.66178) (87, 0.909447) (88, 1.65102) (89, 1.55224) (90, 1.82175) (91, 1.96037) (92, 2.732) (93, 1.42227) (94, 2.78466) (95, 3.49011) (96, 2.24316) (97, 5.44115) (98, 2.71688) (99, 2.10994) 
+329627 (line 1268) DEBUG MolSim - Plot particles of Iteration 16050
+330528 (line 950) DEBUG MolSim - Expected remaining runtime 897.166s (iteration 16098/50000)
+330573 (line 1268) DEBUG MolSim - Plot particles of Iteration 16100
+331520 (line 1268) DEBUG MolSim - Plot particles of Iteration 16150
+332468 (line 1268) DEBUG MolSim - Plot particles of Iteration 16200
+334188 (line 1268) DEBUG MolSim - Plot particles of Iteration 16250
+336521 (line 1268) DEBUG MolSim - Plot particles of Iteration 16300
+337475 (line 1268) DEBUG MolSim - Plot particles of Iteration 16350
+338420 (line 1268) DEBUG MolSim - Plot particles of Iteration 16400
+339470 (line 1268) DEBUG MolSim - Plot particles of Iteration 16450
+340564 (line 1268) DEBUG MolSim - Plot particles of Iteration 16500
+341523 (line 1268) DEBUG MolSim - Plot particles of Iteration 16550
+342461 (line 1268) DEBUG MolSim - Plot particles of Iteration 16600
+343416 (line 1268) DEBUG MolSim - Plot particles of Iteration 16650
+345550 (line 950) DEBUG MolSim - Expected remaining runtime 842.285s (iteration 16692/50000)
+345937 (line 1268) DEBUG MolSim - Plot particles of Iteration 16700
+347080 (line 1268) DEBUG MolSim - Plot particles of Iteration 16750
+348075 (line 1268) DEBUG MolSim - Plot particles of Iteration 16800
+349046 (line 1268) DEBUG MolSim - Plot particles of Iteration 16850
+350015 (line 1268) DEBUG MolSim - Plot particles of Iteration 16900
+350933 (line 1268) DEBUG MolSim - Plot particles of Iteration 16950
+351946 (line 1268) DEBUG MolSim - Plot particles of Iteration 17000
+352165 (line 857) INFO  MolSim - Diffusion 170.05: 0.00189968
+352165 (line 867) INFO  MolSim - RDF 170.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 1.97278) (28, 4.28582) (29, 8.57187) (30, 6.94984) (31, 7.01682) (32, 6.12086) (33, 4.43148) (34, 2.08916) (35, 5.91938) (36, 1.8665) (37, 1.76828) (38, 3.35525) (39, 0) (40, 1.51603) (41, 0.288771) (42, 3.85479) (43, 0) (44, 2.51149) (45, 2.40231) (46, 1.15005) (47, 0) (48, 0.845729) (49, 2.23274) (50, 0.975087) (51, 2.06269) (52, 3.4284) (53, 2.6064) (54, 1488.23) (55, 2523.99) (56, 5.45293) (57, 1.50426) (58, 0.726638) (59, 1.40484) (60, 3.26107) (61, 3.68187) (62, 4.45624) (63, 0.740057) (64, 4.66237) (65, 3.24592) (66, 3.37396) (67, 3.27473) (68, 2.11988) (69, 3.6038) (70, 5.50361) (71, 4.37788) (72, 3.31173) (73, 6.90478) (74, 2.24022) (75, 2.18127) (76, 5.43903) (77, 1985.77) (78, 5.24612) (79, 2.59683) (80, 2.68622) (81, 2.02168) (82, 1.75375) (83, 2.71066) (84, 3.34344) (85, 1.08856) (86, 1.92766) (87, 4.41731) (88, 3.36554) (89, 2.29732) (90, 4.37221) (91, 1.90096) (92, 1.22068) (93, 2.56009) (94, 3.84283) (95, 4.25357) (96, 1.8693) (97, 2.87753) (98, 3.33202) (99, 1.95923) 
+352993 (line 1268) DEBUG MolSim - Plot particles of Iteration 17050
+355734 (line 1268) DEBUG MolSim - Plot particles of Iteration 17100
+357009 (line 1268) DEBUG MolSim - Plot particles of Iteration 17150
+357965 (line 1268) DEBUG MolSim - Plot particles of Iteration 17200
+358888 (line 1268) DEBUG MolSim - Plot particles of Iteration 17250
+359825 (line 1268) DEBUG MolSim - Plot particles of Iteration 17300
+360561 (line 950) DEBUG MolSim - Expected remaining runtime 756.491s (iteration 17340/50000)
+360750 (line 1268) DEBUG MolSim - Plot particles of Iteration 17350
+361699 (line 1268) DEBUG MolSim - Plot particles of Iteration 17400
+363995 (line 1268) DEBUG MolSim - Plot particles of Iteration 17450
+365361 (line 1268) DEBUG MolSim - Plot particles of Iteration 17500
+366326 (line 1268) DEBUG MolSim - Plot particles of Iteration 17550
+367317 (line 1268) DEBUG MolSim - Plot particles of Iteration 17600
+368281 (line 1268) DEBUG MolSim - Plot particles of Iteration 17650
+369237 (line 1268) DEBUG MolSim - Plot particles of Iteration 17700
+370199 (line 1268) DEBUG MolSim - Plot particles of Iteration 17750
+371159 (line 1268) DEBUG MolSim - Plot particles of Iteration 17800
+373422 (line 1268) DEBUG MolSim - Plot particles of Iteration 17850
+375298 (line 1268) DEBUG MolSim - Plot particles of Iteration 17900
+375572 (line 950) DEBUG MolSim - Expected remaining runtime 842.016s (iteration 17912/50000)
+376326 (line 1268) DEBUG MolSim - Plot particles of Iteration 17950
+377336 (line 1268) DEBUG MolSim - Plot particles of Iteration 18000
+377592 (line 857) INFO  MolSim - Diffusion 180.05: 0.00184025
+377593 (line 867) INFO  MolSim - RDF 180.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 6.73486) (29, 8.00042) (30, 5.34603) (31, 10.024) (32, 0) (33, 6.64721) (34, 4.17832) (35, 0) (36, 0.373299) (37, 4.95119) (38, 1.67762) (39, 5.73753) (40, 0.606412) (41, 2.88771) (42, 1.37671) (43, 2.62829) (44, 2.51149) (45, 3.60347) (46, 2.3001) (47, 1.10214) (48, 1.26859) (49, 2.84167) (50, 3.31529) (51, 6.00056) (52, 1.08265) (53, 1.7376) (54, 1491.41) (55, 2520.11) (56, 6.23192) (57, 2.25639) (58, 2.17991) (59, 3.23113) (60, 3.66871) (61, 1.31495) (62, 5.85678) (63, 2.34351) (64, 5.7383) (65, 2.78221) (66, 1.46205) (67, 3.27473) (68, 2.54386) (69, 2.78008) (70, 4.00262) (71, 7.19918) (72, 4.73105) (73, 3.22223) (74, 4.48044) (75, 5.1478) (76, 6.7138) (77, 1985.85) (78, 6.86031) (79, 4.40675) (80, 2.22572) (81, 4.11825) (82, 3.5075) (83, 2.63933) (84, 1.74137) (85, 3.12961) (86, 4.85239) (87, 2.4685) (88, 2.79403) (89, 3.35284) (90, 2.12538) (91, 2.97025) (92, 4.65021) (93, 3.129) (94, 1.78218) (95, 4.36264) (96, 3.73861) (97, 3.50535) (98, 1.84543) (99, 2.26065) 
+378520 (line 1268) DEBUG MolSim - Plot particles of Iteration 18050
+379550 (line 1268) DEBUG MolSim - Plot particles of Iteration 18100
+381802 (line 1268) DEBUG MolSim - Plot particles of Iteration 18150
+383269 (line 1268) DEBUG MolSim - Plot particles of Iteration 18200
+384248 (line 1268) DEBUG MolSim - Plot particles of Iteration 18250
+385225 (line 1268) DEBUG MolSim - Plot particles of Iteration 18300
+386286 (line 1268) DEBUG MolSim - Plot particles of Iteration 18350
+388862 (line 1268) DEBUG MolSim - Plot particles of Iteration 18400
+390145 (line 1268) DEBUG MolSim - Plot particles of Iteration 18450
+390585 (line 950) DEBUG MolSim - Expected remaining runtime 842.123s (iteration 18474/50000)
+391112 (line 1268) DEBUG MolSim - Plot particles of Iteration 18500
+392116 (line 1268) DEBUG MolSim - Plot particles of Iteration 18550
+393133 (line 1268) DEBUG MolSim - Plot particles of Iteration 18600
+395535 (line 1268) DEBUG MolSim - Plot particles of Iteration 18650
+397023 (line 1268) DEBUG MolSim - Plot particles of Iteration 18700
+398012 (line 1268) DEBUG MolSim - Plot particles of Iteration 18750
+398980 (line 1268) DEBUG MolSim - Plot particles of Iteration 18800
+399987 (line 1268) DEBUG MolSim - Plot particles of Iteration 18850
+402083 (line 1268) DEBUG MolSim - Plot particles of Iteration 18900
+403677 (line 1268) DEBUG MolSim - Plot particles of Iteration 18950
+404615 (line 1268) DEBUG MolSim - Plot particles of Iteration 19000
+404832 (line 857) INFO  MolSim - Diffusion 190.05: 0.00177752
+404832 (line 867) INFO  MolSim - RDF 190.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 4.00021) (30, 1.60381) (31, 7.51803) (32, 2.35418) (33, 0) (34, 4.17832) (35, 0) (36, 1.8665) (37, 3.53657) (38, 0) (39, 5.73753) (40, 6.67054) (41, 4.33156) (42, 4.13013) (43, 0) (44, 0.502298) (45, 1.92185) (46, 4.60021) (47, 1.10214) (48, 1.05716) (49, 3.04464) (50, 0.975087) (51, 2.81276) (52, 3.4284) (53, 1.91136) (54, 1528.25) (55, 2480.88) (56, 3.58335) (57, 3.00852) (58, 0.726638) (59, 1.12387) (60, 2.98932) (61, 1.31495) (62, 3.43767) (63, 2.96023) (64, 5.14056) (65, 4.63702) (66, 4.61108) (67, 3.05642) (68, 1.8019) (69, 3.50084) (70, 6.30413) (71, 6.12903) (72, 3.78484) (73, 2.76191) (74, 2.24022) (75, 4.36255) (76, 7.73361) (77, 1984.61) (78, 8.95876) (79, 2.43945) (80, 2.14897) (81, 2.54582) (82, 2.04604) (83, 3.92333) (84, 2.7862) (85, 2.44926) (86, 2.59237) (87, 2.66338) (88, 3.36554) (89, 2.48359) (90, 3.58278) (91, 4.99003) (92, 4.82459) (93, 2.90144) (94, 4.06561) (95, 3.16291) (96, 1.54885) (97, 3.45304) (98, 3.4858) (99, 3.76775) 
+405596 (line 950) DEBUG MolSim - Expected remaining runtime 809.335s (iteration 19048/50000)
+405631 (line 1268) DEBUG MolSim - Plot particles of Iteration 19050
+406577 (line 1268) DEBUG MolSim - Plot particles of Iteration 19100
+408251 (line 1268) DEBUG MolSim - Plot particles of Iteration 19150
+410256 (line 1268) DEBUG MolSim - Plot particles of Iteration 19200
+411196 (line 1268) DEBUG MolSim - Plot particles of Iteration 19250
+412187 (line 1268) DEBUG MolSim - Plot particles of Iteration 19300
+413133 (line 1268) DEBUG MolSim - Plot particles of Iteration 19350
+415195 (line 1268) DEBUG MolSim - Plot particles of Iteration 19400
+416777 (line 1268) DEBUG MolSim - Plot particles of Iteration 19450
+417702 (line 1268) DEBUG MolSim - Plot particles of Iteration 19500
+418652 (line 1268) DEBUG MolSim - Plot particles of Iteration 19550
+419584 (line 1268) DEBUG MolSim - Plot particles of Iteration 19600
+420506 (line 1268) DEBUG MolSim - Plot particles of Iteration 19650
+420603 (line 950) DEBUG MolSim - Expected remaining runtime 753.991s (iteration 19652/50000)
+422614 (line 1268) DEBUG MolSim - Plot particles of Iteration 19700
+424523 (line 1268) DEBUG MolSim - Plot particles of Iteration 19750
+425450 (line 1268) DEBUG MolSim - Plot particles of Iteration 19800
+426409 (line 1268) DEBUG MolSim - Plot particles of Iteration 19850
+427346 (line 1268) DEBUG MolSim - Plot particles of Iteration 19900
+428329 (line 1268) DEBUG MolSim - Plot particles of Iteration 19950
+429270 (line 1268) DEBUG MolSim - Plot particles of Iteration 20000
+429492 (line 857) INFO  MolSim - Diffusion 200.05: 0.00173902
+429492 (line 867) INFO  MolSim - RDF 200.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 2.85729) (30, 0) (31, 5.01202) (32, 4.70835) (33, 0) (34, 10.4458) (35, 1.97313) (36, 1.8665) (37, 1.41463) (38, 2.01315) (39, 0) (40, 1.51603) (41, 1.44385) (42, 2.75342) (43, 1.31414) (44, 5.02298) (45, 1.92185) (46, 0.460021) (47, 0) (48, 1.90289) (49, 1.62381) (50, 2.53523) (51, 0.937588) (52, 0) (53, 0) (54, 1506.48) (55, 2499.93) (56, 3.11596) (57, 0.752131) (58, 0.726638) (59, 0) (60, 0.679391) (61, 1.31495) (62, 2.80107) (63, 2.22017) (64, 5.37966) (65, 1.73888) (66, 3.37396) (67, 6.00368) (68, 2.54386) (69, 1.75042) (70, 2.70177) (71, 4.08602) (72, 5.48801) (73, 7.3651) (74, 3.13631) (75, 3.22828) (76, 3.99428) (77, 1984.61) (78, 5.32683) (79, 2.28207) (80, 1.61173) (81, 0.748772) (82, 1.46146) (83, 2.49666) (84, 1.60206) (85, 2.5173) (86, 1.99413) (87, 4.02755) (88, 5.90557) (89, 3.6012) (90, 2.97553) (91, 4.6336) (92, 3.77829) (93, 3.92547) (94, 3.78714) (95, 3.54465) (96, 2.83066) (97, 3.50535) (98, 2.51183) (99, 2.81325) 
+430300 (line 1268) DEBUG MolSim - Plot particles of Iteration 20050
+431247 (line 1268) DEBUG MolSim - Plot particles of Iteration 20100
+432197 (line 1268) DEBUG MolSim - Plot particles of Iteration 20150
+433140 (line 1268) DEBUG MolSim - Plot particles of Iteration 20200
+434228 (line 1268) DEBUG MolSim - Plot particles of Iteration 20250
+435606 (line 950) DEBUG MolSim - Expected remaining runtime 721.673s (iteration 20270/50000)
+437015 (line 1268) DEBUG MolSim - Plot particles of Iteration 20300
+438103 (line 1268) DEBUG MolSim - Plot particles of Iteration 20350
+439062 (line 1268) DEBUG MolSim - Plot particles of Iteration 20400
+440032 (line 1268) DEBUG MolSim - Plot particles of Iteration 20450
+440987 (line 1268) DEBUG MolSim - Plot particles of Iteration 20500
+442012 (line 1268) DEBUG MolSim - Plot particles of Iteration 20550
+443073 (line 1268) DEBUG MolSim - Plot particles of Iteration 20600
+445092 (line 1268) DEBUG MolSim - Plot particles of Iteration 20650
+446733 (line 1268) DEBUG MolSim - Plot particles of Iteration 20700
+447653 (line 1268) DEBUG MolSim - Plot particles of Iteration 20750
+448587 (line 1268) DEBUG MolSim - Plot particles of Iteration 20800
+449513 (line 1268) DEBUG MolSim - Plot particles of Iteration 20850
+450615 (line 950) DEBUG MolSim - Expected remaining runtime 694.349s (iteration 20899/50000)
+450691 (line 1268) DEBUG MolSim - Plot particles of Iteration 20900
+453142 (line 1268) DEBUG MolSim - Plot particles of Iteration 20950
+454147 (line 1268) DEBUG MolSim - Plot particles of Iteration 21000
+454354 (line 857) INFO  MolSim - Diffusion 210.05: 0.00169379
+454355 (line 867) INFO  MolSim - RDF 210.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 3.28796) (28, 0) (29, 0) (30, 4.81143) (31, 0.501202) (32, 2.35418) (33, 0) (34, 2.92482) (35, 1.18388) (36, 1.8665) (37, 0) (38, 5.03287) (39, 1.91251) (40, 1.21282) (41, 0) (42, 6.60821) (43, 2.89111) (44, 1.25575) (45, 1.20116) (46, 0) (47, 0) (48, 2.32576) (49, 0.811905) (50, 0) (51, 0.937588) (52, 0) (53, 0) (54, 1519.04) (55, 2489.43) (56, 3.89495) (57, 0.752131) (58, 0) (59, 0) (60, 0) (61, 3.28738) (62, 2.16446) (63, 3.4536) (64, 0.59774) (65, 3.36184) (66, 1.23712) (67, 2.72894) (68, 4.23976) (69, 5.66312) (70, 2.50164) (71, 0.972861) (72, 2.83863) (73, 4.14287) (74, 3.13631) (75, 2.18127) (76, 6.62881) (77, 1982.78) (78, 6.61818) (79, 3.14768) (80, 1.91873) (81, 2.39607) (82, 1.75375) (83, 3.13866) (84, 0.975169) (85, 1.76891) (86, 3.4565) (87, 1.49409) (88, 2.98454) (89, 2.98031) (90, 1.51813) (91, 3.80193) (92, 3.60391) (93, 4.15304) (94, 2.78466) (95, 4.74437) (96, 4.64655) (97, 2.45898) (98, 4.20347) (99, 3.46633) 
+455153 (line 1268) DEBUG MolSim - Plot particles of Iteration 21050
+456123 (line 1268) DEBUG MolSim - Plot particles of Iteration 21100
+457063 (line 1268) DEBUG MolSim - Plot particles of Iteration 21150
+458636 (line 1268) DEBUG MolSim - Plot particles of Iteration 21200
+460689 (line 1268) DEBUG MolSim - Plot particles of Iteration 21250
+461627 (line 1268) DEBUG MolSim - Plot particles of Iteration 21300
+462573 (line 1268) DEBUG MolSim - Plot particles of Iteration 21350
+463519 (line 1268) DEBUG MolSim - Plot particles of Iteration 21400
+464485 (line 1268) DEBUG MolSim - Plot particles of Iteration 21450
+465411 (line 1268) DEBUG MolSim - Plot particles of Iteration 21500
+465623 (line 950) DEBUG MolSim - Expected remaining runtime 703.228s (iteration 21507/50000)
+468013 (line 1268) DEBUG MolSim - Plot particles of Iteration 21550
+469432 (line 1268) DEBUG MolSim - Plot particles of Iteration 21600
+470383 (line 1268) DEBUG MolSim - Plot particles of Iteration 21650
+471341 (line 1268) DEBUG MolSim - Plot particles of Iteration 21700
+472305 (line 1268) DEBUG MolSim - Plot particles of Iteration 21750
+474004 (line 1268) DEBUG MolSim - Plot particles of Iteration 21800
+476374 (line 1268) DEBUG MolSim - Plot particles of Iteration 21850
+477327 (line 1268) DEBUG MolSim - Plot particles of Iteration 21900
+478283 (line 1268) DEBUG MolSim - Plot particles of Iteration 21950
+479226 (line 1268) DEBUG MolSim - Plot particles of Iteration 22000
+479447 (line 857) INFO  MolSim - Diffusion 220.05: 0.00165842
+479448 (line 867) INFO  MolSim - RDF 220.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 4.59615) (35, 2.36775) (36, 2.9864) (37, 7.07313) (38, 6.71049) (39, 0.956256) (40, 3.63847) (41, 0.288771) (42, 5.2315) (43, 0) (44, 0) (45, 0) (46, 1.15005) (47, 1.10214) (48, 1.05716) (49, 0) (50, 0.975087) (51, 1.87518) (52, 0.902212) (53, 0) (54, 1489.06) (55, 2516.88) (56, 2.96016) (57, 1.50426) (58, 0) (59, 0.702419) (60, 0.679391) (61, 0) (62, 0.636606) (63, 1.23343) (64, 3.22779) (65, 2.78221) (66, 3.48643) (67, 4.148) (68, 2.01389) (69, 3.70677) (70, 3.80249) (71, 1.65386) (72, 1.41931) (73, 2.48572) (74, 2.59866) (75, 3.92629) (76, 3.39939) (77, 1986.18) (78, 7.50599) (79, 2.36076) (80, 3.53045) (81, 1.72218) (82, 2.55756) (83, 1.64066) (84, 2.64689) (85, 1.02053) (86, 0.997067) (87, 1.81889) (88, 2.03202) (89, 0.620897) (90, 2.48973) (91, 2.07918) (92, 3.19702) (93, 3.98236) (94, 4.9567) (95, 2.99932) (96, 4.96701) (97, 5.54578) (98, 2.71688) (99, 5.22461) 
+480264 (line 1268) DEBUG MolSim - Plot particles of Iteration 22050
+480645 (line 950) DEBUG MolSim - Expected remaining runtime 765.966s (iteration 22055/50000)
+482970 (line 1268) DEBUG MolSim - Plot particles of Iteration 22100
+483982 (line 1268) DEBUG MolSim - Plot particles of Iteration 22150
+484939 (line 1268) DEBUG MolSim - Plot particles of Iteration 22200
+485885 (line 1268) DEBUG MolSim - Plot particles of Iteration 22250
+487307 (line 1268) DEBUG MolSim - Plot particles of Iteration 22300
+489772 (line 1268) DEBUG MolSim - Plot particles of Iteration 22350
+490741 (line 1268) DEBUG MolSim - Plot particles of Iteration 22400
+491739 (line 1268) DEBUG MolSim - Plot particles of Iteration 22450
+492692 (line 1268) DEBUG MolSim - Plot particles of Iteration 22500
+495042 (line 1268) DEBUG MolSim - Plot particles of Iteration 22550
+495647 (line 950) DEBUG MolSim - Expected remaining runtime 818.369s (iteration 22558/50000)
+496558 (line 1268) DEBUG MolSim - Plot particles of Iteration 22600
+497656 (line 1268) DEBUG MolSim - Plot particles of Iteration 22650
+498680 (line 1268) DEBUG MolSim - Plot particles of Iteration 22700
+500503 (line 1268) DEBUG MolSim - Plot particles of Iteration 22750
+502786 (line 1268) DEBUG MolSim - Plot particles of Iteration 22800
+503740 (line 1268) DEBUG MolSim - Plot particles of Iteration 22850
+504674 (line 1268) DEBUG MolSim - Plot particles of Iteration 22900
+505597 (line 1268) DEBUG MolSim - Plot particles of Iteration 22950
+507402 (line 1268) DEBUG MolSim - Plot particles of Iteration 23000
+508181 (line 857) INFO  MolSim - Diffusion 230.05: 0.00160398
+508182 (line 867) INFO  MolSim - RDF 230.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 3.28796) (28, 3.0613) (29, 0) (30, 2.67302) (31, 5.51322) (32, 4.23752) (33, 0) (34, 0) (35, 1.97313) (36, 3.73299) (37, 3.53657) (38, 1.67762) (39, 1.59376) (40, 2.72886) (41, 0.288771) (42, 1.37671) (43, 1.31414) (44, 0) (45, 3.60347) (46, 1.15005) (47, 0) (48, 0) (49, 0) (50, 2.92526) (51, 0) (52, 0.902212) (53, 0) (54, 1578.81) (55, 2431.79) (56, 3.11596) (57, 0.752131) (58, 0) (59, 0.702419) (60, 0.679391) (61, 0.657477) (62, 4.45624) (63, 1.23343) (64, 4.18418) (65, 2.31851) (66, 3.93629) (67, 2.51063) (68, 2.75584) (69, 0.102966) (70, 2.00131) (71, 1.94572) (72, 3.31173) (73, 2.76191) (74, 0.448044) (75, 3.49004) (76, 5.35404) (77, 1984.11) (78, 6.53747) (79, 1.9673) (80, 3.06996) (81, 1.42267) (82, 2.99599) (83, 1.07) (84, 1.18413) (85, 2.24516) (86, 0.332356) (87, 0.909447) (88, 2.60353) (89, 4.16001) (90, 1.9432) (91, 3.38609) (92, 3.77829) (93, 2.84455) (94, 4.06561) (95, 4.68984) (96, 5.23405) (97, 3.45304) (98, 3.43454) (99, 2.66254) 
+509355 (line 1268) DEBUG MolSim - Plot particles of Iteration 23050
+510323 (line 1268) DEBUG MolSim - Plot particles of Iteration 23100
+510660 (line 950) DEBUG MolSim - Expected remaining runtime 723.259s (iteration 23116/50000)
+511285 (line 1268) DEBUG MolSim - Plot particles of Iteration 23150
+512240 (line 1268) DEBUG MolSim - Plot particles of Iteration 23200
+514858 (line 1268) DEBUG MolSim - Plot particles of Iteration 23250
+515927 (line 1268) DEBUG MolSim - Plot particles of Iteration 23300
+516893 (line 1268) DEBUG MolSim - Plot particles of Iteration 23350
+517873 (line 1268) DEBUG MolSim - Plot particles of Iteration 23400
+519042 (line 1268) DEBUG MolSim - Plot particles of Iteration 23450
+521553 (line 1268) DEBUG MolSim - Plot particles of Iteration 23500
+522560 (line 1268) DEBUG MolSim - Plot particles of Iteration 23550
+523512 (line 1268) DEBUG MolSim - Plot particles of Iteration 23600
+524456 (line 1268) DEBUG MolSim - Plot particles of Iteration 23650
+525703 (line 950) DEBUG MolSim - Expected remaining runtime 688.257s (iteration 23691/50000)
+526244 (line 1268) DEBUG MolSim - Plot particles of Iteration 23700
+528145 (line 1268) DEBUG MolSim - Plot particles of Iteration 23750
+529095 (line 1268) DEBUG MolSim - Plot particles of Iteration 23800
+530059 (line 1268) DEBUG MolSim - Plot particles of Iteration 23850
+530998 (line 1268) DEBUG MolSim - Plot particles of Iteration 23900
+533252 (line 1268) DEBUG MolSim - Plot particles of Iteration 23950
+534670 (line 1268) DEBUG MolSim - Plot particles of Iteration 24000
+534876 (line 857) INFO  MolSim - Diffusion 240.05: 0.0015648
+534877 (line 867) INFO  MolSim - RDF 240.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 2.35418) (33, 2.21574) (34, 0) (35, 3.94625) (36, 1.8665) (37, 0.353657) (38, 1.3421) (39, 1.59376) (40, 3.03206) (41, 1.73262) (42, 1.10137) (43, 0) (44, 1.25575) (45, 1.20116) (46, 2.3001) (47, 1.10214) (48, 4.22865) (49, 1.01488) (50, 0) (51, 0.937588) (52, 0.902212) (53, 0.8688) (54, 1479.02) (55, 2527.22) (56, 3.89495) (57, 0) (58, 0.726638) (59, 0) (60, 0.679391) (61, 0.657477) (62, 1.01857) (63, 0.863399) (64, 2.9887) (65, 0.579628) (66, 2.81163) (67, 1.63737) (68, 2.64985) (69, 2.05932) (70, 2.80184) (71, 4.08602) (72, 2.83863) (73, 3.22223) (74, 2.24022) (75, 2.18127) (76, 4.67416) (77, 1985.68) (78, 2.42129) (79, 1.57384) (80, 2.99321) (81, 1.79705) (82, 1.97297) (83, 1.78333) (84, 1.32344) (85, 2.44926) (86, 2.85826) (87, 2.07874) (88, 0.952512) (89, 2.48359) (90, 3.33988) (91, 3.62371) (92, 2.44136) (93, 1.30849) (94, 3.84283) (95, 1.69052) (96, 3.73861) (97, 3.55767) (98, 3.17823) (99, 1.95923) 
+535701 (line 1268) DEBUG MolSim - Plot particles of Iteration 24050
+536665 (line 1268) DEBUG MolSim - Plot particles of Iteration 24100
+537641 (line 1268) DEBUG MolSim - Plot particles of Iteration 24150
+539509 (line 1268) DEBUG MolSim - Plot particles of Iteration 24200
+540729 (line 950) DEBUG MolSim - Expected remaining runtime 735.004s (iteration 24218/50000)
+541291 (line 1268) DEBUG MolSim - Plot particles of Iteration 24250
+542344 (line 1268) DEBUG MolSim - Plot particles of Iteration 24300
+543304 (line 1268) DEBUG MolSim - Plot particles of Iteration 24350
+544280 (line 1268) DEBUG MolSim - Plot particles of Iteration 24400
+546757 (line 1268) DEBUG MolSim - Plot particles of Iteration 24450
+547961 (line 1268) DEBUG MolSim - Plot particles of Iteration 24500
+548945 (line 1268) DEBUG MolSim - Plot particles of Iteration 24550
+549893 (line 1268) DEBUG MolSim - Plot particles of Iteration 24600
+552139 (line 1268) DEBUG MolSim - Plot particles of Iteration 24650
+553597 (line 1268) DEBUG MolSim - Plot particles of Iteration 24700
+554524 (line 1268) DEBUG MolSim - Plot particles of Iteration 24750
+555523 (line 1268) DEBUG MolSim - Plot particles of Iteration 24800
+555742 (line 950) DEBUG MolSim - Expected remaining runtime 642.078s (iteration 24807/50000)
+556556 (line 1268) DEBUG MolSim - Plot particles of Iteration 24850
+559291 (line 1268) DEBUG MolSim - Plot particles of Iteration 24900
+560307 (line 1268) DEBUG MolSim - Plot particles of Iteration 24950
+561272 (line 1268) DEBUG MolSim - Plot particles of Iteration 25000
+561573 (line 857) INFO  MolSim - Diffusion 250.05: 0.00153533
+561573 (line 867) INFO  MolSim - RDF 250.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 3.0613) (29, 2.85729) (30, 0) (31, 2.50601) (32, 0) (33, 2.21574) (34, 0) (35, 0) (36, 0.373299) (37, 3.18291) (38, 0) (39, 0) (40, 0) (41, 1.44385) (42, 1.37671) (43, 2.62829) (44, 2.51149) (45, 1.20116) (46, 1.15005) (47, 1.10214) (48, 2.11432) (49, 2.02976) (50, 0.975087) (51, 1.87518) (52, 0.721769) (53, 0.17376) (54, 1545.49) (55, 2463.11) (56, 3.11596) (57, 0.752131) (58, 0) (59, 0.140484) (60, 1.90229) (61, 0.657477) (62, 0.636606) (63, 1.23343) (64, 0.59774) (65, 1.85481) (66, 2.13684) (67, 1.63737) (68, 2.11988) (69, 2.05932) (70, 3.2021) (71, 3.69687) (72, 1.41931) (73, 2.11747) (74, 2.41944) (75, 2.61753) (76, 2.12462) (77, 1986.1) (78, 4.43903) (79, 1.57384) (80, 2.68622) (81, 0.748772) (82, 1.82683) (83, 1.498) (84, 1.95034) (85, 3.12961) (86, 3.72238) (87, 1.88385) (88, 1.27002) (89, 1.61433) (90, 1.76103) (91, 1.48513) (92, 1.56945) (93, 4.43749) (94, 1.39233) (95, 3.27198) (96, 1.8693) (97, 4.02854) (98, 5.12618) (99, 3.26538) 
+562402 (line 1268) DEBUG MolSim - Plot particles of Iteration 25050
+564438 (line 1268) DEBUG MolSim - Plot particles of Iteration 25100
+566232 (line 1268) DEBUG MolSim - Plot particles of Iteration 25150
+567226 (line 1268) DEBUG MolSim - Plot particles of Iteration 25200
+568379 (line 1268) DEBUG MolSim - Plot particles of Iteration 25250
+569986 (line 1268) DEBUG MolSim - Plot particles of Iteration 25300
+570747 (line 950) DEBUG MolSim - Expected remaining runtime 736.472s (iteration 25310/50000)
+572223 (line 1268) DEBUG MolSim - Plot particles of Iteration 25350
+573296 (line 1268) DEBUG MolSim - Plot particles of Iteration 25400
+574261 (line 1268) DEBUG MolSim - Plot particles of Iteration 25450
+575224 (line 1268) DEBUG MolSim - Plot particles of Iteration 25500
+577552 (line 1268) DEBUG MolSim - Plot particles of Iteration 25550
+578911 (line 1268) DEBUG MolSim - Plot particles of Iteration 25600
+579874 (line 1268) DEBUG MolSim - Plot particles of Iteration 25650
+580985 (line 1268) DEBUG MolSim - Plot particles of Iteration 25700
+582282 (line 1268) DEBUG MolSim - Plot particles of Iteration 25750
+584808 (line 1268) DEBUG MolSim - Plot particles of Iteration 25800
+585760 (line 950) DEBUG MolSim - Expected remaining runtime 675.22s (iteration 25847/50000)
+585820 (line 1268) DEBUG MolSim - Plot particles of Iteration 25850
+586798 (line 1268) DEBUG MolSim - Plot particles of Iteration 25900
+587743 (line 1268) DEBUG MolSim - Plot particles of Iteration 25950
+589860 (line 1268) DEBUG MolSim - Plot particles of Iteration 26000
+590562 (line 857) INFO  MolSim - Diffusion 260.05: 0.0015107
+590563 (line 867) INFO  MolSim - RDF 260.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 2.85729) (30, 0) (31, 0) (32, 0) (33, 2.21574) (34, 0) (35, 0) (36, 1.8665) (37, 0) (38, 1.67762) (39, 0) (40, 1.51603) (41, 0) (42, 1.37671) (43, 1.31414) (44, 1.25575) (45, 2.40231) (46, 2.3001) (47, 0) (48, 0) (49, 0) (50, 0.975087) (51, 0) (52, 1.80442) (53, 0.52128) (54, 1496.77) (55, 2513.65) (56, 1.55798) (57, 1.50426) (58, 0.726638) (59, 0) (60, 0) (61, 0) (62, 1.27321) (63, 0.616714) (64, 1.79322) (65, 0.811479) (66, 1.46205) (67, 1.63737) (68, 0.847952) (69, 2.78008) (70, 1.50098) (71, 2.43215) (72, 2.36552) (73, 1.19683) (74, 2.86748) (75, 0.436255) (76, 2.46456) (77, 1987.26) (78, 4.1969) (79, 3.54114) (80, 2.14897) (81, 2.02168) (82, 1.46146) (83, 1.14133) (84, 1.11448) (85, 1.56481) (86, 1.32942) (87, 2.01378) (88, 2.79403) (89, 0.620897) (90, 2.73263) (91, 1.48513) (92, 1.16255) (93, 3.64102) (94, 3.39729) (95, 2.45399) (96, 4.05906) (97, 2.04043) (98, 2.51183) (99, 3.91846) 
+591505 (line 1268) DEBUG MolSim - Plot particles of Iteration 26050
+592532 (line 1268) DEBUG MolSim - Plot particles of Iteration 26100
+593464 (line 1268) DEBUG MolSim - Plot particles of Iteration 26150
+594434 (line 1268) DEBUG MolSim - Plot particles of Iteration 26200
+597168 (line 1268) DEBUG MolSim - Plot particles of Iteration 26250
+598127 (line 1268) DEBUG MolSim - Plot particles of Iteration 26300
+599050 (line 1268) DEBUG MolSim - Plot particles of Iteration 26350
+600034 (line 1268) DEBUG MolSim - Plot particles of Iteration 26400
+600776 (line 950) DEBUG MolSim - Expected remaining runtime 599.642s (iteration 26437/50000)
+601525 (line 1268) DEBUG MolSim - Plot particles of Iteration 26450
+603718 (line 1268) DEBUG MolSim - Plot particles of Iteration 26500
+604656 (line 1268) DEBUG MolSim - Plot particles of Iteration 26550
+605572 (line 1268) DEBUG MolSim - Plot particles of Iteration 26600
+606483 (line 1268) DEBUG MolSim - Plot particles of Iteration 26650
+608147 (line 1268) DEBUG MolSim - Plot particles of Iteration 26700
+610122 (line 1268) DEBUG MolSim - Plot particles of Iteration 26750
+611069 (line 1268) DEBUG MolSim - Plot particles of Iteration 26800
+612031 (line 1268) DEBUG MolSim - Plot particles of Iteration 26850
+612965 (line 1268) DEBUG MolSim - Plot particles of Iteration 26900
+613954 (line 1268) DEBUG MolSim - Plot particles of Iteration 26950
+615826 (line 950) DEBUG MolSim - Expected remaining runtime 637.954s (iteration 26980/50000)
+616604 (line 1268) DEBUG MolSim - Plot particles of Iteration 27000
+616822 (line 857) INFO  MolSim - Diffusion 270.05: 0.00148932
+616822 (line 867) INFO  MolSim - RDF 270.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 2.35418) (33, 0) (34, 2.08916) (35, 0) (36, 0) (37, 1.76828) (38, 0) (39, 1.59376) (40, 1.51603) (41, 0) (42, 0) (43, 0) (44, 0) (45, 1.20116) (46, 1.15005) (47, 1.10214) (48, 1.05716) (49, 1.01488) (50, 0) (51, 0.75007) (52, 0.180442) (53, 0.8688) (54, 1473.16) (55, 2534.48) (56, 3.89495) (57, 0.752131) (58, 0.726638) (59, 0) (60, 0.679391) (61, 0.657477) (62, 1.27321) (63, 0.616714) (64, 1.19548) (65, 0.579628) (66, 0.562327) (67, 1.09158) (68, 1.58991) (69, 0.514829) (70, 2.00131) (71, 1.94572) (72, 2.83863) (73, 0.552383) (74, 2.15061) (75, 3.14103) (76, 2.71951) (77, 1987.26) (78, 4.76186) (79, 0.944303) (80, 1.45823) (81, 2.09656) (82, 1.0961) (83, 2.06866) (84, 1.81103) (85, 2.58533) (86, 1.26295) (87, 0.844486) (88, 0.952512) (89, 1.05552) (90, 3.52206) (91, 2.3762) (92, 1.80196) (93, 1.93429) (94, 2.17204) (95, 3.76278) (96, 2.24316) (97, 2.04043) (98, 1.99921) (99, 3.21514) 
+617639 (line 1268) DEBUG MolSim - Plot particles of Iteration 27050
+618594 (line 1268) DEBUG MolSim - Plot particles of Iteration 27100
+619535 (line 1268) DEBUG MolSim - Plot particles of Iteration 27150
+621020 (line 1268) DEBUG MolSim - Plot particles of Iteration 27200
+623183 (line 1268) DEBUG MolSim - Plot particles of Iteration 27250
+624129 (line 1268) DEBUG MolSim - Plot particles of Iteration 27300
+625100 (line 1268) DEBUG MolSim - Plot particles of Iteration 27350
+626053 (line 1268) DEBUG MolSim - Plot particles of Iteration 27400
+627907 (line 1268) DEBUG MolSim - Plot particles of Iteration 27450
+629723 (line 1268) DEBUG MolSim - Plot particles of Iteration 27500
+630653 (line 1268) DEBUG MolSim - Plot particles of Iteration 27550
+630833 (line 950) DEBUG MolSim - Expected remaining runtime 583.673s (iteration 27557/50000)
+631610 (line 1268) DEBUG MolSim - Plot particles of Iteration 27600
+632545 (line 1268) DEBUG MolSim - Plot particles of Iteration 27650
+634759 (line 1268) DEBUG MolSim - Plot particles of Iteration 27700
+636190 (line 1268) DEBUG MolSim - Plot particles of Iteration 27750
+637122 (line 1268) DEBUG MolSim - Plot particles of Iteration 27800
+638105 (line 1268) DEBUG MolSim - Plot particles of Iteration 27850
+639043 (line 1268) DEBUG MolSim - Plot particles of Iteration 27900
+640584 (line 1268) DEBUG MolSim - Plot particles of Iteration 27950
+642687 (line 1268) DEBUG MolSim - Plot particles of Iteration 28000
+642938 (line 857) INFO  MolSim - Diffusion 280.05: 0.00146849
+642939 (line 867) INFO  MolSim - RDF 280.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 2.21574) (34, 0) (35, 1.5785) (36, 0.373299) (37, 0) (38, 1.67762) (39, 3.18752) (40, 0) (41, 1.44385) (42, 0) (43, 1.31414) (44, 2.51149) (45, 0) (46, 0) (47, 0) (48, 1.05716) (49, 0) (50, 0.975087) (51, 0) (52, 0) (53, 1.7376) (54, 1470.14) (55, 2538.2) (56, 0.77899) (57, 0) (58, 0.726638) (59, 0.702419) (60, 0) (61, 1.31495) (62, 0) (63, 0) (64, 1.43458) (65, 2.08666) (66, 1.12465) (67, 0.98242) (68, 1.16593) (69, 2.05932) (70, 2.00131) (71, 2.43215) (72, 1.89242) (73, 1.38096) (74, 1.9714) (75, 3.31553) (76, 1.6997) (77, 1987.34) (78, 2.82483) (79, 1.18038) (80, 1.53498) (81, 2.24632) (82, 0.73073) (83, 2.14) (84, 2.99516) (85, 1.29267) (86, 0.531769) (87, 1.94881) (88, 1.39702) (89, 1.73851) (90, 1.51813) (91, 2.07918) (92, 3.31327) (93, 2.67387) (94, 2.84036) (95, 2.12679) (96, 2.18975) (97, 2.5113) (98, 1.7429) (99, 4.16964) 
+643749 (line 1268) DEBUG MolSim - Plot particles of Iteration 28050
+644679 (line 1268) DEBUG MolSim - Plot particles of Iteration 28100
+645638 (line 1268) DEBUG MolSim - Plot particles of Iteration 28150
+645842 (line 950) DEBUG MolSim - Expected remaining runtime 544.487s (iteration 28159/50000)
+646699 (line 1268) DEBUG MolSim - Plot particles of Iteration 28200
+649288 (line 1268) DEBUG MolSim - Plot particles of Iteration 28250
+650233 (line 1268) DEBUG MolSim - Plot particles of Iteration 28300
+651195 (line 1268) DEBUG MolSim - Plot particles of Iteration 28350
+652156 (line 1268) DEBUG MolSim - Plot particles of Iteration 28400
+653682 (line 1268) DEBUG MolSim - Plot particles of Iteration 28450
+655841 (line 1268) DEBUG MolSim - Plot particles of Iteration 28500
+656790 (line 1268) DEBUG MolSim - Plot particles of Iteration 28550
+657745 (line 1268) DEBUG MolSim - Plot particles of Iteration 28600
+658710 (line 1268) DEBUG MolSim - Plot particles of Iteration 28650
+659643 (line 1268) DEBUG MolSim - Plot particles of Iteration 28700
+660873 (line 950) DEBUG MolSim - Expected remaining runtime 570.087s (iteration 28720/50000)
+662455 (line 1268) DEBUG MolSim - Plot particles of Iteration 28750
+663725 (line 1268) DEBUG MolSim - Plot particles of Iteration 28800
+664660 (line 1268) DEBUG MolSim - Plot particles of Iteration 28850
+665608 (line 1268) DEBUG MolSim - Plot particles of Iteration 28900
+666645 (line 1268) DEBUG MolSim - Plot particles of Iteration 28950
+669509 (line 1268) DEBUG MolSim - Plot particles of Iteration 29000
+669839 (line 857) INFO  MolSim - Diffusion 290.05: 0.00145235
+669840 (line 867) INFO  MolSim - RDF 290.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 0) (37, 0) (38, 3.35525) (39, 0) (40, 0) (41, 1.44385) (42, 0) (43, 0) (44, 0) (45, 1.20116) (46, 1.15005) (47, 1.10214) (48, 0) (49, 0) (50, 0) (51, 0) (52, 0) (53, 0) (54, 1465.62) (55, 2542.55) (56, 2.33697) (57, 0) (58, 0.726638) (59, 0.702419) (60, 0) (61, 1.31495) (62, 1.27321) (63, 1.85014) (64, 0.59774) (65, 0) (66, 0.562327) (67, 0) (68, 0.52997) (69, 1.02966) (70, 1.70111) (71, 2.33487) (72, 1.7978) (73, 0.460319) (74, 0) (75, 1.57052) (76, 2.54954) (77, 1986.01) (78, 4.03548) (79, 0.629535) (80, 2.68622) (81, 1.12316) (82, 2.55756) (83, 1.14133) (84, 1.32344) (85, 2.04105) (86, 0.997067) (87, 0.649605) (88, 0.698509) (89, 1.49015) (90, 1.51813) (91, 1.60394) (92, 2.79013) (93, 3.07211) (94, 2.00496) (95, 2.23585) (96, 3.57838) (97, 0.627825) (98, 1.69164) (99, 2.6123) 
+670651 (line 1268) DEBUG MolSim - Plot particles of Iteration 29050
+671603 (line 1268) DEBUG MolSim - Plot particles of Iteration 29100
+672541 (line 1268) DEBUG MolSim - Plot particles of Iteration 29150
+673478 (line 1268) DEBUG MolSim - Plot particles of Iteration 29200
+674426 (line 1268) DEBUG MolSim - Plot particles of Iteration 29250
+675930 (line 950) DEBUG MolSim - Expected remaining runtime 543.104s (iteration 29294/50000)
+676247 (line 1268) DEBUG MolSim - Plot particles of Iteration 29300
+678087 (line 1268) DEBUG MolSim - Plot particles of Iteration 29350
+679004 (line 1268) DEBUG MolSim - Plot particles of Iteration 29400
+679963 (line 1268) DEBUG MolSim - Plot particles of Iteration 29450
+680899 (line 1268) DEBUG MolSim - Plot particles of Iteration 29500
+681911 (line 1268) DEBUG MolSim - Plot particles of Iteration 29550
+684552 (line 1268) DEBUG MolSim - Plot particles of Iteration 29600
+685480 (line 1268) DEBUG MolSim - Plot particles of Iteration 29650
+686427 (line 1268) DEBUG MolSim - Plot particles of Iteration 29700
+687373 (line 1268) DEBUG MolSim - Plot particles of Iteration 29750
+688835 (line 1268) DEBUG MolSim - Plot particles of Iteration 29800
+690938 (line 950) DEBUG MolSim - Expected remaining runtime 551s (iteration 29843/50000)
+691046 (line 1268) DEBUG MolSim - Plot particles of Iteration 29850
+692010 (line 1268) DEBUG MolSim - Plot particles of Iteration 29900
+692918 (line 1268) DEBUG MolSim - Plot particles of Iteration 29950
+693865 (line 1268) DEBUG MolSim - Plot particles of Iteration 30000
+694079 (line 857) INFO  MolSim - Diffusion 300.05: 0.00142579
+694079 (line 867) INFO  MolSim - RDF 300.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 0) (37, 0) (38, 1.67762) (39, 0) (40, 0) (41, 0) (42, 1.37671) (43, 0) (44, 0) (45, 0) (46, 0) (47, 0) (48, 1.05716) (49, 0) (50, 0) (51, 0) (52, 0.902212) (53, 0) (54, 1524.56) (55, 2485.72) (56, 1.55798) (57, 0.601705) (58, 0.871965) (59, 0.702419) (60, 0) (61, 0) (62, 0) (63, 0.616714) (64, 0) (65, 0.579628) (66, 0.562327) (67, 0.545789) (68, 0.52997) (69, 1.02966) (70, 1.40092) (71, 0.583717) (72, 0.946209) (73, 0) (74, 1.61296) (75, 0.610756) (76, 2.12462) (77, 1986.76) (78, 3.3898) (79, 0.314768) (80, 1.99547) (81, 1.12316) (82, 2.19219) (83, 1.284) (84, 0.487584) (85, 1.02053) (86, 2.32649) (87, 1.03937) (88, 0.571507) (89, 1.55224) (90, 1.2145) (91, 1.60394) (92, 2.20885) (93, 1.59295) (94, 2.89605) (95, 1.36333) (96, 1.60226) (97, 3.40072) (98, 3.4858) (99, 3.76775) 
+694874 (line 1268) DEBUG MolSim - Plot particles of Iteration 30050
+696506 (line 1268) DEBUG MolSim - Plot particles of Iteration 30100
+698536 (line 1268) DEBUG MolSim - Plot particles of Iteration 30150
+699480 (line 1268) DEBUG MolSim - Plot particles of Iteration 30200
+700436 (line 1268) DEBUG MolSim - Plot particles of Iteration 30250
+701367 (line 1268) DEBUG MolSim - Plot particles of Iteration 30300
+703401 (line 1268) DEBUG MolSim - Plot particles of Iteration 30350
+705018 (line 1268) DEBUG MolSim - Plot particles of Iteration 30400
+705951 (line 950) DEBUG MolSim - Expected remaining runtime 485.119s (iteration 30448/50000)
+705989 (line 1268) DEBUG MolSim - Plot particles of Iteration 30450
+706937 (line 1268) DEBUG MolSim - Plot particles of Iteration 30500
+707891 (line 1268) DEBUG MolSim - Plot particles of Iteration 30550
+709262 (line 1268) DEBUG MolSim - Plot particles of Iteration 30600
+711569 (line 1268) DEBUG MolSim - Plot particles of Iteration 30650
+712511 (line 1268) DEBUG MolSim - Plot particles of Iteration 30700
+713485 (line 1268) DEBUG MolSim - Plot particles of Iteration 30750
+714417 (line 1268) DEBUG MolSim - Plot particles of Iteration 30800
+716231 (line 1268) DEBUG MolSim - Plot particles of Iteration 30850
+718068 (line 1268) DEBUG MolSim - Plot particles of Iteration 30900
+719010 (line 1268) DEBUG MolSim - Plot particles of Iteration 30950
+719945 (line 1268) DEBUG MolSim - Plot particles of Iteration 31000
+720158 (line 857) INFO  MolSim - Diffusion 310.05: 0.00142464
+720158 (line 867) INFO  MolSim - RDF 310.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 0) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 0) (44, 0) (45, 0) (46, 0.920042) (47, 0.220428) (48, 0) (49, 0) (50, 0) (51, 0) (52, 0.902212) (53, 0.8688) (54, 1515.85) (55, 2494.12) (56, 0.77899) (57, 0) (58, 0.726638) (59, 3.51209) (60, 0.679391) (61, 0) (62, 0.636606) (63, 1.23343) (64, 0) (65, 0) (66, 0) (67, 0) (68, 0) (69, 0) (70, 0) (71, 0.486431) (72, 0) (73, 0.460319) (74, 0.896089) (75, 0.523505) (76, 1.61471) (77, 1986.84) (78, 2.502) (79, 2.67553) (80, 0.844239) (81, 2.6207) (82, 0.73073) (83, 3.13866) (84, 0.417929) (85, 0.340175) (86, 0.332356) (87, 0.324802) (88, 1.27002) (89, 0) (90, 2.42901) (91, 1.48513) (92, 0.581276) (93, 0.967145) (94, 1.55941) (95, 2.45399) (96, 1.33522) (97, 1.98811) (98, 2.30678) (99, 2.10994) 
+720942 (line 1268) DEBUG MolSim - Plot particles of Iteration 31050
+721027 (line 950) DEBUG MolSim - Expected remaining runtime 473.733s (iteration 31051/50000)
+721901 (line 1268) DEBUG MolSim - Plot particles of Iteration 31100
+724000 (line 1268) DEBUG MolSim - Plot particles of Iteration 31150
+725880 (line 1268) DEBUG MolSim - Plot particles of Iteration 31200
+726828 (line 1268) DEBUG MolSim - Plot particles of Iteration 31250
+727817 (line 1268) DEBUG MolSim - Plot particles of Iteration 31300
+728772 (line 1268) DEBUG MolSim - Plot particles of Iteration 31350
+730909 (line 1268) DEBUG MolSim - Plot particles of Iteration 31400
+732784 (line 1268) DEBUG MolSim - Plot particles of Iteration 31450
+733728 (line 1268) DEBUG MolSim - Plot particles of Iteration 31500
+734674 (line 1268) DEBUG MolSim - Plot particles of Iteration 31550
+735638 (line 1268) DEBUG MolSim - Plot particles of Iteration 31600
+736054 (line 950) DEBUG MolSim - Expected remaining runtime 487.111s (iteration 31618/50000)
+737878 (line 1268) DEBUG MolSim - Plot particles of Iteration 31650
+739632 (line 1268) DEBUG MolSim - Plot particles of Iteration 31700
+740576 (line 1268) DEBUG MolSim - Plot particles of Iteration 31750
+741533 (line 1268) DEBUG MolSim - Plot particles of Iteration 31800
+742489 (line 1268) DEBUG MolSim - Plot particles of Iteration 31850
+743421 (line 1268) DEBUG MolSim - Plot particles of Iteration 31900
+744353 (line 1268) DEBUG MolSim - Plot particles of Iteration 31950
+746056 (line 1268) DEBUG MolSim - Plot particles of Iteration 32000
+746799 (line 857) INFO  MolSim - Diffusion 320.05: 0.00144158
+746800 (line 867) INFO  MolSim - RDF 320.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 0) (31, 0) (32, 0) (33, 0) (34, 0) (35, 0) (36, 0) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 0) (44, 0) (45, 0) (46, 0) (47, 0) (48, 0) (49, 0) (50, 0) (51, 0) (52, 0.902212) (53, 0) (54, 1543.98) (55, 2466.99) (56, 0) (57, 0) (58, 0) (59, 0) (60, 0) (61, 0) (62, 0) (63, 0.616714) (64, 0.59774) (65, 0.579628) (66, 0.562327) (67, 2.18316) (68, 1.6959) (69, 2.36821) (70, 0.100066) (71, 0.486431) (72, 0.756968) (73, 0.644446) (74, 0) (75, 0) (76, 0.849848) (77, 1985.93) (78, 2.58271) (79, 0.39346) (80, 0.76749) (81, 0.748772) (82, 0.365365) (83, 0) (84, 1.25379) (85, 1.02053) (86, 2.12708) (87, 3.63779) (88, 1.52402) (89, 2.48359) (90, 0.910877) (91, 1.36632) (92, 0.697531) (93, 1.08093) (94, 0.612626) (95, 1.90866) (96, 1.49544) (97, 1.93579) (98, 1.23028) (99, 1.75828) 
+748082 (line 1268) DEBUG MolSim - Plot particles of Iteration 32050
+749078 (line 1268) DEBUG MolSim - Plot particles of Iteration 32100
+750049 (line 1268) DEBUG MolSim - Plot particles of Iteration 32150
+751004 (line 1268) DEBUG MolSim - Plot particles of Iteration 32200
+751086 (line 950) DEBUG MolSim - Expected remaining runtime 458.897s (iteration 32201/50000)
+753382 (line 1268) DEBUG MolSim - Plot particles of Iteration 32250
+754643 (line 1268) DEBUG MolSim - Plot particles of Iteration 32300
+755600 (line 1268) DEBUG MolSim - Plot particles of Iteration 32350
+756544 (line 1268) DEBUG MolSim - Plot particles of Iteration 32400
+757514 (line 1268) DEBUG MolSim - Plot particles of Iteration 32450
+759357 (line 1268) DEBUG MolSim - Plot particles of Iteration 32500
+761186 (line 1268) DEBUG MolSim - Plot particles of Iteration 32550
+762162 (line 1268) DEBUG MolSim - Plot particles of Iteration 32600
+763101 (line 1268) DEBUG MolSim - Plot particles of Iteration 32650
+764068 (line 1268) DEBUG MolSim - Plot particles of Iteration 32700
+766118 (line 950) DEBUG MolSim - Expected remaining runtime 474.959s (iteration 32747/50000)
+766253 (line 1268) DEBUG MolSim - Plot particles of Iteration 32750
+767733 (line 1268) DEBUG MolSim - Plot particles of Iteration 32800
+768654 (line 1268) DEBUG MolSim - Plot particles of Iteration 32850
+769613 (line 1268) DEBUG MolSim - Plot particles of Iteration 32900
+770572 (line 1268) DEBUG MolSim - Plot particles of Iteration 32950
+773117 (line 1268) DEBUG MolSim - Plot particles of Iteration 33000
+773482 (line 857) INFO  MolSim - Diffusion 330.05: 0.00144994
+773482 (line 867) INFO  MolSim - RDF 330.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 2.85729) (30, 8.01905) (31, 0) (32, 2.35418) (33, 0) (34, 0) (35, 0) (36, 1.8665) (37, 0) (38, 0) (39, 0) (40, 1.51603) (41, 0) (42, 0) (43, 0) (44, 0) (45, 1.20116) (46, 0) (47, 0) (48, 1.05716) (49, 1.01488) (50, 0) (51, 0) (52, 0.902212) (53, 0) (54, 1569.44) (55, 2441.64) (56, 0.77899) (57, 0) (58, 0) (59, 0.702419) (60, 0) (61, 1.31495) (62, 1.27321) (63, 2.46686) (64, 1.79322) (65, 0.579628) (66, 1.23712) (67, 1.52821) (68, 0.953946) (69, 0.617795) (70, 1.00066) (71, 1.94572) (72, 1.89242) (73, 1.38096) (74, 1.34413) (75, 0.436255) (76, 0.849848) (77, 1987.67) (78, 1.29135) (79, 1.18038) (80, 0.383745) (81, 0.374386) (82, 0.657657) (83, 0.784666) (84, 1.88068) (85, 1.63284) (86, 1.66178) (87, 2.20866) (88, 1.96852) (89, 2.73195) (90, 1.51813) (91, 0.891076) (92, 2.61574) (93, 0.6258) (94, 1.89357) (95, 0.490797) (96, 1.01476) (97, 1.88347) (98, 2.51183) (99, 4.57153) 
+774322 (line 1268) DEBUG MolSim - Plot particles of Iteration 33050
+775286 (line 1268) DEBUG MolSim - Plot particles of Iteration 33100
+776253 (line 1268) DEBUG MolSim - Plot particles of Iteration 33150
+777534 (line 1268) DEBUG MolSim - Plot particles of Iteration 33200
+779913 (line 1268) DEBUG MolSim - Plot particles of Iteration 33250
+780836 (line 1268) DEBUG MolSim - Plot particles of Iteration 33300
+781133 (line 950) DEBUG MolSim - Expected remaining runtime 441.825s (iteration 33314/50000)
+781843 (line 1268) DEBUG MolSim - Plot particles of Iteration 33350
+782806 (line 1268) DEBUG MolSim - Plot particles of Iteration 33400
+784669 (line 1268) DEBUG MolSim - Plot particles of Iteration 33450
+786485 (line 1268) DEBUG MolSim - Plot particles of Iteration 33500
+787445 (line 1268) DEBUG MolSim - Plot particles of Iteration 33550
+788405 (line 1268) DEBUG MolSim - Plot particles of Iteration 33600
+789343 (line 1268) DEBUG MolSim - Plot particles of Iteration 33650
+791743 (line 1268) DEBUG MolSim - Plot particles of Iteration 33700
+793014 (line 1268) DEBUG MolSim - Plot particles of Iteration 33750
+793951 (line 1268) DEBUG MolSim - Plot particles of Iteration 33800
+794877 (line 1268) DEBUG MolSim - Plot particles of Iteration 33850
+795825 (line 1268) DEBUG MolSim - Plot particles of Iteration 33900
+796174 (line 950) DEBUG MolSim - Expected remaining runtime 408.157s (iteration 33907/50000)
+798413 (line 1268) DEBUG MolSim - Plot particles of Iteration 33950
+799463 (line 1268) DEBUG MolSim - Plot particles of Iteration 34000
+799677 (line 857) INFO  MolSim - Diffusion 340.05: 0.00148713
+799677 (line 867) INFO  MolSim - RDF 340.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0.657593) (28, 14.6942) (29, 2.85729) (30, 0) (31, 2.50601) (32, 2.35418) (33, 2.21574) (34, 2.08916) (35, 0) (36, 1.8665) (37, 0) (38, 0) (39, 0) (40, 0) (41, 0) (42, 0) (43, 1.31414) (44, 1.25575) (45, 0.720694) (46, 1.38006) (47, 2.42471) (48, 0) (49, 0.405952) (50, 0.585052) (51, 0) (52, 0) (53, 0) (54, 1490.74) (55, 2519.95) (56, 0.77899) (57, 0) (58, 0) (59, 1.40484) (60, 0.679391) (61, 2.62991) (62, 3.94696) (63, 2.96023) (64, 3.58644) (65, 2.31851) (66, 0.562327) (67, 3.27473) (68, 1.16593) (69, 2.78008) (70, 1.70111) (71, 1.94572) (72, 1.41931) (73, 2.76191) (74, 2.24022) (75, 2.18127) (76, 1.6997) (77, 1987.01) (78, 2.34058) (79, 0.629535) (80, 1.68848) (81, 1.04828) (82, 1.0961) (83, 1.284) (84, 2.29861) (85, 3.74193) (86, 1.66178) (87, 2.66338) (88, 2.85753) (89, 2.48359) (90, 2.06466) (91, 2.97025) (92, 4.30144) (93, 3.18589) (94, 2.28342) (95, 1.90866) (96, 2.88407) (97, 1.25565) (98, 2.51183) (99, 1.35639) 
+800456 (line 1268) DEBUG MolSim - Plot particles of Iteration 34050
+801399 (line 1268) DEBUG MolSim - Plot particles of Iteration 34100
+802722 (line 1268) DEBUG MolSim - Plot particles of Iteration 34150
+805151 (line 1268) DEBUG MolSim - Plot particles of Iteration 34200
+806124 (line 1268) DEBUG MolSim - Plot particles of Iteration 34250
+807041 (line 1268) DEBUG MolSim - Plot particles of Iteration 34300
+808009 (line 1268) DEBUG MolSim - Plot particles of Iteration 34350
+809820 (line 1268) DEBUG MolSim - Plot particles of Iteration 34400
+811183 (line 950) DEBUG MolSim - Expected remaining runtime 455.795s (iteration 34420/50000)
+811709 (line 1268) DEBUG MolSim - Plot particles of Iteration 34450
+812655 (line 1268) DEBUG MolSim - Plot particles of Iteration 34500
+813597 (line 1268) DEBUG MolSim - Plot particles of Iteration 34550
+814545 (line 1268) DEBUG MolSim - Plot particles of Iteration 34600
+816749 (line 1268) DEBUG MolSim - Plot particles of Iteration 34650
+818226 (line 1268) DEBUG MolSim - Plot particles of Iteration 34700
+819210 (line 1268) DEBUG MolSim - Plot particles of Iteration 34750
+820165 (line 1268) DEBUG MolSim - Plot particles of Iteration 34800
+821115 (line 1268) DEBUG MolSim - Plot particles of Iteration 34850
+822752 (line 1268) DEBUG MolSim - Plot particles of Iteration 34900
+824806 (line 1268) DEBUG MolSim - Plot particles of Iteration 34950
+825763 (line 1268) DEBUG MolSim - Plot particles of Iteration 35000
+825977 (line 857) INFO  MolSim - Diffusion 350.05: 0.00149443
+825977 (line 867) INFO  MolSim - RDF 350.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 12.0006) (30, 4.81143) (31, 5.01202) (32, 1.88334) (33, 9.3061) (34, 0) (35, 0) (36, 0) (37, 3.53657) (38, 0) (39, 0) (40, 1.51603) (41, 0) (42, 1.37671) (43, 0) (44, 3.76724) (45, 0) (46, 0) (47, 1.10214) (48, 0.211432) (49, 0.811905) (50, 0) (51, 1.87518) (52, 2.70664) (53, 0) (54, 1485.21) (55, 2524.47) (56, 0.77899) (57, 1.35384) (58, 0.145328) (59, 1.54532) (60, 0.543512) (61, 1.31495) (62, 5.72946) (63, 7.52391) (64, 2.86915) (65, 2.20259) (66, 2.9241) (67, 2.8381) (68, 4.13377) (69, 3.08897) (70, 2.00131) (71, 3.89145) (72, 1.41931) (73, 1.93334) (74, 1.34413) (75, 1.65777) (76, 2.2096) (77, 1989.49) (78, 3.47051) (79, 1.88861) (80, 1.07449) (81, 1.27291) (82, 1.46146) (83, 2.49666) (84, 3.41309) (85, 1.90498) (86, 2.79179) (87, 5.2618) (88, 3.81005) (89, 3.10449) (90, 2.12538) (91, 2.07918) (92, 1.45319) (93, 2.73076) (94, 2.06065) (95, 1.90866) (96, 2.08294) (97, 2.66825) (98, 4.61356) (99, 5.0739) 
+826195 (line 950) DEBUG MolSim - Expected remaining runtime 375.4s (iteration 35019/50000)
+826799 (line 1268) DEBUG MolSim - Plot particles of Iteration 35050
+827761 (line 1268) DEBUG MolSim - Plot particles of Iteration 35100
+830103 (line 1268) DEBUG MolSim - Plot particles of Iteration 35150
+831435 (line 1268) DEBUG MolSim - Plot particles of Iteration 35200
+832379 (line 1268) DEBUG MolSim - Plot particles of Iteration 35250
+833330 (line 1268) DEBUG MolSim - Plot particles of Iteration 35300
+835339 (line 1268) DEBUG MolSim - Plot particles of Iteration 35350
+837040 (line 1268) DEBUG MolSim - Plot particles of Iteration 35400
+837995 (line 1268) DEBUG MolSim - Plot particles of Iteration 35450
+838939 (line 1268) DEBUG MolSim - Plot particles of Iteration 35500
+839902 (line 1268) DEBUG MolSim - Plot particles of Iteration 35550
+841222 (line 950) DEBUG MolSim - Expected remaining runtime 385.507s (iteration 35581/50000)
+842227 (line 1268) DEBUG MolSim - Plot particles of Iteration 35600
+843538 (line 1268) DEBUG MolSim - Plot particles of Iteration 35650
+844541 (line 1268) DEBUG MolSim - Plot particles of Iteration 35700
+845495 (line 1268) DEBUG MolSim - Plot particles of Iteration 35750
+846439 (line 1268) DEBUG MolSim - Plot particles of Iteration 35800
+849175 (line 1268) DEBUG MolSim - Plot particles of Iteration 35850
+850144 (line 1268) DEBUG MolSim - Plot particles of Iteration 35900
+851118 (line 1268) DEBUG MolSim - Plot particles of Iteration 35950
+852071 (line 1268) DEBUG MolSim - Plot particles of Iteration 36000
+852297 (line 857) INFO  MolSim - Diffusion 360.05: 0.00152184
+852297 (line 867) INFO  MolSim - RDF 360.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 9.86389) (28, 3.0613) (29, 3.42875) (30, 15.5035) (31, 5.01202) (32, 7.06253) (33, 0) (34, 4.17832) (35, 1.97313) (36, 1.8665) (37, 0) (38, 0) (39, 0) (40, 3.03206) (41, 0) (42, 0) (43, 0) (44, 1.25575) (45, 1.20116) (46, 0) (47, 2.20428) (48, 2.96005) (49, 2.23274) (50, 0) (51, 0) (52, 1.80442) (53, 1.91136) (54, 1528.41) (55, 2482.65) (56, 1.55798) (57, 0.752131) (58, 1.74393) (59, 1.6858) (60, 2.85344) (61, 3.28738) (62, 8.65784) (63, 4.56368) (64, 5.9774) (65, 2.89814) (66, 3.37396) (67, 2.72894) (68, 1.16593) (69, 3.19194) (70, 3.30216) (71, 1.84844) (72, 5.67726) (73, 4.23493) (74, 1.88179) (75, 3.40279) (76, 3.39939) (77, 1987.84) (78, 4.60045) (79, 0.944303) (80, 1.61173) (81, 4.04337) (82, 2.19219) (83, 3.852) (84, 2.50758) (85, 2.04105) (86, 2.92473) (87, 2.72834) (88, 3.11154) (89, 4.40837) (90, 3.58278) (91, 6.11872) (92, 1.86008) (93, 1.30849) (94, 2.06065) (95, 2.56305) (96, 4.37951) (97, 2.40666) (98, 3.07571) (99, 5.02366) 
+853941 (line 1268) DEBUG MolSim - Plot particles of Iteration 36050
+855861 (line 1268) DEBUG MolSim - Plot particles of Iteration 36100
+856228 (line 950) DEBUG MolSim - Expected remaining runtime 388.654s (iteration 36117/50000)
+856863 (line 1268) DEBUG MolSim - Plot particles of Iteration 36150
+857823 (line 1268) DEBUG MolSim - Plot particles of Iteration 36200
+858782 (line 1268) DEBUG MolSim - Plot particles of Iteration 36250
+861095 (line 1268) DEBUG MolSim - Plot particles of Iteration 36300
+862470 (line 1268) DEBUG MolSim - Plot particles of Iteration 36350
+863408 (line 1268) DEBUG MolSim - Plot particles of Iteration 36400
+864392 (line 1268) DEBUG MolSim - Plot particles of Iteration 36450
+865358 (line 1268) DEBUG MolSim - Plot particles of Iteration 36500
+868172 (line 1268) DEBUG MolSim - Plot particles of Iteration 36550
+869109 (line 1268) DEBUG MolSim - Plot particles of Iteration 36600
+870086 (line 1268) DEBUG MolSim - Plot particles of Iteration 36650
+871042 (line 1268) DEBUG MolSim - Plot particles of Iteration 36700
+871234 (line 950) DEBUG MolSim - Expected remaining runtime 338.068s (iteration 36707/50000)
+872749 (line 1268) DEBUG MolSim - Plot particles of Iteration 36750
+874787 (line 1268) DEBUG MolSim - Plot particles of Iteration 36800
+875718 (line 1268) DEBUG MolSim - Plot particles of Iteration 36850
+876644 (line 1268) DEBUG MolSim - Plot particles of Iteration 36900
+877618 (line 1268) DEBUG MolSim - Plot particles of Iteration 36950
+879804 (line 1268) DEBUG MolSim - Plot particles of Iteration 37000
+880514 (line 857) INFO  MolSim - Diffusion 370.05: 0.0015308
+880515 (line 867) INFO  MolSim - RDF 370.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 3.28796) (28, 2.44904) (29, 10.8577) (30, 2.67302) (31, 3.50841) (32, 9.41671) (33, 6.64721) (34, 2.08916) (35, 7.8925) (36, 2.9864) (37, 0.707313) (38, 3.35525) (39, 3.18752) (40, 0.606412) (41, 2.31016) (42, 1.37671) (43, 0) (44, 5.02298) (45, 2.40231) (46, 3.45016) (47, 2.20428) (48, 1.05716) (49, 0) (50, 0.975087) (51, 0) (52, 0) (53, 2.78016) (54, 1568.1) (55, 2444.39) (56, 0.77899) (57, 4.21193) (58, 1.88926) (59, 0.561935) (60, 3.1252) (61, 5.5228) (62, 5.72946) (63, 7.89394) (64, 8.00971) (65, 7.41923) (66, 8.99723) (67, 6.54947) (68, 2.75584) (69, 1.95635) (70, 5.10334) (71, 2.1403) (72, 3.12249) (73, 5.61589) (74, 4.30123) (75, 1.74502) (76, 3.39939) (77, 1987.34) (78, 6.7796) (79, 4.40675) (80, 2.60947) (81, 4.19312) (82, 4.31131) (83, 3.21) (84, 5.57239) (85, 5.17067) (86, 5.9824) (87, 4.41731) (88, 2.73053) (89, 3.35284) (90, 2.97553) (91, 4.33657) (92, 3.54578) (93, 2.38942) (94, 3.62006) (95, 4.68984) (96, 2.24316) (97, 3.24376) (98, 5.89511) (99, 5.97816) 
+881405 (line 1268) DEBUG MolSim - Plot particles of Iteration 37050
+882342 (line 1268) DEBUG MolSim - Plot particles of Iteration 37100
+883244 (line 1268) DEBUG MolSim - Plot particles of Iteration 37150
+884220 (line 1268) DEBUG MolSim - Plot particles of Iteration 37200
+886281 (line 950) DEBUG MolSim - Expected remaining runtime 362.314s (iteration 37237/50000)
+886959 (line 1268) DEBUG MolSim - Plot particles of Iteration 37250
+887919 (line 1268) DEBUG MolSim - Plot particles of Iteration 37300
+888861 (line 1268) DEBUG MolSim - Plot particles of Iteration 37350
+889817 (line 1268) DEBUG MolSim - Plot particles of Iteration 37400
+891124 (line 1268) DEBUG MolSim - Plot particles of Iteration 37450
+893518 (line 1268) DEBUG MolSim - Plot particles of Iteration 37500
+894483 (line 1268) DEBUG MolSim - Plot particles of Iteration 37550
+895409 (line 1268) DEBUG MolSim - Plot particles of Iteration 37600
+896391 (line 1268) DEBUG MolSim - Plot particles of Iteration 37650
+898142 (line 1268) DEBUG MolSim - Plot particles of Iteration 37700
+900073 (line 1268) DEBUG MolSim - Plot particles of Iteration 37750
+901025 (line 1268) DEBUG MolSim - Plot particles of Iteration 37800
+901290 (line 950) DEBUG MolSim - Expected remaining runtime 318.1s (iteration 37812/50000)
+902015 (line 1268) DEBUG MolSim - Plot particles of Iteration 37850
+902990 (line 1268) DEBUG MolSim - Plot particles of Iteration 37900
+905363 (line 1268) DEBUG MolSim - Plot particles of Iteration 37950
+906683 (line 1268) DEBUG MolSim - Plot particles of Iteration 38000
+906890 (line 857) INFO  MolSim - Diffusion 380.05: 0.00156517
+906890 (line 867) INFO  MolSim - RDF 380.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 3.28796) (28, 6.1226) (29, 5.71458) (30, 0) (31, 17.5421) (32, 2.35418) (33, 4.87462) (34, 16.2954) (35, 9.07638) (36, 2.6131) (37, 5.30485) (38, 1.67762) (39, 1.59376) (40, 0) (41, 2.88771) (42, 1.37671) (43, 1.31414) (44, 1.25575) (45, 0) (46, 1.15005) (47, 1.10214) (48, 0) (49, 4.46548) (50, 2.53523) (51, 1.87518) (52, 1.80442) (53, 6.0816) (54, 1546.66) (55, 2465.21) (56, 3.11596) (57, 1.50426) (58, 2.17991) (59, 2.38822) (60, 2.03817) (61, 4.33935) (62, 6.49338) (63, 9.00402) (64, 12.0743) (65, 8.57849) (66, 6.74792) (67, 3.92968) (68, 4.13377) (69, 3.70677) (70, 1.80118) (71, 4.28059) (72, 7.47505) (73, 3.40636) (74, 3.31553) (75, 6.36932) (76, 6.62881) (77, 1991.89) (78, 8.4745) (79, 3.30506) (80, 2.83971) (81, 3.21972) (82, 4.45745) (83, 5.06466) (84, 3.62205) (85, 3.33372) (86, 3.32356) (87, 6.10629) (88, 2.41303) (89, 4.2221) (90, 7.95499) (91, 6.35634) (92, 7.38221) (93, 4.60816) (94, 3.2859) (95, 2.50852) (96, 5.82154) (97, 5.75506) (98, 4.51104) (99, 4.67201) 
+907707 (line 1268) DEBUG MolSim - Plot particles of Iteration 38050
+908666 (line 1268) DEBUG MolSim - Plot particles of Iteration 38100
+910812 (line 1268) DEBUG MolSim - Plot particles of Iteration 38150
+912358 (line 1268) DEBUG MolSim - Plot particles of Iteration 38200
+913311 (line 1268) DEBUG MolSim - Plot particles of Iteration 38250
+914290 (line 1268) DEBUG MolSim - Plot particles of Iteration 38300
+915244 (line 1268) DEBUG MolSim - Plot particles of Iteration 38350
+916297 (line 950) DEBUG MolSim - Expected remaining runtime 312.766s (iteration 38370/50000)
+917866 (line 1268) DEBUG MolSim - Plot particles of Iteration 38400
+918851 (line 1268) DEBUG MolSim - Plot particles of Iteration 38450
+919809 (line 1268) DEBUG MolSim - Plot particles of Iteration 38500
+920749 (line 1268) DEBUG MolSim - Plot particles of Iteration 38550
+921676 (line 1268) DEBUG MolSim - Plot particles of Iteration 38600
+924405 (line 1268) DEBUG MolSim - Plot particles of Iteration 38650
+925352 (line 1268) DEBUG MolSim - Plot particles of Iteration 38700
+926319 (line 1268) DEBUG MolSim - Plot particles of Iteration 38750
+927286 (line 1268) DEBUG MolSim - Plot particles of Iteration 38800
+928791 (line 1268) DEBUG MolSim - Plot particles of Iteration 38850
+930971 (line 1268) DEBUG MolSim - Plot particles of Iteration 38900
+931299 (line 950) DEBUG MolSim - Expected remaining runtime 303.935s (iteration 38917/50000)
+931938 (line 1268) DEBUG MolSim - Plot particles of Iteration 38950
+932931 (line 1268) DEBUG MolSim - Plot particles of Iteration 39000
+933146 (line 857) INFO  MolSim - Diffusion 390.05: 0.00157906
+933146 (line 867) INFO  MolSim - RDF 390.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 3.28796) (28, 17.7555) (29, 14.8579) (30, 10.6921) (31, 11.0264) (32, 12.2417) (33, 7.53351) (34, 2.50699) (35, 5.52475) (36, 8.21259) (37, 1.06097) (38, 6.71049) (39, 6.37504) (40, 4.54809) (41, 4.33156) (42, 2.75342) (43, 1.8398) (44, 2.00919) (45, 2.40231) (46, 1.15005) (47, 0) (48, 1.05716) (49, 1.01488) (50, 1.36512) (51, 0.562553) (52, 2.70664) (53, 5.90784) (54, 1560.56) (55, 2456.01) (56, 4.67394) (57, 3.76066) (58, 4.35983) (59, 2.80967) (60, 2.71756) (61, 7.62673) (62, 12.3502) (63, 13.8144) (64, 7.65107) (65, 5.9122) (66, 6.52299) (67, 7.7502) (68, 5.93566) (69, 7.5165) (70, 8.50557) (71, 5.35074) (72, 6.15036) (73, 3.22223) (74, 4.83888) (75, 5.67131) (76, 8.49848) (77, 1993.22) (78, 8.95876) (79, 7.86919) (80, 5.06544) (81, 5.09165) (82, 1.97297) (83, 1.42667) (84, 3.90067) (85, 2.85747) (86, 3.52297) (87, 3.70275) (88, 5.08006) (89, 11.6108) (90, 9.53385) (91, 5.76229) (92, 3.02264) (93, 4.94951) (94, 4.06561) (95, 5.01704) (96, 3.0977) (97, 5.0226) (98, 6.7153) (99, 6.02839) 
+933998 (line 1268) DEBUG MolSim - Plot particles of Iteration 39050
+936339 (line 1268) DEBUG MolSim - Plot particles of Iteration 39100
+937696 (line 1268) DEBUG MolSim - Plot particles of Iteration 39150
+938620 (line 1268) DEBUG MolSim - Plot particles of Iteration 39200
+939553 (line 1268) DEBUG MolSim - Plot particles of Iteration 39250
+940570 (line 1268) DEBUG MolSim - Plot particles of Iteration 39300
+943287 (line 1268) DEBUG MolSim - Plot particles of Iteration 39350
+944253 (line 1268) DEBUG MolSim - Plot particles of Iteration 39400
+945206 (line 1268) DEBUG MolSim - Plot particles of Iteration 39450
+946157 (line 1268) DEBUG MolSim - Plot particles of Iteration 39500
+946303 (line 950) DEBUG MolSim - Expected remaining runtime 268.246s (iteration 39504/50000)
+947577 (line 1268) DEBUG MolSim - Plot particles of Iteration 39550
+949861 (line 1268) DEBUG MolSim - Plot particles of Iteration 39600
+950770 (line 1268) DEBUG MolSim - Plot particles of Iteration 39650
+951698 (line 1268) DEBUG MolSim - Plot particles of Iteration 39700
+952680 (line 1268) DEBUG MolSim - Plot particles of Iteration 39750
+954485 (line 1268) DEBUG MolSim - Plot particles of Iteration 39800
+956394 (line 1268) DEBUG MolSim - Plot particles of Iteration 39850
+957366 (line 1268) DEBUG MolSim - Plot particles of Iteration 39900
+958327 (line 1268) DEBUG MolSim - Plot particles of Iteration 39950
+959293 (line 1268) DEBUG MolSim - Plot particles of Iteration 40000
+959522 (line 857) INFO  MolSim - Diffusion 400.05: 0.00160993
+959523 (line 867) INFO  MolSim - RDF 400.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 3.0613) (29, 15.4294) (30, 19.7803) (31, 5.51322) (32, 9.41671) (33, 11.5218) (34, 12.535) (35, 13.4173) (36, 7.09269) (37, 5.65851) (38, 8.38811) (39, 6.69379) (40, 8.79298) (41, 7.21926) (42, 5.50684) (43, 4.20526) (44, 2.26034) (45, 0) (46, 1.61007) (47, 1.76342) (48, 1.05716) (49, 1.82679) (50, 0.195017) (51, 0.937588) (52, 1.80442) (53, 0) (54, 1613.31) (55, 2401.92) (56, 6.85511) (57, 0.752131) (58, 4.79581) (59, 5.90032) (60, 5.97864) (61, 13.018) (62, 9.29445) (63, 13.8144) (64, 12.0743) (65, 12.2881) (66, 13.046) (67, 9.27841) (68, 8.47952) (69, 9.67879) (70, 8.50557) (71, 8.46389) (72, 11.1653) (73, 5.98415) (74, 4.21162) (75, 4.01354) (76, 4.41921) (77, 1987.75) (78, 9.52373) (79, 4.95759) (80, 9.44013) (81, 9.43453) (82, 9.28027) (83, 5.70666) (84, 3.27378) (85, 5.71495) (86, 3.78885) (87, 3.63779) (88, 6.47708) (89, 9.43763) (90, 11.4163) (91, 11.9404) (92, 6.51029) (93, 6.77002) (94, 4.9567) (95, 6.92569) (96, 3.31134) (97, 6.06897) (98, 2.87066) (99, 6.63123) 
+961335 (line 950) DEBUG MolSim - Expected remaining runtime 280.418s (iteration 40038/50000)
+961920 (line 1268) DEBUG MolSim - Plot particles of Iteration 40050
+963142 (line 1268) DEBUG MolSim - Plot particles of Iteration 40100
+964110 (line 1268) DEBUG MolSim - Plot particles of Iteration 40150
+965067 (line 1268) DEBUG MolSim - Plot particles of Iteration 40200
+966410 (line 1268) DEBUG MolSim - Plot particles of Iteration 40250
+968763 (line 1268) DEBUG MolSim - Plot particles of Iteration 40300
+969768 (line 1268) DEBUG MolSim - Plot particles of Iteration 40350
+970728 (line 1268) DEBUG MolSim - Plot particles of Iteration 40400
+971690 (line 1268) DEBUG MolSim - Plot particles of Iteration 40450
+973589 (line 1268) DEBUG MolSim - Plot particles of Iteration 40500
+975372 (line 1268) DEBUG MolSim - Plot particles of Iteration 40550
+976302 (line 1268) DEBUG MolSim - Plot particles of Iteration 40600
+976391 (line 950) DEBUG MolSim - Expected remaining runtime 251.316s (iteration 40601/50000)
+977228 (line 1268) DEBUG MolSim - Plot particles of Iteration 40650
+978181 (line 1268) DEBUG MolSim - Plot particles of Iteration 40700
+980401 (line 1268) DEBUG MolSim - Plot particles of Iteration 40750
+981877 (line 1268) DEBUG MolSim - Plot particles of Iteration 40800
+982876 (line 1268) DEBUG MolSim - Plot particles of Iteration 40850
+983873 (line 1268) DEBUG MolSim - Plot particles of Iteration 40900
+984983 (line 1268) DEBUG MolSim - Plot particles of Iteration 40950
+987603 (line 1268) DEBUG MolSim - Plot particles of Iteration 41000
+987816 (line 857) INFO  MolSim - Diffusion 410.05: 0.00162502
+987816 (line 867) INFO  MolSim - RDF 410.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 9.1839) (29, 26.8585) (30, 9.08826) (31, 3.00721) (32, 4.70835) (33, 8.4198) (34, 8.77447) (35, 5.91938) (36, 3.73299) (37, 9.54873) (38, 6.03944) (39, 10.8376) (40, 3.03206) (41, 7.50804) (42, 1.92739) (43, 6.04506) (44, 5.02298) (45, 1.20116) (46, 2.53011) (47, 3.08599) (48, 0) (49, 2.02976) (50, 2.92526) (51, 3.75035) (52, 0.180442) (53, 3.30144) (54, 1636.25) (55, 2390.13) (56, 7.7899) (57, 4.66321) (58, 4.06917) (59, 2.95016) (60, 2.71756) (61, 5.91729) (62, 16.6791) (63, 9.74408) (64, 9.92248) (65, 6.14405) (66, 9.89695) (67, 13.5356) (68, 9.22148) (69, 5.66312) (70, 6.104) (71, 8.65847) (72, 11.2599) (73, 3.68255) (74, 4.83888) (75, 12.8259) (76, 7.64863) (77, 1992.97) (78, 14.2049) (79, 9.20696) (80, 9.90062) (81, 7.26309) (82, 4.96896) (83, 7.06199) (84, 5.08481) (85, 6.66744) (86, 2.85826) (87, 6.17125) (88, 6.60408) (89, 8.63047) (90, 7.65137) (91, 7.42564) (92, 6.1034) (93, 8.02162) (94, 7.90844) (95, 7.90729) (96, 7.79766) (97, 6.22593) (98, 7.58675) (99, 5.17437) 
+988617 (line 1268) DEBUG MolSim - Plot particles of Iteration 41050
+989645 (line 1268) DEBUG MolSim - Plot particles of Iteration 41100
+990629 (line 1268) DEBUG MolSim - Plot particles of Iteration 41150
+991410 (line 950) DEBUG MolSim - Expected remaining runtime 228.768s (iteration 41180/50000)
+992713 (line 1268) DEBUG MolSim - Plot particles of Iteration 41200
+994428 (line 1268) DEBUG MolSim - Plot particles of Iteration 41250
+995405 (line 1268) DEBUG MolSim - Plot particles of Iteration 41300
+996415 (line 1268) DEBUG MolSim - Plot particles of Iteration 41350
+998389 (line 1268) DEBUG MolSim - Plot particles of Iteration 41400
+1000143 (line 1268) DEBUG MolSim - Plot particles of Iteration 41450
+1001167 (line 1268) DEBUG MolSim - Plot particles of Iteration 41500
+1002187 (line 1268) DEBUG MolSim - Plot particles of Iteration 41550
+1003166 (line 1268) DEBUG MolSim - Plot particles of Iteration 41600
+1005885 (line 1268) DEBUG MolSim - Plot particles of Iteration 41650
+1006418 (line 950) DEBUG MolSim - Expected remaining runtime 249.721s (iteration 41680/50000)
+1006842 (line 1268) DEBUG MolSim - Plot particles of Iteration 41700
+1007845 (line 1268) DEBUG MolSim - Plot particles of Iteration 41750
+1008882 (line 1268) DEBUG MolSim - Plot particles of Iteration 41800
+1010501 (line 1268) DEBUG MolSim - Plot particles of Iteration 41850
+1012668 (line 1268) DEBUG MolSim - Plot particles of Iteration 41900
+1013674 (line 1268) DEBUG MolSim - Plot particles of Iteration 41950
+1014639 (line 1268) DEBUG MolSim - Plot particles of Iteration 42000
+1014897 (line 857) INFO  MolSim - Diffusion 420.05: 0.00164264
+1014897 (line 867) INFO  MolSim - RDF 420.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 1.31519) (28, 11.0207) (29, 11.4292) (30, 8.01905) (31, 6.51562) (32, 10.3584) (33, 10.6355) (34, 13.3706) (35, 8.68175) (36, 10.8257) (37, 6.36582) (38, 8.38811) (39, 8.92505) (40, 3.63847) (41, 1.44385) (42, 5.2315) (43, 6.83354) (44, 3.76724) (45, 1.20116) (46, 1.15005) (47, 3.30642) (48, 1.05716) (49, 1.01488) (50, 3.51031) (51, 2.25021) (52, 2.70664) (53, 0.8688) (54, 1654.66) (55, 2361.07) (56, 1.55798) (57, 1.80511) (58, 1.88926) (59, 5.61935) (60, 3.80459) (61, 10.5196) (62, 11.8409) (63, 16.5279) (64, 13.5089) (65, 11.9403) (66, 14.6205) (67, 12.0074) (68, 9.43347) (69, 15.8567) (70, 13.5089) (71, 5.83717) (72, 9.08361) (73, 7.64129) (74, 5.64536) (75, 4.7988) (76, 5.86395) (77, 1991.56) (78, 8.07096) (79, 6.61012) (80, 8.90289) (81, 10.1833) (82, 11.1802) (83, 5.27866) (84, 7.45307) (85, 8.16421) (86, 11.9648) (87, 10.9783) (88, 12.2556) (89, 10.9278) (90, 9.95892) (91, 10.1583) (92, 10.2305) (93, 7.45271) (94, 8.91092) (95, 5.50783) (96, 6.1954) (97, 6.12129) (98, 6.86908) (99, 6.07863) 
+1015797 (line 1268) DEBUG MolSim - Plot particles of Iteration 42050
+1018579 (line 1268) DEBUG MolSim - Plot particles of Iteration 42100
+1019680 (line 1268) DEBUG MolSim - Plot particles of Iteration 42150
+1020667 (line 1268) DEBUG MolSim - Plot particles of Iteration 42200
+1021421 (line 950) DEBUG MolSim - Expected remaining runtime 207.876s (iteration 42240/50000)
+1021634 (line 1268) DEBUG MolSim - Plot particles of Iteration 42250
+1024355 (line 1268) DEBUG MolSim - Plot particles of Iteration 42300
+1025289 (line 1268) DEBUG MolSim - Plot particles of Iteration 42350
+1026304 (line 1268) DEBUG MolSim - Plot particles of Iteration 42400
+1027307 (line 1268) DEBUG MolSim - Plot particles of Iteration 42450
+1028896 (line 1268) DEBUG MolSim - Plot particles of Iteration 42500
+1030991 (line 1268) DEBUG MolSim - Plot particles of Iteration 42550
+1031940 (line 1268) DEBUG MolSim - Plot particles of Iteration 42600
+1032923 (line 1268) DEBUG MolSim - Plot particles of Iteration 42650
+1033894 (line 1268) DEBUG MolSim - Plot particles of Iteration 42700
+1035975 (line 1268) DEBUG MolSim - Plot particles of Iteration 42750
+1036424 (line 950) DEBUG MolSim - Expected remaining runtime 211.047s (iteration 42755/50000)
+1037570 (line 1268) DEBUG MolSim - Plot particles of Iteration 42800
+1038512 (line 1268) DEBUG MolSim - Plot particles of Iteration 42850
+1039446 (line 1268) DEBUG MolSim - Plot particles of Iteration 42900
+1040420 (line 1268) DEBUG MolSim - Plot particles of Iteration 42950
+1042859 (line 1268) DEBUG MolSim - Plot particles of Iteration 43000
+1043334 (line 857) INFO  MolSim - Diffusion 430.05: 0.00165525
+1043334 (line 867) INFO  MolSim - RDF 430.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 7.23352) (28, 15.3065) (29, 8.00042) (30, 13.3651) (31, 2.50601) (32, 9.41671) (33, 6.20407) (34, 2.50699) (35, 1.97313) (36, 1.8665) (37, 5.30485) (38, 3.35525) (39, 3.18752) (40, 7.58015) (41, 0) (42, 1.65205) (43, 6.30789) (44, 2.51149) (45, 2.40231) (46, 3.45016) (47, 2.20428) (48, 3.17148) (49, 1.01488) (50, 0.975087) (51, 6.93815) (52, 2.34575) (53, 1.56384) (54, 1623.18) (55, 2394.01) (56, 1.55798) (57, 1.50426) (58, 3.63319) (59, 2.80967) (60, 7.4733) (61, 8.81019) (62, 12.0955) (63, 12.4576) (64, 5.61875) (65, 11.4766) (66, 11.1341) (67, 9.71504) (68, 9.43347) (69, 13.6945) (70, 9.0059) (71, 5.93446) (72, 8.23202) (73, 5.52383) (74, 8.96089) (75, 6.19481) (76, 5.18407) (77, 1991.81) (78, 10.573) (79, 5.66582) (80, 11.2821) (81, 9.58428) (82, 7.74574) (83, 6.70533) (84, 8.4979) (85, 14.6956) (86, 8.70772) (87, 11.0433) (88, 11.0491) (89, 9.99644) (90, 10.2626) (91, 10.0395) (92, 9.70731) (93, 8.41985) (94, 7.90844) (95, 7.63462) (96, 6.35563) (97, 7.42926) (98, 6.04889) (99, 8.99235) 
+1044167 (line 1268) DEBUG MolSim - Plot particles of Iteration 43050
+1045106 (line 1268) DEBUG MolSim - Plot particles of Iteration 43100
+1046097 (line 1268) DEBUG MolSim - Plot particles of Iteration 43150
+1047156 (line 1268) DEBUG MolSim - Plot particles of Iteration 43200
+1049588 (line 1268) DEBUG MolSim - Plot particles of Iteration 43250
+1050858 (line 1268) DEBUG MolSim - Plot particles of Iteration 43300
+1051428 (line 950) DEBUG MolSim - Expected remaining runtime 173.371s (iteration 43332/50000)
+1051785 (line 1268) DEBUG MolSim - Plot particles of Iteration 43350
+1052745 (line 1268) DEBUG MolSim - Plot particles of Iteration 43400
+1053713 (line 1268) DEBUG MolSim - Plot particles of Iteration 43450
+1056471 (line 1268) DEBUG MolSim - Plot particles of Iteration 43500
+1057488 (line 1268) DEBUG MolSim - Plot particles of Iteration 43550
+1058463 (line 1268) DEBUG MolSim - Plot particles of Iteration 43600
+1059432 (line 1268) DEBUG MolSim - Plot particles of Iteration 43650
+1062286 (line 1268) DEBUG MolSim - Plot particles of Iteration 43700
+1063343 (line 1268) DEBUG MolSim - Plot particles of Iteration 43750
+1064415 (line 1268) DEBUG MolSim - Plot particles of Iteration 43800
+1065469 (line 1268) DEBUG MolSim - Plot particles of Iteration 43850
+1066449 (line 950) DEBUG MolSim - Expected remaining runtime 168.409s (iteration 43878/50000)
+1067710 (line 1268) DEBUG MolSim - Plot particles of Iteration 43900
+1069312 (line 1268) DEBUG MolSim - Plot particles of Iteration 43950
+1070331 (line 1268) DEBUG MolSim - Plot particles of Iteration 44000
+1070539 (line 857) INFO  MolSim - Diffusion 440.05: 0.00166073
+1070539 (line 867) INFO  MolSim - RDF 440.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 1.97278) (28, 10.4084) (29, 3.42875) (30, 6.41524) (31, 7.01682) (32, 1.88334) (33, 8.86295) (34, 1.67133) (35, 5.91938) (36, 5.59949) (37, 1.76828) (38, 1.67762) (39, 3.18752) (40, 3.03206) (41, 4.62033) (42, 2.47808) (43, 3.94243) (44, 2.51149) (45, 0) (46, 5.75026) (47, 4.18813) (48, 1.48003) (49, 1.82679) (50, 2.53523) (51, 4.12539) (52, 2.70664) (53, 0) (54, 1605.44) (55, 2410.32) (56, 7.47831) (57, 4.36236) (58, 2.47057) (59, 3.23113) (60, 4.61986) (61, 5.6543) (62, 7.12999) (63, 12.2109) (64, 9.92248) (65, 7.99886) (66, 7.42271) (67, 7.85936) (68, 6.88961) (69, 8.85506) (70, 6.30413) (71, 5.93446) (72, 9.74596) (73, 7.54923) (74, 6.45184) (75, 7.24182) (76, 8.24352) (77, 1993.22) (78, 10.008) (79, 7.00358) (80, 8.36564) (81, 7.71235) (82, 6.94194) (83, 6.70533) (84, 9.05514) (85, 10.1372) (86, 8.70772) (87, 7.92518) (88, 13.8432) (89, 7.88539) (90, 8.86587) (91, 8.25731) (92, 5.52212) (93, 10.5248) (94, 5.40224) (95, 7.58009) (96, 5.34087) (97, 7.21998) (98, 7.48423) (99, 6.78194) 
+1071353 (line 1268) DEBUG MolSim - Plot particles of Iteration 44050
+1072327 (line 1268) DEBUG MolSim - Plot particles of Iteration 44100
+1074432 (line 1268) DEBUG MolSim - Plot particles of Iteration 44150
+1076026 (line 1268) DEBUG MolSim - Plot particles of Iteration 44200
+1077027 (line 1268) DEBUG MolSim - Plot particles of Iteration 44250
+1078025 (line 1268) DEBUG MolSim - Plot particles of Iteration 44300
+1079146 (line 1268) DEBUG MolSim - Plot particles of Iteration 44350
+1081498 (line 950) DEBUG MolSim - Expected remaining runtime 167.018s (iteration 44384/50000)
+1081866 (line 1268) DEBUG MolSim - Plot particles of Iteration 44400
+1082881 (line 1268) DEBUG MolSim - Plot particles of Iteration 44450
+1083894 (line 1268) DEBUG MolSim - Plot particles of Iteration 44500
+1084884 (line 1268) DEBUG MolSim - Plot particles of Iteration 44550
+1087212 (line 1268) DEBUG MolSim - Plot particles of Iteration 44600
+1088727 (line 1268) DEBUG MolSim - Plot particles of Iteration 44650
+1089740 (line 1268) DEBUG MolSim - Plot particles of Iteration 44700
+1090663 (line 1268) DEBUG MolSim - Plot particles of Iteration 44750
+1091606 (line 1268) DEBUG MolSim - Plot particles of Iteration 44800
+1094331 (line 1268) DEBUG MolSim - Plot particles of Iteration 44850
+1095285 (line 1268) DEBUG MolSim - Plot particles of Iteration 44900
+1096267 (line 1268) DEBUG MolSim - Plot particles of Iteration 44950
+1096505 (line 950) DEBUG MolSim - Expected remaining runtime 131.042s (iteration 44961/50000)
+1097209 (line 1268) DEBUG MolSim - Plot particles of Iteration 45000
+1097425 (line 857) INFO  MolSim - Diffusion 450.05: 0.00168026
+1097425 (line 867) INFO  MolSim - RDF 450.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 0) (30, 2.67302) (31, 0) (32, 6.5917) (33, 0.443148) (34, 0) (35, 11.4441) (36, 2.2398) (37, 7.07313) (38, 3.35525) (39, 7.33129) (40, 6.67054) (41, 6.93049) (42, 4.40547) (43, 1.31414) (44, 0) (45, 0) (46, 1.15005) (47, 2.20428) (48, 4.86294) (49, 3.45059) (50, 0.975087) (51, 1.87518) (52, 1.80442) (53, 3.12768) (54, 1636.08) (55, 2380.93) (56, 3.11596) (57, 3.00852) (58, 0.726638) (59, 2.10726) (60, 2.03817) (61, 2.23542) (62, 6.74803) (63, 4.317) (64, 7.77062) (65, 5.10072) (66, 7.98504) (67, 9.8242) (68, 9.64545) (69, 7.41354) (70, 5.70374) (71, 3.11316) (72, 7.85354) (73, 4.60319) (74, 8.33363) (75, 6.19481) (76, 2.71951) (77, 1993.05) (78, 8.4745) (79, 7.86919) (80, 5.52593) (81, 6.21481) (82, 6.64964) (83, 6.27733) (84, 5.43308) (85, 9.32081) (86, 7.24535) (87, 6.56101) (88, 5.46107) (89, 3.6012) (90, 9.10877) (91, 7.60385) (92, 8.60289) (93, 7.16825) (94, 6.46042) (95, 6.98023) (96, 8.06471) (97, 7.69085) (98, 5.53628) (99, 5.97816) 
+1098790 (line 1268) DEBUG MolSim - Plot particles of Iteration 45050
+1100965 (line 1268) DEBUG MolSim - Plot particles of Iteration 45100
+1101917 (line 1268) DEBUG MolSim - Plot particles of Iteration 45150
+1102841 (line 1268) DEBUG MolSim - Plot particles of Iteration 45200
+1103756 (line 1268) DEBUG MolSim - Plot particles of Iteration 45250
+1104682 (line 1268) DEBUG MolSim - Plot particles of Iteration 45300
+1107296 (line 1268) DEBUG MolSim - Plot particles of Iteration 45350
+1108354 (line 1268) DEBUG MolSim - Plot particles of Iteration 45400
+1109275 (line 1268) DEBUG MolSim - Plot particles of Iteration 45450
+1110263 (line 1268) DEBUG MolSim - Plot particles of Iteration 45500
+1111420 (line 1268) DEBUG MolSim - Plot particles of Iteration 45550
+1111699 (line 950) DEBUG MolSim - Expected remaining runtime 114.562s (iteration 45551/50000)
+1114287 (line 1268) DEBUG MolSim - Plot particles of Iteration 45600
+1115228 (line 1268) DEBUG MolSim - Plot particles of Iteration 45650
+1116229 (line 1268) DEBUG MolSim - Plot particles of Iteration 45700
+1117191 (line 1268) DEBUG MolSim - Plot particles of Iteration 45750
+1118635 (line 1268) DEBUG MolSim - Plot particles of Iteration 45800
+1121248 (line 1268) DEBUG MolSim - Plot particles of Iteration 45850
+1122211 (line 1268) DEBUG MolSim - Plot particles of Iteration 45900
+1123173 (line 1268) DEBUG MolSim - Plot particles of Iteration 45950
+1124162 (line 1268) DEBUG MolSim - Plot particles of Iteration 46000
+1124386 (line 857) INFO  MolSim - Diffusion 460.05: 0.00171514
+1124386 (line 867) INFO  MolSim - RDF 460.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 6.1226) (29, 2.85729) (30, 8.01905) (31, 2.50601) (32, 0) (33, 4.43148) (34, 6.26748) (35, 7.8925) (36, 5.22619) (37, 4.95119) (38, 2.34867) (39, 3.18752) (40, 3.03206) (41, 9.24066) (42, 2.20274) (43, 1.31414) (44, 2.51149) (45, 2.40231) (46, 2.07009) (47, 2.86557) (48, 1.69146) (49, 2.02976) (50, 3.70533) (51, 2.06269) (52, 1.80442) (53, 0.8688) (54, 1613.14) (55, 2404.34) (56, 3.11596) (57, 1.95554) (58, 1.01729) (59, 0.421451) (60, 2.30993) (61, 1.31495) (62, 5.85678) (63, 5.42708) (64, 7.17288) (65, 5.21665) (66, 9.89695) (67, 10.1517) (68, 3.81578) (69, 8.03133) (70, 6.90452) (71, 3.89145) (72, 6.71809) (73, 6.90478) (74, 5.37653) (75, 5.93306) (76, 5.09909) (77, 1993.22) (78, 5.81109) (79, 5.03628) (80, 6.98416) (81, 4.11825) (82, 3.94594) (83, 4.13733) (84, 7.94066) (85, 6.3953) (86, 8.50831) (87, 6.30117) (88, 7.36609) (89, 8.56838) (90, 7.77282) (91, 4.87122) (92, 4.76646) (93, 6.14422) (94, 5.01239) (95, 6.81663) (96, 8.97265) (97, 5.07492) (98, 6.20268) (99, 6.27958) 
+1125311 (line 1268) DEBUG MolSim - Plot particles of Iteration 46050
+1126751 (line 950) DEBUG MolSim - Expected remaining runtime 114.468s (iteration 46068/50000)
+1128568 (line 1268) DEBUG MolSim - Plot particles of Iteration 46100
+1129541 (line 1268) DEBUG MolSim - Plot particles of Iteration 46150
+1130505 (line 1268) DEBUG MolSim - Plot particles of Iteration 46200
+1131491 (line 1268) DEBUG MolSim - Plot particles of Iteration 46250
+1133118 (line 1268) DEBUG MolSim - Plot particles of Iteration 46300
+1135562 (line 1268) DEBUG MolSim - Plot particles of Iteration 46350
+1136518 (line 1268) DEBUG MolSim - Plot particles of Iteration 46400
+1137528 (line 1268) DEBUG MolSim - Plot particles of Iteration 46450
+1138677 (line 1268) DEBUG MolSim - Plot particles of Iteration 46500
+1141687 (line 1268) DEBUG MolSim - Plot particles of Iteration 46550
+1141766 (line 950) DEBUG MolSim - Expected remaining runtime 107.21s (iteration 46551/50000)
+1142647 (line 1268) DEBUG MolSim - Plot particles of Iteration 46600
+1143630 (line 1268) DEBUG MolSim - Plot particles of Iteration 46650
+1144626 (line 1268) DEBUG MolSim - Plot particles of Iteration 46700
+1147531 (line 1268) DEBUG MolSim - Plot particles of Iteration 46750
+1148456 (line 1268) DEBUG MolSim - Plot particles of Iteration 46800
+1149466 (line 1268) DEBUG MolSim - Plot particles of Iteration 46850
+1150416 (line 1268) DEBUG MolSim - Plot particles of Iteration 46900
+1151920 (line 1268) DEBUG MolSim - Plot particles of Iteration 46950
+1154446 (line 1268) DEBUG MolSim - Plot particles of Iteration 47000
+1154656 (line 857) INFO  MolSim - Diffusion 470.05: 0.00173242
+1154656 (line 867) INFO  MolSim - RDF 470.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 0) (29, 2.85729) (30, 0) (31, 2.50601) (32, 6.5917) (33, 7.09036) (34, 6.26748) (35, 5.91938) (36, 5.59949) (37, 8.1341) (38, 3.35525) (39, 4.78128) (40, 3.33527) (41, 7.50804) (42, 2.75342) (43, 2.89111) (44, 1.5069) (45, 7.92764) (46, 3.45016) (47, 0) (48, 2.53719) (49, 2.63869) (50, 0.975087) (51, 0) (52, 1.62398) (53, 0.17376) (54, 1635.24) (55, 2378.99) (56, 0) (57, 1.50426) (58, 0) (59, 0) (60, 1.35878) (61, 2.36692) (62, 4.2016) (63, 5.92045) (64, 3.10825) (65, 8.69442) (66, 9.55955) (67, 7.85936) (68, 9.11548) (69, 6.69278) (70, 6.30413) (71, 8.17204) (72, 8.42126) (73, 4.97144) (74, 4.83888) (75, 2.53028) (76, 8.83842) (77, 1989) (78, 7.26386) (79, 5.35105) (80, 4.52819) (81, 6.21481) (82, 2.41141) (83, 4.42266) (84, 4.03998) (85, 4.21818) (86, 5.31769) (87, 2.92322) (88, 5.20706) (89, 5.96061) (90, 6.01179) (91, 8.79195) (92, 9.06791) (93, 5.34774) (94, 9.80201) (95, 6.1077) (96, 7.21017) (97, 8.58027) (98, 4.40852) (99, 4.27011) 
+1155482 (line 1268) DEBUG MolSim - Plot particles of Iteration 47050
+1156448 (line 1268) DEBUG MolSim - Plot particles of Iteration 47100
+1156770 (line 950) DEBUG MolSim - Expected remaining runtime 76.7445s (iteration 47115/50000)
+1157475 (line 1268) DEBUG MolSim - Plot particles of Iteration 47150
+1158463 (line 1268) DEBUG MolSim - Plot particles of Iteration 47200
+1160357 (line 1268) DEBUG MolSim - Plot particles of Iteration 47250
+1162233 (line 1268) DEBUG MolSim - Plot particles of Iteration 47300
+1163214 (line 1268) DEBUG MolSim - Plot particles of Iteration 47350
+1164194 (line 1268) DEBUG MolSim - Plot particles of Iteration 47400
+1165158 (line 1268) DEBUG MolSim - Plot particles of Iteration 47450
+1166678 (line 1268) DEBUG MolSim - Plot particles of Iteration 47500
+1168891 (line 1268) DEBUG MolSim - Plot particles of Iteration 47550
+1169858 (line 1268) DEBUG MolSim - Plot particles of Iteration 47600
+1170718 (line 1268) DEBUG MolSim - Plot particles of Iteration 47650
+1171597 (line 1268) DEBUG MolSim - Plot particles of Iteration 47700
+1171773 (line 950) DEBUG MolSim - Expected remaining runtime 58.1078s (iteration 47707/50000)
+1173171 (line 1268) DEBUG MolSim - Plot particles of Iteration 47750
+1175219 (line 1268) DEBUG MolSim - Plot particles of Iteration 47800
+1176137 (line 1268) DEBUG MolSim - Plot particles of Iteration 47850
+1177014 (line 1268) DEBUG MolSim - Plot particles of Iteration 47900
+1177886 (line 1268) DEBUG MolSim - Plot particles of Iteration 47950
+1179327 (line 1268) DEBUG MolSim - Plot particles of Iteration 48000
+1180234 (line 857) INFO  MolSim - Diffusion 480.05: 0.00175636
+1180234 (line 867) INFO  MolSim - RDF 480.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 3.0613) (29, 5.71458) (30, 8.01905) (31, 7.51803) (32, 8.0042) (33, 11.5218) (34, 2.92482) (35, 0) (36, 3.73299) (37, 3.53657) (38, 5.03287) (39, 5.10003) (40, 5.45771) (41, 5.19787) (42, 4.95615) (43, 1.31414) (44, 1.5069) (45, 5.76556) (46, 2.3001) (47, 1.76342) (48, 0.422865) (49, 0) (50, 0.975087) (51, 0) (52, 0.902212) (53, 0) (54, 1566.09) (55, 2446.48) (56, 0.77899) (57, 1.50426) (58, 1.45328) (59, 1.12387) (60, 2.44581) (61, 1.84093) (62, 7.89392) (63, 8.38731) (64, 9.92248) (65, 8.57849) (66, 5.39834) (67, 8.29599) (68, 6.04166) (69, 8.4432) (70, 9.90649) (71, 5.93446) (72, 5.77188) (73, 7.3651) (74, 5.19732) (75, 3.57729) (76, 5.0141) (77, 1988.33) (78, 8.79734) (79, 5.11498) (80, 4.2212) (81, 4.71726) (82, 4.89589) (83, 3.99466) (84, 5.01515) (85, 5.64691) (86, 5.65005) (87, 4.15747) (88, 5.65157) (89, 6.70569) (90, 8.74442) (91, 8.67314) (92, 8.48663) (93, 8.19229) (94, 6.18195) (95, 6.38036) (96, 8.6522) (97, 5.65042) (98, 5.94637) (99, 7.28431) 
+1181550 (line 1268) DEBUG MolSim - Plot particles of Iteration 48050
+1182438 (line 1268) DEBUG MolSim - Plot particles of Iteration 48100
+1183312 (line 1268) DEBUG MolSim - Plot particles of Iteration 48150
+1184206 (line 1268) DEBUG MolSim - Plot particles of Iteration 48200
+1185095 (line 1268) DEBUG MolSim - Plot particles of Iteration 48250
+1186250 (line 1268) DEBUG MolSim - Plot particles of Iteration 48300
+1186797 (line 950) DEBUG MolSim - Expected remaining runtime 42.3871s (iteration 48307/50000)
+1188621 (line 1268) DEBUG MolSim - Plot particles of Iteration 48350
+1189516 (line 1268) DEBUG MolSim - Plot particles of Iteration 48400
+1190393 (line 1268) DEBUG MolSim - Plot particles of Iteration 48450
+1191284 (line 1268) DEBUG MolSim - Plot particles of Iteration 48500
+1192247 (line 1268) DEBUG MolSim - Plot particles of Iteration 48550
+1194855 (line 1268) DEBUG MolSim - Plot particles of Iteration 48600
+1195937 (line 1268) DEBUG MolSim - Plot particles of Iteration 48650
+1196868 (line 1268) DEBUG MolSim - Plot particles of Iteration 48700
+1197823 (line 1268) DEBUG MolSim - Plot particles of Iteration 48750
+1199107 (line 1268) DEBUG MolSim - Plot particles of Iteration 48800
+1201327 (line 1268) DEBUG MolSim - Plot particles of Iteration 48850
+1201809 (line 950) DEBUG MolSim - Expected remaining runtime 29.652s (iteration 48876/50000)
+1202205 (line 1268) DEBUG MolSim - Plot particles of Iteration 48900
+1203071 (line 1268) DEBUG MolSim - Plot particles of Iteration 48950
+1203951 (line 1268) DEBUG MolSim - Plot particles of Iteration 49000
+1204160 (line 857) INFO  MolSim - Diffusion 490.05: 0.0017733
+1204161 (line 867) INFO  MolSim - RDF 490.05: (0, 0) (1, 0) (2, 0) (3, 0) (4, 0) (5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (11, 0) (12, 0) (13, 0) (14, 0) (15, 0) (16, 0) (17, 0) (18, 0) (19, 0) (20, 0) (21, 0) (22, 0) (23, 0) (24, 0) (25, 0) (26, 0) (27, 0) (28, 14.082) (29, 8.00042) (30, 6.94984) (31, 8.01923) (32, 4.23752) (33, 2.21574) (34, 12.535) (35, 10.6549) (36, 2.9864) (37, 5.30485) (38, 1.00657) (39, 0.637504) (40, 4.54809) (41, 5.77541) (42, 2.75342) (43, 3.94243) (44, 2.51149) (45, 1.20116) (46, 0.460021) (47, 2.86557) (48, 0) (49, 0) (50, 1.95017) (51, 2.81276) (52, 2.34575) (53, 0.34752) (54, 1625.19) (55, 2390.3) (56, 1.40218) (57, 1.80511) (58, 2.76122) (59, 5.47887) (60, 4.21222) (61, 3.81336) (62, 8.65784) (63, 7.7706) (64, 10.6398) (65, 12.2881) (66, 6.18559) (67, 5.78536) (68, 7.31359) (69, 10.9144) (70, 5.20341) (71, 5.35074) (72, 8.98899) (73, 5.70795) (74, 7.52715) (75, 3.92629) (76, 5.43903) (77, 1991.65) (78, 8.39379) (79, 6.05928) (80, 2.60947) (81, 4.86702) (82, 8.1111) (83, 3.56666) (84, 4.3186) (85, 4.01407) (86, 5.58358) (87, 4.48227) (88, 5.33406) (89, 13.163) (90, 11.052) (91, 12.4751) (92, 6.16153) (93, 8.07851) (94, 8.46537) (95, 7.79822) (96, 7.37039) (97, 6.06897) (98, 2.97319) (99, 6.1791) 
+1204918 (line 1268) DEBUG MolSim - Plot particles of Iteration 49050
+1206663 (line 1268) DEBUG MolSim - Plot particles of Iteration 49100
+1208426 (line 1268) DEBUG MolSim - Plot particles of Iteration 49150
+1209294 (line 1268) DEBUG MolSim - Plot particles of Iteration 49200
+1210187 (line 1268) DEBUG MolSim - Plot particles of Iteration 49250
+1211062 (line 1268) DEBUG MolSim - Plot particles of Iteration 49300
+1212539 (line 1268) DEBUG MolSim - Plot particles of Iteration 49350
+1214575 (line 1268) DEBUG MolSim - Plot particles of Iteration 49400
+1215478 (line 1268) DEBUG MolSim - Plot particles of Iteration 49450
+1216354 (line 1268) DEBUG MolSim - Plot particles of Iteration 49500
+1216810 (line 950) DEBUG MolSim - Expected remaining runtime 10.9786s (iteration 49525/50000)
+1217230 (line 1268) DEBUG MolSim - Plot particles of Iteration 49550
+1218109 (line 1268) DEBUG MolSim - Plot particles of Iteration 49600
+1219946 (line 1268) DEBUG MolSim - Plot particles of Iteration 49650
+1221950 (line 1268) DEBUG MolSim - Plot particles of Iteration 49700
+1222831 (line 1268) DEBUG MolSim - Plot particles of Iteration 49750
+1223813 (line 1268) DEBUG MolSim - Plot particles of Iteration 49800
+1224690 (line 1268) DEBUG MolSim - Plot particles of Iteration 49850
+1225645 (line 1268) DEBUG MolSim - Plot particles of Iteration 49900
+1227886 (line 1268) DEBUG MolSim - Plot particles of Iteration 49950
+1229549 (line 1268) DEBUG MolSim - Plot particles of Iteration 50000
+1229642 (line 957) INFO  MolSim - End simulation in 1229.41 seconds
+1229642 (line 960) INFO  MolSim - 0.0245878 per iteration

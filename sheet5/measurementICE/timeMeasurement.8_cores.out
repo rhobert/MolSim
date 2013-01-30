@@ -1,0 +1,41 @@
+1    (line 289) INFO  MolSim - Hello from MolSim for PSE!
+1    (line 292) INFO  MolSim - Detect available tests
+1    (line 349) INFO  MolSim - Reading parameter-file measurement/input_measurement.xml
+2    (line 360) DEBUG MolSim - Checking parameter-file
+10   (line 376) DEBUG MolSim - Reading in parameters
+10   (line 391) DEBUG MolSim - Check END_T and DELTA_T
+10   (line 401) DEBUG MolSim - Check if output is specified
+10   (line 412) WARN  MolSim - No output specified
+10   (line 419) DEBUG MolSim - Reading in input files
+10   (line 444) DEBUG MolSim - Reading in cuboids
+10   (line 482) INFO  MolSim - Reading in cuboid at [0.6;2;0;] with velocity [0;0;0;], dimensions [250;40;1;], mass 1, distance 1.2, sigma 1.2, epsilon 1 and type 1
+12   (line 482) INFO  MolSim - Reading in cuboid at [0.6;52;0;] with velocity [0;0;0;], dimensions [250;40;1;], mass 2, distance 1.2, sigma 1.1, epsilon 1 and type 2
+14   (line 546) DEBUG MolSim - Reading in spheres
+14   (line 588) DEBUG MolSim - Detect if domain size is specified
+14   (line 599) INFO  MolSim - Domain [300;110;0;] with cutoff-radius 3
+14   (line 604) INFO  MolSim - In x-dimension the lower boundary condition is periodic and the upper periodic
+14   (line 613) INFO  MolSim - In y-dimension the lower boundary condition is reflecting and the upper reflecting
+14   (line 638) DEBUG MolSim - Create LinkedCellParticleContainer
+14   (line 16 ) INFO  LinkedCellParticleContainer - Create LinkedCellParticleContainer
+14   (line 67 ) INFO  LinkedCellParticleContainer - Create 3978 cells
+14   (line 153) DEBUG LinkedCellParticleContainer - Created 270 boundary cells
+14   (line 154) DEBUG LinkedCellParticleContainer - Created 278 halo cells
+14   (line 156) DEBUG LinkedCellParticleContainer - Create cell pairs
+17   (line 272) DEBUG LinkedCellParticleContainer - Created 19469 cell pairs
+17   (line 273) DEBUG LinkedCellParticleContainer - Created 818 periodic cell pairs
+17   (line 645) DEBUG MolSim - Real domain size is [300;111;0;]
+17   (line 655) INFO  MolSim - Add 20000 particles to ParticleContainer
+21   (line 661) DEBUG MolSim - Detect if gravitation is specified
+21   (line 669) INFO  MolSim - Gravitation is set to [0;-12.44;0;]
+21   (line 672) DEBUG MolSim - Detect if parameters for Thermostat are specified
+21   (line 100) INFO  Thermostat - Mean velocity for Maxwell Boltzmann Distribution is 6.32456
+43   (line 684) INFO  MolSim - Superpose velocity of particles to get initial temperature with temperature 40 in 2 dimensions
+44   (line 708) DEBUG MolSim - Regulation frequency for Thermostat is 0
+44   (line 727) INFO  MolSim - Set potential for force calulation to Lennard-Jones potential
+47   (line 778) INFO  MolSim - Start simulation from time 0 to 0.5 with time steps 0.0005
+47   (line 779) INFO  MolSim - Expecting 1000 simulation steps
+51   (line 924) DEBUG MolSim - Expected remaining runtime 4.27672s (iteration 1/1000)
+87   (line 832) INFO  MolSim - Diffusion 0.0005: 0.00397353
+87   (line 842) INFO  MolSim - RDF 0.0005: (0, 0) (1, 0) (2, 0) (3, 9408.78) (4, 5720.88) (5, 7548.49) (6, 0) (7, 2044.84) (8, 7808.78) (9, 0.78305) 
+3042 (line 931) INFO  MolSim - End simulation in 2.99415 seconds
+3042 (line 934) INFO  MolSim - 0.00299415 per iteration
