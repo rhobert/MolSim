@@ -8,7 +8,9 @@ Cell::Cell ()
 	particles = Cell::SingleList();
 	neighbours = Cell::CellList();
 	periodicNeighbours = list<pair<Cell*,bool*> >();
-	omp_init_lock(&lock);
+	#ifdef _OPENMP
+		omp_init_lock(&lock);
+	#endif
 }
 
 void Cell::addParticle( Particle& p )

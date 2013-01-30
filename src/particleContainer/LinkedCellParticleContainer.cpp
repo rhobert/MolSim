@@ -295,10 +295,9 @@ void LinkedCellParticleContainer::addParticles( ParticleContainer::SingleList pL
 
 void LinkedCellParticleContainer::applyToSingleParticles( void (*singleFunction)(Particle&) )
 {
-	omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
-	
 	#ifdef _OPENMP
-	#pragma omp parallel for
+		omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
+		#pragma omp parallel for
 	#endif
 	for ( int i = 0; i < cellCount; i++ )
 	{
@@ -317,12 +316,11 @@ void LinkedCellParticleContainer::applyToBoundaryParticles( int boundary, void (
 {
 	assert ( boundary >= 0 && boundary < 6 );
 	
-	omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
-	
 	int len = boundaryCells[boundary]->size();
 	
 	#ifdef _OPENMP
-	#pragma omp parallel for
+		omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
+		#pragma omp parallel for
 	#endif
 	for ( int i = 0; i < len; i++ )
 	{
@@ -341,12 +339,11 @@ void LinkedCellParticleContainer::applyToHaloParticles( int boundary, void (*sin
 {
 	assert ( boundary >= 0 && boundary < 6 );
 	
-	omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
-	
 	int len = haloCells[boundary]->size();
 	
 	#ifdef _OPENMP
-	#pragma omp parallel for
+		omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
+		#pragma omp parallel for
 	#endif
 	for ( int i = 0; i < len; i++ )
 	{
@@ -365,15 +362,16 @@ void LinkedCellParticleContainer::applyToParticlePairs( void (*pairFunction)(Par
 {	
 	const double cutOffSquare = sideLength*sideLength;
 	
-	omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
-	
 	#ifdef _OPENMP
-	#pragma omp parallel for
+		omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
+		#pragma omp parallel for
 	#endif
 	for ( int i = 0; i < cellCount; i++ )
 	{
 		Cell& cell1 = cells[i];
-		omp_set_lock(&cell1.lock);
+		#ifdef _OPENMP
+			omp_set_lock(&cell1.lock);
+		#endif
 		
 		for ( Cell::CellList::iterator j = cell1.neighbours.begin(); j != cell1.neighbours.end(); j++ )
 		{
@@ -403,7 +401,9 @@ void LinkedCellParticleContainer::applyToParticlePairs( void (*pairFunction)(Par
 			}
 			else
 			{	
-				omp_set_lock(&cell2.lock);
+				#ifdef _OPENMP
+					omp_set_lock(&cell2.lock);
+				#endif
 				
 				for ( j1 = cell1.particles.begin(); j1 != cell1.particles.end(); j1++  )
 				{
@@ -422,11 +422,15 @@ void LinkedCellParticleContainer::applyToParticlePairs( void (*pairFunction)(Par
 					}
 				}
 				
-				omp_unset_lock(&cell2.lock);
+				#ifdef _OPENMP
+					omp_unset_lock(&cell2.lock);
+				#endif
 			}
 		}
 		
-		omp_unset_lock(&cell1.lock);
+		#ifdef _OPENMP
+			omp_unset_lock(&cell1.lock);
+		#endif
 	}
 }
 
@@ -436,12 +440,11 @@ void LinkedCellParticleContainer::applyToPeriodicBoundaryParticlePairs( bool* pe
 	
 	const double cutOffSquare = sideLength*sideLength;
 	
-	omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
-	
 	int len = boundaryCellsAll.size();
 	
 	#ifdef _OPENMP
-	#pragma omp parallel for
+		omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
+		#pragma omp parallel for
 	#endif
 	for ( int i = 0; i < len; i++ )
 	{
@@ -632,17 +635,18 @@ void LinkedCellParticleContainer::applyToPeriodicBoundaryParticlePairs( bool* pe
 
 void LinkedCellParticleContainer::updateContainingCells()
 {
-	omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
-	
 	#ifdef _OPENMP
-	#pragma omp parallel for
+		omp_set_num_threads(LINKED_CELL_THREAD_COUNT);
+		#pragma omp parallel for
 	#endif
 	for ( int i = 0; i < cellCount; i++ )
 	{
 		Cell& cell = cells[i];
 		
-		omp_set_lock ( &cell.lock );
-		
+		#ifdef _OPENMP
+			omp_set_lock ( &cell.lock );
+		#endif
+			
 		for ( Cell::SingleList::iterator j = cell.particles.begin(); j != cell.particles.end(); j++  )
 		{
 			Particle& p = **j;
@@ -654,9 +658,13 @@ void LinkedCellParticleContainer::updateContainingCells()
 				{
 					LOG4CXX_TRACE(logger, "Move particle " << p.getX().toString() << " to other cell");
 					
-					omp_set_lock ( &cells[cellId].lock );
+					#ifdef _OPENMP
+						omp_set_lock ( &cells[cellId].lock );
+					#endif
 					cells[cellId].particles.push_back(&p);
-					omp_unset_lock ( &cells[cellId].lock );
+					#ifdef _OPENMP
+						omp_unset_lock ( &cells[cellId].lock );
+					#endif
 					
 					j = cell.particles.erase(j);
 					j--;
@@ -671,7 +679,9 @@ void LinkedCellParticleContainer::updateContainingCells()
 			}
 		}
 		
-		omp_unset_lock ( &cell.lock );
+		#ifdef _OPENMP
+			omp_unset_lock ( &cell.lock );
+		#endif
 	}
 }
 
@@ -703,7 +713,9 @@ int LinkedCellParticleContainer::size()
 {
 	int particleCount;
 	
-	#pragma omp critical
+	#ifdef _OPENMP
+		#pragma omp critical
+	#endif
 	particleCount = count;
 	
 	return particleCount;

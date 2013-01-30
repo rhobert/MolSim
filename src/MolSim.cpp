@@ -1270,7 +1270,9 @@ void calculateV( Particle& p )
 
 void plotParticle( Particle& p )
 {
-	#pragma omp critical
+	#ifdef _OPENMP
+		#pragma omp critical
+	#endif
 	vtk_writer.plotParticle(p);
 }
 
