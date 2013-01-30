@@ -19,7 +19,6 @@ xsi:schemaLocation="http://www5.in.tum.de/wiki/index.php/PSE_Molekulardynamik_WS
 	
 	<dimensionCount>2</dimensionCount>
 
-	
 	<domain>		
 		<dimensions>
 			<x>300</x>
